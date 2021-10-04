@@ -38,8 +38,10 @@
             <!-- Nested Row within Card Body -->
             <div class="row">
               <!-- se code charge l'image backgound de session qui se trove sur un server unsplashed -->
-              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>               -->
-              <div class="col-lg-12">
+              <div class="col-lg-6 d-none d-lg-block " style="padding: 70px;padding-left:115px;background:rgba(0,0,0,0.9);">
+                <img src="./img/stats.png" alt="image home" class="img-responsive" style="height:230px;"/>
+              </div>              
+              <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4"> Connectez - Vous ! </h1>
