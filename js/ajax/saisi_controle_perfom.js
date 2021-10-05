@@ -38,6 +38,8 @@ $(document).ready(function() {
             imgLoader.fadeIn(2000);  
         }
 
+        // Traitement Image Vide 
+
         $.post('../../proccess/ajax/clean_db.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
