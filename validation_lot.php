@@ -15,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>FINA - STATS</title>
+  <title> <?=$app_name ?></title>
   <link rel="icon" href="img/favicon.ico" />
 
   <!-- Custom fonts for this template -->
@@ -81,7 +81,7 @@
                             <div  id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
                           </div>
                           <div class="d-flex justify-content-center mt-4">
-                            <p id="txt-controle-notif"> Nombre de lot à initialiser </p>
+                            <p id="txt-controle-notif"> Nombre de lot à valider </p>
                           </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                   <div class="card-footer" id="form-idlot-footer">                              
                       <button class="btn btn-secondary" type="reset" id="btn-reset-controle" data-dismiss="modal">Annuler</button>                      
                       <button type="submit" class="btn btn-dark" style="background: black;" id="btn-controle">
-                        initialisation <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fab fa-osi"></i> </span>
+                        Valider Lot <span class="badge badge-success"  style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-check"></i> </span>
                       </button>
                   </div>
                 </form>                  
@@ -111,11 +111,7 @@
                 <div class="card-body">
                   <div class="row">
                     <ol id="liste-indic">
-                      <li class="mb-2" style="display: none;"> Traitement Image Vide  <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
-                      <li class="mb-2" style="display: none;"> Traitement Numéro Acte Vide </li>
-                      <li class="mb-2" style="display: none;"> Traitement Num Acte # imagepath </li>
-                      <li class="mb-2" style="display: none;"> Traitement Num_Acte en double </li>
-                      <li class="mb-2" style="display: none;"> Traitement Image saisit en double </li>
+                      <li class="mb-2" style="display: none;"> Validation Lot <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
                     </ol>
                   </div>
                 </div>
@@ -169,8 +165,8 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/saisi_init_count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_init_perfom.js"></script>
+  <script src="js/owner/saisi_valid_count_lot.js"></script>
+  <script src="js/ajax/saisi/saisi_valid_perfom.js"></script>
 
 </body>
 

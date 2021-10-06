@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>FINA - STATS</title>
+  <title>  <?=$app_name ?> </title>
   <link rel="icon" href="img/favicon.ico" />
 
   <!-- Custom fonts for this template-->

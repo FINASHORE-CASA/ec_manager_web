@@ -37,7 +37,7 @@ $(document).ready(function() {
             }            
 
             // Traitement Image Vide 
-            $.post('../../proccess/ajax/saisi/init_lot.php',   // url
+            $.post('../../proccess/ajax/saisi/valid_lot.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -47,7 +47,7 @@ $(document).ready(function() {
                     {
                         // success callback
                         // display result    
-                        $("#liste-indic li:eq(0)").html(" Initialisation Lot : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(0)").html(" Validation Lot : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                         $("#liste-indic li:eq(0)").fadeIn(1000);
                         console.log('success : ' + result[1]);
                         console.log(result[1]);
