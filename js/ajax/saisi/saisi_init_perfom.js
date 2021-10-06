@@ -47,8 +47,12 @@ $(document).ready(function() {
                     {
                         // success callback
                         // display result    
-                        $("#liste-indic li:eq(0)").html(" Initialisation Lot : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(0)").html(" Actes Initialisés : (" + result[1] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                         $("#liste-indic li:eq(0)").fadeIn(1000);
+                        $("#liste-indic li:eq(1)").html(" Tomes Registres Initialisés : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(1)").fadeIn(2000);
+                        $("#liste-indic li:eq(2)").html(" Lot initialisés : (" + result[3] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(2)").fadeIn(3000);
                         console.log('success : ' + result[1]);
                         console.log(result[1]);
 
