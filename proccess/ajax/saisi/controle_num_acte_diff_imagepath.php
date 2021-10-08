@@ -32,8 +32,19 @@
                                 and num_acte not like '%Numero_Double%'
                                 and num_acte not like '%Image_Double%'
                                 and num_acte not like '%Num_Vide%'");
+
+        // Récupération des id_lots concernés        
+        $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar
+                                from acte a  
+                                inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
+                                where af.id_lot in ($formData->id_lot)   
+                                and num_acte like '%Num_Errone%' ");
+        
+        $qry->execute();
+        $Num_Errone = $qry->fetchAll(PDO::FETCH_OBJ);  
                                      
-        $result[] = $nbAff;                                       
+        $result[] = $nbAff; //$nbAff;
+        $result[] = $Num_Errone;                                     
 
         echo(json_encode($result));
     }

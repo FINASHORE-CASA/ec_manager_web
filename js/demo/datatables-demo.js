@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-    $('#dataTable').DataTable({
+    $('.dataTable').DataTable({
         
       "language": {
         "sProcessing": "Traitement en cours ...",
