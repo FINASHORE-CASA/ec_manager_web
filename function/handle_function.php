@@ -1,6 +1,6 @@
 <?php
 
-function var_dumper($variable,$die)
+function var_dumper($variable,$die=false)
 {
     highlight_string("<?php\n\$data =\n" . var_export($variable,true) . ";\n?>");
     if($die == true)
@@ -61,3 +61,56 @@ function EnumPrix($prix)
             break;
     }
 } 
+
+function getPathLot($idLot, $bdextra,$basePath)
+{
+    try
+    {
+        $idLot = ($idLot.'');
+        // récupération du chemin du lot 
+        // formatage des informations
+        // exemple format -- '1 2012 001 2403 03'
+        switch ($idLot[0]) {
+            case '1':
+                $typlot = "NA";
+                break;
+            case '2':
+                $typlot = "DE";
+                break;
+            case '3':
+                $typlot = "JM";
+                break;
+            case '4':
+                $typlot = "TR";
+                break;               
+            default:
+                $typlot = "ER";
+                break;  
+        }
+
+        $annee = $idLot[1].''.$idLot[2].''.$idLot[3].''.$idLot[4];
+        $tome = $idLot[5].$idLot[6].$idLot[7];
+        $idbec = $idLot[8].$idLot[9].$idLot[10].$idLot[11];
+        $indice = $idLot[12];
+        $idcom = "";
+        $tome_indice = ($indice == "0") ? intval($tome) : intval($tome)."_".$indice;
+
+        // récupération du com
+        $qry = $bdextra->prepare('SELECT id_com from "Match_idbec" where id_bec = '.$idbec);
+
+        $qry->execute();
+        $idcom = $qry->fetch()[0];  
+
+        // formatage du chemin et retour
+        // $PathImages = $annee;
+        $PathImages = $basePath."\\".$idcom."\\".$idbec."\\".$annee."\\".$typlot."\\".$tome_indice;
+        
+        return $PathImages;
+    }
+    catch (Exception $ex)
+    {
+        return "";
+    }
+}
+
+

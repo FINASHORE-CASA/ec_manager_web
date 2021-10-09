@@ -29,6 +29,7 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="vendor/click-tap-image/dist/css/image-zoom.css" /> -->
 
 </head>
 
@@ -48,6 +49,88 @@
 
         <!-- intégration topbar  -->
         <?php include('partial/topbar.php') ?>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ActeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-keyboard="false" data-backdrop="static">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="background: black;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification Acte </h5>
+                <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6" style="height:700px;overflow:auto;">
+                    <form class="mt-2">
+                      <h6 style="color: black;"> Formulaire Acte </h6>
+                      <hr/>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="field-IdLot">Id Lot</label>
+                          <input type="email" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled/>                        
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Id Acte</label>
+                          <input type="email" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled/>                        
+                        </div>
+                      </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Num Acte</label>
+                          <input type="email" class="form-control" id="field-NumActe" aria-describedby="field-NumActe" placeholder="">                        
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Imagepath</label>
+                          <input type="email" class="form-control" id="field-Imagepath" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
+                        </div>
+                      </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Nom fr</label>
+                          <input type="email" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder="" disabled/>                        
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Prenom fr</label>
+                          <input type="email" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder="" disabled/>                        
+                        </div>
+                      </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Nom ar</label>
+                          <input type="email" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder="" disabled/>                        
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="exampleInputEmail1">Prenom ar</label>
+                          <input type="email" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder="" disabled/>                        
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-md-6">      
+                    <div id="img-block" class="card" style="min-height: 700px;">               
+                      <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
+                      <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
+                    </div>
+                    <div style="height:50px;" class="text-center mt-3" id="block-img-change">
+                      <!-- <a href="#" style="color: black;font-size:20px;"> <i class="far fa-dot-circle"></i></a>
+                      <a href="#" style="color: gray;font-size:20px;"> <i class="far fa-dot-circle ml-1"></i></a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
+                <button id="form-update-save" type="button" class="btn btn-primary" style="background: black;"> Enregistrer <i class="far fa-save ml-1"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -145,10 +228,10 @@
                   <div class="form-group card shadow">
                     <div class="d-flex justify-content-center mb-1" 
                           style="color: white;background:black;padding:7px;border-radius:5px;">
-                      Lot Erronés (<span class="text-danger">100</span>) 
+                      Lot Erronés (<span class="text-danger" id="indic-lot-error">100</span>) 
                     </div>
-                    <textarea class="form-control" id="text-list-lot-errone"  
-                              style="align-content:center; overflow:auto;max-height:20em;height:20em;">
+                    <textarea class="form-control" id="text-list-lot-errone"   
+                              style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>
                     </textarea>
                   </div>
                 </div>
@@ -240,6 +323,7 @@
                               <th > Prenom fr</th>
                               <th > Nom ar </th>
                               <th > Prenom ar</th>
+                              <th > Modif </th>
                             </tr>
                           </thead>
                           <tbody id="TableNumActeImagepath">
@@ -268,6 +352,7 @@
                               <th > Prenom fr</th>
                               <th > Nom ar </th>
                               <th > Prenom ar</th>
+                              <th > Modif </th>
                             </tr>
                           </thead>
                           <tbody id="TableNum_ActeDouble">
@@ -296,6 +381,7 @@
                               <th > Prenom fr</th>
                               <th > Nom ar </th>
                               <th > Prenom ar</th>
+                              <th > Modif </th>
                             </tr>
                           </thead>
                           <tbody id="TableImageSaisitDouble">
@@ -312,7 +398,7 @@
               </div>
             </div>
           </div>
-                    
+
         </div>
         <!-- /.container-fluid -->        
       </div>
@@ -349,17 +435,20 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="js/demo/datatables-demo.js"></script>  
+  <!-- <script src="vendor/click-tap-image/dist/js/image-zoom.min.js"></script> -->
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/saisi_count_lot.js"></script>
+  <!-- <script src="js/ajax/saisi/saisi_controle_edit_acte.js"></script> -->
   <script src="js/ajax/saisi/saisi_controle_perfom.js"></script>
 
   <script>
     $(document).ready(function(e)
-    {       
+    {     
+
       $('.nav-tab-item').click(function (e) 
           {        
             e.preventDefault()
