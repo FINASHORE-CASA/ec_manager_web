@@ -70,44 +70,44 @@
                       <div class="row">
                         <div class="form-group col-md-6">
                           <label for="field-IdLot">Id Lot</label>
-                          <input type="email" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled/>                        
+                          <input type="text" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled/>                        
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Id Acte</label>
-                          <input type="email" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled/>                        
-                        </div>
-                      </div>
-                      <hr/>
-                      <div class="row">
-                        <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Num Acte</label>
-                          <input type="email" class="form-control" id="field-NumActe" aria-describedby="field-NumActe" placeholder="">                        
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Imagepath</label>
-                          <input type="email" class="form-control" id="field-Imagepath" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
+                          <label for="field-IdActe">Id Acte</label>
+                          <input type="text" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled/>                        
                         </div>
                       </div>
                       <hr/>
                       <div class="row">
                         <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Nom fr</label>
-                          <input type="email" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder="" disabled/>                        
+                          <label for="field-NumActe">Num Acte</label>
+                          <input type="text" class="form-control" id="field-NumActe" aria-describedby="field-NumActe" placeholder="">                        
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Prenom fr</label>
-                          <input type="email" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder="" disabled/>                        
+                          <label for="field-NomFr">Imagepath</label>
+                          <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
                         </div>
                       </div>
                       <hr/>
                       <div class="row">
                         <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Nom ar</label>
-                          <input type="email" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder="" disabled/>                        
+                          <label for="field-NomFr">Nom fr</label>
+                          <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder="" disabled/>                        
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="exampleInputEmail1">Prenom ar</label>
-                          <input type="email" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder="" disabled/>                        
+                          <label for="field-PrenomFr">Prenom fr</label>
+                          <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder="" disabled/>                        
+                        </div>
+                      </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="field-NomAr">Nom ar</label>
+                          <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder="" disabled/>                        
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="field-PrenomAr">Prenom ar</label>
+                          <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder="" disabled/>                        
                         </div>
                       </div>
                     </form>
