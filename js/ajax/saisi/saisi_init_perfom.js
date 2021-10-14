@@ -4,7 +4,7 @@ $(document).ready(function() {
     var btnControle = $("#btn-controle"),formLoader = $("#form-lot-loader");
     var textListLot = $("#text-list-lot");
     var txtNbLot = $("#txt-nb-lot");
-    var txtControleNotif = $("#txt-controle-notif"),
+    var txtControleNotif = $("#txt-nb-lot-notif"),
     indicTermine = $("#indic-termine");
 
     // Préparation des données à envoyer
@@ -67,7 +67,6 @@ $(document).ready(function() {
                     }
                 }
             );
-
         }
         e.preventDefault();        
 

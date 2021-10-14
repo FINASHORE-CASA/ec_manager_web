@@ -4,7 +4,8 @@ $(document).ready(function()
     var btnResetControle = $("#btn-reset-controle");
     var textListLot = $("#text-list-lot");
     var txtNbLot = $("#txt-nb-lot");
-    var txtControleNotif = $("#txt-controle-notif");
+    var txtControleNotif = $("#txt-nb-lot-notif");
+    txtControleNotif.text(txtControleNotif.attr("text-std"));
 
     textListLot.on("keyup",function(e) {
         countNbLot();
@@ -15,7 +16,7 @@ $(document).ready(function()
         txtNbLot.css("borderColor","gray");
         txtControleNotif.css("color","gray");
         txtNbLot.text("00");
-        txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");
+        txtControleNotif.text(txtControleNotif.attr("text-std"));
     });
 
 
@@ -31,14 +32,14 @@ $(document).ready(function()
             txtNbLot.css("color","#20c9a6");
             txtNbLot.css("borderColor","#20c9a6");
             txtControleNotif.css("color","#20c9a6");
-            txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");
+            txtControleNotif.text(txtControleNotif.attr("text-std"));
         }
         else
         {
             txtNbLot.css("color","gray");
             txtNbLot.css("borderColor","gray");
             txtControleNotif.css("color","gray");
-            txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");   
+            txtControleNotif.text(txtControleNotif.attr("text-std"));   
         }
     };            
 });

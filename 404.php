@@ -1,4 +1,5 @@
 <?php 
+  require_once "is_connect.php";
   require_once "./config/checkConfig.php"; 
 ?>
 
@@ -89,8 +90,8 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
-  <!-- Ajax get Notif  -->
-  <script src="js/owner/get_notif_ajax.js"></script>
+  <!-- Ajax get Notif  -->  
+  <script src="js/owner/set_side_bar.js"></script>
 
 </body>
 

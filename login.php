@@ -74,20 +74,7 @@
                     </div>
                     <hr>
                     <input type="submit"  class="btn btn-primary btn-user btn-block" value="se connecter"/>
-                    <!-- <a href="register.php" class="btn btn-dark btn-user btn-block">
-                       Créer un compte
-                    </a> -->
-                    <!-- <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                      <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                    </a> -->
                   </form>
-                  <!-- <hr>
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
-                  </div> -->
                 </div>
               </div>
             </div>
