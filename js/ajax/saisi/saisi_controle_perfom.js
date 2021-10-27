@@ -5,7 +5,7 @@ $(document).ready(function() {
         ,formLoader = $("#form-lot-loader");
     var textListLot = $("#text-list-lot");
     var txtNbLot = $("#txt-nb-lot");
-    var txtControleNotif = $("#txt-controle-notif"),
+    var txtControleNotif = $("#txt-nb-lot-notif"),
     indicTermine = $("#indic-termine"),notifResultat = $("#notif-Resultat-bell")
     ,ResultatData = $("#resultat_data");
     

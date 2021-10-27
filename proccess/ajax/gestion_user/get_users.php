@@ -8,7 +8,7 @@
         $result[] = "success" ;
 
         // Récupération de l'acte concerné
-        $qry = $bdextra->prepare("  SELECT name,first_name,type_grant,date_creat,date_last_up,login,password,id_user
+        $qry = $bdextra->prepare("  SELECT name,first_name,type_grant, to_char(date_creat,'DD-MM-YYYY HH:MI:SS AM') as date_creat, to_char(date_last_up,' DD-MM-YYYY HH:MI:SS AM') as date_last_up,login,password,id_user
                                     from mg_user");
 
         $qry->execute();

@@ -30,11 +30,13 @@
             <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
             <a class="collapse-item" href="initialisation_lot.php"> 2 - Initialisation d'un Lot </a>
             <a class="collapse-item" href="validation_lot.php"> 3 - Validation Lot  </a>
+            <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ? '<a class="collapse-item" href="division_lot.php"> 4 - Division Lot </a>' : '' ?>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - SAISIE -->
+      <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ? '
       <li class="nav-item linkSideBar" id="Livraison">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#LivraisonLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="far fa-share-square"></i>
@@ -47,7 +49,7 @@
             <a class="collapse-item" href="transfert_lot.php"> 2 - Transfert Lot </a>          
           </div>
         </div>
-      </li>
+      </li>' : '' ?>
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - GESTION ECM  -->      
