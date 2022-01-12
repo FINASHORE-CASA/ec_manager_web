@@ -5,7 +5,12 @@ function var_dumper($variable,$die=false)
     highlight_string("<?php\n\$data =\n" . var_export($variable,true) . ";\n?>");
     if($die == true)
         die();
-}     
+}   
+
+function str_contains(string $haystack, string $needle)
+{
+    return (strpos($haystack, $needle) !== false);
+}
 
 function shortText($text,$lgLimit)
 {
@@ -30,6 +35,26 @@ function GetDirectorySize($path)
         }
     }
     return $bytestotal;
+}
+
+function rcopy($src, $dst) 
+{
+  if(!is_dir($dst)) mkdir($dst,0777,true);
+
+  if (is_dir($src)) 
+  {          
+    $files = scandir($src);
+    foreach ($files as $file)
+    {
+        if ($file != "." && $file != "..") 
+        {
+            if(!file_exists("$dst/$file"))
+            {
+                copy("$src/$file", "$dst/$file");
+            }
+        }
+    }
+  }
 }
 
 // fonction d'énumération de prix
@@ -62,7 +87,7 @@ function EnumPrix($prix)
     }
 } 
 
-function getPathLot($idLot, $bdextra,$basePath)
+function getPathLot($idLot, $bdextra,$basePath=null)
 {
     try
     {
@@ -96,14 +121,21 @@ function getPathLot($idLot, $bdextra,$basePath)
         $tome_indice = ($indice == "0") ? intval($tome) : intval($tome)."_".$indice;
 
         // récupération du com
-        $qry = $bdextra->prepare('SELECT id_com from "Match_idbec" where id_bec = '.$idbec);
+        $qry = $bdextra->prepare('SELECT id_com from match_idbec where id_bec = '.$idbec);
 
         $qry->execute();
         $idcom = $qry->fetch()[0];  
 
         // formatage du chemin et retour
         // $PathImages = $annee;
-        $PathImages = $basePath."\\".$idcom."\\".$idbec."\\".$annee."\\".$typlot."\\".$tome_indice;
+        if($basePath != null)
+        {
+            $PathImages = $basePath."\\".$idcom."\\".$idbec."\\".$annee."\\".$typlot."\\".$tome_indice;
+        }
+        else
+        {
+            $PathImages = $idcom."\\".$idbec."\\".$annee."\\".$typlot."\\".$tome_indice;
+        }
         
         return $PathImages;
     }
@@ -112,5 +144,25 @@ function getPathLot($idLot, $bdextra,$basePath)
         return "";
     }
 }
+
+function getFullPathLot($idLot, $bdextra,$ListPathImages)
+{
+    $relativePath = getPathLot($idLot,$bdextra);
+
+    $Fullpath = "";
+
+    // formatage du chemin et retour
+    foreach($ListPathImages as $basePath)
+    {
+        if (is_dir($basePath."\\".$relativePath))
+        {
+            $Fullpath = $basePath."\\".$relativePath;
+            break;
+        }
+    }
+
+    return $Fullpath;
+}
+
 
 

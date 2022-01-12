@@ -54,13 +54,13 @@
         <div class="modal fade" id="SupUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header" style="background:black;color:white;">
+              <div class="modal-header" style="background:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;">
                 <h5 class="modal-title" id="exampleModalLabel"> Confirmez la suppression </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
-              <div class="modal-body"> Voulez vous vraiment supprimer ce user ? </div>
+              <div class="modal-body"> Voulez vous vraiment supprimer cet utilisateur ? </div>
               <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
                 <button id="btn-sup-confirm" id-user="" class="btn btn-danger" href="#"> Confirmer </button>
@@ -74,7 +74,7 @@
              data-keyboard="false" data-backdrop="static">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header" style="background: black;">
+              <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Gestion Utilisateur </h5>
                 <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -123,7 +123,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
-                <button id="form-update-save" id-user="0" type="button" class="btn btn-primary" style="background: black;"> Enregistrer <i class="far fa-save ml-1"></i></button>
+                <button id="form-update-save" id-user="0" type="button" class="btn btn-primary" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -133,9 +133,9 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-dark-800">
-              GESTION UTILISATEUR
-            </h1>
+            <h4 class="h6 mb-0 text-dark-800">
+              <span style="color<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> GESTION ECM <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> GESTION UTILISATEUR
+            </h4>
           </div> 
           <hr />  
           
@@ -145,7 +145,7 @@
                 <div>
                   <!-- Traitement Image Vide -->
                   <div class="card shadow mb-4 tab-pane active" id="ImageVide">
-                    <div class="card-header py-3" style="background: black;">
+                    <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <a href="#" id="btn-add-user" class="float-right" style="color:white;" data-toggle='modal' data-target='#UserModal' id-user="0">
                           <i class="fas fa-user-plus"></i>
                         </a>

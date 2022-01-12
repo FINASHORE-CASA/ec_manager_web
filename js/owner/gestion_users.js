@@ -41,7 +41,7 @@ $(document).ready(function(e){
             $("#form-update-save").attr("id-user",$(this).attr("id-user"));                       
 
             // Récupération des informations du user
-            $.post('../../proccess/ajax/gestion_user/get_user.php',   // url
+            $.post('./proccess/ajax/gestion_user/get_user.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -78,7 +78,7 @@ $(document).ready(function(e){
         }          
 
         // Récupération des informations du user
-        $.post('../../proccess/ajax/gestion_user/del_user.php',   // url
+        $.post('./proccess/ajax/gestion_user/del_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -113,7 +113,7 @@ $(document).ready(function(e){
         if($(this).attr("id-user") == "0")
         {
             //Appel Ajax d'ajout des informations
-            $.post('../../proccess/ajax/gestion_user/add_user.php',   // url
+            $.post('./proccess/ajax/gestion_user/add_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -144,7 +144,7 @@ $(document).ready(function(e){
         else
         {
             //Appel Ajax d'update des informations
-            $.post('../../proccess/ajax/gestion_user/update_user.php',   // url
+            $.post('./proccess/ajax/gestion_user/update_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -199,7 +199,7 @@ $(document).ready(function(e){
     var getData = function()
     { 
         // Traitement Image Vide 
-        $.get('../../proccess/ajax/gestion_user/get_users.php')
+        $.get('./proccess/ajax/gestion_user/get_users.php')
          .done(function(data)
          {            
             var result = JSON.parse(data);  
@@ -209,7 +209,7 @@ $(document).ready(function(e){
             result[1].forEach(e => {                            
                 htmlDataTable += "<tr><td>" + e.name + "</td><td>" + e.first_name +  "</td><td>" + getGrantName(e.type_grant) + "</td><td>" + e.date_creat
                                         + "</td><td>" + e.date_last_up + "</td>" 
-                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:black;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-edit'></i> </a></td>" 
+                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:gray;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-highlighter'></i> </a></td>" 
                                         + "<td class='text-center'> <a href='#' class='btn-del' id-user='"+ e.id_user +"' style='color:red;' data-toggle='modal' data-target='#SupUserModal'> <i class='far fa-times-circle'></i> </a></td></tr>";
             });
 

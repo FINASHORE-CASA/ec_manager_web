@@ -11,7 +11,7 @@
         <div class="modal-body">Cliquez sur "Déconnecter" pour fermer votre session</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-          <a class="btn btn-primary" href="proccess/logout.php">Déconnecter</a>
+          <a class="btn btn-danger" href="proccess/logout.php">Déconnecter</a>
         </div>
       </div>
     </div>

@@ -1,5 +1,32 @@
 <?php
-    require_once "config/defines.inc.php";
+  require_once "config/defines.inc.php";
+
+  try 
+  {
+    // Chargement de la couleur de session
+    if(isset($_SESSION["style"]))
+    {
+      $main_app_color = $_SESSION["style"];
+    }
+    else
+    {
+      // Récupération de la couleur			
+      $json = json_decode(file_get_contents("config/preferences.json"));
+
+      if(isset($json->color))
+      {
+        $_SESSION["style"] = $json->color; 
+        $main_app_color = $_SESSION["style"];
+      }
+      else
+      {				
+        $_SESSION["style"] = "#3b2106"; 
+        $json->color = $_SESSION["style"];
+        file_put_contents("config/preferences.json",json_encode($json));
+      }
+    }
+    
+  } catch (\Throwable $th) {}
 ?>        
 
 <!DOCTYPE html>
@@ -38,8 +65,8 @@
             <!-- Nested Row within Card Body -->
             <div class="row">
               <!-- se code charge l'image backgound de session qui se trove sur un server unsplashed -->
-              <div class="col-lg-6 d-none d-lg-block " style="padding: 70px;padding-left:115px;background:rgba(0,0,0,0.9);">
-                <img src="./img/stats.png" alt="image home" class="img-responsive" style="height:230px;"/>
+              <div class="col-lg-6 d-none d-lg-block " style="padding: 70px;padding-left:115px;background: <?=isset($main_app_color) ? $main_app_color : "#b87630";?>;">
+                <img src="./img/open-box.png" alt="image home" class="img-responsive" style="height:230px;"/>
               </div>              
               <div class="col-lg-6">
                 <div class="p-5">
@@ -73,7 +100,7 @@
                       </div>
                     </div>
                     <hr>
-                    <input type="submit"  class="btn btn-primary btn-user btn-block" value="se connecter"/>
+                    <input type="submit"  class="btn btn-primary btn-user btn-block" style="background:<?=isset($main_app_color) ? $main_app_color : "#b87630";?>;border:none;" value="se connecter"/>
                   </form>
                 </div>
               </div>
