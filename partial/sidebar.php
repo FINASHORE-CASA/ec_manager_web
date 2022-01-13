@@ -37,9 +37,10 @@
             <h6 class="collapse-header"> OPTION :</h6>
             <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
             <a class="collapse-item" href="correction_acte.php"> 2 - Correction Acte </a>
-            <a class="collapse-item" href="initialisation_lot.php"> 3 - Initialisation d'un Lot </a>
-            <a class="collapse-item" href="validation_lot.php"> 4 - Validation Lot  </a>
-            <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ? '<a class="collapse-item" href="division_lot.php"> 5 - Division Lot </a>' : '' ?>
+            <a class="collapse-item" href="correction_reqs.php"> 3 - Requête Correction  </a>
+            <a class="collapse-item" href="initialisation_lot.php"> 4 - Initialisation d'un Lot </a>
+            <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot  </a>
+            <a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>
           </div>
         </div>
       </li>
