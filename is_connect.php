@@ -9,9 +9,13 @@
 	{
 		// Définition des règles d'accès
 		$scripts_name = explode("/",$_SERVER["SCRIPT_NAME"]);
-		if ($_SESSION['user']->type_grant != '0') {
+		if ($_SESSION['user']->type_grant != '0') 
+		{
 			switch ($scripts_name[count($scripts_name)-1]) {
 				case 'gestion_db_setting.php':
+					header('Location: ./404.php');
+					break;
+				case 'gestion_pref_setting.php':
 					header('Location: ./404.php');
 					break;
 				case 'gestion_users.php':
@@ -23,9 +27,27 @@
 				case 'transfert_lot.php':
 					header('Location: ./404.php');
 					break;
+				case 'controle_inventaire_liv.php':
+					header('Location: ./404.php');
+					break;
+				case 'controle_general_liv.php':
+					header('Location: ./404.php');
+					break;
 				default:
 					# code...
 					break;
+			}
+
+			if($_SESSION['user']->type_grant != '2')
+			{
+				switch ($scripts_name[count($scripts_name)-1]) {
+					case 'division_lot.php':
+						header('Location: ./404.php');
+						break;
+					default:
+						# code...
+						break;
+				}
 			}
 		}
 
