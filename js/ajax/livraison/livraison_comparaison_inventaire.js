@@ -10,6 +10,7 @@ $(document).ready(function()
     ,notifResultat = $("#notif-Resultat-bell"),
     indicTermine = $("#indic-termine")
     ,ResultatData = $("#resultat_data");
+     $("#text-list-lot").val("");
     
     let comp_inv_db_inventaire;
     let comp_inv_db_tomeregistre;
@@ -66,7 +67,7 @@ $(document).ready(function()
                 // success callback
                 result[1].forEach(function(e)
                 {
-                    $("#text-list-lot").val($("#text-list-lot").val() + '\n' + e.id_lot);                    
+                    $("#text-list-lot").val($("#text-list-lot").val() + e.id_lot + '\n');                    
                     txtControleNotif.css("color","#20c9a6");
                     txtNbLot.css("borderColor","#20c9a6");
                     txtNbLot.css("color","#20c9a6");

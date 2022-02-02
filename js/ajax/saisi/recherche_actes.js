@@ -151,7 +151,7 @@ $(document).ready(function() {
                 imagepath: $("#ActeRow"+$(this).attr("idActe")+" td[name='imagepath']").text().trim(),
                 id_lot: $("#ActeRow"+$(this).attr("idActe")+" td:eq(1)").text().trim()
             }     
-
+            $("#form-acte-loader").css("display","block");
             console.log(data1)
 
             // Récupération des tds    
@@ -225,6 +225,7 @@ $(document).ready(function() {
                         }
 
                         startSwitchImage();
+                        $("#form-acte-loader").css("display","none");  
                     }
                     else
                     {

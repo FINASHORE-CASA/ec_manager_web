@@ -33,7 +33,7 @@
 
 </head>
 
-<body id="page-top" idpage="Saisie">
+<body id="page-top" idpage="ActionAuto">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -62,10 +62,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div class="row">
+                <div class="row" id="form-acte-field">
                   <div class="col-md-6" style="height:700px;overflow:auto;">
                     <form class="mt-2">
                       <h6 style="color: black;"> Formulaire Acte </h6>
+                      <input type="hidden" id="field-Id_user"  value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
                       <hr/>
                       <div class="row">
                         <div class="form-group col-md-6">
@@ -78,36 +79,92 @@
                         </div>
                       </div>
                       <hr/>
-                      <div class="row">
-                        <div class="form-group col-md-6">
-                          <label for="field-NumActe">Num Acte</label>
-                          <input type="text" class="form-control" id="field-NumActe" aria-describedby="field-NumActe" placeholder="">                        
+                      <div id="form-group1" style="margin: 0;padding: 10px;">
+                        <div class="row">
+                          <div class="form-group col-md-5">
+                            <label for="field-PrenomFr">Prenom fr</label>
+                            <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder=""/>                        
+                          </div>
+                          <div class="form-group col-md-5">
+                            <label for="field-PrenomAr">Prenom Ar</label>
+                            <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder=""/>                        
+                          </div>                        
                         </div>
-                        <div class="form-group col-md-6">
-                          <label for="field-Imagepath">Imagepath</label>
-                          <input type="text" class="form-control" id="field-Imagepath" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
+                        <div class="row">
+                          <div class="form-group col-md-5">
+                            <label for="field-Genre"> Genre </label>
+                            <input type="text" class="form-control" id="field-Genre" aria-describedby="field-Genre" placeholder=""/>                        
+                          </div>
+                          <div class="col-md-2">
+                            <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-genre">
+                              <span class="fas fa-check-double"></span>
+                            </button>     
+                          </div>
                         </div>
                       </div>
                       <hr/>
-                      <div class="row">
-                        <div class="form-group col-md-6">
-                          <label for="field-NomFr">Nom fr</label>
-                          <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder="" disabled/>                        
+
+                      <div id="form-group2" style="margin: 0;padding: 10px;">
+                        <div class="row">
+                          <div class="form-group col-md-5">
+                            <label for="field-NomFr">Nom fr</label>
+                            <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder=""/>                        
+                          </div> 
+                          <div class="form-group col-md-5">
+                            <label for="field-NomAr">Nom ar</label>
+                            <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder=""/>                        
+                          </div>                      
                         </div>
-                        <div class="form-group col-md-6">
-                          <label for="field-PrenomFr">Prenom fr</label>
-                          <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder="" disabled/>                        
+                        <div class="row">
+                          <div class="form-group col-md-5">
+                            <label for="field-NomMargeFr">Nom marge fr</label>
+                            <input type="text" class="form-control" id="field-NomMargeFr" aria-describedby="field-NomMargeFr" placeholder=""/>                        
+                          </div>  
+                          <div class="form-group col-md-5">
+                            <label for="field-NomMargeAr">Nom marge ar</label>
+                            <input type="text" class="form-control" id="field-NomMargeAr" aria-describedby="field-NomMargeAr" placeholder=""/>                        
+                          </div>                        
                         </div>
-                      </div>
-                      <hr/>
-                      <div class="row">
-                        <div class="form-group col-md-6">
-                          <label for="field-NomAr">Nom ar</label>
-                          <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder="" disabled/>                        
+                        <div class="row">
+                          <div class="form-group col-md-5">
+                            <label for="field-PrenomMargeFr">Prenom marge fr</label>
+                            <input type="text" class="form-control" id="field-PrenomMargeFr" aria-describedby="field-PrenomMargeFr" placeholder=""/>                        
+                          </div>  
+                          <div class="form-group col-md-5">
+                            <label for="field-PrenomMargeAr">Prenom marge ar</label>
+                            <input type="text" class="form-control" id="field-PrenomMargeAr" aria-describedby="field-PrenomMargeAr" placeholder=""/>                        
+                          </div>                        
                         </div>
-                        <div class="form-group col-md-6">
-                          <label for="field-PrenomAr">Prenom ar</label>
-                          <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder="" disabled/>                        
+                      </div> 
+                      <hr/>                                           
+                      <div id="form-group3" style="margin: 0;padding: 10px;">
+                        <div class="row">                          
+                          <div class="form-group col-md-4">
+                            <label for="field-jour_g">jour_g</label>
+                            <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder=""/>                        
+                          </div> 
+                          <div class="form-group col-md-4">
+                            <label for="field-mois_g">mois_g</label>
+                            <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder=""/>                        
+                          </div>  
+                          <div class="form-group col-md-4">
+                            <label for="field-annee_g">annee_g</label>
+                            <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder=""/>                        
+                          </div>                      
+                        </div>
+                        <div class="row">                          
+                          <div class="form-group col-md-4">
+                            <label for="field-jour_h">jour_h</label>
+                            <input type="text" class="form-control" id="field-jour_h" aria-describedby="field-jour_h" placeholder=""/>                        
+                          </div> 
+                          <div class="form-group col-md-4">
+                            <label for="field-mois_h">mois_h</label>
+                            <input type="text" class="form-control" id="field-mois_h" aria-describedby="field-mois_h" placeholder=""/>                        
+                          </div>  
+                          <div class="form-group col-md-4">
+                            <label for="field-annee_h">annee_h</label>
+                            <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder=""/>                        
+                          </div>                      
                         </div>
                       </div>
                     </form>
@@ -142,7 +199,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> SAISIE <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CONTROLE ACTE 
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> ACTION MI <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CONTROLE INVENTAIRE MI
             </h4>
           </div> 
           <hr />  
@@ -183,6 +240,10 @@
                               </div>
                             </div>
                         </div>
+                        <div class="form-inline ml-3">
+                          <label for="show_all"> Selectionner tous les lots </label>
+                          <input type="checkbox" class="form-control ml-1" id="show_all"/>
+                        </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
                             <img src="./img/loader.gif" alt="loader wait" />
@@ -209,11 +270,7 @@
                     <div class="card-body">
                       <div class="row">
                         <ol id="liste-indic">
-                          <li class="mb-2" style="display: none;"> Traitement Image Vide  <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
-                          <li class="mb-2" style="display: none;"> Traitement Numéro Acte Vide </li>
-                          <li class="mb-2" style="display: none;"> Traitement Num Acte # imagepath </li>
-                          <li class="mb-2" style="display: none;"> Traitement Num_Acte double </li>
-                          <li class="mb-2" style="display: none;"> Traitement Image saisit double </li>
+                          <li class="mb-2" style="display: none;"> Vérification des identités  <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
                         </ol>
                       </div>
                     </div>
@@ -227,8 +284,9 @@
               </div>                
             </div> 
 
-            <div class="tab-pane" id="Resultat" >   
-              <div id="alert-container"></div> 
+            <div class="tab-pane" id="Resultat" >    
+
+              <div id="alert-container"></div>
               <div id="resultat_data" class="row mt-3" style="display: none;">                
                 <div class="col-md-2">
                   <div class="form-group card shadow">
@@ -244,159 +302,70 @@
                 <div class="col-md-10"> 
                   <div class="mb-3">
                     <nav class="nav nav-tabs">
-                      <a class="nav-tab-item nav-item nav-link active" href="#ImageVide" style="color: black;"> Image Vide <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> </a>                    
-                      <a class="nav-tab-item nav-item nav-link" href="#NumeroActeVide" style="color: black;">  Numéro Acte Vide <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-2"> 0 </span> </a>                    
-                      <a class="nav-tab-item nav-item nav-link" href="#NumActeImagepath" style="color: black;">  Num Acte # imagepath <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-3"> 0 </span> </a>                    
-                      <a class="nav-tab-item nav-item nav-link" href="#Num_ActeDouble" style="color: black;">  Num_Acte double <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-4"> 0 </span> </a>                    
-                      <a class="nav-tab-item nav-item nav-link" href="#ImageSaisitDouble" style="color: black;">  Image saisit double <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-5"> 0 </span> </a>                    
+                      <a class="nav-tab-item nav-item nav-link active" href="#VerifImage" style="color: black;"> Vérification des identités <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> </a>                    
                     </nav>
                   </div>  
 
                   <div class="tab-content">
 
-                    <!-- Traitement Image Vide -->
-                    <div class="card shadow mb-4 tab-pane active" id="ImageVide">
+                    <!-- Vérification des l'identité -->
+                    <div class="card shadow mb-4 tab-pane active" id="VerifImage">
                       <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Traitement Image Vide </h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Vérification des identités </h6>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableImageVide" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="dataTableVerifImage" width="100%" cellspacing="0">
                           <thead>
                             <tr>
-                              <th > Lot </th>
-                              <th > Id Acte </th>
-                              <th > Num_Acte </th>
-                              <th > Imagepath </th>
-                              <th > Nom fr  </th>
-                              <th > Prenom fr</th>
-                              <th > Nom ar </th>
-                              <th > Prenom ar</th>
+                              <th> Modif </th>
+                              <th> Lot </th>
+                              <th> Id Acte </th>
+                              <th> Nom fr</th>
+                              <th> Nom ar</th>
+                              <th> Nom marge ar </th>
+                              <th> Nom marge fr </th>
+                              <th> Prenom fr</th>
+                              <th> Prenom ar</th>
+                              <th> Prenom marge fr</th>                              
+                              <th> Prenom marge ar</th>
+                              <th> Sexe </th>
+                              <th> jour_g </th>
+                              <th> mois_g </th>
+                              <th> annee_g </th>
+                              <th> jour_h </th>
+                              <th> mois_h </th>
+                              <th> annee_h </th>
                             </tr>
                           </thead>
-                          <tbody id="TableImageVide">
+                          <tbody id="TableVerifImage">
                             
                           </tbody>
+                          <tfoot>
+                              <th> Modif </th>
+                              <th> Lot </th>
+                              <th> Id Acte </th>
+                              <th> Nom fr</th>
+                              <th> Nom ar</th>
+                              <th> Nom marge ar </th>
+                              <th> Nom marge fr </th>
+                              <th> Prenom fr</th>
+                              <th> Prenom ar</th>
+                              <th> Prenom marge fr</th>                              
+                              <th> Prenom marge ar</th>
+                              <th> Sexe </th>
+                              <th> jour_g </th>
+                              <th> mois_g </th>
+                              <th> annee_g </th>
+                              <th> jour_h </th>
+                              <th> mois_h </th>
+                              <th> annee_h </th>
+                          </tfoot>
                         </table>
                         </div>
                       </div>
                     </div>
 
-                    <!-- Traitement Numéro Acte Vide -->
-                    <div class="card shadow mb-4 tab-pane" id="NumeroActeVide">
-                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Traitement Numéro Acte Vide </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableNumeroActeVide" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th > Lot </th>
-                              <th > Id Acte </th>
-                              <th > Num_Acte </th>
-                              <th > Imagepath </th>
-                              <th > Nom fr  </th>
-                              <th > Prenom fr</th>
-                              <th > Nom ar </th>
-                              <th > Prenom ar</th>
-                              <th > Modif </th>
-                            </tr>
-                          </thead>
-                          <tbody id="TableNumeroActeVide">
-                            
-                          </tbody>
-                        </table>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- Traitement Num Acte # imagepath -->
-                    <div class="card shadow tab-pane mb-4" id="NumActeImagepath">
-                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Traitement Num Acte # imagepath </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableNumActeImagepath" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th > Lot </th>
-                              <th > Id Acte </th>
-                              <th > Numero Acte </th>
-                              <th > Imagepath </th>
-                              <th > Nom fr  </th>
-                              <th > Prenom fr</th>
-                              <th > Nom ar </th>
-                              <th > Prenom ar</th>
-                              <th > Modif </th>
-                            </tr>
-                          </thead>
-                          <tbody id="TableNumActeImagepath">
-                            
-                          </tbody>
-                        </table>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- Traitement Num_Acte en double -->
-                    <div class="card shadow tab-pane mb-4" id="Num_ActeDouble">
-                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Traitement Num_Acte en double </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableNum_ActeDouble" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th > Lot </th>
-                              <th > Id Acte </th>
-                              <th > Numero Acte </th>
-                              <th > Imagepath </th>
-                              <th > Nom fr  </th>
-                              <th > Prenom fr</th>
-                              <th > Nom ar </th>
-                              <th > Prenom ar</th>
-                              <th > Modif </th>
-                            </tr>
-                          </thead>
-                          <tbody id="TableNum_ActeDouble">
-                            
-                          </tbody>
-                        </table>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- Traitement Image saisit en double -->
-                    <div class="card shadow tab-pane mb-4" id="ImageSaisitDouble">
-                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Traitement Image saisit en double </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableImageSaisitDouble" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th > Lot </th>
-                              <th > Id Acte </th>
-                              <th > Numero Acte </th>
-                              <th > Imagepath </th>
-                              <th > Nom fr  </th>
-                              <th > Prenom fr</th>
-                              <th > Nom ar </th>
-                              <th > Prenom ar</th>
-                              <th > Modif </th>
-                            </tr>
-                          </thead>
-                          <tbody id="TableImageSaisitDouble">
-                            
-                          </tbody>
-                        </table>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -446,7 +415,7 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_perfom.js"></script>
+  <script src="js/ajax/saisi/saisi_controle_auto.js"></script>
 
   <script>
     $(document).ready(function(e)

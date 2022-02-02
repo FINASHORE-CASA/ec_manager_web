@@ -80,7 +80,7 @@
                                         order by id_actionec
                                 )");
 
-        $result[] = isset($liste_el_select) ? $liste_el_select : [];                                              
+        $result[] = isset($liste_el_select) ? count($liste_el_select) : 0;                                              
 
         echo(json_encode($result));
     }

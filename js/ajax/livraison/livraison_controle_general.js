@@ -10,11 +10,12 @@ $(document).ready(function()
     var txtControleNotif = $("#txt-nb-lot-notif")
     ,notifResultat = $("#notif-Resultat-bell"),
     indicTermine = $("#indic-termine")
-    ,ResultatData = $("#resultat_data");
+    ,ResultatData = $("#resultat_data");    
+    $("#text-list-lot").val("");
     
     var listLotError = "";
     let TomeErrone_data,NumActeError_data,ExtDoublonImageLot_data,CorrPOPFmissing_data,ExtractVoid_data
-        ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data,Corr3minControleEnd_data;
+        ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data
 
     var initDataTable = function(dataTable) 
     {
@@ -67,7 +68,7 @@ $(document).ready(function()
                 // success callback
                 result[1].forEach(function(e)
                 {
-                    $("#text-list-lot").val($("#text-list-lot").val() + '\n' + e.id_lot);                    
+                    $("#text-list-lot").val($("#text-list-lot").val() + e.id_lot + '\n' );                    
                     txtControleNotif.css("color","#20c9a6");
                     txtNbLot.css("borderColor","#20c9a6");
                     txtNbLot.css("color","#20c9a6");
@@ -163,12 +164,6 @@ $(document).ready(function()
        e.preventDefault(); 
     });
 
-    $("#Corr3minControleEnd_dl").on("click",function(e)
-    {         
-       download(Corr3minControleEnd_data,"ACTION_DELAIS_A_CORRIGES.xlsx");        
-       e.preventDefault(); 
-    });
-
     // Récupération de la destination 
     $.get(HostLink+'/proccess/ajax/livraison/get_destination.php'
     ,function(data,status,jqXHR)
@@ -189,48 +184,13 @@ $(document).ready(function()
     .fail(function(res){
         console.log("fail");
         console.log(res);
-    });  
-
-
-    // Enregistrement de la source
-    $("#btn-save-source").on("click",function(e) 
-    {             
-        // récupération de la source
-        var data1 = {
-            liste_source: $("#text-list-source").val()
-        }        
-
-        $.post(HostLink+'/proccess/ajax/livraison/save_liste_source.php',   // url
-            { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
-            {
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // success callback
-                    console.log('success');
-                    console.log(result);
-                }
-                else
-                {
-                    console.log('message error : ' + result);
-                    console.log(result);
-                }
-            }
-        ).fail(function(res){
-            console.log("fail");
-            console.log(res);
-        });
-        e.preventDefault();
-    });
+    }); 
 
     $("#text-list-lot-livre").on("keyup",function(e) 
     {
         var nbLot = countNbLot($(this).val());
         $("#list-notif-idlot-livre").text(nbLot);
     });    
-
         
     // Traitement ExtractVoid
     var Corr3minControleEnd = function() { 
@@ -244,33 +204,11 @@ $(document).ready(function()
                 {
                     // success callback
                     // display result    
-                    $("#liste-indic li:eq(9)").html("Contrôle 3 minutes: (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(9)").html("Contrôle 3 minutes : (" + result[1] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                     $("#liste-indic li:eq(9)").fadeIn(1000);
                                         
-                    $("#notif-Resultat-10").text(result[1].length);
-                    console.log('success : '  + result[1].length);
-                    Corr3minControleEnd_data = result[1];
-                    
-                    // injection des données                             
-                    htmlDataTable = "";    
-                    result[1].forEach(e => {                            
-                        htmlDataTable += "<tr id='Corr3minControleEnd"+ e.id_acte +"'>"
-                                            +'<td > '+ e.id_actionec + '</td>'
-                                            +'<td > '+ e.date_debut_action + '</td>'
-                                            +'<td > '+ e.date_fin_action + '</td>'
-                                            +'<td > '+ e.new_date_fin_action + '</td>'                                         
-                                        +"</tr>";
-
-                        // Ajout de l'IdLot dans les erronés
-                        if(!listLotError.includes(e.id_lot))
-                        {
-                            listLotError += e.id_lot + "\n"; 
-                        }
-                    });
-                        
-                    $("#dataTableCorr3minControleEnd").dataTable().fnDestroy(); 
-                    $("#TableCorr3minControleEnd").html(htmlDataTable);
-                    initDataTable($('#dataTableCorr3minControleEnd')); 
+                    $("#notif-Resultat-10").text(result[1]);
+                    console.log('success : '  + result[1]);
 
                     // Terminé le Lancement
                     $("#text-list-lot-errone").val(listLotError);
