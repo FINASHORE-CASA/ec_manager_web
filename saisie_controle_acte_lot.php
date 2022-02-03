@@ -29,7 +29,6 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="vendor/click-tap-image/dist/css/image-zoom.css" /> -->
 
 </head>
 
@@ -113,7 +112,7 @@
                     </form>
                   </div>
                   <div class="col-md-6">      
-                    <div id="img-block" class="card" style="min-height: 700px;">               
+                    <div id="img-block" style="min-height: 700px;">               
                       <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
                       <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
                     </div>
@@ -439,7 +438,7 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="js/demo/datatables-demo.js"></script>  
-  <!-- <script src="vendor/click-tap-image/dist/js/image-zoom.min.js"></script> -->
+  <script src="js/panzoom.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>

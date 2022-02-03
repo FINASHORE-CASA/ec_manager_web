@@ -595,7 +595,7 @@
                 </div>            
             </div>
             <div class="col-md-6">      
-                <div id="img-block" class="card" style="min-height: 700px;"></div>
+                <div id="img-block" style="min-height: 700px;"></div>
                 <div style="height:50px;" class="text-center mt-3" id="block-img-change"></div>
             </div>
         </div>        
