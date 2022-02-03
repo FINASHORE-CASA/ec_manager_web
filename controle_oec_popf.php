@@ -3,6 +3,15 @@
     require_once "./config/checkConfig.php";  
 
     $date_gen = date("Y-m-d");
+
+    $tomeregistre_columns = [
+      "id_tome_registre" ,"sign_procureur_premier_page" ,"sceau_procureur" ,"jdate_sign_procu_greg" ,"mdate_sign_procu_greg" ,"adate_sign_procu_greg" ,"jdate_sign_procu_hegire" ,"mdate_sign_procu_hegire" ,"adate_sign_procu_hegire" ,"preimprime" ,"num_tome" ,"nbre_page" ,"nbre_acte_naissance" ,"nbre_acte_deces" ,"nbre_acte_mariage" ,"nbre_acte_divorce" ,"num_premier_acte" ,"num_dernier_acte" ,"txt_fermeture" ,"sign_oec" ,"sceau_oec" ,"existe_tab_annuel" ,"id_procureur" ,"id_officier" ,"jd_cloture_g" ,"md_cloture_g" ,"ad_cloture_g" ,"id_registre" ,"affecte" ,"status" ,"utilisateur_creation" ,"date_creation" ,"utilisateur_modification" ,"date_modification" ,"id_bureau" ,"id_commune" ,"ancien_commune" ,"ancien_bureau" ,"sign_procureur_dernier_page" ,"jd_sign_oec_h" ,"md_sign_oec_h" ,"ad_sign_oec_h" ,"jd_sign_oec_g" ,"md_sign_oec_g" ,"ad_sign_oec_g" ,"jd_ouverture_g" ,"md_ouverture_g" ,"ad_ouverture_g" ,"jd_cloture_h" ,"md_cloture_h" ,"ad_cloture_h" ,"jd_ouverture_h" ,"md_ouverture_h" ,"ad_ouverture_h" ,"langtomeregistre" ,"observation" ,"nbre_acte_naissance_nn_inclus" ,"nbre_acte_deces_nn_inclus" ,"nbre_acte_mariage_nn_inclus" ,"nbre_acte_divorce_nn_inclus" ,"numeros_actes_naissance_nn_inclus" ,"numeros_actes_deces_nn_inclus" ,"numeros_actes_mariage_nn_inclus" ,"numeros_actes_divorce_nn_inclus" ,"nbre_correction_niv_un" ,"nbre_correction_niv_deux" ,"indice_num_tome"
+    ];
+    
+    $tomeregistre_columns_locked = [ 
+      "","id_lot","id_tome_registre","id_registre","id_commune","id_bureau","utilisateur_modification","utilisateur_creation","id_procureur","id_officier","date_creation","date_modification","preimprime","affecte","status","ancien_commune","ancien_bureau","nbre_correction_niv_un","nbre_correction_niv_deux"
+    ];
+    $tomeregistre_columns_long = ["","txt_fermeture"];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,7 +42,7 @@
 
 </head>
 
-<body id="page-top" idpage="ActionIEC">
+<body id="page-top" idpage="ActionOEC-POPF">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -51,12 +60,12 @@
         <?php include('partial/topbar.php') ?>
 
         <!-- Modal -->
-        <div class="modal fade" id="ActeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        <div class="modal fade" id="TomeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
         data-keyboard="false" data-backdrop="static">
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification Acte </h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification information PO PF : <span id="field-id_lot"></span> </h5>
                 <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -65,108 +74,43 @@
                 <div class="row" id="form-acte-field">
                   <div class="col-md-6" style="height:700px;overflow:auto;">
                     <form class="mt-2">
-                      <h6 style="color: black;"> Formulaire Acte </h6>
+                      <h6 style="color: black;"> Formulaire PO PF </h6>
                       <input type="hidden" id="field-Id_user"  value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
-                      <hr/>
-                      <div class="row">
-                        <div class="form-group col-md-6">
-                          <label for="field-IdLot">Id Lot</label>
-                          <input type="text" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled/>                        
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="field-IdActe">Id Acte</label>
-                          <input type="text" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled/>                        
-                        </div>
-                      </div>
-                      <hr/>
-                      <div id="form-group1" style="margin: 0;padding: 10px;">
-                        <div class="row">
-                          <div class="form-group col-md-5">
-                            <label for="field-PrenomFr">Prenom fr</label>
-                            <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder=""/>                        
-                          </div>
-                          <div class="form-group col-md-5">
-                            <label for="field-PrenomAr">Prenom Ar</label>
-                            <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder=""/>                        
-                          </div>                        
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-md-5">
-                            <label for="field-Genre"> Genre </label>
-                            <input type="text" class="form-control" id="field-Genre" aria-describedby="field-Genre" placeholder=""/>                        
-                          </div>
-                          <div class="col-md-2">
-                            <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-genre">
-                              <span class="fas fa-check-double"></span>
-                            </button>     
-                          </div>
-                        </div>
-                      </div>
-                      <hr/>
-
-                      <div id="form-group2" style="margin: 0;padding: 10px;">
-                        <div class="row">
-                          <div class="form-group col-md-5">
-                            <label for="field-NomFr">Nom fr</label>
-                            <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder=""/>                        
-                          </div> 
-                          <div class="form-group col-md-5">
-                            <label for="field-NomAr">Nom ar</label>
-                            <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder=""/>                        
-                          </div>                      
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-md-5">
-                            <label for="field-NomMargeFr">Nom marge fr</label>
-                            <input type="text" class="form-control" id="field-NomMargeFr" aria-describedby="field-NomMargeFr" placeholder=""/>                        
-                          </div>  
-                          <div class="form-group col-md-5">
-                            <label for="field-NomMargeAr">Nom marge ar</label>
-                            <input type="text" class="form-control" id="field-NomMargeAr" aria-describedby="field-NomMargeAr" placeholder=""/>                        
-                          </div>                        
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-md-5">
-                            <label for="field-PrenomMargeFr">Prenom marge fr</label>
-                            <input type="text" class="form-control" id="field-PrenomMargeFr" aria-describedby="field-PrenomMargeFr" placeholder=""/>                        
-                          </div>  
-                          <div class="form-group col-md-5">
-                            <label for="field-PrenomMargeAr">Prenom marge ar</label>
-                            <input type="text" class="form-control" id="field-PrenomMargeAr" aria-describedby="field-PrenomMargeAr" placeholder=""/>                        
-                          </div>                        
-                        </div>
-                      </div> 
-                      <hr/>                                           
-                      <div id="form-group3" style="margin: 0;padding: 10px;">
-                        <div class="row">                          
-                          <div class="form-group col-md-4">
-                            <label for="field-jour_g">jour_g</label>
-                            <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder=""/>                        
-                          </div> 
-                          <div class="form-group col-md-4">
-                            <label for="field-mois_g">mois_g</label>
-                            <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder=""/>                        
-                          </div>  
-                          <div class="form-group col-md-4">
-                            <label for="field-annee_g">annee_g</label>
-                            <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder=""/>                        
-                          </div>                      
-                        </div>
-                        <div class="row">                          
-                          <div class="form-group col-md-4">
-                            <label for="field-jour_h">jour_h</label>
-                            <input type="text" class="form-control" id="field-jour_h" aria-describedby="field-jour_h" placeholder=""/>                        
-                          </div> 
-                          <div class="form-group col-md-4">
-                            <label for="field-mois_h">mois_h</label>
-                            <input type="text" class="form-control" id="field-mois_h" aria-describedby="field-mois_h" placeholder=""/>                        
-                          </div>  
-                          <div class="form-group col-md-4">
-                            <label for="field-annee_h">annee_h</label>
-                            <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder=""/>                        
-                          </div>                      
-                        </div>
-                      </div>
+                      <?php
+                        $i = 1;
+                        foreach($tomeregistre_columns as $c)
+                        {
+                          if($i % 2 == 0)
+                          {
+                            echo '<div class="form-group col-md-6">
+                                  <label for="field-'.$c.'">'.$c.'</label>
+                                  '
+                                  .((array_search($c,$tomeregistre_columns_long)) 
+                                  ? 
+                                   '<textarea class="form-control" id="field-'.$c.'"> </textarea>' 
+                                  : '<input type="text" class="form-control" id="field-'.$c.'" aria-describedby="field-'.$c.'" placeholder="" '
+                                    .((array_search($c,$tomeregistre_columns_locked)) ? 'disabled' : '').'/>').
+                                  '</div>
+                                  </div>';
+                          }
+                          else
+                          {
+                            echo '<hr/>';
+                            echo '<div class="row">
+                                    <div class="form-group col-md-6">
+                                    <label for="field-'.$c.'">'.$c.'</label>
+                                  '
+                                  .((array_search($c,$tomeregistre_columns_long)) 
+                                  ? 
+                                  '<textarea class="form-control" id="field-'.$c.'" aria-describedby="field-'.$c.'" placeholder=""> </textarea>' 
+                                  : '<input type="text" class="form-control" id="field-'.$c.'" aria-describedby="field-'.$c.'" placeholder="" '
+                                    .((array_search($c,$tomeregistre_columns_locked)) ? 'disabled' : '').'/>').
+                                  '</div>';
+                            echo ($i == count($tomeregistre_columns)) ? '</div>' : ""; 
+                          }
+                          $i++;
+                        }                      
+                      ?>
                     </form>
                   </div>
                   <div class="col-md-6">      
@@ -199,7 +143,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> ACTION MI <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CONTROLE IEC
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> ACTION MI <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CONTROLE OEC-POPF
             </h4>
           </div> 
           <hr />  
@@ -207,7 +151,7 @@
           <!-- Liste des onglets  -->
           <div>
             <nav class="nav nav-tabs">
-              <a class="nav-tab-item nav-item nav-link active" href="#Traitement" style="color: black;"> Traitement </a>
+              <a class="nav-tab-item nav-item nav-link active" href="#Traitement" style="color: black;"> Lots </a>
               <a class="nav-tab-item nav-item nav-link" href="#Resultat" style="color: black;"> Résultat <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;display: none;" id="notif-Resultat-bell"><i class="far fa-bell"></i></span></a>
             </nav>
           </div>        
@@ -220,7 +164,7 @@
                   <div class="card shadow mb-4">
                     <form method="post" action="#">                      
                       <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots à traiter (id_lot)</h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots (id_lot)</h6>
                       </div>
                       <div class="card-body">
                         <div id="form-idlot-field" class="row">
@@ -239,10 +183,6 @@
                                 <p id="txt-nb-lot-notif" text-std="Le Contrôle sera effectué sur ces lots"> </p>
                               </div>
                             </div>
-                        </div>
-                        <div class="form-inline ml-3">
-                          <label for="show_all"> Selectionner tous les lots </label>
-                          <input type="checkbox" class="form-control ml-1" id="show_all"/>
                         </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
@@ -288,78 +228,46 @@
 
               <div id="alert-container"></div>
               <div id="resultat_data" class="row mt-3" style="display: none;">                
-                <div class="col-md-2">
-                  <div class="form-group card shadow">
-                    <div class="d-flex justify-content-center mb-1" 
-                          style="color: white;background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;padding:7px;border-radius:5px;">
-                      Lot Erronés (<span class="text-danger" id="indic-lot-error">100</span>) 
-                    </div>
-                    <textarea class="form-control" id="text-list-lot-errone"   
-                              style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>
-                    </textarea>
-                  </div>
-                </div>
-                <div class="col-md-10"> 
+                <div class="col-md-12"> 
                   <div class="mb-3">
                     <nav class="nav nav-tabs">
-                      <a class="nav-tab-item nav-item nav-link active" href="#VerifImage" style="color: black;"> Vérification des identités <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> </a>                    
+                      <a class="nav-tab-item nav-item nav-link active" href="#RecupPoPf" style="color: black;"> Récupération PO PF <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> </a>                    
                     </nav>
                   </div>  
-
                   <div class="tab-content">
 
                     <!-- Vérification des l'identité -->
-                    <div class="card shadow mb-4 tab-pane active" id="VerifImage">
+                    <div class="card shadow mb-4 tab-pane active" id="RecupPoPf">
                       <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Vérification des identités </h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Récupération PO PF </h6>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableVerifImage" width="100%" cellspacing="0">
-                          <thead>
+                        <table class="table table-bordered" id="dataTableRecupPoPf" width="100%" cellspacing="0">
+                          <thead id="HeaderTableRecupPoPf">
                             <tr>
-                              <th> Modif </th>
-                              <th> Lot </th>
-                              <th> Id Acte </th>
-                              <th> Nom fr</th>
-                              <th> Nom ar</th>
-                              <th> Nom marge ar </th>
-                              <th> Nom marge fr </th>
-                              <th> Prenom fr</th>
-                              <th> Prenom ar</th>
-                              <th> Prenom marge fr</th>                              
-                              <th> Prenom marge ar</th>
-                              <th> Sexe </th>
-                              <th> jour_g </th>
-                              <th> mois_g </th>
-                              <th> annee_g </th>
-                              <th> jour_h </th>
-                              <th> mois_h </th>
-                              <th> annee_h </th>
+                              <th name="modif"> Modif </th>
+                              <th name="id_lot"> Lot </th>
+                              <?php 
+                                foreach($tomeregistre_columns as $c)
+                                {
+                                  echo "<th name='{$c}'> {$c} </th>";
+                                }
+                              ?>                              
                             </tr>
                           </thead>
-                          <tbody id="TableVerifImage">
+                          <tbody id="TableRecupPoPf">
                             
                           </tbody>
                           <tfoot>
                               <th> Modif </th>
                               <th> Lot </th>
-                              <th> Id Acte </th>
-                              <th> Nom fr</th>
-                              <th> Nom ar</th>
-                              <th> Nom marge ar </th>
-                              <th> Nom marge fr </th>
-                              <th> Prenom fr</th>
-                              <th> Prenom ar</th>
-                              <th> Prenom marge fr</th>                              
-                              <th> Prenom marge ar</th>
-                              <th> Sexe </th>
-                              <th> jour_g </th>
-                              <th> mois_g </th>
-                              <th> annee_g </th>
-                              <th> jour_h </th>
-                              <th> mois_h </th>
-                              <th> annee_h </th>
+                              <?php 
+                                foreach($tomeregistre_columns as $c)
+                                {
+                                  echo "<th name='{$c}'> {$c} </th>";
+                                }
+                              ?>  
                           </tfoot>
                         </table>
                         </div>
@@ -415,12 +323,11 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_auto.js"></script>
+  <script src="js/ajax/controleOecPoPf/recup_popf.js"></script>
 
   <script>
     $(document).ready(function(e)
     {     
-
       $('.nav-tab-item').click(function (e) 
           {        
             e.preventDefault()

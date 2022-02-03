@@ -59,7 +59,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> SAISIE <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CORRECTION ACTE 
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> SAISIE <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  Vigilance
             </h4>
           </div> 
           <hr />  
