@@ -39,26 +39,6 @@ $(document).ready(function()
         startEditActe();                           
     });
 
-    var TableRowInsertion = function(data)
-    {
-        htmlDataTable = "";    
-        data.forEach(e => 
-        {                            
-            htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'><td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.num_acte + "</td><td>" + e.imagepath
-                                    + "</td><td>" + e.nom_fr + "</td><td>" + e.prenom_fr + "</td><td>" + e.nom_ar + "</td><td>" + e.prenom_ar 
-                                    + "</td><td class='text-center'> <a href='#' class='btn-edit' idActe='"+ e.id_acte +"' style='color:gray;' data-toggle='modal' data-target='#ActeModal'>" 
-                                    + "<i class='fas fa-highlighter'></i></a> </td></tr>";
-
-            // Ajout de l'IdLot dans les erronés
-            if(!listLotError.includes(e.id_lot))
-            {
-                listLotError += e.id_lot + "\n"; 
-            }
-        });
-        
-        return htmlDataTable;
-    };
-
     $(".btn-form-modal-cancel").on("click", function(e) {
         // Rétablissement des champs du formulaire
         $("#field-IdLot").val("");                                                                                                                      
@@ -76,7 +56,7 @@ $(document).ready(function()
         $("#field-jour_h").val("");                   
         $("#field-mois_h").val("");                   
         $("#field-annee_h").val("");                      
-        $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");         
+        $("#img-block").html("");         
     });
     
     $("#form-update-save").on("click",function(e){            
@@ -91,7 +71,11 @@ $(document).ready(function()
             nom_marge_fr:$("#field-NomMargeFr").val().trim(),            
             nom_marge_ar:$("#field-NomMargeAr").val().trim(),            
             prenom_marge_fr:$("#field-PrenomMargeFr").val().trim(),            
-            prenom_marge_ar:$("#field-PrenomMargeAr").val().trim(),
+            prenom_marge_ar:$("#field-PrenomMargeAr").val().trim(),                                                                                                                 
+            prenom_pere_fr:$("#field-PrenomPereFr").val().trim(),                                                                                                                      
+            prenom_pere_ar:$("#field-PrenomPereAr").val().trim(),                                                                                                                          
+            prenom_mere_fr:$("#field-PrenomMereFr").val().trim(),                                                                                                                          
+            prenom_mere_ar:$("#field-PrenomMereAr").val().trim(),  
             jd_naissance_g:$("#field-jour_g").val().trim(),            
             md_naissance_g:$("#field-mois_g").val().trim(),            
             ad_naissance_g:$("#field-annee_g").val().trim(),            
@@ -194,7 +178,9 @@ $(document).ready(function()
             $("#field-annee_g").css("background","none") 
             $("#field-jour_h").css("background","none") 
             $("#field-mois_h").css("background","none") 
-            $("#field-annee_h").css("background","none")  
+            $("#field-annee_h").css("background","none")              
+            $("#form-group3>div:eq(0)").css("background","none");
+            $("#form-group3>div:eq(1)").css("background","none");
 
             if($(this).attr("nom_mg_fr_s") == "1")
             {
@@ -251,6 +237,16 @@ $(document).ready(function()
                 $("#form-group1").css("background",erroColor);
             }
 
+            if($(this).attr("prenom_pere_nofound") == "1")
+            {
+                $("#form-group3>div:eq(0)").css("background",erroColor);
+            }
+
+            if($(this).attr("prenom_mere_nofound") == "1")
+            {
+                $("#form-group3>div:eq(1)").css("background",erroColor);
+            }
+
             $.post(HostLink+'/proccess/ajax/action_auto/recup_acte_identite.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
@@ -279,7 +275,11 @@ $(document).ready(function()
                         $("#field-PrenomMargeFr").val(result[1].prenom_marge_fr);                                                                                                                      
                         $("#field-PrenomMargeAr").val(result[1].prenom_marge_ar);                                                                                                                          
                         $("#field-NomMargeFr").val(result[1].nom_marge_fr);                                                                                                                          
-                        $("#field-NomMargeAr").val(result[1].nom_marge_ar);                                                                                                                          
+                        $("#field-NomMargeAr").val(result[1].nom_marge_ar);                                                                                                                 
+                        $("#field-PrenomPereFr").val(result[1].prenom_pere_fr);                                                                                                                      
+                        $("#field-PrenomPereAr").val(result[1].prenom_pere_ar);                                                                                                                          
+                        $("#field-PrenomMereFr").val(result[1].prenom_mere_fr);                                                                                                                          
+                        $("#field-PrenomMereAr").val(result[1].prenom_mere_ar);  
                         $("#field-Genre").val(result[1].sexe);                                                                                                                          
                         $("#field-jour_g").val(result[1].jd_naissance_g);                                                                                                                          
                         $("#field-mois_g").val(result[1].md_naissance_g);                   
@@ -305,8 +305,8 @@ $(document).ready(function()
                                 });
                                 $("#img-block").html(htmlContentImg);
                                 $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                         +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
-                                                         +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
+                                                            +"<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
+                                                            +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                             }
                             else
                             {
@@ -318,17 +318,19 @@ $(document).ready(function()
                             // initialisation du plugin de zoom                                                 
                             const element = document.getElementById('img-block')
                             const resetButton = document.getElementById('img-zoom-reset');
-                            const panzoom = Panzoom(element, {
-                                // options here
+                            const panzoom = Panzoom(element, 
+                            {
+                                // options here                                
                             });
                             // enable mouse wheel
                             const parent = element.parentElement
                             parent.addEventListener('wheel', panzoom.zoomWithWheel);
-                            parent.addEventListener('click', panzoom.reset);
+                            resetButton.addEventListener('click', panzoom.reset);
                         }           
                         else
                         {
-                            $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");
+                            $("#img-block").html("");
+                            $("#block-img-change").html("");
                         }
 
                         startSwitchImage();
@@ -339,7 +341,6 @@ $(document).ready(function()
                         console.log(result);
                     } 
                     
-                    // $("#form-acte-field").css("display","block");
                     $("#form-acte-loader").css("display","none");
                 }
             ).fail(function()
@@ -380,7 +381,7 @@ $(document).ready(function()
     var get_id_lots = function()
     {
         // Récupération de la source 
-        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot_all.php'
+        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot.php'
         ,function(data,status,jqXHR)
         {
             var result = JSON.parse(data);                               
@@ -426,6 +427,7 @@ $(document).ready(function()
     })
     $("#show_all")[0].checked = false;
 
+    // Ajout Prenom Personne
     $("#btn-add-champs-prenom-genre").on("click",function() 
     {                
         // Récupération de l'Id du click
@@ -434,6 +436,82 @@ $(document).ready(function()
             prenom_fr:$("#field-PrenomFr").val().trim(),
             prenom_ar:$("#field-PrenomAr").val().trim(),           
             genre_prenom:$("#field-Genre").val().trim(),
+        }    
+
+        // add identite bd 
+        $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                console.log(data);
+                var result = JSON.parse(data);                               
+                
+                if(result[0] == "success")
+                {
+                    // display result
+                    alert (" informations ajoutés ")    
+                }
+                else if(result[0] == "exist")
+                {
+                    alert (" ces informations existent déjà ")    
+                }                
+                else
+                {
+                    alert(" une erreur s'est produite");
+                    console.log(' message error : ' + result);
+                    console.log(result);
+                }
+            }
+        ); 
+    });
+
+    // Ajout Prenom Père
+    $("#btn-add-champs-prenom-pere").on("click",function() 
+    {                
+        // Récupération de l'Id du click
+        var data1 = {
+            id_user:$("#field-Id_user").val(),
+            prenom_fr:$("#field-PrenomPereFr").val().trim(),
+            prenom_ar:$("#field-PrenomPereAr").val().trim(),           
+            genre_prenom:"M",
+        }    
+
+        // add identite bd 
+        $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                console.log(data);
+                var result = JSON.parse(data);                               
+                
+                if(result[0] == "success")
+                {
+                    // display result
+                    alert (" informations ajoutés ")    
+                }
+                else if(result[0] == "exist")
+                {
+                    alert (" ces informations existent déjà ")    
+                }                
+                else
+                {
+                    alert(" une erreur s'est produite");
+                    console.log(' message error : ' + result);
+                    console.log(result);
+                }
+            }
+        ); 
+    });
+
+    // Ajout Prenom Mère
+    $("#btn-add-champs-prenom-mere").on("click",function() 
+    {                
+        // Récupération de l'Id du click
+        var data1 = {
+            id_user:$("#field-Id_user").val(),
+            prenom_fr:$("#field-PrenomMereFr").val().trim(),
+            prenom_ar:$("#field-PrenomMereAr").val().trim(),           
+            genre_prenom:"F",
         }    
 
         // add identite bd 
@@ -528,11 +606,15 @@ $(document).ready(function()
                                             +"mn_h_s='"+e.mn_h_s+"' "
                                             +"an_h_s='"+e.an_h_s+"' "
                                             +"prenom_nofound='"+e.prenom_nofound+"' "
+                                            +"prenom_mere_nofound='"+e.prenom_mere_nofound+"' "
+                                            +"prenom_pere_nofound='"+e.prenom_pere_nofound+"' "
                                             +">"                                             
                                             +"<i class='fas fa-highlighter'></i></a> </td>"
                                             +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.nom_fr 
                                             +"</td><td>" + e.nom_ar + "</td><td>" + e.nom_marge_fr + "</td><td>" + e.nom_marge_ar + "</td><td>" + e.prenom_fr + "</td>"
-                                            +"</td><td>" + e.prenom_ar + "</td><td>" + e.prenom_marge_fr + "</td><td>" + e.prenom_marge_ar + "</td><td>" + e.sexe + "</td>"
+                                            +"</td><td>" + e.prenom_ar + "</td><td>" + e.prenom_marge_fr + "</td><td>" + e.prenom_marge_ar 
+                                            + "</td><td>" + e.prenom_pere_fr + "</td>" + "</td><td>" + e.prenom_pere_ar + "</td>" + "</td><td>" + e.prenom_mere_fr + "</td>" + "</td><td>" + e.prenom_mere_ar + "</td>"
+                                            + "</td><td>" + e.sexe + "</td>"
                                             +"<td>" + e.jd_naissance_g + "</td><td>" + e.md_naissance_g + "</td><td>" + e.ad_naissance_g + "</td>"
                                             +"<td>" + e.jd_naissance_h + "</td><td>" + e.md_naissance_h + "</td><td>" + e.ad_naissance_h + "</td>"
                                             +"</td></tr>";

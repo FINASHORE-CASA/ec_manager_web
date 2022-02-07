@@ -17,6 +17,7 @@
                               ,CASE WHEN TRIM(prenom_ar) <> TRIM(prenom_marge_ar) THEN 1 ELSE 0 END AS prenom_mg_ar_s
                               ,jd_naissance_g,md_naissance_g,ad_naissance_g
                               ,jd_naissance_h,md_naissance_h,ad_naissance_h
+                              ,prenom_pere_fr,prenom_pere_ar,prenom_mere_fr,prenom_mere_ar
                               ,CASE WHEN jd_naissance_g <> '' AND try_cast_int(jd_naissance_g) >= 1 AND try_cast_int(jd_naissance_g) <= 31 THEN 0 ELSE 1 END AS jn_g_s
                               ,CASE WHEN md_naissance_g <> '' AND try_cast_int(md_naissance_g) >= 1 AND try_cast_int(md_naissance_g) <= 12 THEN 0 ELSE 1 END AS mn_g_s
                               ,CASE WHEN ad_naissance_g <> '' AND try_cast_int(ad_naissance_g) >= 1900 AND try_cast_int(ad_naissance_g) <= 2022 THEN 0 ELSE 1 END AS an_g_s
@@ -39,16 +40,22 @@
         $notFoundArray = array();
 
         // Lancement de la comparaison
-        $finds = array_filter($actes_lots ,function($a) use($identifiants) {         
+        $finds = array_filter($actes_lots ,function($a) use($identifiants) 
+        {         
+            // Prenom et genre personne            
             if((count(array_values(array_filter($identifiants,function($e) use($a) { return trim($e->prenom_fr) == trim($a->prenom_fr) && $e->genre_prenom == $a->sexe && trim($e->prenom_ar) == trim($a->prenom_ar) ;}))) == 0))
-            {
-              $a->prenom_nofound = 1;
-            }
-            else
-            {
-              $a->prenom_nofound = 0;
-            }
-            return ($a->prenom_nofound == 1 || $a->nom_mg_fr_s == 1 || $a->prenom_mg_fr_s == 1 || $a->nom_mg_ar_s == 1 || $a->prenom_mg_ar_s == 1 || $a->jn_g_s == 1
+            {$a->prenom_nofound = 1;}else{$a->prenom_nofound = 0;}
+
+            // Prenom père 
+            if((count(array_values(array_filter($identifiants,function($e) use($a) { return (trim($a->prenom_pere_fr) == "" || trim($e->prenom_fr) == trim($a->prenom_pere_fr)) && trim($e->prenom_ar) == trim($a->prenom_pere_ar) ;}))) == 0))
+            {$a->prenom_pere_nofound = 1;}else{$a->prenom_pere_nofound = 0;}
+
+            // Prenom mère
+            if((count(array_values(array_filter($identifiants,function($e) use($a) { return (trim($a->prenom_mere_fr) == "" || trim($e->prenom_fr) == trim($a->prenom_mere_fr)) && trim($e->prenom_ar) == trim($a->prenom_mere_ar) ;}))) == 0))
+            {$a->prenom_mere_nofound = 1;}else{$a->prenom_mere_nofound = 0;}
+
+            return ($a->prenom_pere_nofound == 1 && $a->prenom_mere_nofound == 1 || $a->prenom_nofound == 1 || $a->nom_mg_fr_s == 1 
+            || $a->prenom_mg_fr_s == 1 || $a->nom_mg_ar_s == 1 || $a->prenom_mg_ar_s == 1 || $a->jn_g_s == 1
             || $a->mn_g_s == 1 || $a->an_g_s == 1 || $a->jn_h_s == 1 || $a->mn_h_s == 1 || $a->an_h_s == 1);
         });
 

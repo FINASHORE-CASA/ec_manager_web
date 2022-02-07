@@ -17,8 +17,19 @@
 
         foreach ($liste_lots as $lot) 
         {
-            $cheminLot = getFullPathLot($lot->id_lot, $bdextra,$ListPathImages);
+            $cheminLot = "";
+            $BaseCheminLot = getPathLot($lot->id_lot, $bdextra);
+            $SourceTable = $ListPathImages;
             
+            foreach ($SourceTable as $src) 
+            {
+                if (is_dir(trim($src)."\\".$BaseCheminLot)) 
+                {
+                    $cheminLot = trim($src)."\\".$BaseCheminLot;
+                    break;
+                }
+            }
+
             if (!empty($cheminLot) && is_dir($cheminLot))
             {
                 $liste_files = scandir($cheminLot);  

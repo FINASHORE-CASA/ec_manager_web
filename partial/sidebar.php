@@ -107,6 +107,7 @@
               <a class="collapse-item" href="gestion_db_setting.php"> Gestion BD </a>
               <a class="collapse-item" href="gestion_pref_setting.php"> Préférences </a>
               <a class="collapse-item" href="gestion_impotation_setting.php"> Gestion Importation </a>
+              <a class="collapse-item" href="script_gestion.php"> Script de gestion </a>
             </div>
           </div>
         </li>' : ''
