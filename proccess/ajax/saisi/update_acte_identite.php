@@ -17,7 +17,10 @@
                               ,md_naissance_h = :md_naissance_h,ad_naissance_h = :ad_naissance_h
                               ,prenom_pere_fr = :prenom_pere_fr,prenom_pere_ar = :prenom_pere_ar
                               ,prenom_mere_fr = :prenom_mere_fr,prenom_mere_ar = :prenom_mere_ar
+                              ,ascendant_pere_fr = :ascendant_pere_fr,ascendant_pere_ar = :ascendant_pere_ar
+                              ,ascendant_mere_fr = :ascendant_mere_fr,ascendant_mere_ar = :ascendant_mere_ar
                               WHERE id_acte = $formData->id_acte");
+
         $qry->bindParam(":prenom_fr",$formData->prenom_fr);        
         $qry->bindParam(":prenom_ar",$formData->prenom_ar);        
         $qry->bindParam(":nom_fr",$formData->nom_fr);        
@@ -29,7 +32,11 @@
         $qry->bindParam(":prenom_pere_fr",$formData->prenom_pere_fr);        
         $qry->bindParam(":prenom_pere_ar",$formData->prenom_pere_ar); 
         $qry->bindParam(":prenom_mere_fr",$formData->prenom_mere_fr);        
-        $qry->bindParam(":prenom_mere_ar",$formData->prenom_mere_ar);       
+        $qry->bindParam(":prenom_mere_ar",$formData->prenom_mere_ar);    
+        $qry->bindParam(":ascendant_pere_fr",$formData->ascendant_pere_fr);        
+        $qry->bindParam(":ascendant_pere_ar",$formData->ascendant_pere_ar); 
+        $qry->bindParam(":ascendant_mere_fr",$formData->ascendant_mere_fr);        
+        $qry->bindParam(":ascendant_mere_ar",$formData->ascendant_mere_ar); 
         $qry->bindParam(":sexe",$formData->sexe);        
         $qry->bindParam(":jd_naissance_g",$formData->jd_naissance_g);        
         $qry->bindParam(":md_naissance_g",$formData->md_naissance_g);        
@@ -37,7 +44,20 @@
         $qry->bindParam(":jd_naissance_h",$formData->jd_naissance_h);        
         $qry->bindParam(":md_naissance_h",$formData->md_naissance_h);        
         $qry->bindParam(":ad_naissance_h",$formData->ad_naissance_h);        
-        $Aff = $qry->execute();     
+        $Aff = $qry->execute();    
+
+        if(count($formData->mentions) > 0) 
+        {
+            foreach($formData->mentions as $mention)
+            {
+                // Mise à jour de la mention
+                $qry = $bdd->prepare("UPDATE mention SET txtmention = :txtmention
+                                      WHERE id_mention = $mention->id_mention");
+
+                $qry->bindParam(":txtmention",$mention->txtmention); 
+                $AffMention = $qry->execute();                                  
+            }
+        }
 
         // Récupération des id_lots concernés        
         $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar
