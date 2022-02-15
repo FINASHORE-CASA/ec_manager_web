@@ -603,6 +603,7 @@ $(document).ready(function()
             // traitement des lots             
             var data1 = {
                 id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
+                mode_ech:$("#mode_ech")[0].checked
             }              
 
             // Traitement Image Vide 
@@ -610,7 +611,6 @@ $(document).ready(function()
                 { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {
-                        console.log(data);
                         var result = JSON.parse(data);                               
                         
                         if(result[0] == "success")

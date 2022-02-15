@@ -8,7 +8,7 @@
         $result[] = "success" ;
 
         //Récupération des acte des id_lots concernés        
-        $qry = $bdd->prepare("SELECT af.id_lot,id_acte,num_acte,imagepath
+        $qry = $bdd->prepare("SELECT id_acte,af.id_lot,num_acte,imagepath
                               ,nom_fr,prenom_fr,nom_marge_fr,prenom_marge_fr,nom_ar,prenom_ar
                               ,nom_marge_ar,prenom_marge_ar,sexe
                               ,CASE WHEN TRIM(nom_fr) <> TRIM(nom_marge_fr) THEN 1 ELSE 0 END AS nom_mg_fr_s
@@ -26,9 +26,9 @@
                               ,CASE WHEN md_naissance_h <> '' AND try_cast_int(md_naissance_h) >= 1 AND try_cast_int(md_naissance_h) <= 12 THEN 0 ELSE 1 END AS mn_h_s
                               ,CASE WHEN ad_naissance_h <> '' AND try_cast_int(ad_naissance_h) >= 1317 AND try_cast_int(ad_naissance_h) <= 1443 THEN 0 ELSE 1 END AS an_h_s
                               ,(select count(*) from mention m where m.id_acte = a.id_acte and LENGTH(txtmention) = 0) as mention_vide
-                             from acte a  
-                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre 
-                             where af.id_lot in ($formData->id_lot)");
+                              from acte a  
+                              inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre 
+                              where af.id_lot in ($formData->id_lot) ".(($formData->mode_ech == true) ? " order by random() " : " order by id_lot"));
         $qry->execute();
         $actes_lots = $qry->fetchAll(PDO::FETCH_OBJ);  
 
@@ -61,6 +61,20 @@
             || $a->mn_g_s == 1 || $a->an_g_s == 1 || $a->jn_h_s == 1 || $a->mn_h_s == 1 || $a->an_h_s == 1 
             || $a->mention_vide > 0);
         });
+
+        if($formData->mode_ech == true)
+        {
+            $nb_actes = ceil(count($finds) * 20 / 100);
+            $find_keep = [];
+            $i = 1;
+            foreach (array_values($finds) as $f) 
+            { 
+                $find_keep[] = $f;              
+                if($i == $nb_actes) break;  
+                $i++;
+            }               
+            $finds = $find_keep;    
+        }
 
         // $result[] = $notFoundArray;                                      
         $result[] = array_values($finds);                                      
