@@ -75,130 +75,21 @@
                           <form class="mt-2">
                             <input type="hidden" id="field-Id_user"  value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
                             <div class="row">
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-5">
                                 <label for="field-IdLot">Id Lot</label>
                                 <input type="text" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled/>                        
                               </div>
-                              <div class="form-group col-md-6">
+                              <div class="form-group col-md-3">
                                 <label for="field-IdActe">Id Acte</label>
                                 <input type="text" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled/>                        
                               </div>
-                            </div>
-                            <hr/>
-                            <div id="form-group1" style="margin: 0;padding: 10px;">
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomFr">Prenom fr</label>
-                                  <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder=""/>                        
-                                </div>
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomAr">Prenom Ar</label>
-                                  <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder=""/>                        
-                                </div>                        
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-Genre"> Genre </label>
-                                  <input type="text" class="form-control" id="field-Genre" aria-describedby="field-Genre" placeholder=""/>                        
-                                </div>
-                                <div class="col-md-2">
-                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-genre">
-                                    <span class="fas fa-check-double"></span>
-                                  </button>     
-                                </div>
-                              </div>
-                            </div>
-                            <hr/>
-                            <div id="form-group2" style="margin: 0;padding: 10px;">
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-NomFr">Nom fr</label>
-                                  <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder=""/>                        
-                                </div> 
-                                <div class="form-group col-md-5">
-                                  <label for="field-NomAr">Nom ar</label>
-                                  <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder=""/>                        
-                                </div>                      
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-NomMargeFr">Nom marge fr</label>
-                                  <input type="text" class="form-control" id="field-NomMargeFr" aria-describedby="field-NomMargeFr" placeholder=""/>                        
-                                </div>  
-                                <div class="form-group col-md-5">
-                                  <label for="field-NomMargeAr">Nom marge ar</label>
-                                  <input type="text" class="form-control" id="field-NomMargeAr" aria-describedby="field-NomMargeAr" placeholder=""/>                        
-                                </div>                        
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomMargeFr">Prenom marge fr</label>
-                                  <input type="text" class="form-control" id="field-PrenomMargeFr" aria-describedby="field-PrenomMargeFr" placeholder=""/>                        
-                                </div>  
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomMargeAr">Prenom marge ar</label>
-                                  <input type="text" class="form-control" id="field-PrenomMargeAr" aria-describedby="field-PrenomMargeAr" placeholder=""/>                        
-                                </div>                      
-                              </div>
-                            </div> 
-                            <hr/>
-                            <div id="form-group3" style="margin: 0;padding: 10px;">
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomPereFr">Prenom père fr</label>
-                                  <input type="text" class="form-control" id="field-PrenomPereFr" aria-describedby="field-PrenomPereFr" placeholder=""/>                        
-                                </div> 
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomPereAr">Prenom père ar</label>
-                                  <input type="text" class="form-control" id="field-PrenomPereAr" aria-describedby="field-PrenomPereAr" placeholder=""/>                        
-                                </div>     
-                                <div class="form-group col-md-2">
-                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-pere">
-                                    <span class="fas fa-check-double"></span>
-                                  </button>     
-                                </div>                   
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomMereFr">Prenom mère fr</label>
-                                  <input type="text" class="form-control" id="field-PrenomMereFr" aria-describedby="field-PrenomMereFr" placeholder=""/>                        
-                                </div>  
-                                <div class="form-group col-md-5">
-                                  <label for="field-PrenomMereAr">Prenom mère ar</label>
-                                  <input type="text" class="form-control" id="field-PrenomMereAr" aria-describedby="field-PrenomMereAr" placeholder=""/>                        
-                                </div>     
-                                <div class="form-group col-md-2">
-                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-mere">
-                                    <span class="fas fa-check-double"></span>
-                                  </button>     
-                                </div>                     
-                              </div>
-                            </div>                       
-                            <hr/>
-                            <div id="form-group4" style="margin: 0;padding: 10px;">
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label for="field-AscPereFr">Ascendant père fr</label>
-                                  <input type="text" class="form-control" id="field-AscPereFr" aria-describedby="field-AscPereFr" placeholder=""/>                        
-                                </div> 
-                                <div class="form-group col-md-6">
-                                  <label for="field-AscPereAr">Ascendant père ar</label>
-                                  <input type="text" class="form-control" id="field-AscPereAr" aria-describedby="field-AscPereAr" placeholder=""/>                        
-                                </div>                   
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                  <label for="field-AscMereFr">Ascendant mère fr</label>
-                                  <input type="text" class="form-control" id="field-AscMereFr" aria-describedby="field-AscMereFr" placeholder=""/>                        
-                                </div>  
-                                <div class="form-group col-md-6">
-                                  <label for="field-AscMereAr">Ascendant mère ar</label>
-                                  <input type="text" class="form-control" id="field-AscMereAr" aria-describedby="field-AscMereAr" placeholder=""/>                        
-                                </div>                     
+                              <div class="form-group col-md-3">
+                                <label for="field-NbMention">mention</label>
+                                <input type="text" class="form-control" id="field-NbMention" aria-describedby="field-NbMention" placeholder="" disabled/>                        
                               </div>
                             </div>
                             <hr/>                                           
-                            <div id="form-group5" style="margin: 0;padding: 10px;">
+                            <div id="form-group1" style="margin: 0;padding: 10px;">
                               <div class="row">                          
                                 <div class="form-group col-md-4">
                                   <label for="field-jour_g">jour_naissance_g</label>
@@ -225,6 +116,150 @@
                                 <div class="form-group col-md-4">
                                   <label for="field-annee_h">annee_naissance_h</label>
                                   <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder=""/>                        
+                                </div>                      
+                              </div>
+                            </div>
+                            <hr/>
+                            <div id="form-group2" style="margin: 0;padding: 10px;">
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomFr">Prenom fr</label>
+                                  <input type="text" class="form-control" id="field-PrenomFr" aria-describedby="field-PrenomFr" placeholder=""/>                        
+                                </div>
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomAr">Prenom Ar</label>
+                                  <input type="text" class="form-control" id="field-PrenomAr" aria-describedby="field-PrenomAr" placeholder=""/>                        
+                                </div>                        
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomMargeFr">Prenom marge fr</label>
+                                  <input type="text" class="form-control" id="field-PrenomMargeFr" aria-describedby="field-PrenomMargeFr" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomMargeAr">Prenom marge ar</label>
+                                  <input type="text" class="form-control" id="field-PrenomMargeAr" aria-describedby="field-PrenomMargeAr" placeholder=""/>                        
+                                </div>                      
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-Genre"> Genre </label>
+                                  <input type="text" class="form-control" id="field-Genre" aria-describedby="field-Genre" placeholder=""/>                        
+                                </div>
+                                <div class="col-md-2">
+                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-genre">
+                                    <span class="fas fa-check-double"></span>
+                                  </button>     
+                                </div>
+                              </div>
+                            </div>
+                            <hr/>
+                            <div id="form-group3" style="margin: 0;padding: 10px;">
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-NomFr">Nom fr</label>
+                                  <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-NomFr" placeholder=""/>                        
+                                </div> 
+                                <div class="form-group col-md-5">
+                                  <label for="field-NomAr">Nom ar</label>
+                                  <input type="text" class="form-control" id="field-NomAr" aria-describedby="field-NomAr" placeholder=""/>                        
+                                </div>                      
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-NomMargeFr">Nom marge fr</label>
+                                  <input type="text" class="form-control" id="field-NomMargeFr" aria-describedby="field-NomMargeFr" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-5">
+                                  <label for="field-NomMargeAr">Nom marge ar</label>
+                                  <input type="text" class="form-control" id="field-NomMargeAr" aria-describedby="field-NomMargeAr" placeholder=""/>                        
+                                </div>                        
+                              </div>
+                            </div> 
+                            <hr/>
+                            <div id="form-group4" style="margin: 0;padding: 10px;">
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomPereFr">Prenom père fr</label>
+                                  <input type="text" class="form-control" id="field-PrenomPereFr" aria-describedby="field-PrenomPereFr" placeholder=""/>                        
+                                </div> 
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomPereAr">Prenom père ar</label>
+                                  <input type="text" class="form-control" id="field-PrenomPereAr" aria-describedby="field-PrenomPereAr" placeholder=""/>                        
+                                </div>     
+                                <div class="form-group col-md-2">
+                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-pere">
+                                    <span class="fas fa-check-double"></span>
+                                  </button>     
+                                </div>                   
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-AscPereFr">Ascendant père fr</label>
+                                  <input type="text" class="form-control" id="field-AscPereFr" aria-describedby="field-AscPereFr" placeholder=""/>                        
+                                </div> 
+                                <div class="form-group col-md-5">
+                                  <label for="field-AscPereAr">Ascendant père ar</label>
+                                  <input type="text" class="form-control" id="field-AscPereAr" aria-describedby="field-AscPereAr" placeholder=""/>                        
+                                </div>                   
+                              </div>
+                            </div>                       
+                            <hr/>
+                            <div id="form-group5" style="margin: 0;padding: 10px;">
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomMereFr">Prenom mère fr</label>
+                                  <input type="text" class="form-control" id="field-PrenomMereFr" aria-describedby="field-PrenomMereFr" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-5">
+                                  <label for="field-PrenomMereAr">Prenom mère ar</label>
+                                  <input type="text" class="form-control" id="field-PrenomMereAr" aria-describedby="field-PrenomMereAr" placeholder=""/>                        
+                                </div>     
+                                <div class="form-group col-md-2">
+                                  <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-mere">
+                                    <span class="fas fa-check-double"></span>
+                                  </button>     
+                                </div>                     
+                              </div>
+                              <div class="row">
+                                <div class="form-group col-md-5">
+                                  <label for="field-AscMereFr">Ascendant mère fr</label>
+                                  <input type="text" class="form-control" id="field-AscMereFr" aria-describedby="field-AscMereFr" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-5">
+                                  <label for="field-AscMereAr">Ascendant mère ar</label>
+                                  <input type="text" class="form-control" id="field-AscMereAr" aria-describedby="field-AscMereAr" placeholder=""/>                        
+                                </div>                     
+                              </div>
+                            </div>
+                            <hr/>                                           
+                            <div id="form-group6" style="margin: 0;padding: 10px;">
+                              <div class="row">                          
+                                <div class="form-group col-md-4">
+                                  <label for="field-jd_etabli_acte_g">jd_etabli_acte_g</label>
+                                  <input type="text" class="form-control" id="field-jd_etabli_acte_g" aria-describedby="field-jd_etabli_acte_g" placeholder=""/>                        
+                                </div> 
+                                <div class="form-group col-md-4">
+                                  <label for="field-md_etabli_acte_g">md_etabli_acte_g</label>
+                                  <input type="text" class="form-control" id="field-md_etabli_acte_g" aria-describedby="field-md_etabli_acte_g" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-4">
+                                  <label for="field-ad_etabli_acte_g">ad_etabli_acte_g</label>
+                                  <input type="text" class="form-control" id="field-ad_etabli_acte_g" aria-describedby="field-ad_etabli_acte_g" placeholder=""/>                        
+                                </div>                      
+                              </div>
+                              <div class="row">                          
+                                <div class="form-group col-md-4">
+                                  <label for="field-jd_etabli_acte_h">jd_etabli_acte_h</label>
+                                  <input type="text" class="form-control" id="field-jd_etabli_acte_h" aria-describedby="field-jd_etabli_acte_h" placeholder=""/>                        
+                                </div> 
+                                <div class="form-group col-md-4">
+                                  <label for="field-md_etabli_acte_h">md_etabli_acte_h</label>
+                                  <input type="text" class="form-control" id="field-md_etabli_acte_h" aria-describedby="field-md_etabli_acte_h" placeholder=""/>                        
+                                </div>  
+                                <div class="form-group col-md-4">
+                                  <label for="field-ad_etabli_acte_h">ad_etabli_acte_h</label>
+                                  <input type="text" class="form-control" id="field-ad_etabli_acte_h" aria-describedby="field-ad_etabli_acte_h" placeholder=""/>                        
                                 </div>                      
                               </div>
                             </div>
@@ -387,6 +422,7 @@
                               <th> Modif </th>
                               <th> Lot </th>
                               <th> Id Acte </th>
+                              <th> mention </th>
                               <th> Nom fr</th>
                               <th> Nom ar</th>
                               <th> Nom marge fr </th>
@@ -410,6 +446,12 @@
                               <th> jour_naissance_h </th>
                               <th> mois_naissance_h </th>
                               <th> annee_naissance_h </th>
+                              <th> jd_etabli_acte_g </th>
+                              <th> md_etabli_acte_g </th>
+                              <th> ad_etabli_acte_g </th>
+                              <th> jd_etabli_acte_h </th>
+                              <th> md_etabli_acte_h </th>
+                              <th> ad_etabli_acte_h </th>
                             </tr>
                           </thead>
                           <tbody id="TableVerifImage">
@@ -419,6 +461,7 @@
                               <th> Modif </th>
                               <th> Lot </th>
                               <th> Id Acte </th>
+                              <th> mention </th>
                               <th> Nom fr</th>
                               <th> Nom ar</th>
                               <th> Nom marge fr </th>
@@ -436,12 +479,18 @@
                               <th> Ascendant mère fr</th>
                               <th> Ascendant mère ar</th>
                               <th> Sexe </th>
-                              <th> jour_g </th>
-                              <th> mois_g </th>
-                              <th> annee_g </th>
-                              <th> jour_h </th>
-                              <th> mois_h </th>
-                              <th> annee_h </th>
+                              <th> jour_naissance_g </th>
+                              <th> mois_naissance_g </th>
+                              <th> annee_naissance_g </th>
+                              <th> jour_naissance_h </th>
+                              <th> mois_naissance_h </th>
+                              <th> annee_naissance_h </th>
+                              <th> jd_etabli_acte_g </th>
+                              <th> md_etabli_acte_g </th>
+                              <th> ad_etabli_acte_g </th>
+                              <th> jd_etabli_acte_h </th>
+                              <th> md_etabli_acte_h </th>
+                              <th> ad_etabli_acte_h </th>
                           </tfoot>
                         </table>
                         </div>

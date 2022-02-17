@@ -19,6 +19,8 @@
                               ,jd_naissance_h,md_naissance_h,ad_naissance_h
                               ,prenom_pere_fr,prenom_pere_ar,prenom_mere_fr,prenom_mere_ar
                               ,ascendant_pere_fr,ascendant_pere_ar,ascendant_mere_fr,ascendant_mere_ar
+                              ,jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h
+                              ,jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g
                               ,CASE WHEN jd_naissance_g <> '' AND try_cast_int(jd_naissance_g) >= 1 AND try_cast_int(jd_naissance_g) <= 31 THEN 0 ELSE 1 END AS jn_g_s
                               ,CASE WHEN md_naissance_g <> '' AND try_cast_int(md_naissance_g) >= 1 AND try_cast_int(md_naissance_g) <= 12 THEN 0 ELSE 1 END AS mn_g_s
                               ,CASE WHEN ad_naissance_g <> '' AND try_cast_int(ad_naissance_g) >= 1900 AND try_cast_int(ad_naissance_g) <= 2022 THEN 0 ELSE 1 END AS an_g_s
@@ -26,10 +28,10 @@
                               ,CASE WHEN md_naissance_h <> '' AND try_cast_int(md_naissance_h) >= 1 AND try_cast_int(md_naissance_h) <= 12 THEN 0 ELSE 1 END AS mn_h_s
                               ,CASE WHEN ad_naissance_h <> '' AND try_cast_int(ad_naissance_h) >= 1317 AND try_cast_int(ad_naissance_h) <= 1443 THEN 0 ELSE 1 END AS an_h_s
                               ,(select count(*) from mention m where m.id_acte = a.id_acte and LENGTH(txtmention) = 0) as mention_vide
+                              ,(select count(*) from mention m where m.id_acte = a.id_acte) as mention
                               from acte a  
                               inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre 
-                              where af.id_lot in ($formData->id_lot) ".(($formData->mode_ech == true) ? " order by random() " : " order by id_lot")
-                            );
+                              where af.id_lot in ($formData->id_lot) ".(($formData->mode_ech == true) ? " order by random() " : " order by id_lot"));
         $qry->execute();
         $actes_lots = $qry->fetchAll(PDO::FETCH_OBJ);  
 

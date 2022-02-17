@@ -88,6 +88,7 @@
             <a class="collapse-item" href="controle_general_liv.php"> 3 - Contrôle Général </a>    
             <a class="collapse-item" href="transfert_lot.php"> 4 - Transfert Lot </a>       
             <a class="collapse-item" href="split_bd.php"> 5 - Split BD </a>          
+            <a class="collapse-item" href="livraison_extraction_stats.php"> 6 - Extraction BD </a>          
           </div>
         </div>
       </li>' : '' ?>

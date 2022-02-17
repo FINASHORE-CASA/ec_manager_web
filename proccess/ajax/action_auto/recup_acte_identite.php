@@ -13,6 +13,11 @@
 	                            ,nom_marge_ar,prenom_marge_ar,sexe,jd_naissance_g,md_naissance_g,ad_naissance_g,jd_naissance_h,md_naissance_h,ad_naissance_h
                                 ,prenom_pere_fr,prenom_pere_ar,prenom_mere_fr,prenom_mere_ar
                                 ,ascendant_pere_fr,ascendant_pere_ar,ascendant_mere_fr,ascendant_mere_ar
+                                ,jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h
+                                ,jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g
+                                ,jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h
+                                ,jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g
+                                ,(select count(*) from mention m where m.id_acte = a.id_acte) as mention
                                 from acte a  
                                 inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                                 where id_acte = $formData->id_acte");

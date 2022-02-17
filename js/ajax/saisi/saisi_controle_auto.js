@@ -1,4 +1,4 @@
-$(document).ready(function() 
+﻿$(document).ready(function() 
 {    
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
     HostLink = HostLink.includes(".php") ? "." : HostLink;
@@ -13,6 +13,7 @@ $(document).ready(function()
     ,notifResultat = $("#notif-Resultat-bell")
     ,ResultatData = $("#resultat_data");
     textListLot.val("");
+    var acteInfo = [];
     
     var listLotError = "";
 
@@ -66,7 +67,13 @@ $(document).ready(function()
         $("#field-jour_h").val("");                   
         $("#field-mois_h").val("");                   
         $("#field-annee_h").val("");                      
-        $("#img-block").html(""); 
+        $("#field-jd_etabli_acte_g").val("");                                                                                                                          
+        $("#field-md_etabli_acte_g").val("");                   
+        $("#field-ad_etabli_acte_g").val("");                   
+        $("#field-jd_etabli_acte_h").val("");                   
+        $("#field-md_etabli_acte_h").val("");                   
+        $("#field-ad_etabli_acte_h").val("");
+        $("#img-block").html("");                                                                                                                    
 
         $("#btnTabMention").css("display","none");
         // $("#mention").css("display","none");
@@ -99,7 +106,13 @@ $(document).ready(function()
             ad_naissance_g:$("#field-annee_g").val().trim(),            
             jd_naissance_h:$("#field-jour_h").val().trim(),            
             md_naissance_h:$("#field-mois_h").val().trim(),            
-            ad_naissance_h:$("#field-annee_h").val().trim()            
+            ad_naissance_h:$("#field-annee_h").val().trim(),
+            jd_etabli_acte_g:$("#field-jd_etabli_acte_g").val().trim(),                                                                                                                          
+            md_etabli_acte_g:$("#field-md_etabli_acte_g").val().trim(),                   
+            ad_etabli_acte_g:$("#field-ad_etabli_acte_g").val().trim(),                   
+            jd_etabli_acte_h:$("#field-jd_etabli_acte_h").val().trim(),                   
+            md_etabli_acte_h:$("#field-md_etabli_acte_h").val().trim(),                   
+            ad_etabli_acte_h:$("#field-ad_etabli_acte_h").val().trim()
         }   
 
         // ajout de la mention
@@ -108,36 +121,56 @@ $(document).ready(function()
             mentions.push({id_mention:m.getAttribute("id_mention"),txtmention:m.value.trim()});
         });
 
-        data1.mentions = mentions;
-        console.log(data1);
 
-        $.post(HostLink+'/proccess/ajax/saisi/update_acte_identite.php',   // url
-        { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
+        data1.mentions = mentions;
+        let champs_corrige = "";
+
+        for (const key in data1) 
+        {
+            if (Object.hasOwnProperty.call(data1, key)) 
             {
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // success callback
-                    // display result    
-                    console.log('success : ' + result[1]);
-                    if(result[1])
-                    {
-                        $("#ActeRow"+data1.id_acte).fadeOut();
-                        $(".btn-form-modal-cancel").trigger("click");                        
-                        show_alert("success","Modification effectuée ");
-                        $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
-                    }                    
-                }
-                else
-                {
-                    show_alert("danger","erreur lors de la modification",result,10);
-                    console.log('message error : ' + result);
-                    console.log(result);
-                }
+                console.log(key + " => " + data1[key] + " vs " + acteInfo[key])             
+                champs_corrige += (data1[key].toString().trim().toLowerCase() == (acteInfo[key]+'').trim().toLowerCase()) ? '' : (key+',');  
             }
-        ); 
+        }        
+
+        console.log(champs_corrige)
+
+        if(champs_corrige != "")
+        {            
+            $.post(HostLink+'/proccess/ajax/saisi/update_acte_identite.php',   // url
+            { myData: JSON.stringify(data1) }, // data to be submit
+                function(data, status, jqXHR) 
+                {
+                    var result = JSON.parse(data);                               
+                    
+                    if(result[0] == "success")
+                    {
+                        // success callback                    
+                        if(result[1])
+                        {
+                            $("#ActeRow"+data1.id_acte).fadeOut();
+                            $(".btn-form-modal-cancel").trigger("click");                        
+                            show_alert("success","Modification effectuée ");
+                            $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
+                        }                    
+                    }
+                    else
+                    {
+                        show_alert("danger","erreur lors de la modification",result,10);
+                        console.log('message error : ' + result);
+                        console.log(result);
+                    }
+                }
+            ); 
+        }
+        else
+        {   
+            $("#ActeRow"+data1.id_acte).fadeOut();
+            $(".btn-form-modal-cancel").trigger("click");                        
+            show_alert("warning","Aucune modification enregistrée");
+            $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
+        }    
     });  
 
     var startSwitchImage = function() 
@@ -175,7 +208,8 @@ $(document).ready(function()
     };
 
     //function de modification de l'acte
-    var startEditActe = function(e) {
+    var startEditActe = function(e) 
+    {
         var btnEdit = $(".btn-edit");
 
         // Remplissage des informations de l'acte
@@ -193,6 +227,7 @@ $(document).ready(function()
                 is_mention_void: $(this).attr("mention_vide")
             }     
 
+            acteInfo = [];
             let erroColor = "#c22b3040";
             
             $("#field-NomMargeFr").css("background","none") 
@@ -206,7 +241,10 @@ $(document).ready(function()
             $("#field-mois_h").css("background","none") 
             $("#field-annee_h").css("background","none")              
             $("#form-group3>div:eq(0)").css("background","none");
-            $("#form-group3>div:eq(1)").css("background","none");        
+            $("#form-group3>div:eq(1)").css("background","none");    
+            $("#field-PrenomFr").css("background","none")
+            $("#field-PrenomAr").css("background","none")
+            $("#field-Genre").css("background","none")    
 
             if($(this).attr("nom_mg_fr_s") == "1")
             {
@@ -260,26 +298,26 @@ $(document).ready(function()
                 
             if($(this).attr("prenom_nofound") == "1")
             {
-                $("#form-group1").css("background",erroColor);
+                $("#field-PrenomFr").css("background",erroColor)
+                $("#field-PrenomAr").css("background",erroColor)
+                $("#field-Genre").css("background",erroColor)
             }
 
             if($(this).attr("prenom_pere_nofound") == "1")
             {
-                $("#form-group3>div:eq(0)").css("background",erroColor);
+                $("#form-group4>div:eq(0)").css("background",erroColor);
             }
 
             if($(this).attr("prenom_mere_nofound") == "1")
             {
-                $("#form-group3>div:eq(1)").css("background",erroColor);
+                $("#form-group5>div:eq(0)").css("background",erroColor);
             }
 
             $.post(HostLink+'/proccess/ajax/action_auto/recup_acte_identite.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
-                    console.log(data);
-                    var result = JSON.parse(data);                                                   
-                    
+                    var result = JSON.parse(data);                                                                       
                     if(result[0] == "success")
                     {                    
                         // Remplissage des champs du formulaire
@@ -308,7 +346,15 @@ $(document).ready(function()
                         $("#field-annee_g").val(result[1].ad_naissance_g);                   
                         $("#field-jour_h").val(result[1].jd_naissance_h);                   
                         $("#field-mois_h").val(result[1].md_naissance_h);                   
-                        $("#field-annee_h").val(result[1].ad_naissance_h);  
+                        $("#field-annee_h").val(result[1].ad_naissance_h);                                                                                                                   
+                        $("#field-jd_etabli_acte_g").val(result[1].jd_etabli_acte_g);                                                                                                                          
+                        $("#field-md_etabli_acte_g").val(result[1].md_etabli_acte_g);                   
+                        $("#field-ad_etabli_acte_g").val(result[1].ad_etabli_acte_g);                   
+                        $("#field-jd_etabli_acte_h").val(result[1].jd_etabli_acte_h);                   
+                        $("#field-md_etabli_acte_h").val(result[1].md_etabli_acte_h);                   
+                        $("#field-ad_etabli_acte_h").val(result[1].ad_etabli_acte_h);
+                        $("#field-NbMention").val(result[1].mention);
+                        acteInfo = result[1];   
 
                         if(result[4].length > 0)
                         {
@@ -649,7 +695,7 @@ $(document).ready(function()
                                             +"mention_vide='"+e.mention_vide+"' "
                                             +">"                                             
                                             +"<i class='fas fa-highlighter'></i></a> </td>"
-                                            +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.nom_fr 
+                                            +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.mention +  "</td><td>" + e.nom_fr 
                                             +"</td><td>" + e.nom_ar + "</td><td>" + e.nom_marge_fr + "</td><td>" + e.nom_marge_ar + "</td><td>" + e.prenom_fr + "</td>"
                                             +"</td><td>" + e.prenom_ar + "</td><td>" + e.prenom_marge_fr + "</td><td>" + e.prenom_marge_ar 
                                             +"</td><td>" + e.prenom_pere_fr + "</td>" + "</td><td>" + e.prenom_pere_ar + "</td>" + "</td><td>" + e.prenom_mere_fr + "</td>" + "</td><td>" + e.prenom_mere_ar + "</td>"
@@ -657,6 +703,8 @@ $(document).ready(function()
                                             +"</td><td>" + e.sexe + "</td>"
                                             +"<td>" + e.jd_naissance_g + "</td><td>" + e.md_naissance_g + "</td><td>" + e.ad_naissance_g + "</td>"
                                             +"<td>" + e.jd_naissance_h + "</td><td>" + e.md_naissance_h + "</td><td>" + e.ad_naissance_h + "</td>"
+                                            +"<td>" + e.jd_etabli_acte_g + "</td><td>" + e.md_etabli_acte_g + "</td><td>" + e.ad_etabli_acte_g + "</td>"
+                                            +"<td>" + e.jd_etabli_acte_h + "</td><td>" + e.md_etabli_acte_h + "</td><td>" + e.ad_etabli_acte_h + "</td>"
                                             +"</td></tr>";
                                 
                                 // Ajout de l'IdLot dans les erronés
@@ -675,7 +723,7 @@ $(document).ready(function()
                             $("#indic-lot-error").text(countNbLot(listLotError));
                             formLoader.fadeOut("slow");                        
                             indicTermine.fadeIn(3000);                               
-                    }
+                        }
                         else
                         {
                             console.log('message error : ' + result);
