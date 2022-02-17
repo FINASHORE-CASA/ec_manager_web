@@ -9,16 +9,31 @@
         $result[] = "success" ;
 
         // Récupération de l'acte concerné
-        $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar
+        $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar,sexe
                                 from acte a  
                                 inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                                 where id_acte = $formData->id_acte");
-
         $qry->execute();
         $acte = $qry->fetch(PDO::FETCH_OBJ);  
+        
+        // Récupération du Chemin
+        $BaseCheminLot = getPathLot($acte->id_lot,$bdextra);
+        $cheminLotSource = "";
+
+        $SourceTable = $ListPathImages;
+
+        foreach($SourceTable as $src)
+        {
+            if(is_dir(trim($src)."\\".$BaseCheminLot))
+            {
+                $cheminLotSource = trim($src)."\\".$BaseCheminLot;
+                break;
+            }
+        }
 
         // copie de l'image vers le repertoire d'affichage   
-        $chemin = getPathLot($acte->id_lot,$bdextra,$Base_Folder);    
+        // $chemin = getPathLot($acte->id_lot,$bdextra,$Base_Folder);    
+        $chemin = $cheminLotSource ;
         $image = $acte->imagepath;
         $isCopy = "no";    
 
@@ -89,7 +104,7 @@
                                               
         $result[] = $acte;                                                  
         $result[] = $isCopy;                                                      
-        $result[] = $Temp_folder;                                                                                                        
+        $result[] = $Temp_folder;                                                                                                   
 
         echo(json_encode($result));
     }

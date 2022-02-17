@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function() 
+{    
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
 
     // Selection des indicateurs 
     var btnControle = $("#btn-controle")
@@ -8,6 +11,7 @@ $(document).ready(function() {
     var txtControleNotif = $("#txt-nb-lot-notif"),
     indicTermine = $("#indic-termine"),notifResultat = $("#notif-Resultat-bell")
     ,ResultatData = $("#resultat_data");
+    textListLot.val("");
     
     var listLotError = "";
 
@@ -17,6 +21,18 @@ $(document).ready(function() {
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
     };   
+
+    var show_alert = function(theme_color,title,text="",time=5)
+    {
+        $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
+                                    +'<strong> '+title+' </strong>' + text
+                                    +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                    +'<span aria-hidden="true">&times;</span>'
+                                   +'</button>'
+                                +'</div>');
+
+        setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
+    } 
 
     $('#dataTableNumeroActeVide,#dataTableNumActeImagepath,#dataTableNum_ActeDouble,#dataTableImageSaisitDouble').on('draw.dt', function () {
         startEditActe();                           
@@ -29,8 +45,8 @@ $(document).ready(function() {
         {                            
             htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'><td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.num_acte + "</td><td>" + e.imagepath
                                     + "</td><td>" + e.nom_fr + "</td><td>" + e.prenom_fr + "</td><td>" + e.nom_ar + "</td><td>" + e.prenom_ar 
-                                    + "</td><td class='text-center'> <a href='#' class='btn-edit' idActe='"+ e.id_acte +"' style='color:black;' data-toggle='modal' data-target='#ActeModal'>" 
-                                    + "<i class='far fa-edit'></i> </a> </td></tr>";
+                                    + "</td><td class='text-center'> <a href='#' class='btn-edit' idActe='"+ e.id_acte +"' style='color:gray;' data-toggle='modal' data-target='#ActeModal'>" 
+                                    + "<i class='fas fa-highlighter'></i></a> </td></tr>";
 
             // Ajout de l'IdLot dans les erronés
             if(!listLotError.includes(e.id_lot))
@@ -52,7 +68,7 @@ $(document).ready(function() {
         $("#field-PrenomFr").val("");                                                                                                                      
         $("#field-NomAr").val("");                                                                                                                      
         $("#field-PrenomAr").val("");   
-        $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");         
+        $("#img-block").html("");         
     });
     
     $("#form-update-save").on("click",function(e){            
@@ -62,7 +78,7 @@ $(document).ready(function() {
             num_acte:$("#field-NumActe").val()
         }   
 
-        $.post('../../proccess/ajax/saisi/update_acte.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/update_acte.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -76,13 +92,14 @@ $(document).ready(function() {
                     if( result[1] == '1')
                     {
                         $("#ActeRow"+data1.id_acte + " td:eq(2)").html(data1.num_acte);
-                        $("#ActeModal").modal("hide");
-
+                        $("#ActeModal").modal("hide");                    
+                        show_alert("success","Modification effectuée");
                         $(".btn-form-modal-cancel").trigger("click");
                     }                    
                 }
                 else
                 {
+                    show_alert("danger","erreur lors de la modification",result,10);
                     console.log('message error : ' + result);
                     console.log(result);
                 }
@@ -128,16 +145,18 @@ $(document).ready(function() {
     //function de modification de l'acte
     var startEditActe = function(e) {
         var btnEdit = $(".btn-edit");
+        
 
         // Remplissage des informations de l'acte
-        btnEdit.on("click",function(e){
-   
+        btnEdit.on("click",function(e)
+        {            
+            $("#form-acte-loader").css("display","block");
             // Récupération de l'Id du click
             var data1 = {
                 id_acte: $(this).attr("idActe"),
             }     
 
-            $.post('../../proccess/ajax/saisi/controle_recup_acte.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_recup_acte.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -182,20 +201,35 @@ $(document).ready(function() {
                                 });
                                 $("#img-block").html(htmlContentImg);
                                 $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                         +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>");
+                                                           +"<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
+                                                           +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                             }
                             else
                             {
                                 $("#img-block").html("<img id='image1' class='img-fluid img-thumbnail' style='height:auto;width:auto;' src='"+ result[3] +"\\" + result[1].id_acte + "_" + result[1].imagepath +"' alt='"+  result[1].imagepath +"'/>");                                                 
-                                $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>");
+                                $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
+                                                            +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                             }
+                        
+                            // initialisation du plugin de zoom                                                 
+                            const element = document.getElementById('img-block')
+                            const resetButton = document.getElementById('img-zoom-reset');
+                            const panzoom = Panzoom(element, {
+                                // options here
+                            });
+                            // enable mouse wheel
+                            const parent = element.parentElement
+                            parent.addEventListener('wheel', panzoom.zoomWithWheel);
+                            resetButton.addEventListener('click', panzoom.reset);
                         }           
                         else
                         {
-                            $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");
+                            $("#img-block").html("");
+                            $("#block-img-change").html("");
                         }
 
                         startSwitchImage();
+                        $("#form-acte-loader").css("display","none");
                     }
                     else
                     {
@@ -235,7 +269,7 @@ $(document).ready(function() {
 
     // Traitement Image saisit en double
     var traitementImagepathDouble =  function(data1) {
-            $.post('../../proccess/ajax/saisi/controle_image_double.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_image_double.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -274,7 +308,7 @@ $(document).ready(function() {
 
     // Traitement Numero Acte saisit en double
     var traitementNumACteDouble = function(data1) {
-            $.post('../../proccess/ajax/saisi/controle_num_acte_double.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_double.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -309,7 +343,7 @@ $(document).ready(function() {
 
     // Traitement Num Acte ne correspond pas à imagepath
     var traitementNumActeDiffImagepath = function(data1) {
-        $.post('../../proccess/ajax/saisi/controle_num_acte_diff_imagepath.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_diff_imagepath.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -344,7 +378,7 @@ $(document).ready(function() {
 
     // Traitement Numéro Acte vide
     var traitementNumActeVide = function(data1) { 
-        $.post('../../proccess/ajax/saisi/controle_num_acte_vide.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_vide.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -401,7 +435,7 @@ $(document).ready(function() {
             }              
 
             // Traitement Image Vide 
-            $.post('../../proccess/ajax/saisi/controle_image_vide.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_image_vide.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {

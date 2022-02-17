@@ -29,7 +29,6 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="vendor/click-tap-image/dist/css/image-zoom.css" /> -->
 
 </head>
 
@@ -55,7 +54,7 @@
         data-keyboard="false" data-backdrop="static">
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
-              <div class="modal-header" style="background: black;">
+              <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification Acte </h5>
                 <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -84,8 +83,8 @@
                           <input type="text" class="form-control" id="field-NumActe" aria-describedby="field-NumActe" placeholder="">                        
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="field-NomFr">Imagepath</label>
-                          <input type="text" class="form-control" id="field-NomFr" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
+                          <label for="field-Imagepath">Imagepath</label>
+                          <input type="text" class="form-control" id="field-Imagepath" aria-describedby="field-Imagepath" placeholder="" disabled/>                        
                         </div>
                       </div>
                       <hr/>
@@ -113,7 +112,7 @@
                     </form>
                   </div>
                   <div class="col-md-6">      
-                    <div id="img-block" class="card" style="min-height: 700px;">               
+                    <div id="img-block" style="min-height: 700px;">               
                       <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
                       <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
                     </div>
@@ -123,10 +122,15 @@
                     </div>
                   </div>
                 </div>
+                <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
+                  <div class="d-flex justify-content-center" style="padding:15em;width:100%">
+                    <img src="./img/loader.gif" alt="loader wait" style="height: 80px;width:80px;padding:0px;" />
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
-                <button id="form-update-save" type="button" class="btn btn-primary" style="background: black;"> Enregistrer <i class="far fa-save ml-1"></i></button>
+                <button id="form-update-save" type="button" class="btn btn-primary" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -136,9 +140,9 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-dark-800">
-              <span class="badge badge-dark" style="background: black;"> 1 ° </span> <span style="font-size:22px;"> CONTROLE ACTE </span>
-            </h1>
+            <h4 class="h6 mb-0 text-dark-800">
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> SAISIE <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  CONTROLE ACTE 
+            </h4>
           </div> 
           <hr />  
 
@@ -157,7 +161,7 @@
                 <div class="col-xl-8 mt-4 mb-4">
                   <div class="card shadow mb-4">
                     <form method="post" action="#">                      
-                      <div class="card-header py-3" style="background:black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Liste des lots à traiter (id_lot)</h6>
                       </div>
                       <div class="card-body">
@@ -180,7 +184,7 @@
                         </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
-                            <img src="/img/loader.gif" alt="loader wait" />
+                            <img src="./img/loader.gif" alt="loader wait" />
                           </div>
                           <div class="d-flex justify-content-center mt-3" style="color: black;">
                             <p> <b> Traitement en cours ... </b></p>
@@ -189,7 +193,7 @@
                       </div>
                       <div class="card-footer" id="form-idlot-footer">                              
                           <button class="btn btn-secondary" type="reset" id="btn-reset-controle" data-dismiss="modal">Annuler</button>                      
-                          <button type="submit" class="btn btn-dark" style="background: black;" id="btn-controle">
+                          <button type="submit" class="btn btn-dark" style="background:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;" id="btn-controle">
                             Lancer le Contrôle <span class="badge badge-success"  style="font-size:15px;border-radius:100%;padding:5px;"><i class="fas fa-check-double"></i> </span>
                           </button>
                       </div>
@@ -198,8 +202,8 @@
                 </div>
                 <div class="col-xl-4 mt-4 mb-4">    
                   <div class="card shadow">          
-                    <div class="card-header py-3" style="background:black;">                  
-                      <h6 class="m-0 font-weight-bold text-white"> Progression</h6>
+                    <div class="card-header py-3" style="background:white;">                  
+                      <h6 class="m-0 font-weight-bold" style="color:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Progression</h6>
                     </div>
                     <div class="card-body">
                       <div class="row">
@@ -222,13 +226,14 @@
               </div>                
             </div> 
 
-            <div class="tab-pane" id="Resultat" >    
+            <div class="tab-pane" id="Resultat" >   
+              <div id="alert-container"></div> 
               <div id="resultat_data" class="row mt-3" style="display: none;">                
                 <div class="col-md-2">
                   <div class="form-group card shadow">
                     <div class="d-flex justify-content-center mb-1" 
-                          style="color: white;background:black;padding:7px;border-radius:5px;">
-                      Lot Erronés (<span class="text-danger" id="indic-lot-error">100</span>) 
+                          style="color: white;background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;padding:7px;border-radius:5px;">
+                      Lot Erronés (<span class="text-danger" id="indic-lot-error">0</span>) 
                     </div>
                     <textarea class="form-control" id="text-list-lot-errone"   
                               style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>
@@ -250,7 +255,7 @@
 
                     <!-- Traitement Image Vide -->
                     <div class="card shadow mb-4 tab-pane active" id="ImageVide">
-                      <div class="card-header py-3" style="background: black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Traitement Image Vide </h6>
                       </div>
                       <div class="card-body">
@@ -278,7 +283,7 @@
 
                     <!-- Traitement Numéro Acte Vide -->
                     <div class="card shadow mb-4 tab-pane" id="NumeroActeVide">
-                      <div class="card-header py-3" style="background: black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Traitement Numéro Acte Vide </h6>
                       </div>
                       <div class="card-body">
@@ -307,7 +312,7 @@
                     
                     <!-- Traitement Num Acte # imagepath -->
                     <div class="card shadow tab-pane mb-4" id="NumActeImagepath">
-                      <div class="card-header py-3" style="background: black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Traitement Num Acte # imagepath </h6>
                       </div>
                       <div class="card-body">
@@ -336,7 +341,7 @@
                     
                     <!-- Traitement Num_Acte en double -->
                     <div class="card shadow tab-pane mb-4" id="Num_ActeDouble">
-                      <div class="card-header py-3" style="background: black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Traitement Num_Acte en double </h6>
                       </div>
                       <div class="card-body">
@@ -365,7 +370,7 @@
                     
                     <!-- Traitement Image saisit en double -->
                     <div class="card shadow tab-pane mb-4" id="ImageSaisitDouble">
-                      <div class="card-header py-3" style="background: black;">
+                      <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Traitement Image saisit en double </h6>
                       </div>
                       <div class="card-body">
@@ -392,9 +397,7 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-
               </div>
             </div>
           </div>
@@ -435,7 +438,7 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="js/demo/datatables-demo.js"></script>  
-  <!-- <script src="vendor/click-tap-image/dist/js/image-zoom.min.js"></script> -->
+  <script src="js/panzoom.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>

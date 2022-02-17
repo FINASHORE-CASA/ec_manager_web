@@ -54,12 +54,13 @@
                 </span> Nettoyage de la BD effectué
             </div>
           </div>
+
           <div class="row">
             <div class="text-center col-lg-12 mt-5"> 
               <div class="d-flex justify-content-center">
-                <div style="background: black;padding: 45px;border-radius:100%; 
+                <div style="background: transparent;padding: 45px;border-radius:100%;border:5px solid <?=isset($main_app_color) ? $main_app_color."77" : "#3b210677";?>;
                     box-shadow: 5px 5px 20px rgba(0,0,0,0.5);" class=" mt-5">
-                    <img src="./img/stats.png" alt="image home" class="img-responsive" style="height:150px;"/>
+                    <img src="./img/open-box.png" alt="image home" class="img-responsive" style="height:150px;"/>
                 </div>
               </div> 
             </div>

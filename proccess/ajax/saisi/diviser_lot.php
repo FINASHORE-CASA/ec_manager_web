@@ -32,7 +32,29 @@
                                         where id_lot = ? ");
                 $qry->execute(array($lot->id_lot));
                 $lotRegistre = $qry->fetch(PDO::FETCH_OBJ);
+            
+                // Initialisation du lot principal
+                $nbAff1 = $bdd->exec("UPDATE acte SET status_acte='I', status_acteechantillon='I' where 
+                            id_tome_registre in (
+                            select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
+                            inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
+                            inner join lot l on l.id_lot=ar.id_lot
+                                where l.id_lot in ($lot->id_lot)
+                            );");
 
+
+                $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status='I' where 
+                                        id_tome_registre in (
+                                        select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
+                                        inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
+                                        inner join lot l on l.id_lot=ar.id_lot
+                                            where l.id_lot in ($lot->id_lot)
+                                        );");
+
+
+                $nbAff3 = $bdd->exec("UPDATE lot SET status_lot='I',num_echantillon=0 where id_lot in ($lot->id_lot);");
+
+                // Lancement du processus de Division
                 $nb_div = $formData->nb_division;
                 $lots_id_tome_registre = array();
                 $lots_id_tome_registre[] = $lotRegistre->id_tome_registre;
@@ -117,7 +139,7 @@
                 for ($i = 1;$i < (count($lots_id_tome_registre));$i++) 
                 {
                     $nb_actes_aff = $bdd->exec(" UPDATE acte set id_tome_registre = $lots_id_tome_registre[$i] 
-                                            where id_acte in (
+                                                 where id_acte in (
                                                     SELECT id_acte 
                                                     from acte 
                                                     where id_tome_registre = $lots_id_tome_registre[0]  
