@@ -19,6 +19,8 @@
                               ,prenom_mere_fr = :prenom_mere_fr,prenom_mere_ar = :prenom_mere_ar
                               ,ascendant_pere_fr = :ascendant_pere_fr,ascendant_pere_ar = :ascendant_pere_ar
                               ,ascendant_mere_fr = :ascendant_mere_fr,ascendant_mere_ar = :ascendant_mere_ar
+                              ,jd_etabli_acte_g = :jd_etabli_acte_g,md_etabli_acte_g = :md_etabli_acte_g,ad_etabli_acte_g = :ad_etabli_acte_g
+                              ,jd_etabli_acte_h = :jd_etabli_acte_h, md_etabli_acte_h = :md_etabli_acte_h,ad_etabli_acte_h = :ad_etabli_acte_h
                               WHERE id_acte = $formData->id_acte");
 
         $qry->bindParam(":prenom_fr",$formData->prenom_fr);        
@@ -43,7 +45,13 @@
         $qry->bindParam(":ad_naissance_g",$formData->ad_naissance_g);        
         $qry->bindParam(":jd_naissance_h",$formData->jd_naissance_h);        
         $qry->bindParam(":md_naissance_h",$formData->md_naissance_h);        
-        $qry->bindParam(":ad_naissance_h",$formData->ad_naissance_h);        
+        $qry->bindParam(":ad_naissance_h",$formData->ad_naissance_h);  
+        $qry->bindParam(":jd_etabli_acte_g",$formData->jd_etabli_acte_g);        
+        $qry->bindParam(":md_etabli_acte_g",$formData->md_etabli_acte_g);        
+        $qry->bindParam(":ad_etabli_acte_g",$formData->ad_etabli_acte_g);        
+        $qry->bindParam(":jd_etabli_acte_h",$formData->jd_etabli_acte_h);        
+        $qry->bindParam(":md_etabli_acte_h",$formData->md_etabli_acte_h);        
+        $qry->bindParam(":ad_etabli_acte_h",$formData->ad_etabli_acte_h);        
         $Aff = $qry->execute();    
 
         if(count($formData->mentions) > 0) 
