@@ -74,6 +74,7 @@
                         <div class="tab-pane active" id="acte"> 
                           <form class="mt-2">
                             <input type="hidden" id="field-Id_user"  value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
+                            <input type="hidden" id="field-Id_user_saisi"  value="" />
                             <div class="row">
                               <div class="form-group col-md-5">
                                 <label for="field-IdLot">Id Lot</label>
@@ -271,9 +272,13 @@
                         </div>
                       </div>
                   </div>
-                  <div class="col-md-6">      
-                    <div id="img-block"></div>
-                    <div style="height:50px;" class="text-center mt-3" id="block-img-change"></div>
+                  <div class="col-md-6">
+                    <div class="row d-flex justify-content-center">
+                      <div style="height:50px;" id="block-img-change"></div>
+                    </div>      
+                    <div class="row">
+                      <div id="img-block"></div>
+                    </div>
                   </div>
                 </div>
                 <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
@@ -546,12 +551,11 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_auto.js"></script>
+  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.1"></script>
 
   <script>
     $(document).ready(function(e)
     {     
-
       $('.nav-tab-item').click(function (e) 
           {        
             e.preventDefault()
