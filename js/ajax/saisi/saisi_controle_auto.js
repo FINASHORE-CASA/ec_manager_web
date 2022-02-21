@@ -664,7 +664,8 @@
             // traitement des lots             
             var data1 = {
                 id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
-                mode_ech:$("#mode_ech")[0].checked
+                mode_ech:$("#mode_ech")[0].checked,
+                ech_value:$("#ech_value").val()
             }              
 
             // Traitement Image Vide 
