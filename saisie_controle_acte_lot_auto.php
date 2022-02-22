@@ -55,8 +55,11 @@
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification Acte </h5>
-                <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Formulaire de modification Acte </h5>
+                <button type="button" class="btn btn-success ml-3 form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> 
+                  Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="close btn-form-modal-cancel text-danger" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -274,11 +277,14 @@
                   </div>
                   <div class="col-md-6">
                     <div class="row d-flex justify-content-center">
-                      <div style="height:50px;" id="block-img-change"></div>
-                    </div>      
+                      <div style="height:50px;" class="block-img-change"></div>
+                    </div>       
                     <div class="row">
                       <div id="img-block"></div>
                     </div>
+                    <div class="row d-flex justify-content-center py-2">
+                      <div style="height:50px;" class="block-img-change"></div>
+                    </div>   
                   </div>
                 </div>
                 <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
@@ -289,7 +295,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
-                <button id="form-update-save" type="button" class="btn btn-primary" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
+                <button type="button" class="btn btn-primary form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -552,7 +558,8 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.2"></script>
+  <!-- next version -- 1.0.3   -->
+  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.0"></script>
 
   <script>
     $(document).ready(function(e)

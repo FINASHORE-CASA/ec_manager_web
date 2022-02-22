@@ -51,7 +51,7 @@
         <?php include('partial/topbar.php') ?>
 
         <!-- Modal -->
-        <?php include('partial/modal_form_acte_all.php') ?>
+        <?php include('partial/modal_form_acte_vigilance.php') ?>
         
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -179,8 +179,8 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/recherche_actes_reqs.js"></script>
-
+  <!-- version -- 1.0.1 -->
+  <script src="js/ajax/saisi/recherche_actes_reqs.js?version=1.0.4"></script>
   <script>
     $(document).ready(function(e)
     {     

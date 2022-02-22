@@ -30,7 +30,6 @@
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
   <link rel="icon" href="img/favicon.ico" />
   
   <!-- Custom styles for this template -->
@@ -64,7 +63,10 @@
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification information PO PF : <strong><span id="field-id_lot"></span></strong> </h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification information PO PF : <strong><span id="field-id_lot"></span></strong> </h5>                
+                <button type="button" class="btn btn-success ml-3 form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> 
+                    Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </button>
                 <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -112,15 +114,16 @@
                       ?>
                     </form>
                   </div>
-                  <div class="col-md-6">      
-                    <div id="img-block" style="max-height:700px;">               
-                      <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
-                      <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
+                  <div class="col-md-6">                          
+                    <div class="row d-flex justify-content-center">
+                        <div style="height:50px;" class="block-img-change"></div>
+                    </div>       
+                    <div class="row">
+                        <div id="img-block" style="min-height: 600px;"></div>
                     </div>
-                    <div style="min-height:50px;z-index:10;" class="text-center mt-3" id="block-img-change">
-                      <!-- <a href="#" style="color: black;font-size:20px;"> <i class="far fa-dot-circle"></i></a>
-                      <a href="#" style="color: gray;font-size:20px;"> <i class="far fa-dot-circle ml-1"></i></a> -->
-                    </div>
+                    <div class="row d-flex justify-content-center py-2">
+                        <div style="height:50px;" class="block-img-change"></div>
+                    </div> 
                   </div>
                 </div>
                 <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
@@ -131,7 +134,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
-                <button id="form-update-save" type="button" class="btn btn-primary" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
+                <button type="button" class="btn btn-primary form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -326,7 +329,8 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/controleOecPoPf/recup_popf.js"></script>
+  <!-- version 1.0.1 -->
+  <script src="js/ajax/controleOecPoPf/recup_popf.js?version=1.0.2"></script>
 
   <script>
     $(document).ready(function(e)
