@@ -171,7 +171,8 @@
                             <div class="form-group col-md-4">
                                   <div class="form-group">
                                     <textarea class="form-control" id="text-list-lot" rows="9" 
-                                              style="align-content:center; overflow:auto;" disabled>
+                                              style="align-content:center; overflow:auto;" 
+                                              readonly="true">
                                     </textarea>
                                   </div>
                             </div>
@@ -236,7 +237,8 @@
                       Lot Erronés (<span class="text-danger" id="indic-lot-error">0</span>) 
                     </div>
                     <textarea class="form-control" id="text-list-lot-errone"   
-                              style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>
+                              style="align-content:center; overflow:auto;max-height:20em;height:20em;" 
+                              readonly="true">
                     </textarea>
                   </div>
                 </div>
