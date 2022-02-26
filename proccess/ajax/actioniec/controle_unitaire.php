@@ -12,7 +12,7 @@ try {
     }
 
     //Exécution de la requête envoyée
-    $qry = $bdd->prepare("  SELECT af.id_lot,a.id_acte $champs_selected
+    $qry = $bdd->prepare("  SELECT af.id_lot,a.id_acte,a.imagepath $champs_selected
                             from acte a  
                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                             where af.id_lot in ($formData->id_lot)
