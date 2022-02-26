@@ -48,8 +48,7 @@ $(document).ready(function() {
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
-                var result = JSON.parse(data);                               
-                console.log(result);
+                var result = JSON.parse(data);                                               
                 
                 if(result[0] == "success")
                 {                    

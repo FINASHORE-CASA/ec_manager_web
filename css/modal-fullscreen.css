@@ -1,0 +1,20 @@
+.modalFullscreen {
+    padding: 0 !important;
+}
+
+.modalFullscreen .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+}
+
+.modalFullscreen .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+}
+
+.modalFullscreen .modal-body {
+    overflow-y: auto;
+}

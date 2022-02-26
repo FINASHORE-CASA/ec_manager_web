@@ -276,17 +276,18 @@
             $("#field-PrenomAr").css("background","none")
             $("#field-Genre").css("background","none")    
 
-            if($(this).attr("nom_mg_fr_s") == "1")
+            if($(this).attr("nom_mg_fr_s") == "1" || $(this).attr("nom_with_i") == "1" )
             {
                 $("#field-NomMargeFr").css("background",erroColor) ;
             }
 
-            if($(this).attr("prenom_mg_fr_s") == "1")
+            if($(this).attr("prenom_mg_fr_s") == "1" || $(this).attr("prenom_with_i") == "1"
+             || $(this).attr("prenom_with_a") == "1")
             {
                 $("#field-PrenomMargeFr").css("background",erroColor)  
             }
 
-            if($(this).attr("nom_mg_ar_s") == "1")
+            if($(this).attr("nom_mg_ar_s") == "1" || $(this).attr("nom_ar_with_error") == "1")
             {
                 $("#field-NomMargeAr").css("background",erroColor)       
             }
@@ -296,6 +297,123 @@
                 $("#field-PrenomMargeAr").css("background",erroColor)                
             }
 
+            if($(this).attr("crt_pren_1") == "1")
+            {
+                $("#field-PrenomAr").css("background",erroColor)
+                $("#field-AscPereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_2") == "1")
+            {
+                $("#field-PrenomAr").css("background",erroColor)
+                $("#field-AscMereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_3") == "1")
+            {
+                $("#field-NomAr").css("background",erroColor)
+                $("#field-AscPereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_4") == "1")
+            {
+                $("#field-NomAr").css("background",erroColor)
+                $("#field-AscMereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_5") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomPereAr").css("background",erroColor)
+                $("#field-NomMargeAr").css("background",erroColor)
+                $("#field-AscPereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_6") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomMereAr").css("background",erroColor)
+                $("#field-NomMargeAr").css("background",erroColor)
+                $("#field-AscMereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_7") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomPereAr").css("background",erroColor)
+                $("#field-NomMargeAr").css("background",erroColor)
+                $("#field-AscPereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_8") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomMereAr").css("background",erroColor)
+                $("#field-NomMargeAr").css("background",erroColor)
+                $("#field-AscMereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_9") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomPereAr").css("background",erroColor)                
+                $("#field-AscPereAr").css("background",erroColor)
+            }
+
+            if($(this).attr("crt_pren_10") == "1")
+            {
+                $("#field-PrenomMargeAr").css("background",erroColor)
+                $("#field-PrenomMereAr").css("background",erroColor)                
+                $("#field-AscMereAr").css("background",erroColor)
+            }
+
+            // Critère sur la date d'établissement de l'acte        
+            if($(this).attr("je_g_s") == "1")
+            {
+                $("#field-jd_etabli_acte_g").css("background",erroColor)  
+            }
+
+            if($(this).attr("me_g_s") == "1")
+            {
+                $("#field-md_etabli_acte_g").css("background",erroColor) 
+            }
+
+            if($(this).attr("ae_g_s") == "1")
+            {
+                $("#field-ad_etabli_acte_g").css("background",erroColor) 
+            }
+
+            if($(this).attr("je_h_s") == "1")
+            {
+                $("#field-jd_etabli_acte_h").css("background",erroColor)
+            }
+
+            if($(this).attr("me_h_s") == "1")
+            {
+                $("#field-md_etabli_acte_h").css("background",erroColor)   
+            }
+
+            if($(this).attr("ae_h_s") == "1")
+            {
+                $("#field-ad_etabli_acte_h").css("background",erroColor)  
+            }
+
+            if($(this).attr("date_etab_g_format") == "1")
+            {
+                $("#field-jd_etabli_acte_g").css("background",erroColor) 
+                $("#field-md_etabli_acte_g").css("background",erroColor)
+                $("#field-ad_etabli_acte_g").css("background",erroColor)  
+            }
+
+            if($(this).attr("date_etab_h_format") == "1")
+            {
+                $("#field-jd_etabli_acte_h").css("background",erroColor) 
+                $("#field-md_etabli_acte_h").css("background",erroColor)
+                $("#field-ad_etabli_acte_h").css("background",erroColor)  
+            }
+            // -----------------------------------------------------------
+
+            // Critère sur la date de naissance
             if($(this).attr("jn_g_s") == "1")
             {
                 $("#field-jour_g").css("background",erroColor)  
@@ -325,6 +443,21 @@
             {
                 $("#field-annee_h").css("background",erroColor)  
             }
+
+            if($(this).attr("date_naiss_g_format") == "1")
+            {
+                $("#field-jour_g").css("background",erroColor) 
+                $("#field-mois_g").css("background",erroColor) 
+                $("#field-annee_g").css("background",erroColor) 
+            }
+
+            if($(this).attr("date_naiss_h_format") == "1")
+            {
+                $("#field-jour_h").css("background",erroColor)
+                $("#field-mois_h").css("background",erroColor)
+                $("#field-annee_h").css("background",erroColor)  
+            }
+            // -------------------------------------------------
                 
             if($(this).attr("prenom_nofound") == "1")
             {
@@ -707,6 +840,8 @@
                             notifResultat.fadeIn("slow");
                             ResultatData.fadeIn("slow");
                             $("#notif-Resultat-1").text(result[1].length);
+
+                            console.log(result[1]);
                                                     
                             // injection des données                             
                             htmlDataTable = "";    
@@ -729,6 +864,32 @@
                                             +"prenom_mere_nofound='"+e.prenom_mere_nofound+"' "
                                             +"prenom_pere_nofound='"+e.prenom_pere_nofound+"' "
                                             +"mention_vide='"+e.mention_vide+"' "
+                                            +"prenom_with_i='"+e.prenom_with_i+"' "
+                                            +"nom_with_i='"+e.nom_with_i+"' "
+                                            +"nom_ar_with_error='"+e.nom_ar_with_error+"' "
+                                            +"prenom_with_a='"+e.prenom_with_a+"' "
+                                            +"asc_prenom_mere='"+e.asc_prenom_mere+"' "
+                                            +"crt_pren_1='"+e.crt_pren_1+"' "
+                                            +"ctr_pren_2='"+e.ctr_pren_2+"' "
+                                            +"ctr_pren_3='"+e.ctr_pren_3+"' "
+                                            +"ctr_pren_4='"+e.ctr_pren_4+"' "
+                                            +"ctr_pren_5='"+e.ctr_pren_5+"' "
+                                            +"ctr_pren_6='"+e.ctr_pren_6+"' "
+                                            +"ctr_pren_7='"+e.ctr_pren_7+"' "
+                                            +"ctr_pren_8='"+e.ctr_pren_8+"' "
+                                            +"ctr_pren_9='"+e.ctr_pren_9+"' "
+                                            +"ctr_pren_10='"+e.ctr_pren_10+"' "
+                                            +"ctr_pren_11='"+e.ctr_pren_11+"' "
+                                            +"date_naiss_g_format='"+e.date_naiss_g_format+"' "
+                                            +"date_naiss_h_format='"+e.date_naiss_h_format+"' "
+                                            +"date_etab_g_format='"+e.date_etab_g_format+"' "
+                                            +"date_etab_h_format='"+e.date_etab_h_format+"' "
+                                            +"je_g_s='"+e.je_g_s+"' "
+                                            +"me_g_s='"+e.me_g_s+"' "
+                                            +"ae_g_s='"+e.ae_g_s+"' "
+                                            +"je_h_s='"+e.je_h_s+"' "
+                                            +"me_h_s='"+e.me_h_s+"' "
+                                            +"ae_h_s='"+e.ae_h_s+"' "
                                             +">"                                             
                                             +"<i class='fas fa-highlighter'></i></a> </td>"
                                             +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.mention +  "</td><td>" + e.nom_fr 

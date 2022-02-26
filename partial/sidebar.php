@@ -1,6 +1,5 @@
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion <?= isset($_SESSION['SideBar']) ? $_SESSION['SideBar'] : "toggled" ?>" id="accordionSidebar" 
-        style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion <?= isset($_SESSION['SideBar']) ? $_SESSION['SideBar'] : "toggled" ?>" id="accordionSidebar" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -8,21 +7,21 @@
           <i class="fas fa-box-open"></i>
         </div>
         <div class="sidebar-brand-text mx-3">EC-MANAGER</div>
-      </a>      
+      </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-         OPTION
+        OPTION
       </div>
 
       <!-- Nav Item - SAISIE -->
       <li class="nav-item linkSideBar" id="StatsPage">
         <a class="nav-link collapsed" href="stats_page.php">
-            <i class="fas fa-chart-area"></i>
-            <span> STATS </span>
+          <i class="fas fa-chart-area"></i>
+          <span> STATS </span>
         </a>
       </li>
 
@@ -37,14 +36,14 @@
             <h6 class="collapse-header"> OPTION :</h6>
             <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
             <a class="collapse-item" href="correction_acte.php"> 2 - Correction Acte </a>
-            <a class="collapse-item" href="correction_reqs.php"> 3 - Vigilance  </a>
+            <a class="collapse-item" href="correction_reqs.php"> 3 - Vigilance </a>
             <a class="collapse-item" href="initialisation_lot.php"> 4 - Initialisation d'un Lot </a>
-            <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot  </a>
-            <?= (isset($_SESSION['user']->type_grant) && ($_SESSION['user']->type_grant == '0' || $_SESSION['user']->type_grant == '2') ) ? '<a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>' : '' ?> 
+            <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot </a>
+            <?= (isset($_SESSION['user']->type_grant) && ($_SESSION['user']->type_grant == '0' || $_SESSION['user']->type_grant == '2')) ? '<a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>' : '' ?>
           </div>
         </div>
       </li>
-      
+
       <!-- Nav Item - ACTION MI -->
       <li class="nav-item linkSideBar" id="ActionIEC">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionIECLink" aria-expanded="true" aria-controls="collapsePages">
@@ -55,10 +54,11 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header"> OPTION :</h6>
             <a class="collapse-item" href="saisie_controle_acte_lot_auto.php"> 1 - Contrôle IEC </a>
+            <a class="collapse-item" href="actioniec_controle_unitaire.php"> 2 - Contrôle Unitaire </a>
           </div>
         </div>
       </li>
-      
+
       <!-- Nav Item - ACTION OEC-POPF -->
       <li class="nav-item linkSideBar" id="ActionOEC-POPF">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionOEC-POPFLink" aria-expanded="true" aria-controls="collapsePages">
@@ -94,7 +94,7 @@
       </li>' : '' ?>
       <hr class="sidebar-divider d-none d-md-block">
 
-      <!-- Nav Item - GESTION ECM  -->      
+      <!-- Nav Item - GESTION ECM  -->
       <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ?
         '<li class="nav-item linkSideBar" id="GestionECM">
           <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#GestionECMLink" aria-expanded="true" aria-controls="collapsePages">
