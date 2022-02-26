@@ -106,7 +106,7 @@ $date_gen = date("Y-m-d");
                       <div style="height:50px;" class="block-img-change"></div>
                     </div>
                     <div class="row">
-                      <div id="img-block"></div>
+                      <div id="img-block" style="min-height: 600px;"></div>
                     </div>
                     <div class="row d-flex justify-content-center py-2">
                       <div style="height:50px;" class="block-img-change"></div>
@@ -286,26 +286,10 @@ $date_gen = date("Y-m-d");
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
+  <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
   <script src="js/ajax/actioniec/actioniec_controle_unitaire.js?version=1.0.3"></script>
-
-  <script>
-    $(document).ready(function(e) {
-
-      $("#Form-extand").on("click", () => {
-        if ($("#Form-extand").attr("is_active") == "false") {
-          $(".modal").addClass("modalFullscreen")
-          $("#Form-extand").attr("is_active", "true")
-          $("#Form-extand").html('<i class="fas fa-compress-alt"></i>')
-        } else {
-          $("#Form-extand").attr("is_active", "false")
-          $(".modal").removeClass("modalFullscreen");
-          $("#Form-extand").html('<i class="fas fa-expand"></i>')
-        }
-      })
-    })
-  </script>
 
   <script>
     $(document).ready(function(e) {

@@ -26,6 +26,7 @@ $date_gen = date("Y-m-d");
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/modal-fullscreen.css" rel="stylesheet" />
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -55,12 +56,17 @@ $date_gen = date("Y-m-d");
             <div class="modal-content">
               <div class="modal-header" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Formulaire de modification Acte </h5>
-                <button type="button" class="btn btn-success ml-3 form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                  Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
-                </button>
-                <button type="button" class="close btn-form-modal-cancel text-danger" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <div style="position:absolute;right:5px;">
+                  <button type="button" class="btn btn-success ml-3 form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                    Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  </button>
+                  <button id="Form-extand" type="button" class="btn btn-default text-white ml-2" is_active="false">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-form-modal-cancel text-danger" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times-circle"></i>
+                  </button>
+                </div>
               </div>
               <div class="modal-body">
                 <div class="row" id="form-acte-field">
@@ -279,7 +285,7 @@ $date_gen = date("Y-m-d");
                       <div style="height:50px;" class="block-img-change"></div>
                     </div>
                     <div class="row">
-                      <div id="img-block"></div>
+                      <div id="img-block" style="min-height: 600px;"></div>
                     </div>
                     <div class="row d-flex justify-content-center py-2">
                       <div style="height:50px;" class="block-img-change"></div>
@@ -396,7 +402,6 @@ $date_gen = date("Y-m-d");
             </div>
 
             <div class="tab-pane" id="Resultat">
-
               <div id="alert-container"></div>
               <div id="resultat_data" class="row mt-3" style="display: none;">
                 <div class="col-md-2">
@@ -553,6 +558,7 @@ $date_gen = date("Y-m-d");
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
+  <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.3   -->
   <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.2"></script>
