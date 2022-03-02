@@ -7,7 +7,7 @@ try {
     $result[] = "success";
 
     //Récupération des acte des id_lots concernés        
-    $qry = $bdd->prepare("SELECT id_acte,af.id_lot,num_acte,imagepath
+    $qry = $bdd->prepare("   SELECT a.id_acte,af.id_lot,num_acte,imagepath
                             ,nom_fr,prenom_fr,nom_marge_fr,prenom_marge_fr,nom_ar,prenom_ar
                             ,nom_marge_ar,prenom_marge_ar,sexe
                             ,CASE WHEN TRIM(nom_fr) <> TRIM(nom_marge_fr) THEN 1 ELSE 0 END AS nom_mg_fr_s
@@ -51,10 +51,22 @@ try {
                             ,CASE WHEN ad_etabli_acte_h <> '' AND try_cast_int(ad_etabli_acte_h) >= 1317 AND try_cast_int(ad_etabli_acte_h) <= 1440 THEN 0 ELSE 1 END AS ae_h_s
                             ,CASE WHEN (length(concat(jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g))<8) and (length(concat(jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h))=8) THEN 1 ELSE 0 END AS date_etab_g_format
                             ,CASE WHEN (length(concat(jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g))=8) and (length(concat(jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h))<8) THEN 1 ELSE 0 END AS date_etab_h_format
-                            ,(select count(*) from mention m where m.id_acte = a.id_acte and LENGTH(txtmention) = 0) as mention_vide
+                            ,(select count(*) from mention m where m.id_acte = a.id_acte and LENGTH(txtmention) = 0)
+                            as mention_vide
                             ,(select count(*) from mention m where m.id_acte = a.id_acte) as mention
+                            ,jd_deces_h,md_deces_h,ad_deces_h,jd_deces_g,md_deces_g,ad_deces_g
+                            ,CASE WHEN d.id_deces is not null THEN 1 ELSE 0 END AS is_deces
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_g<a.ad_naissance_g THEN 1 ELSE 0 END AS ad_an_g_error1
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_g>a.ad_etabli_acte_g THEN 1 ELSE 0 END AS ad_ae_g_error1
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_g=a.ad_naissance_g and (( d.jd_deces_g<a.jd_naissance_g and d.md_deces_g=a.md_naissance_g ) or (d.md_deces_g<a.md_naissance_g)) and ( a.md_naissance_g!='' or a.jd_naissance_g!='') THEN 1 ELSE 0 END AS ad_an_g_error2
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_g=a.ad_etabli_acte_g and ( (d.jd_deces_g>a.jd_etabli_acte_g and d.md_deces_g=a.md_etabli_acte_g) or (d.md_deces_g>a.md_etabli_acte_g) ) and ( a.md_etabli_acte_g!='' or a.jd_etabli_acte_g!='') THEN 1 ELSE 0 END AS ad_ae_g_error2
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_h<a.ad_naissance_h THEN 1 ELSE 0 END AS ad_an_h_error1
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_h>a.ad_etabli_acte_h THEN 1 ELSE 0 END AS ad_ae_h_error1
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_h=a.ad_naissance_h and (( d.jd_deces_h<a.jd_naissance_h and d.md_deces_h=a.md_naissance_h ) or (d.md_deces_h<a.md_naissance_h)) and ( a.md_naissance_h!='' or a.jd_naissance_h!='') THEN 1 ELSE 0 END AS ad_an_h_error2
+                            ,CASE WHEN d.id_deces is not null AND d.ad_deces_h=a.ad_etabli_acte_h and ( (d.jd_deces_h>a.jd_etabli_acte_h and d.md_deces_h=a.md_etabli_acte_h) or (d.md_deces_h>a.md_etabli_acte_h) ) and ( a.md_etabli_acte_h!='' or a.jd_etabli_acte_h!='') THEN 1 ELSE 0 END AS ad_ae_h_error2
                             from acte a  
                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
+                            left join deces d on d.id_acte = a.id_acte
                             where af.id_lot in ($formData->id_lot) " . (($formData->mode_ech == true) ? " order by random() " : " order by id_lot"));
     $qry->execute();
     $actes_lots = $qry->fetchAll(PDO::FETCH_OBJ);
@@ -106,6 +118,8 @@ try {
             || $a->ctr_pren_8 == 1 || $a->ctr_pren_7 == 1 || $a->ctr_pren_6 == 1 || $a->ctr_pren_5 == 1 || $a->ctr_pren_4 == 1
             || $a->ctr_pren_3 == 1 || $a->ctr_pren_2 == 1 || $a->crt_pren_1 == 1 || $a->asc_prenom_mere == 1 || $a->prenom_with_a == 1
             || $a->nom_ar_with_error == 1 || $a->nom_with_i == 1 || $a->prenom_with_i == 1
+            || $a->ad_an_h_error1 == 1 || $a->ad_ae_h_error1 == 1 || $a->ad_an_h_error2 == 1 || $a->ad_ae_h_error2
+            || $a->ad_an_g_error1 == 1 || $a->ad_ae_g_error1 == 1 || $a->ad_an_g_error2 == 1 || $a->ad_ae_g_error2
             || $a->mention_vide > 0);
     });
 

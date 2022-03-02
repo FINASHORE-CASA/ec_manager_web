@@ -77,9 +77,9 @@
         $("#field-Id_lot").val("");
         $("#img-block").html("");                                                                                                                    
 
-        $("#btnTabMention").css("display","none");
-        // $("#mention").css("display","none");
+        $("#btnTabMention").css("display","none");        
         $("#mention>div.row").html("")
+        $("#form-group7").css("display","none");
     });
     
     $(".form-update-save").on("click",function(e){            
@@ -114,7 +114,13 @@
             ad_etabli_acte_g:$("#field-ad_etabli_acte_g").val().trim(),                   
             jd_etabli_acte_h:$("#field-jd_etabli_acte_h").val().trim(),                   
             md_etabli_acte_h:$("#field-md_etabli_acte_h").val().trim(),                   
-            ad_etabli_acte_h:$("#field-ad_etabli_acte_h").val().trim()
+            ad_etabli_acte_h:$("#field-ad_etabli_acte_h").val().trim(),
+            jd_deces_h:$("#field-jd_deces_h").val().trim(),                                                                                                                          
+            md_deces_h:$("#field-md_deces_h").val().trim(),                   
+            ad_deces_h:$("#field-ad_deces_h").val().trim(),                   
+            jd_deces_g:$("#field-jd_deces_g").val().trim(),                   
+            md_deces_g:$("#field-md_deces_g").val().trim(),                   
+            ad_deces_g:$("#field-ad_deces_g").val().trim()
         }   
 
         // ajout de la mention
@@ -275,6 +281,9 @@
             $("#field-PrenomFr").css("background","none")
             $("#field-PrenomAr").css("background","none")
             $("#field-Genre").css("background","none")    
+            $("#form-group7").css("display","none");            
+            $("#field-ad_deces_g").css("background","none") 
+            $("#field-ad_deces_h").css("background","none") 
 
             if($(this).attr("nom_mg_fr_s") == "1" || $(this).attr("nom_with_i") == "1" )
             {
@@ -411,13 +420,13 @@
                 $("#field-md_etabli_acte_h").css("background",erroColor)
                 $("#field-ad_etabli_acte_h").css("background",erroColor)  
             }
-            // -----------------------------------------------------------
+            // -----------------------------------------------------------            
 
             // Critère sur la date de naissance
             if($(this).attr("jn_g_s") == "1")
             {
                 $("#field-jour_g").css("background",erroColor)  
-            }
+            }            
 
             if($(this).attr("mn_g_s") == "1")
             {
@@ -475,11 +484,32 @@
             {
                 $("#form-group5>div:eq(0)").css("background",erroColor);
             }
+            // ---------------------------------------------------
+            
+            
+            // Critère Date de Décès
+            if($(this).attr("is_deces") == "1")
+            {                
+                $("#form-group7").css("display","inherit");
+            }   
+
+            if($(this).attr("ad_an_h_error1") == "1" || $(this).attr("ad_ae_h_error1") == "1" 
+             || $(this).attr("ad_an_h_error2") == "1" || $(this).attr("ad_ae_h_error2") == "1")
+            {
+                $("#field-ad_deces_h").css("background",erroColor)  
+            }        
+
+            if($(this).attr("ad_an_g_error1") == "1" || $(this).attr("ad_ae_g_error1") == "1" 
+             || $(this).attr("ad_an_g_error2") == "1" || $(this).attr("ad_ae_g_error2") == "1")
+            {
+                $("#field-ad_deces_g").css("background",erroColor)  
+            }            
 
             $.post(HostLink+'/proccess/ajax/action_auto/recup_acte_identite.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
+                    console.log(data);
                     var result = JSON.parse(data);                                                                       
                     if(result[0] == "success")
                     {                    
@@ -516,7 +546,13 @@
                         $("#field-jd_etabli_acte_h").val(result[1].jd_etabli_acte_h);                   
                         $("#field-md_etabli_acte_h").val(result[1].md_etabli_acte_h);                   
                         $("#field-ad_etabli_acte_h").val(result[1].ad_etabli_acte_h);
-                        $("#field-Id_user_saisi").val(result[1].id_saisi_user);
+                        $("#field-Id_user_saisi").val(result[1].id_saisi_user);                                                                                                        
+                        $("#field-jd_deces_h").val(result[1].jd_deces_h);                                                                                                                          
+                        $("#field-md_deces_h").val(result[1].md_deces_h);                   
+                        $("#field-ad_deces_h").val(result[1].ad_deces_h);                   
+                        $("#field-jd_deces_g").val(result[1].jd_deces_g);                   
+                        $("#field-md_deces_g").val(result[1].md_deces_g);                   
+                        $("#field-ad_deces_g").val(result[1].ad_deces_g);
                         $("#field-Id_lot").text(result[1].id_lot);
                         $("#field-NbMention").val(result[1].mention);
                         acteInfo = result[1];   
@@ -770,8 +806,7 @@
         $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
-            {
-                console.log(data);
+            {                
                 var result = JSON.parse(data);                               
                 
                 if(result[0] == "success")
@@ -889,7 +924,16 @@
                                             +"ae_g_s='"+e.ae_g_s+"' "
                                             +"je_h_s='"+e.je_h_s+"' "
                                             +"me_h_s='"+e.me_h_s+"' "
-                                            +"ae_h_s='"+e.ae_h_s+"' "
+                                            +"ae_h_s='"+e.ae_h_s+"' "                                            
+                                            +"is_deces='"+e.is_deces+"' "
+                                            +"ad_an_h_error1='"+e.ad_an_h_error1+"' "
+                                            +"ad_ae_h_error1='"+e.ad_ae_h_error1+"' "
+                                            +"ad_an_h_error2='"+e.ad_an_h_error2+"' "
+                                            +"ad_ae_h_error2='"+e.ad_ae_h_error2+"' "                                            
+                                            +"ad_an_g_error1='"+e.ad_an_g_error1+"' "
+                                            +"ad_ae_g_error1='"+e.ad_ae_g_error1+"' "
+                                            +"ad_an_g_error2='"+e.ad_an_g_error2+"' "
+                                            +"ad_ae_g_error2='"+e.ad_ae_g_error2+"' "
                                             +">"                                             
                                             +"<i class='fas fa-highlighter'></i></a> </td>"
                                             +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.mention +  "</td><td>" + e.nom_fr 
