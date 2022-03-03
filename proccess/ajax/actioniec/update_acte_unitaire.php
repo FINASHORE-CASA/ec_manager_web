@@ -19,7 +19,7 @@ try {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_acte[] = "{$key} = null";
             } else {
-                $update_statement_acte[] = "{$key} = '{$value}'";
+                $update_statement_acte[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
         }
     }
@@ -30,7 +30,7 @@ try {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_deces[] = "{$key} = null";
             } else {
-                $update_statement_deces[] = "{$key} = '{$value}'";
+                $update_statement_deces[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
         }
     }
@@ -41,7 +41,7 @@ try {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_jugement[] = "{$key} = null";
             } else {
-                $update_statement_jugement[] = "{$key} = '{$value}'";
+                $update_statement_jugement[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
         }
     }
