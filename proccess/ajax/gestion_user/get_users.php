@@ -9,7 +9,7 @@ try {
     // Récupération de l'acte concerné
     $qry = $bdextra->prepare("  SELECT name,first_name,type_grant, to_char(u.date_creat,'DD-MM-YYYY HH:MI AM') as date_creat, to_char(u.date_last_up,' DD-MM-YYYY HH:MI AM') as date_last_up,login,password,id_user,name_group
                                     from mg_user u
-                                    inner join mg_group_user g on g.id_type_grant = u.type_grant");
+                                    left join mg_group_user g on g.id_type_grant = u.type_grant");
 
     $qry->execute();
     $users = $qry->fetchAll(PDO::FETCH_OBJ);

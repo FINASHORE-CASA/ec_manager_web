@@ -1,14 +1,10 @@
 <?php
 require_once "is_connect.php";
 require_once "./config/checkConfig.php";
+require_once "./proccess/ajax/liste_module_app.php";
 
 $date_gen = date("Y-m-d");
 
-$liste_roles = [
-  "validation_lot", "transfert_lot", "stats_page", "split_bd", "script_gestion", "saisie_controle_acte_lot", "saisie_controle_acte_lot_auto", "purge_lot", "livraison_extraction_stats", "initialisation_lot",
-  "gestion_users", "gestion_pref_setting", "gestion_impotation_setting", "gestion_group_users", "gestion_db_setting",
-  "division_lot", "correction_reqs", "correction_acte", "controle_oec_popf", "controle_inventaire_liv", "controle_general_liv", "actioniec_controle_unitaire"
-]
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -105,12 +101,47 @@ $liste_roles = [
                           <label for="field-Roles"> listes champs : </label>
                           <select class="selectpicker" id="list_roles" name="list_roles" width="100%" multiple>
                             <optgroup label="Roles">
+                              <option value="stats_page"> Stats </option>
+                            <optgroup label="SAISIE">
                               <?php
-                              foreach ($liste_roles as $value) {
-                                echo '<option>' . $value . '</option>';
+                              foreach ($modules_saisie as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
                               }
                               ?>
                             </optgroup>
+
+                            <optgroup label="ACTION IEC">
+                              <?php
+                              foreach ($modules_action_IEC as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
+                            <optgroup label="ACTION OEC-POPF">
+                              <?php
+                              foreach ($modules_action_OEC_POPF as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
+                            <optgroup label="LIVRAISON">
+                              <?php
+                              foreach ($modules_livraison as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
+                            <optgroup label="GESTION ECM">
+                              <?php
+                              foreach ($modules_gestion_ecm as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
                           </select>
                         </div>
                       </div>
