@@ -37,46 +37,41 @@ $(document).ready(function(e){
         btnEdit.on("click",function()
         {
             // initialisation des champs             
-            $("#field-Name").val("");
-            $("#field-FirstName").val("");
-            $("#field-TypeGrant").val("");
-            $("#field-Login").val("");
-            $("#field-Password").val("");    
+            $("#field-Group").val("")
+            $("#list_roles").val("") 
+            $(".filter-option-inner-inner").html("Nothing selected")  
 
             // Récupération de l'Id du click
             var data1 = {
-                id_user: $(this).attr("id-user"),
+                id_type_grant:$(this).attr("id-group-user"),
             }          
 
-            $("#form-update-save").attr("id-user",$(this).attr("id-user"));                       
+            $("#form-update-save").attr("id-group-user",$(this).attr("id-group-user"));                       
 
             // Récupération des informations du user
-            $.post(HostLink+'/proccess/ajax/gestion_user/get_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/get_group_user.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
                     var result = JSON.parse(data);                               
-                    
                     if(result[0] == "success")
                     {
                         // Remplissage des champs du formulaire 
-                        $("#field-Name").val(result[1].name);
-                        $("#field-FirstName").val(result[1].first_name);
-                        $("#field-TypeGrant").val(result[1].type_grant);
-                        $("#field-Login").val(result[1].login);
-                        $("#field-Password").val(result[1].password);
+                        $("#field-Group").val(result[1].name_group)
+                        $("#list_roles").val(result[1].list_role.split(","))
+                        $(".filter-option-inner-inner").html(result[1].list_role != "" ? result[1].list_role.replace(","," ") : "Nothing selected")
                     }
                     else
                     {
-                        console.log('message error : ' + result);
-                        console.log(result);
+                        console.log('message error : ' + result)
+                        console.log(result)
                     }
                 });
         });
 
         btnDel.on("click",function()
         {
-            $("#btn-sup-confirm").attr("id-user",$(this).attr("id-user"));                                                                                                                       
+            $("#btn-sup-confirm").attr("id-group-user",$(this).attr("id-group-user"));                                                                                                                       
         });
     };    
 
@@ -84,11 +79,11 @@ $(document).ready(function(e){
     {
         // Récupération de l'Id du click
         var data1 = {
-            id_user: $(this).attr("id-user"),
+            id_type_grant: $(this).attr("id-group-user"),
         }          
 
         // Récupération des informations du user
-        $.post(HostLink+'/proccess/ajax/gestion_user/del_user.php',   // url
+        $.post(HostLink+'/proccess/ajax/gestion_user/del_group_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -112,18 +107,15 @@ $(document).ready(function(e){
     {
         // Récupération de l'Id du click
         var data1 = {
-            name: $("#field-Name").val(),
-            first_name:$("#field-FirstName").val(),
-            type_grant:$("#field-TypeGrant").val(),
-            login:$("#field-Login").val(),
-            password:$("#field-Password").val(),
-            id_user:$(this).attr("id-user")
+            id_type_grant:$(this).attr("id-group-user"),
+            name_group: $("#field-Group").val(),
+            list_role:$("#list_roles").val()
         }   
 
-        if($(this).attr("id-user") == "0")
+        if($(this).attr("id-group-user") == "0")
         {
             //Appel Ajax d'ajout des informations
-            $.post(HostLink+'/proccess/ajax/gestion_user/add_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/add_group_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -137,11 +129,10 @@ $(document).ready(function(e){
                         getData();                                                                        
                         console.log('success : ' + result[1]);   
                         $("#UserModal").modal("hide");
-
                     }
-                    else if(result[0] == "login_find")
+                    else if(result[0] == "role_find")
                     {
-                        alert("ce login existe déja !");
+                        alert("ce groupe existe déja !");
                     }
                     else
                     {
@@ -154,12 +145,12 @@ $(document).ready(function(e){
         else
         {
             //Appel Ajax d'update des informations
-            $.post(HostLink+'/proccess/ajax/gestion_user/update_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/update_group_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
                     console.log(data);
-                    var result = JSON.parse(data);                               
+                    var result = JSON.parse(data);                                                   
                     
                     if(result[0] == "success")
                     {
@@ -182,22 +173,21 @@ $(document).ready(function(e){
         }      
     });
 
-    $("#btn-add-user").on("click",function()
+    $("#btn-add-group-user").on("click",function()
     {
         // Restauration des champs du formulaire 
-        $("#field-Name").val("");
-        $("#field-FirstName").val("");
-        $("#field-TypeGrant").val("1");
-        $("#field-Login").val("");
-        $("#field-Password").val("");
-        $("#form-update-save").attr("id-user","0");
+        $("#field-Group").val("")
+        $("#list_roles").val("") 
+        $(".filter-option-inner-inner").html("Nothing selected")  
+        $("#form-update-save").attr("id-group-user","0");
     });
+
 
     // Recherche des données    
     var getData = function()
     { 
         // Traitement Image Vide 
-        $.get(HostLink+'/proccess/ajax/gestion_user/get_users.php')
+        $.get(HostLink+'/proccess/ajax/gestion_user/get_group_users.php')
          .done(function(data)
          {            
             var result = JSON.parse(data);  
@@ -205,16 +195,16 @@ $(document).ready(function(e){
             // injection des données                             
             htmlDataTable = "";    
             result[1].forEach(e => {                            
-                htmlDataTable += "<tr><td>" + e.name + "</td><td>" + e.first_name +  "</td><td>" + e.name_group + "</td><td>" + e.date_creat
-                                        + "</td><td>" + e.date_last_up + "</td>" 
-                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:gray;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-highlighter'></i> </a></td>" 
-                                        + "<td class='text-center'> <a href='#' class='btn-del' id-user='"+ e.id_user +"' style='color:red;' data-toggle='modal' data-target='#SupUserModal'> <i class='far fa-times-circle'></i> </a></td></tr>";
+                htmlDataTable += "<tr><td>" + e.name_group + "</td><td>" + e.list_role.split(",").length + "</td><td>" + e.date_creat
+                                        + "</td><td>" + e.date_modif + "</td>" 
+                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-group-user='"+ e.id_type_grant +"' style='color:gray;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-highlighter'></i> </a></td>" 
+                                        + "<td class='text-center'> <a href='#' class='btn-del' id-group-user='"+ e.id_type_grant +"' style='color:red;' data-toggle='modal' data-target='#SupUserModal'> <i class='far fa-times-circle'></i> </a></td></tr>";
             });
 
-            $("#dataTableUsers").dataTable().fnDestroy();
-            $("#TableUsers").html(htmlDataTable);            
-            initDataTable($("#dataTableUsers"));         
-            $("#form-update-save").attr("id-user","0");
+            $("#dataTableGroupUsers").dataTable().fnDestroy();
+            $("#TableGroupUsers").html(htmlDataTable);            
+            initDataTable($("#dataTableGroupUsers"));         
+            $("#form-update-save").attr("id-group-user","0");
             initBtnUser();
          });               
     };

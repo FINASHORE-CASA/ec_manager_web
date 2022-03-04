@@ -26,92 +26,119 @@
       </li>
 
       <!-- Nav Item - SAISIE -->
-      <li class="nav-item linkSideBar" id="Saisie">
+      <?php
+      $new = array_filter($modules_saisie, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="Saisie">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#saisieLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="far fa-edit"></i>
           <span> SAISIE </span>
         </a>
         <div id="saisieLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
-            <a class="collapse-item" href="correction_acte.php"> 2 - Correction Acte </a>
-            <a class="collapse-item" href="correction_reqs.php"> 3 - Vigilance </a>
-            <a class="collapse-item" href="initialisation_lot.php"> 4 - Initialisation d'un Lot </a>
-            <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot </a>
-            <?= (isset($_SESSION['user']->type_grant) && ($_SESSION['user']->type_grant == '0' || $_SESSION['user']->type_grant == '2')) ? '<a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>' : '' ?>
-          </div>
-        </div>
-      </li>
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
 
       <!-- Nav Item - ACTION MI -->
-      <li class="nav-item linkSideBar" id="ActionIEC">
+      <?php
+      $new = array_filter($modules_action_IEC, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="ActionIEC">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionIECLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-clipboard-check"></i>
           <span> ACTION IEC </span>
         </a>
         <div id="ActionIECLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="saisie_controle_acte_lot_auto.php"> 1 - Contrôle IEC </a>
-            <a class="collapse-item" href="actioniec_controle_unitaire.php"> 2 - Contrôle Unitaire </a>
-          </div>
-        </div>
-      </li>
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
 
       <!-- Nav Item - ACTION OEC-POPF -->
-      <li class="nav-item linkSideBar" id="ActionOEC-POPF">
+      <?php
+      $new = array_filter($modules_action_OEC_POPF, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="ActionOEC-POPF">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionOEC-POPFLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-clipboard-check"></i>
           <span> ACTION OEC-POPF </span>
         </a>
         <div id="ActionOEC-POPFLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="controle_oec_popf.php"> 1 - Contrôle OEC-POPF </a>
-          </div>
-        </div>
-      </li>
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
 
       <!-- Nav Item - SAISIE -->
-      <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ? '
-      <li class="nav-item linkSideBar" id="Livraison">
+      <?php
+      $new = array_filter($modules_livraison, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="Livraison">
         <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#LivraisonLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="far fa-share-square"></i>
           <span> LIVRAISON </span>
         </a>
         <div id="LivraisonLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="purge_lot.php"> 1 - Purge Lot </a>         
-            <a class="collapse-item" href="controle_inventaire_liv.php"> 2 - Contrôle Inventaire </a>          
-            <a class="collapse-item" href="controle_general_liv.php"> 3 - Contrôle Général </a>    
-            <a class="collapse-item" href="transfert_lot.php"> 4 - Transfert Lot </a>       
-            <a class="collapse-item" href="split_bd.php"> 5 - Split BD </a>          
-            <a class="collapse-item" href="livraison_extraction_stats.php"> 6 - Extraction BD </a>          
-          </div>
-        </div>
-      </li>' : '' ?>
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - GESTION ECM  -->
-      <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ?
-        '<li class="nav-item linkSideBar" id="GestionECM">
-          <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#GestionECMLink" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-cogs"></i>
-            <span> GESTION ECM </span>
-          </a>
-          <div id="GestionECMLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header"> OPTION :</h6>
-              <a class="collapse-item" href="gestion_users.php"> Gestion utilisateur </a>
-              <a class="collapse-item" href="gestion_db_setting.php"> Gestion BD </a>
-              <a class="collapse-item" href="gestion_pref_setting.php"> Préférences </a>
-              <a class="collapse-item" href="gestion_impotation_setting.php"> Gestion Importation </a>
-              <a class="collapse-item" href="script_gestion.php"> Script de gestion </a>
-            </div>
-          </div>
-        </li>' : ''
+      <?php
+      $new = array_filter($modules_gestion_ecm, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="GestionECM">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#GestionECMLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-cogs"></i>
+          <span> GESTION ECM </span>
+        </a>
+        <div id="GestionECMLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
       ?>
 
       <!-- Sidebar Toggler (Sidebar) -->
