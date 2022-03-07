@@ -18,7 +18,7 @@
     var listLotError = "";
     textListLot.val("");
 
-    var ListeActes = [1,2,3];
+    var ListeActes = [];
 
     // Préparation des données à envoyer
     var countNbLot = function(txt) 
@@ -38,6 +38,19 @@
 
         setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
+
+    function save_action(id_lot,id_acte,id_user_ctr)
+    {
+        var data1 = {id_lot:id_lot,id_acte:id_acte,id_user_ctr:id_user_ctr,type_action:"controle_unitaire"}
+
+        $.post(HostLink+'/proccess/ajax/gestion_user/save_action.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                console.log("action enregistrer")
+            }
+        )
+    }
     
     $(".form-update-save").on("click",function(e)
     {            
@@ -66,7 +79,9 @@
                             let elValue =  Object.keys(data1).filter(e1=> {return e1 == nomchamp['cname']})[0];                                       
                             $("#ActeRow"+data1.id_acte+ " td[name='"+[elValue]+"']").html(data1[elValue]);   
                             }
-                        });                             
+                        });    
+
+                        save_action(data1.id_lot,data1.id_acte,$("#field-Id_user").val());                         
 
                         $("#ActeModal").modal("hide");                        
                         $(".btn-form-modal-cancel").trigger("click");
@@ -154,7 +169,9 @@
         // Remplissage des informations de l'acte
         btnEdit.on("click",function(e){
                         
-            // Lancement du chargement des information
+            // Lancement du chargement des information            
+            // $("#img-next").attr("disabled","true");
+            // $("#img-prev").attr("disabled","true");
             $("#form-acte-loader").css("display","block");
             e.preventDefault()
 
@@ -180,7 +197,49 @@
                     if(result[0] == "success")
                     {                    
                         // Remplissage des champs du formulaire  
-                        acteInfo = result[1];                                     
+                        acteInfo = result[1];  
+                        // Preparation des btn next et prev
+                        // console.log(ListeActes);
+                        // $("#img-current").html(`<i style="font-size:14px;text-decoration:underline;">#${ListeActes.filter(a=>a.id_acte == data1.id_acte)[0].num_acte}</i>`);
+                        // let acte_next = ListeActes.filter(a=>a.id_acte > data1.id_acte).length > 0 ? ListeActes.filter(a=>a.id_acte > data1.id_acte)[0] : 0;
+                        // let acte_prev = ListeActes.filter(a=>a.id_acte < data1.id_acte).length > 0 ? ListeActes.filter(a=>a.id_acte < data1.id_acte)[ListeActes.filter(a=>a.id_acte < data1.id_acte).length -1] : 0;
+
+                        // if(acte_next)
+                        // {
+                        //     $("#img-next").attr("idActe",acte_next.id_acte);
+                        //     $("#img-next").attr("id_lot",acte_next.id_lot);
+                        //     $("#img-next").attr("imagepath",acte_next.imagepath);
+                        //     $("#img-next").html(`<i class="fa fa-chevron-right"></i> <i style="font-size:10px;">${acte_next.num_acte}</i>`);
+                        //     $("#img-next").removeAttr("disabled");
+                        // }
+                        // else
+                        // {
+                        //     $("#img-next").attr("id_acte","0");
+                        //     $("#img-next").attr("id_lot","");
+                        //     $("#img-next").attr("imagepath","");
+                        //     $("#img-next").html(`<i class="fa fa-chevron-right"></i> <i style="font-size:10px;"> no </i>`);
+                        //     $("#img-next").attr("disabled","true");
+                        // }
+
+                        // if(acte_prev)
+                        // {
+                        //     $("#img-prev").attr("idActe",acte_prev.id_acte);
+                        //     $("#img-prev").attr("id_lot",acte_prev.id_lot);
+                        //     $("#img-prev").attr("imagepath",acte_prev.imagepath);
+                        //     $("#img-prev").attr("id_acte",acte_prev.id_acte);
+                        //     $("#img-prev").html(`<i class="fa fa-chevron-left"></i> <i style="font-size:10px;">${acte_prev.num_acte}</i>`);
+                        //     $("#img-prev").removeAttr("disabled");
+                        // }
+                        // else
+                        // {
+                        //     $("#img-prev").attr("id_acte","0");
+                        //     $("#img-prev").attr("id_lot","");
+                        //     $("#img-prev").attr("imagepath","");
+                        //     $("#img-prev").attr("id_acte",acte_prev.id_acte);
+                        //     $("#img-prev").html(`<i class="fa fa-chevron-left"></i> <i style="font-size:10px;"> no </i>`);
+                        //     $("#img-prev").attr("disabled","true");                            
+                        // }
+                        // // -------------------------------------------------
 
                         if(result[2] == "yes")
                         {
@@ -229,7 +288,6 @@
                             $("#img-block").html("");
                             $(".block-img-change").html("");
                         }
-
                         startSwitchImage();
                     }
                     else
@@ -327,6 +385,7 @@
 
     btnControle.on('click',function(e)
     {
+        console.log(ListeActes);
         var nbLot = countNbLot(textListLot.val());        
         if(nbLot == 0)
         {
@@ -358,8 +417,7 @@
                         if(result[0] == "success")
                         {
                             if(result[1].length != 0)
-                            {
-                                
+                            {                                
                                 // success callback
                                 // display result    
                                 $("#liste-indic li:eq(0)").html("Récupération des champs : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
@@ -403,6 +461,10 @@
                                 // Redéfinition du click sur le bouton effacer                            
                                 $(".btn-form-modal-cancel").on("click", function(e) 
                                 {                
+                                    console.log($("#field-id_lot").val())
+                                    console.log($("#field-id_acte").val())
+                                    console.log($("#field-Id_user").val())
+                                    save_action($("#field-id_lot").val(),$("#field-id_acte").val(),$("#field-Id_user").val());                         
                                     // Rétablissement des champs du formulaire    
                                     $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
                                     $("#img-block").html("");                                                                                                                    
@@ -430,7 +492,8 @@
                                 $("#tfoot-th-modif" ).html(HtmlTableHead); 
                                                         
                                 // injection des données                             
-                                htmlDataTable = "";    
+                                htmlDataTable = "";  
+                                ListeActes = [];  
                                 result[1].forEach(e => { 
                                                                     
                                     htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'>";
@@ -446,8 +509,8 @@
                                     htmlDataTable += '</tr>';
 
                                     // ajout dans le tableau des Actes
-                                    // listeActes.push({id_acte:e.id_acte,num_acte:e.num_acte});
-                                });                                
+                                    ListeActes.push({id_acte:e.id_acte,num_acte:e.num_acte,id_lot:e.id_lot,imagepath:e.imagepath});                                    
+                                });            
 
                                 $("#dataTableListeActes").dataTable().fnDestroy();                                             
                                 $("#TableListeActes").html(htmlDataTable);

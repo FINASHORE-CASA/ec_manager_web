@@ -118,6 +118,29 @@
       ?>
       <hr class="sidebar-divider d-none d-md-block">
 
+      <!-- Nav Item - GESTION STATS  -->
+      <?php
+      $new = array_filter($modules_gestion_stats, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="GestionStats">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#GestionStatsLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-cogs"></i>
+          <span> GESTION STATS </span>
+        </a>
+        <div id="GestionStatsLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
+
       <!-- Nav Item - GESTION ECM  -->
       <?php
       $new = array_filter($modules_gestion_ecm, function ($e, $k) use ($list_roles) {

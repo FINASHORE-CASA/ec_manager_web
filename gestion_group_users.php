@@ -134,6 +134,14 @@ $date_gen = date("Y-m-d");
                               ?>
                             </optgroup>
 
+                            <optgroup label="GESTION STATS">
+                              <?php
+                              foreach ($modules_gestion_stats as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
                             <optgroup label="GESTION ECM">
                               <?php
                               foreach ($modules_gestion_ecm as $key => $value) {
@@ -162,7 +170,7 @@ $date_gen = date("Y-m-d");
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> GESTION ECM <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> GESTION UTILISATEUR
+              <span style="color<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> GESTION ECM <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> GESTION GROUP UTILISATEUR
             </h4>
           </div>
           <hr />
