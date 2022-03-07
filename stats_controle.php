@@ -386,7 +386,6 @@ $date_gen = date("Y-m-d");
                           <label for="show_all"> Selectionner tous les lots </label>
                           <input type="checkbox" class="form-control ml-1" id="show_all" />
                         </div>
-                        <hr />
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
                             <img src="./img/loader.gif" alt="loader wait" />
