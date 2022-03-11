@@ -84,17 +84,21 @@ $date_gen = date("Y-m-d");
                           <input type="hidden" id="field-Id_user" value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
                           <input type="hidden" id="field-Id_user_saisi" value="" />
                           <div class="row">
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-4">
                               <label for="field-IdLot">Id Lot</label>
                               <input type="text" class="form-control" id="field-IdLot" aria-describedby="field-IdLot" placeholder="" disabled />
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                               <label for="field-IdActe">Id Acte</label>
                               <input type="text" class="form-control" id="field-IdActe" aria-describedby="field-IdActe" placeholder="" disabled />
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                               <label for="field-NbMention">mention</label>
                               <input type="text" class="form-control" id="field-NbMention" aria-describedby="field-NbMention" placeholder="" disabled />
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="field-NbMentionCorr"> corr. </label>
+                              <input type="text" class="form-control" id="field-NbMentionCorr" aria-describedby="field-NbMentionCorr" placeholder="" />
                             </div>
                           </div>
                           <hr />
@@ -592,7 +596,7 @@ $date_gen = date("Y-m-d");
   <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.3   -->
-  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.2"></script>
+  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.1"></script>
 
   <script>
     $(document).ready(function(e) {

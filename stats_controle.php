@@ -412,7 +412,8 @@ $date_gen = date("Y-m-d");
                     <div class="card-body">
                       <div class="row">
                         <ol id="liste-indic">
-                          <li class="mb-2" style="display: none;"> Vérification des identités <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li>
+                          <li class="mb-2" style="display: none;"> Stats Contrôle Unitaire <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li>
+                          <li class="mb-2" style="display: none;"> Stats Mention Manquant <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li>
                         </ol>
                       </div>
                     </div>
@@ -434,6 +435,7 @@ $date_gen = date("Y-m-d");
                   <div class="mb-3">
                     <nav class="nav nav-tabs">
                       <a class="nav-tab-item nav-item nav-link active" href="#StatsControleUnitaire" style="color: black;"> Stats Contrôle Unitaire <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> <button id="StatsControleUnitaire_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button></a>
+                      <a class="nav-tab-item nav-item nav-link" href="#StatsManquantMention" style="color: black;"> Stats Mention Manquant <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-2"> 0 </span> <button id="StatsMentionManquant_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button></a>
                     </nav>
                   </div>
 
@@ -465,6 +467,40 @@ $date_gen = date("Y-m-d");
                               <th> Nombre actes </th>
                               <th> Nombre actes Controlés </th>
                               <th> Date Controle </th>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Stats Mention Manquant -->
+                    <div class="card shadow mb-4 tab-pane" id="StatsManquantMention">
+                      <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                        <h6 class="m-0 font-weight-bold text-white"> Stats Contrôle Unitaire </h6>
+                      </div>
+                      <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTableStatsManquantMention" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th> Lot </th>
+                                <th> Id_acte </th>
+                                <th> Mention Acte </th>
+                                <th> Mention Correcte </th>
+                                <th> Date Controle </th>
+                                <th> Login Agent </th>
+                              </tr>
+                            </thead>
+                            <tbody id="TableStatsManquantMention">
+
+                            </tbody>
+                            <tfoot>
+                              <th> Lot </th>
+                              <th> Id_acte </th>
+                              <th> Mention Acte </th>
+                              <th> Mention Correcte </th>
+                              <th> Date Controle </th>
+                              <th> Login Agent </th>
                             </tfoot>
                           </table>
                         </div>
@@ -522,7 +558,7 @@ $date_gen = date("Y-m-d");
   <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.3   -->
-  <script src="js/ajax/stats/stats_controle.js?version=1.0.2"></script>
+  <script src="js/ajax/stats/stats_controle.js?version=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {

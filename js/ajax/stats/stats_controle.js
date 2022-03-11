@@ -17,6 +17,7 @@
     
     var listLotError = "";
     let controle_unitaire_db;
+    let mention_manquant_db;
 
     // Préparation des données à envoyer
     var countNbLot = function(txt) 
@@ -139,6 +140,117 @@
        e.preventDefault(); 
     });
 
+    $("#StatsMentionManquant_dl").on("click",function(e)
+    {         
+       download(mention_manquant_db,"STATS_MENTION_MANQUANT.xlsx");        
+       e.preventDefault(); 
+    });
+
+    function stats_mention_manquant(data1)
+    { 
+        $.post(HostLink+'/proccess/ajax/stats/stats_mention_manquant.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {                    
+                console.log(data);
+                var result = JSON.parse(data);  
+                console.log(result);
+                
+                if(result[0] == "success")
+                {
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(1)").html(" Stats Mention Manquants : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(1)").fadeIn(1000);
+                    console.log('success : '  + result[1].length);
+
+                    // paramétrage de l'affichage
+                    notifResultat.fadeIn("slow");
+                    ResultatData.fadeIn("slow");
+                    $("#notif-Resultat-2").text(result[1].length);
+                    mention_manquant_db = result[1];
+                                            
+                    // injection des données                             
+                    htmlDataTable = "";    
+                    result[1].forEach(e => {   
+                        
+                        htmlDataTable += "<tr>"
+                                            + "<th> "+ e.id_lot +" </th>"
+                                            + "<th> "+ e.id_acte +" </th>"
+                                            + "<th> "+ e.mention_acte +" </th>"
+                                            + "<th> "+ e.mention_corr +" </th>"
+                                            + "<th> "+ e.date_cont +" </th>"
+                                            + "<th> "+ e.login +" </th>"
+                                         +"</tr>"
+                    });
+                    
+                    $("#dataTableStatsManquantMention").dataTable().fnDestroy()
+                    $("#TableStatsManquantMention").html(htmlDataTable);
+                    initDataTable($('#dataTableStatsManquantMention'));                                              
+                                                
+                    formLoader.fadeOut("slow");                        
+                    indicTermine.fadeIn(3000);                               
+                }
+                else
+                {
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+            }
+        );  
+    }
+
+    function stats_controle_unitaire(data1)
+    {     
+        $.post(HostLink+'/proccess/ajax/stats/stats_controle_unitaire.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {                          
+                var result = JSON.parse(data);  
+                console.log(result);
+                
+                if(result[0] == "success")
+                {
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(0)").html(" Stats Contrôle Unitaire : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(0)").fadeIn(1000);
+                    console.log('success : '  + result[1].length);
+
+                    // paramétrage de l'affichage
+                    notifResultat.fadeIn("slow");
+                    ResultatData.fadeIn("slow");
+                    $("#notif-Resultat-1").text(result[1].length);
+                    controle_unitaire_db = result[1];
+                                            
+                    // injection des données                             
+                    htmlDataTable = "";    
+                    result[1].forEach(e => {   
+                        
+                        htmlDataTable += "<tr>"
+                                        + "<th> "+ e.id_lot +" </th>"
+                                        + "<th> "+ e.login +" </th>"
+                                        + "<th> "+ e.nb_acte +" </th>"
+                                        + "<th> "+ e.nb_acte_ctr +" </th>"
+                                        + "<th> "+ e.date_ctr +" </th>"
+                                        +"</tr>"
+                    });
+                    
+                    $("#dataTableStatsControleUnitaire").dataTable().fnDestroy()
+                    $("#TableStatsControleUnitaire").html(htmlDataTable);
+                    initDataTable($('#dataTableStatsControleUnitaire'));                                                                                                                                      
+                }
+                else
+                {
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+                
+                stats_mention_manquant(data1)  
+            }
+        );  
+    }
+
     btnControle.on('click',function(e)
     {
         var nbLot = countNbLot(textListLot.val());
@@ -162,57 +274,8 @@
             // traitement des lots             
             var data1 = {
                 id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
-            }              
-
-            // Traitement Image Vide 
-            $.post(HostLink+'/proccess/ajax/stats/stats_controle_unitaire.php',   // url
-                { myData: JSON.stringify(data1) }, // data to be submit
-                    function(data, status, jqXHR) 
-                    {                          
-                        var result = JSON.parse(data);  
-                        console.log(result);
-                        
-                        if(result[0] == "success")
-                        {
-                            // success callback
-                            // display result    
-                            $("#liste-indic li:eq(0)").html(" Stats Contrôle Unitaire : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                            $("#liste-indic li:eq(0)").fadeIn(1000);
-                            console.log('success : '  + result[1].length);
-
-                            // paramétrage de l'affichage
-                            notifResultat.fadeIn("slow");
-                            ResultatData.fadeIn("slow");
-                            $("#notif-Resultat-1").text(result[1].length);
-                            controle_unitaire_db = result[1];
-                                                    
-                            // injection des données                             
-                            htmlDataTable = "";    
-                            result[1].forEach(e => {   
-                                
-                                htmlDataTable += "<tr>"
-                                                + "<th> "+ e.id_lot +" </th>"
-                                                + "<th> "+ e.login +" </th>"
-                                                + "<th> "+ e.nb_acte +" </th>"
-                                                + "<th> "+ e.nb_acte_ctr +" </th>"
-                                                + "<th> "+ e.date_ctr +" </th>"
-                                              +  "</tr>"
-                            });
-                            
-                            $("#dataTableStatsControleUnitaire").dataTable().fnDestroy()
-                            $("#TableStatsControleUnitaire").html(htmlDataTable);
-                            initDataTable($('#dataTableStatsControleUnitaire'));                                              
-                                                        
-                            formLoader.fadeOut("slow");                        
-                            indicTermine.fadeIn(3000);                               
-                        }
-                        else
-                        {
-                            console.log('message error : ' + result);
-                            console.log(result);
-                        }
-                    }
-                );             
+            }                    
+            stats_controle_unitaire(data1)
         }
         e.preventDefault();        
     });

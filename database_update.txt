@@ -59,3 +59,22 @@ CREATE TABLE IF NOT EXISTS public.action_user_ctr
 )
 
 TABLESPACE pg_default;
+
+-- log : 11/03/2022 18:17
+-- Table: public.mention_manq_acte
+
+CREATE TABLE IF NOT EXISTS public.mention_manq_acte
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    id_acte bigint,
+    mention_acte integer,
+    mention_corr integer,
+    date_cont timestamp with time zone,
+    id_user integer,
+    id_lot bigint
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.mention_manq_acte
+    OWNER to postgres;
