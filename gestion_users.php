@@ -3,7 +3,7 @@ require_once "is_connect.php";
 require_once "./config/checkConfig.php";
 
 // récupération des groupe d'utilisateur
-$qry = $bdextra->prepare("  SELECT id_type_grant,list_role,date_creat,date_modif,name_group
+$qry = $bdextra->prepare("  SELECT id_type_grant,name_group
                             from mg_group_user");
 $qry->execute();
 $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
@@ -173,7 +173,9 @@ $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
                           </tr>
                         </thead>
                         <tbody id="TableUsers">
-
+                          <tr>
+                            <td colspan="7" class="text-center"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -225,7 +227,8 @@ $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/gestion_users.js"></script>
+  <!-- version = 1.0.1 -->
+  <script src="js/owner/gestion_users.js?version=1.0.2"></script>
 
 </body>
 
