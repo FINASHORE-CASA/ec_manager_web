@@ -134,6 +134,14 @@ $date_gen = date("Y-m-d");
                               ?>
                             </optgroup>
 
+                            <optgroup label="DEPÔT">
+                              <?php
+                              foreach ($modules_depots as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
                             <optgroup label="GESTION STATS">
                               <?php
                               foreach ($modules_gestion_stats as $key => $value) {
