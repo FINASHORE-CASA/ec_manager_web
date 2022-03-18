@@ -37,6 +37,13 @@ ALTER TABLE public.mg_group_user
 ALTER TABLE mg_user ALTER COLUMN type_grant TYPE integer USING type_grant::integer;
 ------------------------------------------------------------------------------------
 
+insert into mg_group_user (list_role,date_creat,date_modif,name_group)
+values('stats_page,saisie_controle_acte_lot,correction_acte,correction_reqs,initialisation_lot,validation_lot,division_lot,saisie_controle_acte_lot_auto,actioniec_controle_unitaire,controle_oec_popf,purge_lot,controle_inventaire_liv,controle_general_liv,transfert_lot,split_bd,livraison_extraction_stats,stats_controle,gestion_users,gestion_group_users,gestion_db_setting,gestion_pref_setting,gestion_impotation_setting,script_gestion'
+	  ,NOW(),NOW(),'Administrateur');
+update mg_user set type_grant = 1 where login = 'Admin';	  
+-------------------------------------------------------------------------------------------------------------
+
+
 -- Table: public.action_user_ctr
 
 -- DROP TABLE public.action_user_ctr;
