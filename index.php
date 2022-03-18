@@ -1,6 +1,6 @@
 <?php 
   require_once "is_connect.php"; 
-
+  require_once "./config/checkConfig.php"; 
   $date_gen = date("Y-m-d");
 ?>
 

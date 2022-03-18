@@ -1,3 +1,7 @@
+<?php 
+  require_once "./config/checkConfig.php"; 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
