@@ -27,6 +27,7 @@ $date_gen = date("Y-m-d");
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/modal-fullscreen.css" rel="stylesheet" />
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -209,6 +210,7 @@ $date_gen = date("Y-m-d");
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
+  <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- version 1.0.1  -->
   <script src="js/ajax/saisi/recherche_actes.js?version=1.0.1"></script>
