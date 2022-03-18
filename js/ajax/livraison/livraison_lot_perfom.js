@@ -1,5 +1,9 @@
 $(document).ready(function() 
 {
+    
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
+
     // Selection des indicateurs 
     var btnPurgeConfirm = $("#btn-purge-confirm"),formLoader = $("#form-lot-loader");
     var txtNbLot = $("#txt-nb-lot");
@@ -22,7 +26,7 @@ $(document).ready(function()
     // Chargement de la liste final
     $("#btn-modif-txt-livre").on("click", function(e)
     {
-        $.get('../../proccess/ajax/livraison/get_lot_livre.php',
+        $.get(HostLink+'/proccess/ajax/livraison/get_lot_livre.php',
             function(data, status, jqXHR) 
             {
                 var result = JSON.parse(data);                               
@@ -55,7 +59,7 @@ $(document).ready(function()
             id_lot: $("#text-list-lot-livre").val()
         }         
 
-        $.post('../../proccess/ajax/livraison/save_lot_livre.php',   // url
+        $.post(HostLink+'/proccess/ajax/livraison/save_lot_livre.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -88,7 +92,8 @@ $(document).ready(function()
         if($(this)[0].checked == true)
         {
             $("#select-choix-purge").attr("disabled","true");
-            $("#select-choix-purge").val("1");                                  
+            $("#select-choix-purge").val("1");  
+            $("#purge-acte-non-finalise")[0].checked = false;                             
         }
         else
         {
@@ -96,12 +101,26 @@ $(document).ready(function()
         }
     });
 
+    // Checks purge acte non conforme
+    $("#purge-acte-non-finalise").on("click",function(e)
+    {        
+        if($(this)[0].checked == true)
+        { 
+            $("#purge-livre")[0].checked = false;
+            $("#select-choix-purge").attr("disabled","true");
+            $("#select-choix-purge").val("1"); 
+        }
+        else
+        {
+            $("#select-choix-purge").removeAttr("disabled");
+        }
+    });
     btnPurgeConfirm.on('click',function(e)
     {
         var nbLot = countNbLot($("#text-list-lot").val());    
         $("#ConfirmModal").modal("hide");
 
-        if(nbLot == 0 && $("#purge-livre")[0].checked == false)
+        if(nbLot == 0 && $("#purge-livre")[0].checked == false && $("#purge-acte-non-finalise")[0].checked == false)
         {
             txtControleNotif.css("color","red");
             txtControleNotif.text("aucun lot renseigné.");                    
@@ -121,7 +140,7 @@ $(document).ready(function()
             // cas de purge save
             if($("#select-choix-purge").val() == 0)
             {
-                $.post('../../proccess/ajax/livraison/purge_lot_save.php',   // url
+                $.post(HostLink+'/proccess/ajax/livraison/purge_lot_save.php',   // url
                     { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {
@@ -155,7 +174,7 @@ $(document).ready(function()
             {
                 if($("#purge-livre")[0].checked == true)
                 {                    
-                    $.get('../../proccess/ajax/livraison/get_lot_livre.php',
+                    $.get(HostLink+'/proccess/ajax/livraison/get_lot_livre.php',
                         function(data, status, jqXHR) 
                         {
                             var result = JSON.parse(data);                               
@@ -169,7 +188,7 @@ $(document).ready(function()
                                 }      
 
                                 // cas de purge delete
-                                $.post('../../proccess/ajax/livraison/purge_lot_delete.php',   // url
+                                $.post(HostLink+'/proccess/ajax/livraison/purge_lot_delete.php',   // url
                                     { myData: JSON.stringify(data1) }, // data to be submit
                                     function(data, status, jqXHR) 
                                     {
@@ -213,10 +232,35 @@ $(document).ready(function()
                         console.log(res);
                     }); 
                 }
+                else if($("#purge-acte-non-finalise")[0].checked == true)
+                {
+                    $.get(HostLink+'/proccess/ajax/livraison/delete_acte_non_conform.php',
+                    function(data, status, jqXHR)
+                    {                    
+                        let result = JSON.parse(data);
+
+                        if(result[0] == 'success')
+                        {
+                            // display result    
+                            $("#liste-indic li:eq(0)").html("Elimination des actes en plus <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                            $("#liste-indic li:eq(0)").fadeIn(1000);
+
+                            // Terminé le Lancement
+                            formLoader.fadeOut("slow");
+                            indicTermine.fadeIn(3000);  
+                        }
+                        
+                    }).fail(
+                    function(res)
+                    {
+                        console.log("fail");
+                        console.log(res);
+                    });
+                }
                 else
                 {
                     // cas de purge delete
-                    $.post('../../proccess/ajax/livraison/purge_lot_delete.php',   // url
+                    $.post(HostLink+'/proccess/ajax/livraison/purge_lot_delete.php',   // url
                         { myData: JSON.stringify(data1) }, // data to be submit
                         function(data, status, jqXHR) 
                         {

@@ -14,11 +14,11 @@
 
         if ($user_exist[0] == 0) 
         {
-            //Update Users
+            //Update User
             $qry = $bdextra->prepare("UPDATE mg_user SET name = ?,first_name = ?,type_grant = ?,date_last_up = NOW(),login = ?,password = ? where id_user = ?");
             $qry->execute(array($formData->name,$formData->first_name,$formData->type_grant,$formData->login,$formData->password,$formData->id_user));
             
-            // Récupération de l'acte concerné
+            // Récupération User
             $qry = $bdextra->prepare("  SELECT name,first_name,type_grant,date_creat,date_last_up,login,password,id_user
                                         from mg_user where id_user = ?");
 

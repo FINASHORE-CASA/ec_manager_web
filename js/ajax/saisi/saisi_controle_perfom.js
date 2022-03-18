@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function() 
+{    
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
 
     // Selection des indicateurs 
     var btnControle = $("#btn-controle")
@@ -29,8 +32,8 @@ $(document).ready(function() {
         {                            
             htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'><td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.num_acte + "</td><td>" + e.imagepath
                                     + "</td><td>" + e.nom_fr + "</td><td>" + e.prenom_fr + "</td><td>" + e.nom_ar + "</td><td>" + e.prenom_ar 
-                                    + "</td><td class='text-center'> <a href='#' class='btn-edit' idActe='"+ e.id_acte +"' style='color:black;' data-toggle='modal' data-target='#ActeModal'>" 
-                                    + "<i class='far fa-edit'></i> </a> </td></tr>";
+                                    + "</td><td class='text-center'> <a href='#' class='btn-edit' idActe='"+ e.id_acte +"' style='color:gray;' data-toggle='modal' data-target='#ActeModal'>" 
+                                    + "<i class='fas fa-highlighter'></i></a> </td></tr>";
 
             // Ajout de l'IdLot dans les erronés
             if(!listLotError.includes(e.id_lot))
@@ -62,7 +65,7 @@ $(document).ready(function() {
             num_acte:$("#field-NumActe").val()
         }   
 
-        $.post('../../proccess/ajax/saisi/update_acte.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/update_acte.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -137,7 +140,7 @@ $(document).ready(function() {
                 id_acte: $(this).attr("idActe"),
             }     
 
-            $.post('../../proccess/ajax/saisi/controle_recup_acte.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_recup_acte.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -235,7 +238,7 @@ $(document).ready(function() {
 
     // Traitement Image saisit en double
     var traitementImagepathDouble =  function(data1) {
-            $.post('../../proccess/ajax/saisi/controle_image_double.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_image_double.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -274,7 +277,7 @@ $(document).ready(function() {
 
     // Traitement Numero Acte saisit en double
     var traitementNumACteDouble = function(data1) {
-            $.post('../../proccess/ajax/saisi/controle_num_acte_double.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_double.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -309,7 +312,7 @@ $(document).ready(function() {
 
     // Traitement Num Acte ne correspond pas à imagepath
     var traitementNumActeDiffImagepath = function(data1) {
-        $.post('../../proccess/ajax/saisi/controle_num_acte_diff_imagepath.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_diff_imagepath.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -344,7 +347,7 @@ $(document).ready(function() {
 
     // Traitement Numéro Acte vide
     var traitementNumActeVide = function(data1) { 
-        $.post('../../proccess/ajax/saisi/controle_num_acte_vide.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/controle_num_acte_vide.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -401,7 +404,7 @@ $(document).ready(function() {
             }              
 
             // Traitement Image Vide 
-            $.post('../../proccess/ajax/saisi/controle_image_vide.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/controle_image_vide.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {

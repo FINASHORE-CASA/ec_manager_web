@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
+
     // Selection des indicateurs 
     var btnFusion = $("#btn-fusion");
     var textListLotFusion = $("#text-list-lot-fusion");
@@ -38,7 +41,7 @@ $(document).ready(function() {
             }            
 
             // Traitement Image Vide 
-            $.post('../../proccess/ajax/saisi/reconstruct_lot.php',   // url
+            $.post(HostLink+'/proccess/ajax/saisi/reconstruct_lot.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
