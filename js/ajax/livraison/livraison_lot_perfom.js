@@ -15,7 +15,19 @@ $(document).ready(function()
     {
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
-    };   
+    };       
+
+    var show_alert = function(theme_color,title,text="",time=5)
+    {
+        $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
+                                    +'<strong> '+title+' </strong>' + text
+                                    +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                    +'<span aria-hidden="true">&times;</span>'
+                                   +'</button>'
+                                +'</div>');
+
+        setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
+    }  
 
     $("#text-list-lot-livre").on("keyup",function(e) 
     {
@@ -63,21 +75,28 @@ $(document).ready(function()
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // success callback
-                    // display result    
-                    console.log(result[2]);
+                try {
+                    var result = JSON.parse(data);                               
+                    
+                    if(result[0] == "success")
+                    {
+                        // success callback
+                        // display result    
+                        console.log(result[2]);
 
-                    // Terminé le Lancement
-                    $("#textLivreModal").modal("hide");      
+                        // Terminé le Lancement
+                        $("#textLivreModal").modal("hide");      
+                    }
+                    else
+                    {
+                        console.log('message error : ' + result);
+                        console.log(result);
+                    }
                 }
-                else
-                {
-                    console.log('message error : ' + result);
-                    console.log(result);
+                catch (e) {
+                    
+                    // mis en place de l'alert 
+                    show_alert("danger","Erreur lors de la Modification",data,10);
                 }
             }
         ).fail(function(res){
@@ -115,6 +134,7 @@ $(document).ready(function()
             $("#select-choix-purge").removeAttr("disabled");
         }
     });
+    
     btnPurgeConfirm.on('click',function(e)
     {
         var nbLot = countNbLot($("#text-list-lot").val());    
@@ -144,28 +164,42 @@ $(document).ready(function()
                     { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {
-                        var result = JSON.parse(data);                               
-                        
-                        if(result[0] == "success")
-                        {
-                            // success callback
-                            // display result    
-                            $("#liste-indic li:eq(0)").html("Lots Purgés (sauvegarde), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                            $("#liste-indic li:eq(0)").fadeIn(1000);
-                            console.log('success : ' + result[2]);
-                            console.log(result[2]);
+                        try {                        
+                            var result = JSON.parse(data);                               
+                            
+                            if(result[0] == "success")
+                            {
+                                // success callback
+                                // display result    
+                                $("#liste-indic li:eq(0)").html("Lots Purgés (sauvegarde), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                $("#liste-indic li:eq(0)").fadeIn(1000);
+                                console.log('success : ' + result[2]);
+                                console.log(result[2]);
 
-                            // Terminé le Lancement
-                            formLoader.fadeOut("slow");
-                            indicTermine.fadeIn(3000);      
+                                // Terminé le Lancement
+                                formLoader.fadeOut("slow");
+                                indicTermine.fadeIn(3000);      
+                            }
+                            else
+                            {
+                                // Terminé le Lancement
+                                formLoader.fadeOut("slow");     
+                                show_alert("warning","Erreur lors de la Modification : ",result[1],10);
+                                console.log('message error : ' + result);
+                                console.log(result);
+                            }
                         }
-                        else
+                        catch(err)
                         {
-                            console.log('message error : ' + result);
-                            console.log(result);
+                            // mis en place de l'alert 
+                            show_alert("danger","Erreur lors de la Modification : ",data,10);
+                            formLoader.fadeOut("slow");
                         }
                     }
-                ).fail(function(res){
+                ).fail(function(res){                    
+                    
+                    show_alert("warning","Erreur lors de la Modification : ",res,10);
+                    formLoader.fadeOut("slow"); 
                     console.log("fail");
                     console.log(res);
                 });
@@ -191,44 +225,57 @@ $(document).ready(function()
                                 $.post(HostLink+'/proccess/ajax/livraison/purge_lot_delete.php',   // url
                                     { myData: JSON.stringify(data1) }, // data to be submit
                                     function(data, status, jqXHR) 
-                                    {
-                                        var result = JSON.parse(data);                               
-                                        
-                                        if(result[0] == "success")
-                                        {
-                                            // success callback
-                                            // display result    
-                                            $("#liste-indic li:eq(0)").html("Lots Purgés (Déja Livrés), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                                            $("#liste-indic li:eq(0)").fadeIn(1000);
-                                            console.log('success : ' + result[0]);
-                                            console.log(result[1]);
-                                            console.log(result[2]);
-                                            console.log(result[3]);
-                                            console.log(result[4]);
+                                    {                                        
+                                        try {
+                                            var result = JSON.parse(data);                               
+                                            
+                                            if(result[0] == "success")
+                                            {
+                                                // success callback
+                                                // display result    
+                                                $("#liste-indic li:eq(0)").html("Lots Purgés (Déja Livrés), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                                $("#liste-indic li:eq(0)").fadeIn(1000);
+                                                console.log('success : ' + result[0]);
+                                                console.log(result[1]);
+                                                console.log(result[2]);
+                                                console.log(result[3]);
+                                                console.log(result[4]);
 
-                                            // Terminé le Lancement
-                                            formLoader.fadeOut("slow");
-                                            indicTermine.fadeIn(3000);      
+                                                // Terminé le Lancement
+                                                formLoader.fadeOut("slow");
+                                                indicTermine.fadeIn(3000);      
+                                            }
+                                            else
+                                            {
+                                                formLoader.fadeOut("slow");
+                                                console.log('message error : ' + result);
+                                                console.log(result);
+                                            }
                                         }
-                                        else
+                                        catch (err)
                                         {
-                                            console.log('message error : ' + result);
-                                            console.log(result);
+                                            // mis en place de l'alert 
+                                            show_alert("danger","Erreur lors de la Modification",data,10);
+                                            formLoader.fadeOut("slow");                                            
                                         }
                                     }
                                 ).fail(function(res){
+                                    
+                                    formLoader.fadeOut("slow");
                                     console.log("fail");
                                     console.log(res);
                                 });
                             }
                             else
                             {
+                                formLoader.fadeOut("slow");
                                 console.log('message error : ' + result);
                                 console.log(result);
                             }
                         }
                     ).fail(function(res){
-                        console.log("fail");
+                        
+                        formLoader.fadeOut("slow");                        
                         console.log(res);
                     }); 
                 }
@@ -236,25 +283,37 @@ $(document).ready(function()
                 {
                     $.get(HostLink+'/proccess/ajax/livraison/delete_acte_non_conform.php',
                     function(data, status, jqXHR)
-                    {                    
-                        let result = JSON.parse(data);
+                    {    
+                        try{
 
-                        if(result[0] == 'success')
-                        {
-                            // display result    
-                            $("#liste-indic li:eq(0)").html("Elimination des actes en plus <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                            $("#liste-indic li:eq(0)").fadeIn(1000);
+                            let result = JSON.parse(data);
 
-                            // Terminé le Lancement
-                            formLoader.fadeOut("slow");
-                            indicTermine.fadeIn(3000);  
-                        }
-                        
+                            if(result[0] == 'success')
+                            {
+                                // display result    
+                                $("#liste-indic li:eq(0)").html("Elimination des actes en plus <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                $("#liste-indic li:eq(0)").fadeIn(1000);
+
+                                // Terminé le Lancement
+                                formLoader.fadeOut("slow");
+                                indicTermine.fadeIn(3000);  
+                            }
+                        }    
+                        catch(err) {         
+                            // mis en place de l'alert 
+                            show_alert("danger","Erreur lors de la Modification : ",data,10);               
+                            formLoader.fadeOut("slow");   
+                            console.log("fail");                     
+                            console.log(data);
+                        }            
+                            
                     }).fail(
-                    function(res)
+                    function(err)
                     {
+                        show_alert("danger","Erreur lors de la Modification : ",err,10);               
+                        formLoader.fadeOut("slow");
                         console.log("fail");
-                        console.log(res);
+                        console.log(err);
                     });
                 }
                 else
@@ -264,31 +323,47 @@ $(document).ready(function()
                         { myData: JSON.stringify(data1) }, // data to be submit
                         function(data, status, jqXHR) 
                         {
-                            var result = JSON.parse(data);                               
-                            
-                            if(result[0] == "success")
+                            try
                             {
-                                // success callback
-                                // display result    
-                                $("#liste-indic li:eq(0)").html("Lots Purgés (suppression), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                                $("#liste-indic li:eq(0)").fadeIn(1000);
-                                console.log('success : ' + result[0]);
-                                console.log(result[1]);
-                                console.log(result[2]);
-                                console.log(result[3]);
-                                console.log(result[4]);
+                                var result = JSON.parse(data);                               
+                                
+                                if(result[0] == "success")
+                                {
+                                    // success callback
+                                    // display result    
+                                    $("#liste-indic li:eq(0)").html("Lots Purgés (suppression), restants : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                    $("#liste-indic li:eq(0)").fadeIn(1000);
+                                    console.log('success : ' + result[0]);
+                                    console.log(result[1]);
+                                    console.log(result[2]);
+                                    console.log(result[3]);
+                                    console.log(result[4]);
 
-                                // Terminé le Lancement
-                                formLoader.fadeOut("slow");
-                                indicTermine.fadeIn(3000);      
+                                    // Terminé le Lancement
+                                    formLoader.fadeOut("slow");
+                                    indicTermine.fadeIn(3000);      
+                                }
+                                else
+                                {
+                                    formLoader.fadeOut("slow");
+                                    // mis en place de l'alert 
+                                    show_alert("danger","Erreur lors de la Modification : ",data,10);
+                                    console.log('message error : ' + result);
+                                    console.log(result);
+                                }
                             }
-                            else
-                            {
-                                console.log('message error : ' + result);
-                                console.log(result);
+                            catch(err)
+                            {       
+                                show_alert("danger","Erreur lors de la Modification : ",data,10);                                                         
+                                formLoader.fadeOut("slow");
+                                console.log("fail");
+                                console.log(err);
                             }
                         }
                     ).fail(function(res){
+                        
+                        show_alert("danger","Erreur lors de la Modification : ",res,10);                                                
+                        formLoader.fadeOut("slow");
                         console.log("fail");
                         console.log(res);
                     });
