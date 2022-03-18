@@ -149,11 +149,6 @@ $(document).ready(function() {
                 const listTd = $("#ActeRow"+data1.id_acte+" td");                 
 
                 $("#field-Id_lot").html("");            
-                // listTd.each((i,td) => 
-                // {
-                //     const champ = td.getAttribute("name");
-                //     $("#field-"+champ).val(td.innerText.trim());                                                                                                                                  
-                // });
 
                 $.post(HostLink+'/proccess/ajax/saisi/recup_acte_all_req.php',   // url
                     { myData: JSON.stringify(data1) }, // data to be submit
@@ -277,6 +272,17 @@ $(document).ready(function() {
         {
             alert(" Le champ de la requête est vide ");
         }
+        else if( textListLot.val().trim().toLowerCase().includes("update") 
+                || textListLot.val().trim().toLowerCase().includes("delete") 
+                || textListLot.val().trim().toLowerCase().includes("insert") 
+                || textListLot.val().trim().toLowerCase().includes("drop")
+                || textListLot.val().trim().toLowerCase().includes("modify") 
+                || textListLot.val().trim().toLowerCase().includes("alter")
+                || textListLot.val().trim().toLowerCase().split(';').length > 2
+                || textListLot.val().trim().substring(0,6).toLowerCase() != "select")
+        {
+            alert("assurez vous d'avoir entrer 1 requête de selection valide");
+        }
         else
         {
             // hide previous result
@@ -292,14 +298,14 @@ $(document).ready(function() {
 
             // Traitement Image Vide 
             $.post(HostLink+'/proccess/ajax/saisi/exec_req_acte.php',   // url
-                { myData: JSON.stringify(data1) }, // data to be submit
+                { myData: JSON.stringify(data1),dataType:'json' }, // data to be submit
                     function(data, status, jqXHR) 
                     {
                         console.log(data);
 
                         var result = JSON.parse(data);                               
                         
-                        if(result[0] == "success" &&result[1].length > 0 )
+                        if(result[0] == "success" && result[1].length > 0 )
                         {
                             $("#table_container").html(' <div class="table-responsive">'+
                             '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+

@@ -101,6 +101,7 @@
                         <div class="form-group col-md-6">
                           <label for="field-TypeGrant"> Type d'Accès</label>
                           <select class="form-control" name="field-TypeGrant" id="field-TypeGrant">
+                            <option value="2" selected> Supersup </option>
                             <option value="1" selected> Superviseur </option>
                             <option value="0"> Administrateur </option>
                           </select>

@@ -40,7 +40,7 @@
             <a class="collapse-item" href="correction_reqs.php"> 3 - Requête Correction  </a>
             <a class="collapse-item" href="initialisation_lot.php"> 4 - Initialisation d'un Lot </a>
             <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot  </a>
-            <a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>
+            <?= (isset($_SESSION['user']->type_grant) && ($_SESSION['user']->type_grant == '0' || $_SESSION['user']->type_grant == '2') ) ? '<a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>' : '' ?> 
           </div>
         </div>
       </li>
