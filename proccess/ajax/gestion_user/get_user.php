@@ -1,7 +1,6 @@
 <?php
     // Require des données
-    require_once "../../../config/checkConfig.php";    
-    require_once "../../../function/handle_function.php";    
+    require_once "../../../config/checkConfig.php";       
 
     try 
     {

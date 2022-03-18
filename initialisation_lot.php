@@ -81,7 +81,7 @@
                             <div  id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
                           </div>
                           <div class="d-flex justify-content-center mt-4">
-                            <p id="txt-controle-notif"> Nombre de lot à initialiser </p>
+                            <p id="txt-nb-lot-notif"  text-std="Nombre de lot à initialiser"></p>
                           </div>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/saisi_init_count_lot.js"></script>
+  <script src="js/owner/count_lot.js"></script>
   <script src="js/ajax/saisi/saisi_init_perfom.js"></script>
 
 </body>

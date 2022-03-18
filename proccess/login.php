@@ -12,15 +12,26 @@
     }
 
     if(isset($_POST['login']) && isset($_POST['mot_de_passe']))
-    {        
-        if($_POST['login'] == $user_login && $_POST['mot_de_passe'] == $user_mdp)
+    {   
+        // Récupération de l'acte concerné
+        $qry = $bdextra->prepare("  SELECT name,first_name,type_grant,date_creat,date_last_up,login,password,id_user
+                                    from mg_user where login = ? and password = ?");
+
+        $qry->execute(array($_POST['login'],$_POST['mot_de_passe']));
+        $users = $qry->fetchAll(PDO::FETCH_OBJ);  
+
+        if(count($users) == 1)
         {                        
-            $_SESSION['user'] = $_POST; 
+            $_SESSION['user'] = $users[0]; 
             header('Location: ../index.php');     
+        }
+        else if(count($users) > 0)
+        {
+            header('Location: ../login.php?log=Login double, contacter l\'Administateur');     
         }
         else
         {
-            header('Location: ../login.php?log=Login ou Mot de passe incorrecte');     
+            header('Location: ../login.php?log=Login ou Mot de passe incorrecte ');     
         }    
     }
     else
