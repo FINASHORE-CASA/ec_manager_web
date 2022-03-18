@@ -306,6 +306,23 @@
         });  
     };
 
+    $("#show_all").on("click",function(){
+
+        if($(this)[0].checked == true)
+        {
+            textListLot.val("");
+            textListLot.attr("disabled","true");
+            
+            // Recherche des actes concernés            
+            get_id_lots(); 
+        }
+        else
+        {
+            textListLot.removeAttr("disabled");
+        }
+    })
+    $("#show_all")[0].checked = false;
+
     btnControle.on('click',function(e)
     {
         var nbLot = countNbLot(textListLot.val());        
