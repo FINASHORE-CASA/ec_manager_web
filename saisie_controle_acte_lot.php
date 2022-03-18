@@ -174,7 +174,7 @@
                                 <div  id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
                               </div>
                               <div class="d-flex justify-content-center mt-4">
-                                <p id="txt-controle-notif"> Le Contrôle sera effectué sur ces lots </p>
+                                <p id="txt-nb-lot-notif" text-std="Le Contrôle sera effectué sur ces lots"> </p>
                               </div>
                             </div>
                         </div>
@@ -441,8 +441,7 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/saisi_count_lot.js"></script>
-  <!-- <script src="js/ajax/saisi/saisi_controle_edit_acte.js"></script> -->
+  <script src="js/owner/count_lot.js"></script>
   <script src="js/ajax/saisi/saisi_controle_perfom.js"></script>
 
   <script>

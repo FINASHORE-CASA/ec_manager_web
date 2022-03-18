@@ -7,11 +7,13 @@ $(document).ready(function()
     var txtControleNotif = $("#txt-nb-lot-notif");
     txtControleNotif.text(txtControleNotif.attr("text-std"));
 
-    textListLot.on("keyup",function(e) {
+    textListLot.on("keyup",function(e) 
+    {
         countNbLot();
     });       
 
-    btnResetControle.on("click",function(e) {
+    btnResetControle.on("click",function(e) 
+    {
         txtNbLot.css("color","gray");
         txtNbLot.css("borderColor","gray");
         txtControleNotif.css("color","gray");
@@ -20,7 +22,8 @@ $(document).ready(function()
     });
 
 
-    var countNbLot = function() {
+    var countNbLot = function() 
+    {
         var txt = textListLot.val();
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});
 

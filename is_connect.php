@@ -13,6 +13,12 @@
 				case '/gestion_users.php':
 					header('Location: ./404.php');
 					break;
+				case '/division_lot.php':
+					header('Location: ./404.php');
+					break;
+				case '/purge_lot.php':
+					header('Location: ./404.php');
+					break;
 				default:
 					# code...
 					break;
