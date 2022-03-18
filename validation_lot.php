@@ -54,7 +54,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h1 class="h3 mb-0 text-dark-800">
-              <span class="badge badge-dark" style="background: black;"> 1 ° </span> <span style="font-size:22px;"> CONTROLE ACTE </span>
+              <span class="badge badge-dark" style="background: black;"> 3 ° </span> <span style="font-size:22px;"> VALIDATION LOT </span>
             </h1>
           </div>        
           <hr />  
@@ -65,7 +65,7 @@
               <div class="card shadow mb-4">
                 <form method="post" action="#">                      
                   <div class="card-header py-3" style="background:black;">
-                    <h6 class="m-0 font-weight-bold text-white"> Liste des lots à traiter (id_lot)</h6>
+                    <h6 class="m-0 font-weight-bold text-white"> Liste des lots à valider (id_lot)</h6>
                   </div>
                   <div class="card-body">
                     <div id="form-idlot-field" class="row">
@@ -81,7 +81,7 @@
                             <div  id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
                           </div>
                           <div class="d-flex justify-content-center mt-4">
-                            <p id="txt-controle-notif"> Le Contrôle sera effectué sur ces lots </p>
+                            <p id="txt-controle-notif"> Nombre de lot à initialiser </p>
                           </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                   <div class="card-footer" id="form-idlot-footer">                              
                       <button class="btn btn-secondary" type="reset" id="btn-reset-controle" data-dismiss="modal">Annuler</button>                      
                       <button type="submit" class="btn btn-dark" style="background: black;" id="btn-controle">
-                        Lancer le Contrôle <span class="badge badge-success"  style="font-size:15px;border-radius:100%;padding:5px;"><i class="fas fa-check-double"></i> </span>
+                        initialisation <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fab fa-osi"></i> </span>
                       </button>
                   </div>
                 </form>                  
@@ -169,8 +169,8 @@
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/saisi_count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_perfom.js"></script>
+  <script src="js/owner/saisi_init_count_lot.js"></script>
+  <script src="js/ajax/saisi/saisi_init_perfom.js"></script>
 
 </body>
 

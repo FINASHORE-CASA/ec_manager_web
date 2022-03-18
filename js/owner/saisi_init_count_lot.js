@@ -15,7 +15,7 @@ $(document).ready(function()
         txtNbLot.css("borderColor","gray");
         txtControleNotif.css("color","gray");
         txtNbLot.text("00");
-        txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");
+        txtControleNotif.text("Nombre de lot à initialiser ");
     });
 
 
@@ -31,14 +31,14 @@ $(document).ready(function()
             txtNbLot.css("color","#20c9a6");
             txtNbLot.css("borderColor","#20c9a6");
             txtControleNotif.css("color","#20c9a6");
-            txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");
+            txtControleNotif.text("Nombre de lot à initialiser ");
         }
         else
         {
             txtNbLot.css("color","gray");
             txtNbLot.css("borderColor","gray");
             txtControleNotif.css("color","gray");
-            txtControleNotif.text(" Le Contrôle sera effectué sur ces lots");   
+            txtControleNotif.text("Nombre de lot à initialiser ");   
         }
     };            
 });
