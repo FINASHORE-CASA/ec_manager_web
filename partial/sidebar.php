@@ -116,6 +116,29 @@
         echo '</div></div></li>';
       }
       ?>
+
+      <!-- Nav Item - DEPOT -->
+      <?php
+      $new = array_filter($modules_depots, function ($e, $k) use ($list_roles) {
+        return array_search($k, $list_roles);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      if (count($new) > 0) {
+        echo '<li class="nav-item linkSideBar" id="Depot">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#DepotLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-box"></i>          
+          <span> DEPÔTS </span>
+        </a>
+        <div id="DepotLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"> OPTION :</h6>';
+
+        foreach ($new as $key => $value) {
+          echo '<a class="collapse-item" href="' . $key . '.php">' . $value . '</a>';
+        }
+        echo '</div></div></li>';
+      }
+      ?>
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Nav Item - GESTION STATS  -->
