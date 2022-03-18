@@ -36,10 +36,6 @@
 
         setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
-
-    $('#dataTableVerifImage').on('draw.dt', function () {
-        startEditActe();                           
-    });
     
     $(".form-update-save").on("click",function(e)
     {            
@@ -155,9 +151,10 @@
 
         // Remplissage des informations de l'acte
         btnEdit.on("click",function(e){
-
+                        
             // Lancement du chargement des information
             $("#form-acte-loader").css("display","block");
+            e.preventDefault()
 
             // Récupération de l'Id du click
             var data1 = {
@@ -165,12 +162,9 @@
                 id_lot:$(this).attr("id_lot"),
                 imagepath:$(this).attr("imagepath")
             }     
-            console.log(data1);
             acteInfo = [];
                               
-            let listTd = $("#ActeRow"+data1.id_acte+" td");  
-            $('#field-IdLot').val(data1.id_lot)                                 
-            $('#field-IdActe').val(data1.id_acte)                                 
+            let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
             {
                 $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim()); 
@@ -181,7 +175,6 @@
                 function(data, status, jqXHR) 
                 {
                     var result = JSON.parse(data);                                                                       
-                    console.log(result[1]);
                     if(result[0] == "success")
                     {                    
                         // Remplissage des champs du formulaire  
@@ -313,144 +306,9 @@
         });  
     };
 
-    $("#show_all").on("click",function(){
-
-        if($(this)[0].checked == true)
-        {
-            textListLot.val("");
-            textListLot.attr("disabled","true");
-            
-            // Recherche des actes concernés            
-            get_id_lots(); 
-        }
-        else
-        {
-            textListLot.removeAttr("disabled");
-        }
-    })
-    $("#show_all")[0].checked = false;
-
-    // Ajout Prenom Personne
-    $("#btn-add-champs-prenom-genre").on("click",function() 
-    {                
-        // Récupération de l'Id du click
-        var data1 = {
-            id_user:$("#field-Id_user").val(),
-            prenom_fr:$("#field-PrenomFr").val().trim(),
-            prenom_ar:$("#field-PrenomAr").val().trim(),           
-            genre_prenom:$("#field-Genre").val().trim(),
-        }    
-
-        // add identite bd 
-        $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
-        { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
-            {
-                console.log(data);
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // display result
-                    alert (" informations ajoutés ")    
-                }
-                else if(result[0] == "exist")
-                {
-                    alert (" ces informations existent déjà ")    
-                }                
-                else
-                {
-                    alert(" une erreur s'est produite");
-                    console.log(' message error : ' + result);
-                    console.log(result);
-                }
-            }
-        ); 
-    });
-
-    // Ajout Prenom Père
-    $("#btn-add-champs-prenom-pere").on("click",function() 
-    {                
-        // Récupération de l'Id du click
-        var data1 = {
-            id_user:$("#field-Id_user").val(),
-            prenom_fr:$("#field-PrenomPereFr").val().trim(),
-            prenom_ar:$("#field-PrenomPereAr").val().trim(),           
-            genre_prenom:"M",
-        }    
-
-        // add identite bd 
-        $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
-        { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
-            {
-                console.log(data);
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // display result
-                    alert (" informations ajoutés ")    
-                }
-                else if(result[0] == "exist")
-                {
-                    alert (" ces informations existent déjà ")    
-                }                
-                else
-                {
-                    alert(" une erreur s'est produite");
-                    console.log(' message error : ' + result);
-                    console.log(result);
-                }
-            }
-        ); 
-    });
-
-    // Ajout Prenom Mère
-    $("#btn-add-champs-prenom-mere").on("click",function() 
-    {                
-        // Récupération de l'Id du click
-        var data1 = {
-            id_user:$("#field-Id_user").val(),
-            prenom_fr:$("#field-PrenomMereFr").val().trim(),
-            prenom_ar:$("#field-PrenomMereAr").val().trim(),           
-            genre_prenom:"F",
-        }    
-
-        // add identite bd 
-        $.post(HostLink+'/proccess/ajax/saisi/add_identite_bd.php',
-        { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
-            {
-                console.log(data);
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // display result
-                    alert (" informations ajoutés ")    
-                }
-                else if(result[0] == "exist")
-                {
-                    alert (" ces informations existent déjà ")    
-                }                
-                else
-                {
-                    alert(" une erreur s'est produite");
-                    console.log(' message error : ' + result);
-                    console.log(result);
-                }
-            }
-        ); 
-    });
-
-
     btnControle.on('click',function(e)
     {
-        var nbLot = countNbLot(textListLot.val());
-        listLotError = "";
-        $("#text-list-lot-errone").val("");
-        console.log(nbLot);
+        var nbLot = countNbLot(textListLot.val());        
         if(nbLot == 0)
         {
             txtControleNotif.css("color","red");
@@ -484,10 +342,9 @@
                             // display result    
                             $("#liste-indic li:eq(0)").html("Récupération des champs : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                             $("#liste-indic li:eq(0)").fadeIn(1000);
-                            console.log('success : '  + result[1].length);
 
                             // Création dynamic du tableau des données
-                            $("#table_container").html(' <div class="table-responsive">'+
+                            $("#table_container").html('<div class="table-responsive">'+
                             '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+
                             '<thead>'+
                                 '<tr id="thead-th-modif">'+                               																																							
@@ -508,7 +365,7 @@
                                 if((i+1)%2 != 0)
                                 {
                                     htmlFormField +="<hr/>"
-                                    htmlFormField +='<div class="row" id="form-identifier"><div class="form-group col-md-6">'
+                                    htmlFormField +='<div class="row"><div class="form-group col-md-6">'
                                                     +'<label for="field-'+ el +'"> ' + el + ' </label>'
                                                     +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder=""/></div>'
                                     htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
@@ -516,18 +373,16 @@
                                 else
                                 {
                                     htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                  +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
+                                                  + '<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
                                 }
                             })
-
-                            $("#form-fields-fillables").html("")
                             $("#form-fields-fillables").html(htmlFormField)
 
                             // Redéfinition du click sur le bouton effacer                            
                             $(".btn-form-modal-cancel").on("click", function(e) 
                             {                
                                 // Rétablissement des champs du formulaire    
-                                $(".form-control").each((i,e) => {  e.value = ""})
+                                $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
                                 $("#img-block").html("");                                                                                                                    
                             });
 
@@ -557,7 +412,7 @@
                             result[1].forEach(e => { 
                                                                 
                                 htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'>";
-                                htmlDataTable += (result[1].length > 0 ) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-highlighter"></i></a></td>' : "" : "";
+                                htmlDataTable += (result[1].length > 0) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-highlighter"></i></a></td>' : "" : "";
                                 
                                 for (const key in result[1][0]) 
                                 {

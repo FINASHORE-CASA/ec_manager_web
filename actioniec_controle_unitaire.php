@@ -228,8 +228,7 @@ $date_gen = date("Y-m-d");
             </div>
 
             <div class="tab-pane" id="Resultat">
-              <div id="alert-container">
-              </div>
+              <div id="alert-container"></div>
               <div id="resultat_data" class="row mt-3">
                 <div class="col-md-12">
                   <div class="card shadow mb-4 tab-pane active" id="ListeActes">
@@ -289,7 +288,7 @@ $date_gen = date("Y-m-d");
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/actioniec/actioniec_controle_unitaire.js?version=1.0.1"></script>
+  <script src="js/ajax/actioniec/actioniec_controle_unitaire.js?version=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {
