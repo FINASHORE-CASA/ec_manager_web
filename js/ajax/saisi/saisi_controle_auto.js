@@ -1,4 +1,4 @@
-$(document).ready(function() 
+﻿$(document).ready(function() 
 {    
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
     HostLink = HostLink.includes(".php") ? "." : HostLink;
