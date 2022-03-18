@@ -251,6 +251,10 @@ $(document).ready(function()
                     result[1].forEach(e => {                            
                         htmlDataTable += "<tr id='ChecksStat"+ e.id_acte +"'>"
                                             +'<td > '+ e.id_lot + '</td>'
+                                            +'<td > '+ e.nb_naiss_bd + '</td>'
+                                            +'<td > '+ e.nb_naiss_inv + '</td>'
+                                            +'<td > '+ e.nb_deces_bd + '</td>'
+                                            +'<td > '+ e.nb_deces_inv + '</td>'
                                             +'<td > '+ e.nb_acte_bd + '</td>'
                                             +'<td > '+ e.nb_acte_inv + '</td>'
                                             +'<td > '+ e.nb_ctrl1_bd + '</td>'

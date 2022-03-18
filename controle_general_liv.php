@@ -477,6 +477,10 @@
                           <thead>
                             <tr>
                               <th > ID_LOT </th>
+                              <th > NB NAISS DB </th>
+                              <th > NB NAISS INV </th>
+                              <th > NB DECES DB </th>
+                              <th > NB DECES INV </th>
                               <th > NB ACTES DB </th>
                               <th > NB ACTES INV </th>
                               <th > NB CTRL1 DB </th>
@@ -566,7 +570,7 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/livraison/livraison_controle_general.js"></script>
+  <script src="js/ajax/livraison/livraison_controle_general.js?version=1.0.1"></script>
 
   <script>
     $(document).ready(function(e)
