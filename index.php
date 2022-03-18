@@ -61,79 +61,7 @@
                     box-shadow: 5px 5px 20px rgba(0,0,0,0.5);" class=" mt-5">
                     <img src="./img/stats.png" alt="image home" class="img-responsive" style="height:150px;"/>
                 </div>
-              </div>
-
-              <!-- <div class="mt-5" id="clean-btn-block">
-                <button type="button" class="btn btn-dark" style="background: black;" id="btn-clean">
-                  Nettoyer la base de données <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;">  <i class="fas fa-quidditch"></i> </span>
-                </button>
-              </div>  -->
-              
-               <div id="block-form-clean" class="mt-5" style="display: none  ;">
-                  <div class="row  d-flex justify-content-center">
-                    <form>
-                      <div class="form-row align-items-center">
-                        <div class="col-auto">
-                          <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                               <label class="input-group-text" for="dateDebut" style="background: black;color:white;"> Du <label>
-                            </div>
-                            <input type="date" class="form-control" id="dateDebut" placeholder="Username" value="<?=$date_gen?>">
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                               <label class="input-group-text" for="dateFin" style="background: black;color:white;"> Au <label>
-                            </div>
-                            <input type="date" class="form-control" id="dateFin" placeholder="Username" value="<?=$date_gen?>">
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div class="row form-inline  d-flex justify-content-center mt-2">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="checkActe" checked/>
-                      <label class="form-check-label" for="checkActe">
-                        Actes
-                      </label>
-                    </div>
-                    <div class="form-check ml-3">
-                      <input class="form-check-input" type="checkbox" id="checkMention" checked/>
-                      <label class="form-check-label" for="checkMention">
-                        Mentions
-                      </label>
-                    </div>
-                    <div class="form-check ml-3">
-                      <input class="form-check-input" type="checkbox" id="checkControle1" checked/>
-                      <label class="form-check-label" for="checkControle1">
-                        Conrôle 1
-                      </label>
-                    </div>
-                    <div class="form-check ml-3">
-                      <input class="form-check-input" type="checkbox" id="checkControle2" checked/>
-                      <label class="form-check-label" for="checkControle2">
-                        Contrôles 2
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="row form-inline  d-flex justify-content-center mt-4">
-                    <a href="#" class="btn btn-dark mr-1" style="background: transparent;" id="btn-clean-cancel">
-                      <i class="text-danger fas fa-times"></i>
-                    </a>                    
-                    <button class="btn btn-dark" style="background: black;" id="btn-clean-ok">
-                      Nettoyer <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;">  <i class="fas fa-quidditch"></i> </span>
-                    </button>
-                  </div>
               </div> 
-
-               <div class="mt-5" style="display: none;" id="img-loader">
-                <img src="./img/loader.gif" alt="loader"/>
-              </div> 
-
             </div>
           </div>
         </div>
@@ -167,7 +95,6 @@
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
-  <script src="js/ajax/clean_db.js"></script>  
 
   <!-- modification du lien du download de fichier  -->
   <script>
