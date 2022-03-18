@@ -32,7 +32,7 @@
 
 </head>
 
-<body id="page-top" idpage="etatActe">
+<body id="page-top" idpage="Saisie">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -53,55 +53,69 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-white-800 ">
-                ACTES DE SAISIES
+            <h1 class="h3 mb-0 text-dark-800">
+              <span class="badge badge-dark" style="background: black;"> 1 ° </span> <span style="font-size:22px;"> CONTROLE ACTE </span>
             </h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-          </div>          
+          </div>        
+          <hr />  
           
           <!-- Content Row -->
           <div class="row">            
-            <div class="col-xl-12 col-md-12 mt-4 mb-4">
+            <div class="col-xl-8 mt-4 mb-4">
               <div class="card shadow mb-4">
-                <form method="post" action="./proccess/xlsx_generator/genener_acte_saisi.php">                      
+                <form method="post" action="#">                      
                   <div class="card-header py-3" style="background:black;">
-                    <h6 class="m-0 font-weight-bold text-white"> Génerer le Nombre d'actes saisies par Agents </h6>
+                    <h6 class="m-0 font-weight-bold text-white"> Liste des lots à traiter (id_lot)</h6>
                   </div>
                   <div class="card-body">
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="exampleFormControlSelect1"> Du </label>
-                                <div class="input-group col-md-12 col-lg-12">
-                                      <div class="input-group-prepend">
-                                          <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Du : </button>
-                                          </button>
-                                      </div>
-                                      <input type="date" class="form-control" id="date_gen_deb" name="date_gen_deb"
-                                            value="<?=$date_gen?>"
-                                            aria-label="Text input with segmented dropdown button" required/>
-                                </div>
+                              <div class="form-group">
+                                <textarea class="form-control" id="text-list-lot" rows="9" 
+                                          style="align-content:center; overflow:auto;">
+                                </textarea>
+                              </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="d-flex justify-content-center mt-5" >
+                            <div  id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
                           </div>
-                          <div class="form-group col-md-4">
-                            <label for="exampleFormControlSelect1"> Au </label>
-                                <div class="input-group col-md-12 col-lg-12">
-                                      <div class="input-group-prepend">
-                                          <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Au : </button>
-                                          </button>
-                                      </div>
-                                      <input type="date" class="form-control" id="date_gen_fin" name="date_gen_fin"
-                                            value="<?=$date_gen?>"
-                                            aria-label="Text input with segmented dropdown button" required/>
-                                </div>
+                          <div class="d-flex justify-content-center mt-4">
+                            <p id="txt-controle-notif"> Le Contrôle sera effectué sur ces lots </p>
                           </div>
+                        </div>
                     </div>
                   </div>
                   <div class="card-footer">                              
-                      <button class="btn btn-secondary" type="reset" data-dismiss="modal">Annuler</button>
-                      <button type="submit" class="btn btn-dark" style="background: black;" >
-                        Generer le XLSX  <span class="badge badge-success"  style="font-size:12px;border-radius:100%;padding:10px;">  <i class="fas fa-download"></i> </span>
+                      <button class="btn btn-secondary" type="reset" data-dismiss="modal">Annuler</button>                      
+                      <button type="submit" class="btn btn-dark" style="background: black;" id="btn-controle">
+                        Lancer le Contrôle <span class="badge badge-success"  style="font-size:15px;border-radius:100%;padding:5px;"><i class="fas fa-check-double"></i> </span>
                       </button>
                   </div>
                 </form>                  
+              </div>
+            </div>
+            <div class="col-xl-4 mt-4 mb-4">    
+              <div class="card shadow">          
+                <div class="card-header py-3" style="background:black;">
+                  <h6 class="m-0 font-weight-bold text-white"> Progression </h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <ol>
+                      <li id="indic-img-vide" class="mb-2"> Traitement Image Vide </li> 
+                      <li id="indic-num-acte-vide" class="mb-2"> Traitement Numéro Acte Vide </li>
+                      <li id="indic-num-acte-diff-img" class="mb-2"> Traitement Num Acte # imagepath </li>
+                      <li id="indic-saisi-double" class="mb-2"> Traitement Image saisit en double </li>
+                      <li id="indic-num-acte-double" class="mb-2"> Traitement Num_Acte en double</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="card-footer  bg-success">
+                  <div class="d-flex justify-content-center" style="font-size: 15px;color:white;">
+                    Terminé <i class="fas fa-check-double" style="margin-left:12px;margin-top:2px;"></i>
+                  </div> 
+                </div>
               </div>
             </div>
           </div>   
@@ -144,22 +158,11 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>  
-  <script src="js/owner/page_indicateur.js"></script>
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
-
-  <!-- modification du lien du download de fichier  -->
-  <script>
-      $(document).ready(function(){
-            var linkExcel = $("#btnGenererExcel");
-            var dateGen = $("#date_gen");
-            
-            dateGen.change(function(e) 
-            {
-              linkExcel.attr('href', linkExcel.attr('lienstatic') +  dateGen.val());
-            });
-      });
-  </script>
+  <script src="js/owner/page_indicateur.js"></script>
+  <script src="js/owner/saisi_count_lot.js"></script>
+  <script src="js/ajax/saisi_controle_perfom.js"></script>
 
 </body>
 

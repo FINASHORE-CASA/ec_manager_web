@@ -5,7 +5,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-chart-area"></i>
+          <i class="fas fa-box-open"></i>
         </div>
         <div class="sidebar-brand-text mx-3">EC-MANAGER</div>
       </a>      
@@ -19,7 +19,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item linkSideBar" id="etatActe">
+      <li class="nav-item linkSideBar" id="Saisie">
         <a id="btnListEtat" class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#saisieLink" aria-expanded="true" aria-controls="collapsePages">
           <i class="far fa-edit"></i>
           <span> SAISIE </span>
@@ -27,9 +27,9 @@
         <div id="saisieLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Correction Acte par Lot </a>
-            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Initialisation d'un Lot </a>
-            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Validation Lot  </a>
+            <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
+            <a class="collapse-item" href="initialisation_lot.php"> 2 - Initialisation d'un Lot </a>
+            <a class="collapse-item" href="validation_lot.php"> 3 - Validation Lot  </a>
           </div>
         </div>
       </li>
