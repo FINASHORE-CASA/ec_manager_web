@@ -36,3 +36,19 @@ ALTER TABLE public.mg_group_user
 
 ALTER TABLE mg_user ALTER COLUMN type_grant TYPE integer USING type_grant::integer;
 ------------------------------------------------------------------------------------
+
+-- Table: public.action_user_ctr
+
+-- DROP TABLE public.action_user_ctr;
+
+CREATE TABLE IF NOT EXISTS public.action_user_ctr
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    id_acte bigint,
+    id_lot bigint,
+    type_action character varying COLLATE pg_catalog."default",
+    date_action timestamp with time zone,
+    id_user_ctr integer
+)
+
+TABLESPACE pg_default;
