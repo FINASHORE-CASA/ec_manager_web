@@ -237,7 +237,6 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                     <nav class="nav nav-tabs">
                       <a class="nav-tab-item nav-item nav-link active" href="#Inventaire_db" style="color: black;"> Table Inventaire_db <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-1"> 0 </span> <button id="Inventaire_db_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>
                       <a class="nav-tab-item nav-item nav-link" href="#TomeRegistre" style="color: black;"> Table TomeRegistre/Registre <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-2"> 0 </span> <button id="TomeRegistre_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>
-                      <!-- <a class="nav-tab-item nav-item nav-link" href="#" style="color: black;"> Lot Introuvable <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-3"> 0 </span> </a>                                           -->
                     </nav>
                   </div>
 
