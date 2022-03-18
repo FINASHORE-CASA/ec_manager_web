@@ -56,12 +56,6 @@ try {
         })) == 0);
     }));
 
-    // $lots_rejetes_en_cours = array_values(array_filter($lots_rejete, function ($lr) use ($lots_en_cours) {
-    //     return (count(array_filter($lots_en_cours, function ($lc) use ($lr) {
-    //         return trim($lc[0]) == trim($lr[0]);
-    //     })) > 0);
-    // }));
-
     $listNewLot = array_values(array_filter($listNewLot, function ($l) use ($lots_en_cours) {
         return (count(array_filter($lots_en_cours, function ($lc) use ($l) {
             return trim($lc[0]) == trim($l);
