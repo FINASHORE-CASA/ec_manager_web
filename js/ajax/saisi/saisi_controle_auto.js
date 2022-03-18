@@ -75,6 +75,8 @@
         $("#field-ad_etabli_acte_h").val("");
         $("#field-Id_user_saisi").val("");
         $("#field-Id_lot").val("");
+        $("#field-NbMention").val("");
+        $("#field-NbMentionCorr").val("");
         $("#img-block").html("");                                                                                                                    
 
         $("#btnTabMention").css("display","none");        
@@ -192,6 +194,28 @@
             show_alert("warning","Aucune modification enregistrée");
             $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
         }    
+
+        // Enregistrement de la mention manquante
+        console.log($("#field-NbMentionCorr").val());
+        console.log($("#field-NbMentionCorr").val());
+        if($("#field-NbMentionCorr").val() != "" /*&& parseInt($("#field-NbMentionCorr").val()) >= 0*/)
+        {
+            dataMention = {id_acte:$("#field-IdActe").val()
+                          ,mention_acte:$("#field-NbMention").val()
+                          ,mention_corr:$("#field-NbMentionCorr").val()
+                          ,id_user:$("#field-Id_user").val()
+                          ,id_lot:$("#field-IdLot").val()}
+
+            console.log(dataMention)                          
+
+            $.post(HostLink+'/proccess/ajax/saisi/insert_nombre_mention_declare.php',   // url
+            { myData: JSON.stringify(dataMention) }, // data to be submit
+                function(data, status, jqXHR) 
+                {
+                    console.log(data);
+                }
+            )
+        }
     });  
 
     var startSwitchImage = function() 
@@ -555,6 +579,7 @@
                         $("#field-ad_deces_g").val(result[1].ad_deces_g);
                         $("#field-Id_lot").text(result[1].id_lot);
                         $("#field-NbMention").val(result[1].mention);
+                        $("#field-NbMentionCorr").val("");
                         acteInfo = result[1];   
 
                         if(result[4].length > 0)
