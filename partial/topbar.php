@@ -9,6 +9,26 @@
   <!-- Topbar Navbar -->
   <ul class="navbar-nav ml-auto">
 
+    <?= 
+      ($bdd_status == "undefined") 
+      ? '<li class="nav-item">
+          <a id="bd_name_link" class="nav-link" href="gestion_db_setting.php">
+            <span class="badge badge-danger">
+              Aucune Base de données Sélectionnée
+            </span>
+          </a>
+        </li>' 
+        : 
+        '<li class="nav-item">
+          <a id="bd_name_link" class="nav-link" href="gestion_db_setting.php">
+            <i class="fa fa-database" aria-hidden="true"></i>
+            <span class="badge badge-default">
+              '.$bdd_status.'
+            </span>
+          </a>
+        </li>'
+    ?>  
+
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

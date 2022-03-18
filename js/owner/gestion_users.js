@@ -1,5 +1,8 @@
 $(document).ready(function(e){
 
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
+
     var initDataTable = function(dataTable) 
     {
         dataTable.DataTable({
@@ -33,15 +36,22 @@ $(document).ready(function(e){
 
         btnEdit.on("click",function()
         {
+            // initialisation des champs             
+            $("#field-Name").val("");
+            $("#field-FirstName").val("");
+            $("#field-TypeGrant").val("");
+            $("#field-Login").val("");
+            $("#field-Password").val("");    
+
             // Récupération de l'Id du click
             var data1 = {
                 id_user: $(this).attr("id-user"),
-            }              
+            }          
 
             $("#form-update-save").attr("id-user",$(this).attr("id-user"));                       
 
             // Récupération des informations du user
-            $.post('../../proccess/ajax/gestion_user/get_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/get_user.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -68,7 +78,7 @@ $(document).ready(function(e){
         {
             $("#btn-sup-confirm").attr("id-user",$(this).attr("id-user"));                                                                                                                       
         });
-    };
+    };    
 
     $("#btn-sup-confirm").on("click",function()
     {
@@ -78,7 +88,7 @@ $(document).ready(function(e){
         }          
 
         // Récupération des informations du user
-        $.post('../../proccess/ajax/gestion_user/del_user.php',   // url
+        $.post(HostLink+'/proccess/ajax/gestion_user/del_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -113,7 +123,7 @@ $(document).ready(function(e){
         if($(this).attr("id-user") == "0")
         {
             //Appel Ajax d'ajout des informations
-            $.post('../../proccess/ajax/gestion_user/add_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/add_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -144,7 +154,7 @@ $(document).ready(function(e){
         else
         {
             //Appel Ajax d'update des informations
-            $.post('../../proccess/ajax/gestion_user/update_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/update_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -186,10 +196,12 @@ $(document).ready(function(e){
     var getGrantName = function(type_grant){
         switch(type_grant)
         {
-            case "0" :
+            case 0 :
                 return "Administrateur";
-            case "1" :
+            case 1 :
                 return "Superviseur";
+            case 2 :
+                return "Supersup";
             default :
                 return "Non Défini";
         }
@@ -199,7 +211,7 @@ $(document).ready(function(e){
     var getData = function()
     { 
         // Traitement Image Vide 
-        $.get('../../proccess/ajax/gestion_user/get_users.php')
+        $.get(HostLink+'/proccess/ajax/gestion_user/get_users.php')
          .done(function(data)
          {            
             var result = JSON.parse(data);  
@@ -209,7 +221,7 @@ $(document).ready(function(e){
             result[1].forEach(e => {                            
                 htmlDataTable += "<tr><td>" + e.name + "</td><td>" + e.first_name +  "</td><td>" + getGrantName(e.type_grant) + "</td><td>" + e.date_creat
                                         + "</td><td>" + e.date_last_up + "</td>" 
-                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:black;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-edit'></i> </a></td>" 
+                                        + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:gray;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-highlighter'></i> </a></td>" 
                                         + "<td class='text-center'> <a href='#' class='btn-del' id-user='"+ e.id_user +"' style='color:red;' data-toggle='modal' data-target='#SupUserModal'> <i class='far fa-times-circle'></i> </a></td></tr>";
             });
 

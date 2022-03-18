@@ -53,9 +53,9 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-dark-800">
-              <span class="badge badge-dark" style="background: black;"> 1 ° </span> <span style="font-size:22px;"> PURGE LOT </span>
-            </h1>
+            <h4 class="h6 mb-0 text-dark-800">
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> LIVRAISON <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  PURGE LOT 
+            </h4>
           </div>        
           <hr />
 
@@ -63,7 +63,7 @@
           <div class="modal fade" id="textLivreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header" style="background:black;color:white;">
+                <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;">
                   <h5 class="modal-title" id="exampleModalLabel"> Liste Lot Livré </h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                  <button id="btn-purge-livre-confirm" class="btn btn-darker" style="background: black;color:white;" href="#"> Enregistrer </button>
+                  <button id="btn-purge-livre-confirm" class="btn btn-darker" style="background:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;" href="#"> Enregistrer </button>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@
             <div class="col-xl-8 mt-4 mb-4">
               <div class="card shadow mb-4">
                 <form method="post" action="#">                      
-                  <div class="card-header py-3" style="background:black;">
+                  <div class="card-header py-3" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                     <h6 class="m-0 font-weight-bold text-white"> Liste des lots à purger (id_lot)</h6>
                   </div>
                   <div class="card-body">
@@ -128,7 +128,10 @@
                             <hr/>
                             <label class="mr-1" for="purge-livre"> Purge Livraison Préc. </label>
                             <input type="checkbox" id="purge-livre" class="mr-2"/>
-                            <a class="btn btn-default" style="background: black;color:white;" id="btn-modif-txt-livre"  data-toggle='modal' data-target='#textLivreModal'> ... </a>                      
+                            <a class="btn btn-default" style="background:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;" id="btn-modif-txt-livre"  data-toggle='modal' data-target='#textLivreModal'> ... </a>                      
+                            <hr/>
+                            <label class="mr-1" for="purge-acte-non-finalise"> Purge Actes Non finalisés. </label>
+                            <input type="checkbox" id="purge-acte-non-finalise" class="mr-2"/>                          
                         </div>
                         <div class="col-md-8">
                           <div class="d-flex justify-content-center mt-5" >
@@ -141,7 +144,7 @@
                     </div>
                     <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                       <div class="d-flex justify-content-center" style="padding-top: 9em;">
-                        <img src="/img/loader.gif" alt="loader wait" />
+                        <img src="./img/loader.gif" alt="loader wait" />
                       </div>
                       <div class="d-flex justify-content-center mt-3" style="color: black;">
                         <p> <b> Traitement en cours ... </b></p>
@@ -150,7 +153,7 @@
                   </div>
                   <div class="card-footer" id="form-idlot-footer">                              
                       <button class="btn btn-secondary" type="reset" id="btn-reset-controle" data-dismiss="modal">Annuler</button>                      
-                      <button type="button" class="btn btn-dark" style="background: black;" id="btn-purge" data-toggle='modal' data-target='#ConfirmModal' >
+                      <button type="button" class="btn btn-dark" style="background:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;" id="btn-purge" data-toggle='modal' data-target='#ConfirmModal' >
                         purger les lots <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-broom"></i> </span>
                       </button>
                   </div>
@@ -159,8 +162,8 @@
             </div>
             <div class="col-xl-4 mt-4 mb-4">    
               <div class="card shadow">          
-                <div class="card-header py-3" style="background:black;">                  
-                  <h6 class="m-0 font-weight-bold text-white"> Progression </h6>
+                <div class="card-header py-3" style="background:white;">                  
+                  <h6 class="m-0 font-weight-bold" style="color: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Progression </h6>
                 </div>
                 <div class="card-body">
                   <div class="row">

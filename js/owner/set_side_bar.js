@@ -12,7 +12,7 @@ $(document).ready(function()
             }
 
 
-        $.post('../../proccess/ajax/side_bar_toogle.php',   // url
+        $.post('./proccess/ajax/side_bar_toogle.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
         function(data, status, jqXHR) 
         {            

@@ -54,9 +54,9 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-dark-800">
-              <span class="badge badge-dark" style="background: black;"> <i class="fas fa-signal-4"></i> 4 ° </span> <span style="font-size:22px;"> DIVISION LOT </span>
-            </h1>
+            <h4 class="h6 mb-0 text-dark-800">
+              <span style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> SAISIE <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span>  DIVISION LOT 
+            </h4>
           </div> 
           <hr />  
 
@@ -72,7 +72,7 @@
           <div class="modal fade" id="ConfirmDiviserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header" style="background:black;color:white;">
+                <div class="modal-header" style="background:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;">
                   <h5 class="modal-title" id="exampleModalLabel"> Confirmer </h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -91,7 +91,7 @@
           <div class="modal fade" id="ConfirmFusionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header" style="background:black;color:white;">
+                <div class="modal-header" style="background:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;color:white;">
                   <h5 class="modal-title" id="exampleModalLabel"> Confirmer </h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -113,7 +113,7 @@
                 <div class="col-xl-8 mt-4 mb-4">
                   <div class="card shadow mb-4">
                     <form method="post" action="#">                      
-                      <div class="card-header py-3" style="background:black;">
+                      <div class="card-header py-3" style="background:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Liste des lots à diviser (id_lot)</h6>
                       </div>
                       <div class="card-body">
@@ -150,7 +150,7 @@
                         </div>
                         <div id="form-lot-loader-diviser" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
-                            <img src="/img/loader.gif" alt="loader wait" />
+                            <img src="./img/loader.gif" alt="loader wait" />
                           </div>
                           <div class="d-flex justify-content-center mt-3" style="color: black;">
                             <p> <b> Traitement en cours ... </b></p>
@@ -159,7 +159,7 @@
                       </div>
                       <div class="card-footer" id="form-idlot-footer">                              
                           <button class="btn btn-secondary" type="reset" id="btn-reset-diviser" data-dismiss="modal">Annuler</button>                      
-                          <button type="submit" class="btn btn-dark" style="background: black;" id="btn-diviser">
+                          <button type="submit" class="btn btn-dark" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;" id="btn-diviser">
                             Diviser Lot <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-dice-d20"></i> </span>
                           </button>
                       </div>
@@ -168,8 +168,8 @@
                 </div>
                 <div class="col-xl-4 mt-4 mb-4">    
                   <div class="card shadow">          
-                    <div class="card-header py-3" style="background:black;">                  
-                      <h6 class="m-0 font-weight-bold text-white"> Progression</h6>
+                    <div class="card-header py-3" style="background:white;">                  
+                      <h6 class="m-0 font-weight-bold" style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Progression</h6>
                     </div>
                     <div class="card-body">
                       <div class="row">
@@ -194,7 +194,7 @@
                 <div class="col-xl-8 mt-4 mb-4">
                   <div class="card shadow mb-4">
                     <form method="post" action="#">                      
-                      <div class="card-header py-3" style="background:black;">
+                      <div class="card-header py-3" style="background:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Liste des lots à reconstituer (id_lot)</h6>
                       </div>
                       <div class="card-body">
@@ -217,7 +217,7 @@
                         </div>
                         <div id="form-lot-loader-fusion" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
-                            <img src="/img/loader.gif" alt="loader wait" />
+                            <img src="./img/loader.gif" alt="loader wait" />
                           </div>
                           <div class="d-flex justify-content-center mt-3" style="color: black;">
                             <p> <b> Traitement en cours ... </b></p>
@@ -226,7 +226,7 @@
                       </div>
                       <div class="card-footer" id="form-idlot-footer">                              
                           <button class="btn btn-secondary" type="reset" id="btn-reset-fusion" data-dismiss="modal">Annuler</button>                      
-                          <button type="submit" class="btn btn-dark" style="background: black;" id="btn-fusion">
+                          <button type="submit" class="btn btn-dark" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;" id="btn-fusion">
                             réconstituer lot <span class="badge badge-primary"  style="font-size:15px;border-radius:100%;padding:5px;"><i class="fas fa-globe"></i> </span>
                           </button>
                       </div>
@@ -235,8 +235,8 @@
                 </div>
                 <div class="col-xl-4 mt-4 mb-4">    
                   <div class="card shadow">          
-                    <div class="card-header py-3" style="background:black;">                  
-                      <h6 class="m-0 font-weight-bold text-white"> Progression</h6>
+                    <div class="card-header py-3" style="background:white;">                  
+                      <h6 class="m-0 font-weight-bold" style="color:<?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Progression</h6>
                     </div>
                     <div class="card-body">
                       <div class="row">
