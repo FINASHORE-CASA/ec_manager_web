@@ -15,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>EC - MANAGER - WEB</title>
+  <title>  <?=$app_name ?> </title>
   <link rel="icon" href="img/favicon.ico" />
 
   <!-- Custom fonts for this template-->
