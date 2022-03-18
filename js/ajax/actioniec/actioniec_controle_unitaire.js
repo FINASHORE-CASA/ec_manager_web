@@ -70,7 +70,7 @@
                 if(result[0] == "success")
                 {                    
                     // success callback
-                    if(typeof result[1] === 'number')
+                    if(typeof result[1] === 'number' || typeof result[2] === 'number')
                     {
                         result[5].forEach(nomchamp => 
                         {
