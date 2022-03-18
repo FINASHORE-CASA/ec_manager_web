@@ -37,7 +37,7 @@
             <h6 class="collapse-header"> OPTION :</h6>
             <a class="collapse-item" href="saisie_controle_acte_lot.php"> 1 - Contrôle Acte </a>
             <a class="collapse-item" href="correction_acte.php"> 2 - Correction Acte </a>
-            <a class="collapse-item" href="correction_reqs.php"> 3 - Requête Correction  </a>
+            <a class="collapse-item" href="correction_reqs.php"> 3 - Vigilance  </a>
             <a class="collapse-item" href="initialisation_lot.php"> 4 - Initialisation d'un Lot </a>
             <a class="collapse-item" href="validation_lot.php"> 5 - Validation Lot  </a>
             <?= (isset($_SESSION['user']->type_grant) && ($_SESSION['user']->type_grant == '0' || $_SESSION['user']->type_grant == '2') ) ? '<a class="collapse-item" href="division_lot.php"> 6 - Division Lot </a>' : '' ?> 
@@ -45,16 +45,30 @@
         </div>
       </li>
       
-      <!-- Nav Item - SAISIE -->
-      <li class="nav-item linkSideBar" id="ActionAuto">
-        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionAutoLink" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fab fa-autoprefixer"></i>
-          <span> ACTION MI </span>
+      <!-- Nav Item - ACTION MI -->
+      <li class="nav-item linkSideBar" id="ActionIEC">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionIECLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-clipboard-check"></i>
+          <span> ACTION IEC </span>
         </a>
-        <div id="ActionAutoLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="ActionIECLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header"> OPTION :</h6>
-            <a class="collapse-item" href="saisie_controle_acte_lot_auto.php"> 1 - Contrôle Inventaire MI </a>
+            <a class="collapse-item" href="saisie_controle_acte_lot_auto.php"> 1 - Contrôle IEC </a>
+          </div>
+        </div>
+      </li>
+      
+      <!-- Nav Item - ACTION OEC-POPF -->
+      <li class="nav-item linkSideBar" id="ActionOEC-POPF">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionOEC-POPFLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-clipboard-check"></i>
+          <span> ACTION OEC-POPF </span>
+        </a>
+        <div id="ActionOEC-POPFLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"> OPTION :</h6>
+            <a class="collapse-item" href="controle_oec_popf.php"> 1 - Contrôle OEC-POPF </a>
           </div>
         </div>
       </li>
