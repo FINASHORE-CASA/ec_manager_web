@@ -165,6 +165,7 @@
                 id_lot:$(this).attr("id_lot"),
                 imagepath:$(this).attr("imagepath")
             }     
+            console.log(data1);
             acteInfo = [];
                               
             let listTd = $("#ActeRow"+data1.id_acte+" td");  
@@ -180,6 +181,7 @@
                 function(data, status, jqXHR) 
                 {
                     var result = JSON.parse(data);                                                                       
+                    console.log(result[1]);
                     if(result[0] == "success")
                     {                    
                         // Remplissage des champs du formulaire  
@@ -524,10 +526,8 @@
                             // Redéfinition du click sur le bouton effacer                            
                             $(".btn-form-modal-cancel").on("click", function(e) 
                             {                
-                                $('#field-IdLot').val("")                                 
-                                $('#field-IdActe').val("")  
                                 // Rétablissement des champs du formulaire    
-                                $(".form-fillables").each((i,e) => {  e.value = ""})
+                                $(".form-control").each((i,e) => {  e.value = ""})
                                 $("#img-block").html("");                                                                                                                    
                             });
 
