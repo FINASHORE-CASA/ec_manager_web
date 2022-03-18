@@ -101,6 +101,8 @@ $(document).ready(function() {
                 if($("#image1").css("display") == "none")
                 {
                    $("#image2").fadeOut(); 
+                   var src = $("#image1").attr("src");
+                   $("#image1").removeAttr("src").attr("src",src);                   
                    $("#image1").fadeIn(2000); 
                    $("#image2").css("display","none")
                    $(this).css("color","black");
@@ -112,6 +114,8 @@ $(document).ready(function() {
                 if($("#image2").css("display") == "none")
                 {
                    $("#image1").fadeOut(); 
+                   var src = $("#image2").attr("src");
+                   $("#image2").removeAttr("src").attr("src",src);  
                    $("#image2").fadeIn(2000); 
                    $("#image1").css("display","none")
                    $(this).css("color","black");
