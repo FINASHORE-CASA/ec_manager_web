@@ -7,7 +7,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-chart-area"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">ETAT - CIVIL</div>
+        <div class="sidebar-brand-text mx-3">EC-MANAGER</div>
       </a>      
 
       <!-- Divider -->
@@ -15,50 +15,24 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-         LISTE ETATS
+         OPTION
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item linkSideBar" id="etatActe">
-        <a id="btnListEtat" class="nav-link collapsed" href="form_acte_saisi.php" >
-          <i class="fas fa-angle-double-right"></i>
-          <span> ACTES </span>
+        <a id="btnListEtat" class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#saisieLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="far fa-edit"></i>
+          <span> SAISIE </span>
         </a>
-      </li> 
-
-      <li class="nav-item linkSideBar" id="etatMention">
-        <a id="btnListEtat" class="nav-link collapsed" href="form_calcul_mention.php" >
-          <i class="fas fa-angle-double-right"></i>
-          <span> MENTION </span>
-        </a>
-      </li> 
-
-      <li class="nav-item linkSideBar" id="etatControle1">
-        <a id="btnListEtat" class="nav-link collapsed" href="form_controle_1.php" >
-          <i class="fas fa-angle-double-right"></i>
-          <span> CONTROLE 1 </span>
-        </a>
-      </li> 
-
-      <li class="nav-item linkSideBar" id="etatControle2">
-        <a id="btnListEtat" class="nav-link collapsed" href="form_controle_2.php" >
-          <i class="fas fa-angle-double-right"></i>
-          <span> CONTROLE 2 </span>
-        </a>
-      </li> 
-
-
-        <!-- <div id="scanLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="saisieLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> OPTION :</h6>            
-            <hr style="margin: 1;"/>
-            <a class="collapse-item bg-dark text-white" href="form_acte_saisi.php">  Saisie Actes </a>
-            <a class="collapse-item bg-dark text-white mt-2" href="form_calcul_mention.php"> Calcul Mention </a>
-            <a class="collapse-item bg-dark text-white mt-2" href="form_controle_1.php">  Contrôle Phase 1 </a>
-            <a class="collapse-item bg-dark text-white mt-2" href="form_controle_2.php">  Contrôle Phase 2 </a>
+            <h6 class="collapse-header"> OPTION :</h6>
+            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Correction Acte par Lot </a>
+            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Initialisation d'un Lot </a>
+            <a class="collapse-item" href="stats_agents.php?at_date=<?=date('Y-m-d')?>"> Validation Lot  </a>
           </div>
-        </div> -->
-      <!-- Divider -->
+        </div>
+      </li>
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->

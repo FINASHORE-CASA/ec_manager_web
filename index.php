@@ -15,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>FINA - STATS</title>
+  <title>EC - MANAGER - WEB</title>
   <link rel="icon" href="img/favicon.ico" />
 
   <!-- Custom fonts for this template-->
@@ -56,20 +56,18 @@
           </div>
           <div class="row">
             <div class="text-center col-lg-12 mt-5"> 
-
               <div class="d-flex justify-content-center">
                 <div style="background: black;padding: 45px;border-radius:100%; 
                     box-shadow: 5px 5px 20px rgba(0,0,0,0.5);" class=" mt-5">
-                  <img src="./img/stats.png" alt="image home" class="img-responsive"
-                      style="height:150px;"/>
+                    <img src="./img/stats.png" alt="image home" class="img-responsive" style="height:150px;"/>
                 </div>
               </div>
 
-               <div class="mt-5" id="clean-btn-block">
+              <!-- <div class="mt-5" id="clean-btn-block">
                 <button type="button" class="btn btn-dark" style="background: black;" id="btn-clean">
                   Nettoyer la base de données <span class="badge badge-danger"  style="font-size:15px;border-radius:100%;padding:5px;">  <i class="fas fa-quidditch"></i> </span>
                 </button>
-              </div> 
+              </div>  -->
               
                <div id="block-form-clean" class="mt-5" style="display: none  ;">
                   <div class="row  d-flex justify-content-center">
