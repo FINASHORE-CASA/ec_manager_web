@@ -338,95 +338,105 @@
                         
                         if(result[0] == "success")
                         {
-                            // success callback
-                            // display result    
-                            $("#liste-indic li:eq(0)").html("Récupération des champs : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                            $("#liste-indic li:eq(0)").fadeIn(1000);
-
-                            // Création dynamic du tableau des données
-                            $("#table_container").html('<div class="table-responsive">'+
-                            '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+
-                            '<thead>'+
-                                '<tr id="thead-th-modif">'+                               																																							
-                                '</tr>'+
-                            '</thead>'+
-                            '<tbody id="TableListeActes">'+
-                            '</tbody>'+
-                            '<tfoot>'+ 
-                            '<tr id="tfoot-th-modif"></tr>'+                        
-                            '</tfoot>'+
-                            '</table>'+
-                            '</div>');
-
-                            // Ajout dynamic des champs modifiables
-                            htmlFormField = ""
-                            data1.list_champs.forEach((el,i) => {
-                                
-                                if((i+1)%2 != 0)
-                                {
-                                    htmlFormField +="<hr/>"
-                                    htmlFormField +='<div class="row"><div class="form-group col-md-6">'
-                                                    +'<label for="field-'+ el +'"> ' + el + ' </label>'
-                                                    +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder=""/></div>'
-                                    htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
-                                }
-                                else
-                                {
-                                    htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                  + '<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
-                                }
-                            })
-                            $("#form-fields-fillables").html(htmlFormField)
-
-                            // Redéfinition du click sur le bouton effacer                            
-                            $(".btn-form-modal-cancel").on("click", function(e) 
-                            {                
-                                // Rétablissement des champs du formulaire    
-                                $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
-                                $("#img-block").html("");                                                                                                                    
-                            });
-
-                            // Redéfinition du clickk sur le boutton de modification
-                            $('#dataTableListeActes').on('draw.dt', function () {
-                                startEditActe();                           
-                            });
-
-                            // paramétrage de l'affichage
-                            notifResultat.fadeIn("slow");
-                            ResultatData.fadeIn("slow");
-                            $("#notif-Resultat-1").text(result[1].length);                            
-
-                            HtmlTableHead = (result[1].length > 0 ) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ?  "<th> Modif </th>" : "" : "";
-                            for (const key in result[1][0]) 
+                            if(result[1].length != 0)
                             {
-                                if (Object.hasOwnProperty.call(result[1][0], key)) 
-                                {
-                                    HtmlTableHead += '<th> ' + key + '</th>';                                                                                            
-                                }
-                            }
-                            $("#thead-th-modif").html(HtmlTableHead);                                                                                                                                                                                     
-                            $("#tfoot-th-modif" ).html(HtmlTableHead); 
-                                                    
-                            // injection des données                             
-                            htmlDataTable = "";    
-                            result[1].forEach(e => { 
-                                                                
-                                htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'>";
-                                htmlDataTable += (result[1].length > 0) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-highlighter"></i></a></td>' : "" : "";
                                 
+                                // success callback
+                                // display result    
+                                $("#liste-indic li:eq(0)").html("Récupération des champs : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                $("#liste-indic li:eq(0)").fadeIn(1000);
+
+                                // Création dynamic du tableau des données
+                                $("#table_container").html('<div class="table-responsive">'+
+                                '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+
+                                '<thead>'+
+                                    '<tr id="thead-th-modif">'+                               																																							
+                                    '</tr>'+
+                                '</thead>'+
+                                '<tbody id="TableListeActes">'+
+                                '</tbody>'+
+                                '<tfoot>'+ 
+                                '<tr id="tfoot-th-modif"></tr>'+                        
+                                '</tfoot>'+
+                                '</table>'+
+                                '</div>');
+
+                                // Ajout dynamic des champs modifiables
+                                htmlFormField = ""
+                                data1.list_champs.forEach((el,i) => {
+                                    
+                                    if((i+1)%2 != 0)
+                                    {
+                                        htmlFormField +="<hr/>"
+                                        htmlFormField +='<div class="row"><div class="form-group col-md-6">'
+                                                        +'<label for="field-'+ el +'"> ' + el + ' </label>'
+                                                        +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder=""/></div>'
+                                        htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
+                                    }
+                                    else
+                                    {
+                                        htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
+                                                    + '<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
+                                    }
+                                })
+                                $("#form-fields-fillables").html(htmlFormField)
+
+                                // Redéfinition du click sur le bouton effacer                            
+                                $(".btn-form-modal-cancel").on("click", function(e) 
+                                {                
+                                    // Rétablissement des champs du formulaire    
+                                    $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
+                                    $("#img-block").html("");                                                                                                                    
+                                });
+
+                                // Redéfinition du clickk sur le boutton de modification
+                                $('#dataTableListeActes').on('draw.dt', function () {
+                                    startEditActe();                           
+                                });
+
+                                // paramétrage de l'affichage
+                                notifResultat.fadeIn("slow");
+                                ResultatData.fadeIn("slow");
+                                $("#notif-Resultat-1").text(result[1].length);                            
+
+                                HtmlTableHead = (result[1].length > 0 ) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ?  "<th> Modif </th>" : "" : "";
                                 for (const key in result[1][0]) 
                                 {
-                                    if (Object.hasOwnProperty.call(e, key)) 
+                                    if (Object.hasOwnProperty.call(result[1][0], key)) 
                                     {
-                                        htmlDataTable += '<td name="'+key+'"> '+ e[key] +'</td>';
+                                        HtmlTableHead += '<th> ' + key + '</th>';                                                                                            
                                     }
-                                }                             
-                                htmlDataTable += '</tr>';
-                            });
+                                }
+                                $("#thead-th-modif").html(HtmlTableHead);                                                                                                                                                                                     
+                                $("#tfoot-th-modif" ).html(HtmlTableHead); 
+                                                        
+                                // injection des données                             
+                                htmlDataTable = "";    
+                                result[1].forEach(e => { 
+                                                                    
+                                    htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'>";
+                                    htmlDataTable += (result[1].length > 0) ? Object.hasOwnProperty.call(result[1][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-highlighter"></i></a></td>' : "" : "";
+                                    
+                                    for (const key in result[1][0]) 
+                                    {
+                                        if (Object.hasOwnProperty.call(e, key)) 
+                                        {
+                                            htmlDataTable += '<td name="'+key+'"> '+ e[key] +'</td>';
+                                        }
+                                    }                             
+                                    htmlDataTable += '</tr>';
+                                });
 
-                            $("#dataTableListeActes").dataTable().fnDestroy();                                             
-                            $("#TableListeActes").html(htmlDataTable);
-                            initDataTable($('#dataTableListeActes')); 
+                                $("#dataTableListeActes").dataTable().fnDestroy();                                             
+                                $("#TableListeActes").html(htmlDataTable);
+                                initDataTable($('#dataTableListeActes')); 
+                            }
+                            else
+                            {
+                                $("#liste-indic li:eq(0)").html("Récupération des champs : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                                $("#liste-indic li:eq(0)").fadeIn(1000);
+                                $("#table_container").html("")
+                            }                            
                             
                             // Dissimulation du loader       
                             formLoader.css("display","none");                            
