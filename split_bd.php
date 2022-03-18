@@ -74,7 +74,8 @@
                         <div class="form-group col-md-4">
                             <div class="form-group">
                               <textarea class="form-control" id="text-list-lot" rows="9" 
-                                        style="align-content:center; overflow:auto;" disabled>
+                                        style="align-content:center; overflow:auto;" 
+                                        readonly="true">
                               </textarea>
                             </div>
                         </div>

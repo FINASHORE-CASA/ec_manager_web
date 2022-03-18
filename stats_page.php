@@ -71,13 +71,16 @@
                     </a>
                   </div>
                   <hr style="background-color: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"/>
-                  <div id="details_lot_A" 
-                       style="overflow-y: auto;height:300px;padding-right:20px;box-shadow:1px 0px 5px rgba(0,0,0,0.1) inset;
-                              margin-left:50px;background:<?=isset($main_app_color) ? $main_app_color."0A" : "#3b21060A";?>;
-                              display:none;" 
-                       class="text-right">
-
-                  </div>                
+                  <div class="float-right">
+                    <textarea id="details_lot_A" 
+                          readonly="true"
+                          style="overflow-y: auto;height:300px;padding-right:20px;box-shadow:1px 0px 5px rgba(0,0,0,0.1) inset;
+                                  margin-left:50px;background:<?=isset($main_app_color) ? $main_app_color."0A" : "#3b210633";?>;
+                                  display:none;" 
+                          class="text-right" 
+                          value="">
+                    </textarea>
+                  </div>                  
                 </div>
               </div>
             </div>     
@@ -99,12 +102,14 @@
                     </a>
                   </div>
                   <hr style="background-color: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"/>
-                  <div id="details_lot_non_A" 
-                       style="overflow-y: auto;height:300px;padding-right:20px;box-shadow:1px 0px 5px rgba(0,0,0,0.1) inset;
-                              margin-left:50px;background:<?=isset($main_app_color) ? $main_app_color."0A" : "#3b21060A";?>;
-                              display:none;" 
-                       class="text-right">
-
+                  <div class="float-right">
+                    <textarea id="details_lot_non_A" 
+                              readonly="true"
+                              style="overflow-y: auto;height:300px;padding-right:20px;box-shadow:1px 0px 5px rgba(0,0,0,0.1) inset;
+                                      margin-left:50px;background:<?=isset($main_app_color) ? $main_app_color."0A" : "#3b21060A";?>;
+                                      display:none;" 
+                              class="text-right" value="">                            
+                    </textarea>                  
                   </div>
                 </div>
               </div>
@@ -202,14 +207,14 @@
                 let htmlDivLotA = "";
                 result[1].forEach(function(e)
                 {
-                  htmlDivLotA += e.id_lot + '<br/>';
+                  htmlDivLotA += e.id_lot + '\n';
                 }); 
                 $("#details_lot_A").html(htmlDivLotA);
 
                 let htmlDivLotNonA = "";
                 result[2].forEach(function(e)
                 {
-                  htmlDivLotNonA += e.id_lot + '<br/>';
+                  htmlDivLotNonA += e.id_lot + '\n';
                 }); 
                 $("#details_lot_non_A").html(htmlDivLotNonA);
 
