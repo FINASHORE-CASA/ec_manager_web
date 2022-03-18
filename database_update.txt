@@ -1,6 +1,6 @@
 --- ECV_EXTRA 
 
--- log : 21/08/2022 14:18
+-- log : 21/02/2022 14:18
 -- Création de la table : stats_ctr_crr_acte 
 
 CREATE TABLE IF NOT EXISTS public.stats_ctr_crr_acte
@@ -17,3 +17,21 @@ TABLESPACE pg_default;
 ALTER TABLE public.stats_ctr_crr_acte
     OWNER to postgres;
 ---------------------------------------------------
+
+
+
+-- log : 04/03/2022 14:18
+-- Création de la table : stats_ctr_crr_acte 
+CREATE TABLE IF NOT EXISTS public.mg_group_user
+(
+    id_type_grant integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    list_role character varying COLLATE pg_catalog."default",
+    date_creat timestamp with time zone,
+    date_modif timestamp with time zone,
+    name_group character varying COLLATE pg_catalog."default"
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.mg_group_user
+    OWNER to postgres;
