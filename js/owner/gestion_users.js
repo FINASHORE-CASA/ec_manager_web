@@ -1,5 +1,8 @@
 $(document).ready(function(e){
 
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
+
     var initDataTable = function(dataTable) 
     {
         dataTable.DataTable({
@@ -41,7 +44,7 @@ $(document).ready(function(e){
             $("#form-update-save").attr("id-user",$(this).attr("id-user"));                       
 
             // Récupération des informations du user
-            $.post('./proccess/ajax/gestion_user/get_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/get_user.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -78,7 +81,7 @@ $(document).ready(function(e){
         }          
 
         // Récupération des informations du user
-        $.post('./proccess/ajax/gestion_user/del_user.php',   // url
+        $.post(HostLink+'/proccess/ajax/gestion_user/del_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -113,7 +116,7 @@ $(document).ready(function(e){
         if($(this).attr("id-user") == "0")
         {
             //Appel Ajax d'ajout des informations
-            $.post('./proccess/ajax/gestion_user/add_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/add_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -144,7 +147,7 @@ $(document).ready(function(e){
         else
         {
             //Appel Ajax d'update des informations
-            $.post('./proccess/ajax/gestion_user/update_user.php',   // url
+            $.post(HostLink+'/proccess/ajax/gestion_user/update_user.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
                 {
@@ -199,7 +202,7 @@ $(document).ready(function(e){
     var getData = function()
     { 
         // Traitement Image Vide 
-        $.get('./proccess/ajax/gestion_user/get_users.php')
+        $.get(HostLink+'/proccess/ajax/gestion_user/get_users.php')
          .done(function(data)
          {            
             var result = JSON.parse(data);  

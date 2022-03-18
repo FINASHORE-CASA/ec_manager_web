@@ -1,5 +1,8 @@
 $(document).ready(function(e)
 {
+    var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
+    HostLink = HostLink.includes(".php") ? "." : HostLink;
+
     var initBtnDb = function()
     {        
         var btnSwitch = $(".btn-chk-change");
@@ -16,7 +19,7 @@ $(document).ready(function(e)
             if($(this)[0].checked)
             {                
                 // Set as active database
-                $.post('./proccess/ajax/gestion_db/set_active_db.php',   // url
+                $.post(HostLink+'/proccess/ajax/gestion_db/set_active_db.php',   // url
                     { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {                  
@@ -36,7 +39,7 @@ $(document).ready(function(e)
             else
             {
                // Unset as active database
-                $.post('./proccess/ajax/gestion_db/disactive_db.php',   // url
+                $.post(HostLink+'/proccess/ajax/gestion_db/disactive_db.php',   // url
                     { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {            
@@ -61,7 +64,7 @@ $(document).ready(function(e)
     { 
         if(search == null)
         {
-            $.get('./proccess/ajax/gestion_db/get_dbs.php')
+            $.get(HostLink+'/proccess/ajax/gestion_db/get_dbs.php')
             .done(function(data)
             {            
                 var result = JSON.parse(data);
@@ -90,7 +93,7 @@ $(document).ready(function(e)
                 search_el : search,
             };
 
-            $.post('./proccess/ajax/gestion_db/get_dbs_search.php',
+            $.post(HostLink+'/proccess/ajax/gestion_db/get_dbs_search.php',
             { myData: JSON.stringify(obj)},
                 function(data,status,jqXHR)
                 {

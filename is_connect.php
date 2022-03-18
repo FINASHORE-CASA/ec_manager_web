@@ -8,21 +8,19 @@
 	else 
 	{
 		// Définition des règles d'accès
+		$scripts_name = explode("/",$_SERVER["SCRIPT_NAME"]);
 		if ($_SESSION['user']->type_grant != '0') {
-			switch ($_SERVER["SCRIPT_NAME"]) {
-				case '/gestion_db_setting.php':
+			switch ($scripts_name[count($scripts_name)-1]) {
+				case 'gestion_db_setting.php':
 					header('Location: ./404.php');
 					break;
-				case '/gestion_users.php':
+				case 'gestion_users.php':
 					header('Location: ./404.php');
 					break;
-				case '/division_lot.php':
+				case 'purge_lot.php':
 					header('Location: ./404.php');
 					break;
-				case '/purge_lot.php':
-					header('Location: ./404.php');
-					break;
-				case '/transfert_lot.php':
+				case 'transfert_lot.php':
 					header('Location: ./404.php');
 					break;
 				default:
