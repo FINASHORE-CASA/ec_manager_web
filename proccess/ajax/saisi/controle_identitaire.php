@@ -18,12 +18,14 @@
                               ,jd_naissance_g,md_naissance_g,ad_naissance_g
                               ,jd_naissance_h,md_naissance_h,ad_naissance_h
                               ,prenom_pere_fr,prenom_pere_ar,prenom_mere_fr,prenom_mere_ar
+                              ,ascendant_pere_fr,ascendant_pere_ar,ascendant_mere_fr,ascendant_mere_ar
                               ,CASE WHEN jd_naissance_g <> '' AND try_cast_int(jd_naissance_g) >= 1 AND try_cast_int(jd_naissance_g) <= 31 THEN 0 ELSE 1 END AS jn_g_s
                               ,CASE WHEN md_naissance_g <> '' AND try_cast_int(md_naissance_g) >= 1 AND try_cast_int(md_naissance_g) <= 12 THEN 0 ELSE 1 END AS mn_g_s
                               ,CASE WHEN ad_naissance_g <> '' AND try_cast_int(ad_naissance_g) >= 1900 AND try_cast_int(ad_naissance_g) <= 2022 THEN 0 ELSE 1 END AS an_g_s
                               ,CASE WHEN jd_naissance_h <> '' AND try_cast_int(jd_naissance_h) >= 1 AND try_cast_int(jd_naissance_h) <= 31 THEN 0 ELSE 1 END AS jn_h_s
                               ,CASE WHEN md_naissance_h <> '' AND try_cast_int(md_naissance_h) >= 1 AND try_cast_int(md_naissance_h) <= 12 THEN 0 ELSE 1 END AS mn_h_s
                               ,CASE WHEN ad_naissance_h <> '' AND try_cast_int(ad_naissance_h) >= 1317 AND try_cast_int(ad_naissance_h) <= 1443 THEN 0 ELSE 1 END AS an_h_s
+                              ,(select count(*) from mention m where m.id_acte = a.id_acte and LENGTH(txtmention) = 0) as mention_vide
                              from acte a  
                              inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre 
                              where af.id_lot in ($formData->id_lot)");
@@ -56,7 +58,8 @@
 
             return ($a->prenom_pere_nofound == 1 && $a->prenom_mere_nofound == 1 || $a->prenom_nofound == 1 || $a->nom_mg_fr_s == 1 
             || $a->prenom_mg_fr_s == 1 || $a->nom_mg_ar_s == 1 || $a->prenom_mg_ar_s == 1 || $a->jn_g_s == 1
-            || $a->mn_g_s == 1 || $a->an_g_s == 1 || $a->jn_h_s == 1 || $a->mn_h_s == 1 || $a->an_h_s == 1);
+            || $a->mn_g_s == 1 || $a->an_g_s == 1 || $a->jn_h_s == 1 || $a->mn_h_s == 1 || $a->an_h_s == 1 
+            || $a->mention_vide > 0);
         });
 
         // $result[] = $notFoundArray;                                      

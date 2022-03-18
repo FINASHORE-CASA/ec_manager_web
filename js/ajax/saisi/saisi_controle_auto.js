@@ -49,14 +49,28 @@ $(document).ready(function()
         $("#field-NomFr").val("");                                                                                                                      
         $("#field-NomAr").val("");                                                                                                                      
         $("#field-PrenomMargeFr").val("");                                                                                                                      
-        $("#field-PrenomMargeAr").val("");                                                                                                                          
+        $("#field-PrenomMargeAr").val("");                                                                                                                           
+        $("#field-NomMargeFr").val("");                                                                                                                          
+        $("#field-NomMargeAr").val("");                                                                                                                 
+        $("#field-PrenomPereFr").val("");                                                                                                                      
+        $("#field-PrenomPereAr").val("");                                                                                                                          
+        $("#field-PrenomMereFr").val("");                                                                                                                          
+        $("#field-PrenomMereAr").val("");                                                                                                                  
+        $("#field-AscPereFr").val("");                                                                                                                      
+        $("#field-AscPereAr").val("");                                                                                                                          
+        $("#field-AscMereFr").val("");                                                                                                                          
+        $("#field-AscMereAr").val("");                                                                                                                          
         $("#field-jour_g").val("");                                                                                                                          
         $("#field-mois_g").val("");                   
         $("#field-annee_g").val("");                   
         $("#field-jour_h").val("");                   
         $("#field-mois_h").val("");                   
         $("#field-annee_h").val("");                      
-        $("#img-block").html("");         
+        $("#img-block").html(""); 
+
+        $("#btnTabMention").css("display","none");
+        // $("#mention").css("display","none");
+        $("#mention>div.row").html("")
     });
     
     $("#form-update-save").on("click",function(e){            
@@ -75,7 +89,11 @@ $(document).ready(function()
             prenom_pere_fr:$("#field-PrenomPereFr").val().trim(),                                                                                                                      
             prenom_pere_ar:$("#field-PrenomPereAr").val().trim(),                                                                                                                          
             prenom_mere_fr:$("#field-PrenomMereFr").val().trim(),                                                                                                                          
-            prenom_mere_ar:$("#field-PrenomMereAr").val().trim(),  
+            prenom_mere_ar:$("#field-PrenomMereAr").val().trim(),                                                                                                                 
+            ascendant_pere_fr:$("#field-AscPereFr").val().trim(),                                                                                                                      
+            ascendant_pere_ar:$("#field-AscPereAr").val().trim(),                                                                                                                          
+            ascendant_mere_fr:$("#field-AscMereFr").val().trim(),                                                                                                                          
+            ascendant_mere_ar:$("#field-AscMereAr").val().trim(),   
             jd_naissance_g:$("#field-jour_g").val().trim(),            
             md_naissance_g:$("#field-mois_g").val().trim(),            
             ad_naissance_g:$("#field-annee_g").val().trim(),            
@@ -83,6 +101,15 @@ $(document).ready(function()
             md_naissance_h:$("#field-mois_h").val().trim(),            
             ad_naissance_h:$("#field-annee_h").val().trim()            
         }   
+
+        // ajout de la mention
+        let mentions = []
+        $(".val-mention").each((i,m) => {
+            mentions.push({id_mention:m.getAttribute("id_mention"),txtmention:m.value.trim()});
+        });
+
+        data1.mentions = mentions;
+        console.log(data1);
 
         $.post(HostLink+'/proccess/ajax/saisi/update_acte_identite.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
@@ -163,11 +190,10 @@ $(document).ready(function()
             // Récupération de l'Id du click
             var data1 = {
                 id_acte: $(this).attr("idActe"),
+                is_mention_void: $(this).attr("mention_vide")
             }     
 
-            let typeError =  $(this).attr("type-error");
             let erroColor = "#c22b3040";
-            let isGroup1 = true;
             
             $("#field-NomMargeFr").css("background","none") 
             $("#field-PrenomMargeFr").css("background","none")             
@@ -180,7 +206,7 @@ $(document).ready(function()
             $("#field-mois_h").css("background","none") 
             $("#field-annee_h").css("background","none")              
             $("#form-group3>div:eq(0)").css("background","none");
-            $("#form-group3>div:eq(1)").css("background","none");
+            $("#form-group3>div:eq(1)").css("background","none");        
 
             if($(this).attr("nom_mg_fr_s") == "1")
             {
@@ -255,17 +281,9 @@ $(document).ready(function()
                     var result = JSON.parse(data);                                                   
                     
                     if(result[0] == "success")
-                    {
-                        // success callback
-                        // display result   
-                        
-                        // injection des données
-                        console.log(result[0]);
-                        console.log(result[1]); 
-                        console.log(result[2]); 
-                        console.log(result[3]); 
-
+                    {                    
                         // Remplissage des champs du formulaire
+                        $("#btnTabActive").trigger("click");
                         $("#field-IdLot").val(result[1].id_lot);                                                                                                                      
                         $("#field-IdActe").val(result[1].id_acte);                                                                                                                      
                         $("#field-PrenomFr").val(result[1].prenom_fr);                                                                                                                      
@@ -279,14 +297,34 @@ $(document).ready(function()
                         $("#field-PrenomPereFr").val(result[1].prenom_pere_fr);                                                                                                                      
                         $("#field-PrenomPereAr").val(result[1].prenom_pere_ar);                                                                                                                          
                         $("#field-PrenomMereFr").val(result[1].prenom_mere_fr);                                                                                                                          
-                        $("#field-PrenomMereAr").val(result[1].prenom_mere_ar);  
+                        $("#field-PrenomMereAr").val(result[1].prenom_mere_ar);                                                                                                                  
+                        $("#field-AscPereFr").val(result[1].ascendant_pere_fr);                                                                                                                      
+                        $("#field-AscPereAr").val(result[1].ascendant_pere_ar);                                                                                                                          
+                        $("#field-AscMereFr").val(result[1].ascendant_mere_fr);                                                                                                                          
+                        $("#field-AscMereAr").val(result[1].ascendant_mere_ar); 
                         $("#field-Genre").val(result[1].sexe);                                                                                                                          
                         $("#field-jour_g").val(result[1].jd_naissance_g);                                                                                                                          
                         $("#field-mois_g").val(result[1].md_naissance_g);                   
                         $("#field-annee_g").val(result[1].ad_naissance_g);                   
                         $("#field-jour_h").val(result[1].jd_naissance_h);                   
                         $("#field-mois_h").val(result[1].md_naissance_h);                   
-                        $("#field-annee_h").val(result[1].ad_naissance_h);                                            
+                        $("#field-annee_h").val(result[1].ad_naissance_h);  
+
+                        if(result[4].length > 0)
+                        {
+                            $("#mention>div.row").html("")
+                            $("#btnTabMention").css("display","inherit");
+                            
+                            let htmlMention = "";
+                            result[4].forEach((m) => 
+                            {
+                               htmlMention += '<div class="form-group col-md-12 mb-5"> \n';
+                               htmlMention += '<label for="field-mention-'+m.id_mention+'"> textmention_'+ m.id_mention +' </label> \n'; 
+                               htmlMention += '<textarea id_mention="'+m.id_mention+'" id=field-mention-'+m.id_mention+' rows="4" class="form-control val-mention" style="background:'+ (m.txtmention == null || m.txtmention.trim().length == 0 ? erroColor : 'white')+';"> '+m.txtmention+' </textarea> \n';
+                               htmlMention += '</div> \n';
+                            })
+                            $("#mention>div.row").html(htmlMention);
+                        }                                    
 
                         if(result[2] == "yes")
                         {
@@ -608,13 +646,15 @@ $(document).ready(function()
                                             +"prenom_nofound='"+e.prenom_nofound+"' "
                                             +"prenom_mere_nofound='"+e.prenom_mere_nofound+"' "
                                             +"prenom_pere_nofound='"+e.prenom_pere_nofound+"' "
+                                            +"mention_vide='"+e.mention_vide+"' "
                                             +">"                                             
                                             +"<i class='fas fa-highlighter'></i></a> </td>"
                                             +"<td>" + e.id_lot + "</td><td>" + e.id_acte +  "</td><td>" + e.nom_fr 
                                             +"</td><td>" + e.nom_ar + "</td><td>" + e.nom_marge_fr + "</td><td>" + e.nom_marge_ar + "</td><td>" + e.prenom_fr + "</td>"
                                             +"</td><td>" + e.prenom_ar + "</td><td>" + e.prenom_marge_fr + "</td><td>" + e.prenom_marge_ar 
-                                            + "</td><td>" + e.prenom_pere_fr + "</td>" + "</td><td>" + e.prenom_pere_ar + "</td>" + "</td><td>" + e.prenom_mere_fr + "</td>" + "</td><td>" + e.prenom_mere_ar + "</td>"
-                                            + "</td><td>" + e.sexe + "</td>"
+                                            +"</td><td>" + e.prenom_pere_fr + "</td>" + "</td><td>" + e.prenom_pere_ar + "</td>" + "</td><td>" + e.prenom_mere_fr + "</td>" + "</td><td>" + e.prenom_mere_ar + "</td>"
+                                            +"<td>" + e.ascendant_pere_fr + "</td>" + "<td>" + e.ascendant_pere_ar + "</td>" + "<td>" + e.ascendant_mere_fr + "</td>" + "<td>" + e.ascendant_mere_ar 
+                                            +"</td><td>" + e.sexe + "</td>"
                                             +"<td>" + e.jd_naissance_g + "</td><td>" + e.md_naissance_g + "</td><td>" + e.ad_naissance_g + "</td>"
                                             +"<td>" + e.jd_naissance_h + "</td><td>" + e.md_naissance_h + "</td><td>" + e.ad_naissance_h + "</td>"
                                             +"</td></tr>";
