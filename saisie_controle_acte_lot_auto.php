@@ -347,7 +347,8 @@
                         </div>
                         <hr/>
                         <div class="form-inline ml-3">
-                          <label for="mode_ech"> Mode échantillonnage (20%) </label>
+                          <label for="mode_ech"> Mode échantillonnage </label>
+                          <input type="number" id="ech_value" class="form-control ml-1" id="mode_ech" style="width:70px;" value="40"/>%
                           <input type="checkbox" class="form-control ml-1" id="mode_ech"/>
                         </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
@@ -551,7 +552,7 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.1"></script>
+  <script src="js/ajax/saisi/saisi_controle_auto.js?version=1.0.2"></script>
 
   <script>
     $(document).ready(function(e)

@@ -67,7 +67,7 @@
 
         if($formData->mode_ech == true)
         {
-            $nb_actes = ceil(count($finds) * 20 / 100);
+            $nb_actes = ceil(count($finds) * $formData->ech_value / 100);
             $find_keep = [];
             $i = 1;
             foreach (array_values($finds) as $f) 
