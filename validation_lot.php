@@ -111,7 +111,8 @@
                 <div class="card-body">
                   <div class="row">
                     <ol id="liste-indic">
-                      <li class="mb-2" style="display: none;"> Validation Lot <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
+                      <li class="mb-2" style="display: none;"> Actes mis à 'V' <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
+                      <li class="mb-2" style="display: none;"> Actes remis à 'I' <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
                     </ol>
                   </div>
                 </div>

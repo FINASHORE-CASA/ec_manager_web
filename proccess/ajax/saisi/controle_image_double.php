@@ -5,46 +5,39 @@
     try 
     {
         $formData = json_decode($_POST['myData']);
-        $result[] = "success" ;
-
-        // Récupération des id_lots concernés        
-        $qry = $bdd->prepare("  SELECT id_acte,num_acte,imagepath,prenom_ar,nom_ar,status_acte,id_tome_registre 
-                                from acte
-                                where concat(id_tome_registre,imagepath) 
-                                in(
-                                    select concat(a.id_tome_registre,imagepath)
-                                    from acte a
-                                    inner join affectationregistre af on a.id_tome_registre = af.id_tome_registre
-                                    where af.id_lot in ($formData->id_lot)
-                                    group by concat(a.id_tome_registre,imagepath)
-                                    having count(*)>1
-                                ) order by concat(id_tome_registre,imagepath)");
-
-        $qry->execute();
-        $num_image_double = $qry->fetchAll(PDO::FETCH_OBJ);   
+        $result[] = "success" ; 
 
         // Correction des num_acte vide
-        // $bdd->query("UPDATE acte SET status_acte = 'I',num_acte = 'Image_Double-' + num_acte
-        //              WHERE id_acte in 
-        //              (  
-        //                SELECT id_acte
-        //                 from acte
-        //                 where concat(id_tome_registre,imagepath) 
-        //                 in(
-        //                     select concat(a.id_tome_registre,imagepath)
-        //                     from acte a
-        //                     inner join affectationregistre af on a.id_tome_registre = af.id_tome_registre
-        //                     where af.id_lot in ($formData->id_lot)
-        //                     group by concat(a.id_tome_registre,imagepath)
-        //                     having count(*)>1
-        //                 ) order by concat(id_tome_registre,imagepath))");
-
-        $result[] = $num_image_double;                                      
+        $nbAff = $bdd->exec("UPDATE acte SET status_acte = 'I',num_acte = (CASE WHEN LENGTH(concat('Image_Double-',num_acte)) < 21 THEN concat('Num_Errone-',num_acte)
+                                ELSE concat('Image_Double-',REGEXP_REPLACE(replace(replace(replace(replace(replace(imagepath,'NA-',''),'DE-',''),'.jpg',''),'_P1',''),'_P2',''),';;(.*);;',''))
+                                END)
+                                WHERE id_acte in 
+                                (  
+                                SELECT id_acte
+                                    from acte
+                                    where concat(id_tome_registre,imagepath) 
+                                    in(
+                                        select concat(a.id_tome_registre,imagepath)
+                                        from acte a
+                                        inner join affectationregistre af on a.id_tome_registre = af.id_tome_registre
+                                        where af.id_lot in ($formData->id_lot)
+                                        group by concat(a.id_tome_registre,imagepath)
+                                        having count(*)>1
+                                    ) order by concat(id_tome_registre,imagepath)
+                                    )
+                                and num_acte not like '%Num_Errone%'
+                                and num_acte not like '%Numero_Double%'
+                                and num_acte not like '%Image_Double%'
+                                and num_acte not like '%Num_Vide%' ");
+                                    
+        $result[] = $nbAff;                                      
 
         echo(json_encode($result));
     }
     catch(Exception $e)
     {
-        echo $e->getMessage();
+        $fail[] = "fail";
+        $fail[] = $e->getMessage();
+        echo(json_encode($fail));
     }
 ?>

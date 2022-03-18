@@ -47,10 +47,12 @@ $(document).ready(function() {
                     {
                         // success callback
                         // display result    
-                        $("#liste-indic li:eq(0)").html(" Validation Lot : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(0)").html(" Actes mis à 'V' : (" + result[1] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                         $("#liste-indic li:eq(0)").fadeIn(1000);
+                        $("#liste-indic li:eq(1)").html(" Actes remis à 'I' : (" + result[2] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                        $("#liste-indic li:eq(1)").fadeIn(2000);
                         console.log('success : ' + result[1]);
-                        console.log(result[1]);
+                        console.log('success : ' + result[2]);
 
                         // Terminé le Lancement
                         formLoader.fadeOut("slow");                        

@@ -17,30 +17,33 @@
 
         // Validation des lots
         // Mettre tous les status actes I des lot à V
-        // $bdd->exec("UPDATE acte set status_acte='V' where id_tome_registre in (
-        //             select id_tome_registre from affectationregistre where id_lot in($formData->id_lot))
-        //             and status_acte='I';");
-
-        // $bdd->exec("UPDATE acte SET status_acte = 'I' WHERE id_acte in (
-        //             select id_acte 
-        //             from acte a
-        //             inner join (
-        //                 select id_lot,Max(id_acte) as max_id_acte
-        //                 from acte a
-        //                 inner join affectationregistre af on a.id_tome_registre = af.id_tome_registre
-        //                 where af.id_lot in ($formData->id_lot)
-        //                 and a.status_acte = 'V'
-        //                 group by id_lot)
-        //             as MaxActeLot on a.id_acte = MaxActeLot.max_id_acte);");
+        $nbAff1 =  $bdd->exec("UPDATE acte set status_acte='V' where id_tome_registre in (
+                                select id_tome_registre from affectationregistre where id_lot in($formData->id_lot))
+                                and status_acte='I';");
 
         // Remettre le plus grand id acte de status V de chaque lot à I
+        $nbAff2 =  $bdd->exec("UPDATE acte SET status_acte = 'I' WHERE id_acte in (
+                                select id_acte 
+                                from acte a
+                                inner join (
+                                    select id_lot,Max(id_acte) as max_id_acte
+                                    from acte a
+                                    inner join affectationregistre af on a.id_tome_registre = af.id_tome_registre
+                                    where af.id_lot in ($formData->id_lot)
+                                    and a.status_acte = 'V'
+                                    group by id_lot)
+                                as MaxActeLot on a.id_acte = MaxActeLot.max_id_acte);");
 
-        $result[] = $listLotTrouves;                                      
+
+        $result[] = $nbAff1;                                      
+        $result[] = $nbAff2;                                      
 
         echo(json_encode($result));
     }
     catch(Exception $e)
     {
-        echo $e->getMessage();
+        $fail[] = "fail";
+        $fail[] = $e->getMessage();
+        echo(json_encode($fail));
     }
 ?>
