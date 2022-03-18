@@ -4,6 +4,9 @@
     <div class="modal-content">
         <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
         <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification Acte du lot : <strong> <span id="field-Id_lot"></span> </strong> </h5>
+        <button type="button" class="btn btn-success ml-5 form-correct-btn"> 
+            Déjà Correct <i class="fas fa-check-double"></i>
+        </button>
         <button type="button" class="btn btn-success ml-3 form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> 
             Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
         </button>
@@ -597,7 +600,7 @@
                     </div>       
                 </div>            
             </div>
-            <div class="col-md-6">           
+            <div class="col-md-6">      
                 <div class="row d-flex justify-content-center">
                     <div style="height:50px;" class="block-img-change"></div>
                 </div>       
@@ -617,6 +620,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
+        <button type="button" class="btn btn-success form-correct-btn"> Déjà Correct <i class="fas fa-check-double"></i></button>
         <button type="button" class="btn btn-primary form-update-save" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
         </div>
     </div>

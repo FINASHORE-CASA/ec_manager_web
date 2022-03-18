@@ -213,7 +213,8 @@
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/saisi/recherche_actes.js"></script>
+  <!-- version 1.0.1  -->
+  <script src="js/ajax/saisi/recherche_actes.js?version=1.0.1"></script>
 
   <script>
     $(document).ready(function(e)

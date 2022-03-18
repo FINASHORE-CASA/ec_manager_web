@@ -11,7 +11,7 @@ $(document).ready(function() {
         ,notifResultat = $("#notif-Resultat-bell")
         ,ResultatData = $("#resultat_data")
         ,alertBox = $("#alert_box")
-        ,btnCorrect = $("#form-correct-btn");    
+        ,btnCorrect = $(".form-correct-btn");    
 
     var show_alert = function(theme_color,title,text="",time=5)
     {
@@ -35,7 +35,7 @@ $(document).ready(function() {
         $("#img-block").html("");         
     });
     
-    $("#form-update-save").on("click",function(e){            
+    $(".form-update-save").on("click",function(e){            
         // Récupération de l'Id du click
         var data1 = {}   
 
@@ -135,26 +135,41 @@ $(document).ready(function() {
             {
                 if($("#image1").css("display") == "none")
                 {
-                   $("#image2").fadeOut(); 
-                   var src = $("#image1").attr("src");
-                   $("#image1").removeAttr("src").attr("src",src);                   
-                   $("#image1").fadeIn(2000); 
-                   $("#image2").css("display","none");
-                   $(this).css("color","black");
-                   $("#img-switch2").css("color","gray");
+                    $("#image2").fadeOut(); 
+                    var src = $("#image1").attr("src");
+                    $("#image1").removeAttr("src").attr("src",src);                   
+                    $("#image1").fadeIn(2000); 
+                    $("#image2").css("display","none");
+
+                    $(".img-switch1").each((i,e) =>  
+                    {                        
+                        e.style.color = "black";
+                    })
+
+                    $(".img-switch2").each((i,e) =>  
+                    {                        
+                        e.style.color = "gray";
+                    })
                 }                
             }      
             else
             {
                 if($("#image2").css("display") == "none")
                 {
-                   $("#image1").fadeOut(); 
-                   var src = $("#image2").attr("src");
-                   $("#image2").removeAttr("src").attr("src",src);  
-                   $("#image2").fadeIn(2000); 
-                   $("#image1").css("display","none")
-                   $(this).css("color","black");
-                   $("#img-switch1").css("color","gray");
+                    $("#image1").fadeOut(); 
+                    var src = $("#image2").attr("src");
+                    $("#image2").removeAttr("src").attr("src",src);  
+                    $("#image2").fadeIn(2000); 
+                    $("#image1").css("display","none")
+
+                    $(".img-switch1").each((i,e) =>  
+                    {      
+                        e.style.color = "gray";
+                    })
+                    $(".img-switch2").each((i,e) =>  
+                    {
+                        e.style.color = "black";     
+                    })
                 }    
             }      
         });
@@ -237,37 +252,41 @@ $(document).ready(function() {
                                     $ImageTab.forEach((e) => {
                                         if(e.trim() != "")
                                         {
-                                            htmlContentImg += "<img id='image"+ i + "' class='img-fluid img-thumbnail' style='height:auto;width:auto;"+ ((i == 2) ? "display:none;" : "") +"' src='"+ result[3] +"\\" + result[1].id_acte + "_" +  e + "' alt='"+  e +"'/>";                 
+                                            htmlContentImg += "<img id='image"+ i + "' class='img-fluid img-thumbnail' style='margin-left:60px;height:600px;width:auto;"+ ((i == 2) ? "display:none;" : "") +"' src='"+ result[3] +"\\" + result[1].id_acte + "_" +  e + "' alt='"+  e +"'/>";                 
                                         }  
                                         i++;
                                     });
                                     $("#img-block").html(htmlContentImg);
-                                    $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                            +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
-                                                            +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
+                                    $(".block-img-change").html("<a class='img-switch img-switch1' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
+                                                                +"<a class='img-switch img-switch2' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
+                                                                +"<a class='ml-2 img-zoom-reset' href='#' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                                 }
                                 else
                                 {
                                     $("#img-block").html("<img id='image1' class='img-fluid img-thumbnail' style='height:auto;width:auto;' src='"+ result[3] +"\\" + result[1].id_acte + "_" + result[1].imagepath +"' alt='"+  result[1].imagepath +"'/>");                                                 
-                                    $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                               +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
+                                    $(".block-img-change").html("<a class='img-switch img-switch1' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
+                                                            +"<a class='ml-2 img-zoom-reset' href='#' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");                                                           
                                 }
 
                                 // initialisation du plugin de zoom                                                 
                                 const element = document.getElementById('img-block')
-                                const resetButton = document.getElementById('img-zoom-reset');
-                                const panzoom = Panzoom(element, {
-                                    // options here
+                                const resetButton = document.getElementsByClassName('img-zoom-reset');
+                                const panzoom = Panzoom(element, 
+                                {
+                                    // options here                                
                                 });
                                 // enable mouse wheel
                                 const parent = element.parentElement
-                                parent.addEventListener('wheel', panzoom.zoomWithWheel);
-                                resetButton.addEventListener('click', panzoom.reset);
+                                parent.addEventListener('wheel', panzoom.zoomWithWheel);                        
+                                resetButton[0].addEventListener('click', (e) => e.preventDefault());
+                                resetButton[0].addEventListener('click', panzoom.reset);
+                                resetButton[1].addEventListener('click', (e) => e.preventDefault());
+                                resetButton[1].addEventListener('click', panzoom.reset);
                             }           
                             else
                             {
                                 $("#img-block").html("");
-                                $("#block-img-change").html("");
+                                $(".block-img-change").html("");
                             }
 
                             startSwitchImage();
