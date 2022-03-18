@@ -68,7 +68,7 @@
         }
 
         // Récupération des id_lots concernés        
-        $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar
+        $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,nom_fr,prenom_fr,nom_ar,prenom_ar,ud
                                 from acte a  
                                 inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                                 where af.id_acte in ($formData->id_acte)");

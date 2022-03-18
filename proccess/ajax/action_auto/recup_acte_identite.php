@@ -17,6 +17,7 @@
                                 ,jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g
                                 ,jd_etabli_acte_h,md_etabli_acte_h,ad_etabli_acte_h
                                 ,jd_etabli_acte_g,md_etabli_acte_g,ad_etabli_acte_g
+                                ,cast(a.utilisateur_creation as integer) as id_saisi_user
                                 ,(select count(*) from mention m where m.id_acte = a.id_acte) as mention
                                 from acte a  
                                 inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  

@@ -1,0 +1,19 @@
+--- ECV_EXTRA 
+
+-- log : 21/08/2022 14:18
+-- Création de la table : stats_ctr_crr_acte 
+
+CREATE TABLE IF NOT EXISTS public.stats_ctr_crr_acte
+(
+    id_acte bigint NOT NULL,
+    id_sup_user bigint NOT NULL,
+    date_ctr_crr time with time zone,
+    champs_corriges character varying COLLATE pg_catalog."default",
+    id_saisi_user bigint
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.stats_ctr_crr_acte
+    OWNER to postgres;
+---------------------------------------------------

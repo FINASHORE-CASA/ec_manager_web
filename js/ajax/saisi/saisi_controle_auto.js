@@ -73,6 +73,7 @@ $(document).ready(function()
         $("#field-jd_etabli_acte_h").val("");                   
         $("#field-md_etabli_acte_h").val("");                   
         $("#field-ad_etabli_acte_h").val("");
+        $("#field-Id_user_saisi").val("");
         $("#img-block").html("");                                                                                                                    
 
         $("#btnTabMention").css("display","none");
@@ -121,24 +122,19 @@ $(document).ready(function()
             mentions.push({id_mention:m.getAttribute("id_mention"),txtmention:m.value.trim()});
         });
 
-
         data1.mentions = mentions;
-        let champs_corrige = "";
+        let champs_corriges = "";
 
         for (const key in data1) 
         {
             if (Object.hasOwnProperty.call(data1, key)) 
             {
-                console.log(key + " => " + data1[key] + " vs " + acteInfo[key])             
-                if(key != "mentions")   
-                    champs_corrige += (data1[key].toString().trim().toLowerCase() == (acteInfo[key]+'').trim().toLowerCase()) ? '' : (key+',');  
+                champs_corriges += (data1[key].toString().trim().toLowerCase() == (acteInfo[key]+'').trim().toLowerCase()) ? '' : (key+',');  
             }
         }        
 
-        console.log(champs_corrige)
-
-        if(champs_corrige != "")
-        {            
+        if(champs_corriges != "")
+        {     
             $.post(HostLink+'/proccess/ajax/saisi/update_acte_identite.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
                 function(data, status, jqXHR) 
@@ -146,14 +142,31 @@ $(document).ready(function()
                     var result = JSON.parse(data);                               
                     
                     if(result[0] == "success")
-                    {
+                    {                        
                         // success callback                    
                         if(result[1])
                         {
-                            $("#ActeRow"+data1.id_acte).fadeOut();
-                            $(".btn-form-modal-cancel").trigger("click");                        
-                            show_alert("success","Modification effectuée ");
-                            $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
+                            var data2 = {
+                                id_acte:data1.id_acte,
+                                id_sup_user:$("#field-Id_user").val().trim(),
+                                champs_corriges: champs_corriges.trim().substring(0,(champs_corriges.trim().length - 1)),
+                                id_saisi_user:$("#field-Id_user_saisi").val(),
+                            }
+
+                            // Lancement de l'enregistrement des stats         
+                            $.post(HostLink+'/proccess/ajax/saisi/set_stats_correction.php',   // url
+                            { myData: JSON.stringify(data2) }, // data to be submit
+                                function(data, status, jqXHR) 
+                                {
+                                    if(result[0] == "success")
+                                    {           
+                                        $("#ActeRow"+data1.id_acte).fadeOut();
+                                        $(".btn-form-modal-cancel").trigger("click");                        
+                                        show_alert("success","Modification effectuée ");
+                                        $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
+                                    }
+                                }
+                            )
                         }                    
                     }
                     else
@@ -167,8 +180,9 @@ $(document).ready(function()
         }
         else
         {   
-            $(".btn-form-modal-cancel").trigger("click");                        
-            show_alert("warning","Aucune modification enregistré");
+            $("#ActeRow"+data1.id_acte).fadeOut();                        
+            $(".btn-form-modal-cancel").trigger("click");
+            show_alert("warning","Aucune modification enregistrée");
             $("#notif-Resultat-1").text(parseInt($("#notif-Resultat-1").text()) - 1);
         }    
     });  
@@ -353,6 +367,7 @@ $(document).ready(function()
                         $("#field-jd_etabli_acte_h").val(result[1].jd_etabli_acte_h);                   
                         $("#field-md_etabli_acte_h").val(result[1].md_etabli_acte_h);                   
                         $("#field-ad_etabli_acte_h").val(result[1].ad_etabli_acte_h);
+                        $("#field-Id_user_saisi").val(result[1].id_saisi_user);
                         $("#field-NbMention").val(result[1].mention);
                         acteInfo = result[1];   
 
