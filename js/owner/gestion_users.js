@@ -28,6 +28,11 @@ $(document).ready(function(e){
             }
         });
     };
+    
+    $('#dataTableUsers').on('draw.dt', function () {
+        initBtnUser();                           
+    });
+
 
     var initBtnUser = function()
     {        
@@ -163,9 +168,12 @@ $(document).ready(function(e){
                     
                     if(result[0] == "success")
                     {
-                        // success callback
-                        // must add a box success display
-                        getData();                               
+                        // success callback                    
+                        $(`#UserRow${data1.id_user} td:eq(0)`).html(result[1].name);
+                        $(`#UserRow${data1.id_user} td:eq(1)`).html(result[1].first_name);
+                        $(`#UserRow${data1.id_user} td:eq(2)`).html(result[1].name_group);
+                        $(`#UserRow${data1.id_user} td:eq(3)`).html(result[1].date_creat);
+                        $(`#UserRow${data1.id_user} td:eq(4)`).html(result[1].date_last_up);                   
                         $("#UserModal").modal("hide");
                     }
                     else if(result[0] == "login_find")
@@ -196,6 +204,7 @@ $(document).ready(function(e){
     // Recherche des données    
     var getData = function()
     { 
+        $("#TableUsers").html('<tr><td colspan="7" class="text-center"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>')
         // Traitement Image Vide 
         $.get(HostLink+'/proccess/ajax/gestion_user/get_users.php')
          .done(function(data)
@@ -205,12 +214,12 @@ $(document).ready(function(e){
             // injection des données                             
             htmlDataTable = "";    
             result[1].forEach(e => {                            
-                htmlDataTable += "<tr><td>" + e.name + "</td><td>" + e.first_name +  "</td><td>" + e.name_group + "</td><td>" + e.date_creat
+                htmlDataTable += "<tr id='UserRow"+ e.id_user +"'><td>" + e.name + "</td><td>" + e.first_name +  "</td><td>" + e.name_group + "</td><td>" + e.date_creat
                                         + "</td><td>" + e.date_last_up + "</td>" 
                                         + "<td class='text-center'> <a href='#' class='btn-edit' id-user='"+ e.id_user +"' style='color:gray;' data-toggle='modal' data-target='#UserModal'> <i class='fas fa-highlighter'></i> </a></td>" 
                                         + "<td class='text-center'> <a href='#' class='btn-del' id-user='"+ e.id_user +"' style='color:red;' data-toggle='modal' data-target='#SupUserModal'> <i class='far fa-times-circle'></i> </a></td></tr>";
             });
-
+            $("#TableUsers").html("")
             $("#dataTableUsers").dataTable().fnDestroy();
             $("#TableUsers").html(htmlDataTable);            
             initDataTable($("#dataTableUsers"));         
