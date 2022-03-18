@@ -101,20 +101,6 @@ $date_gen = date("Y-m-d");
                           <div id="form-group1" style="margin: 0;padding: 10px;">
                             <div class="row">
                               <div class="form-group col-md-4">
-                                <label for="field-jour_g">jour_naissance_g</label>
-                                <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder="" />
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="field-mois_g">mois_naissance_g</label>
-                                <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder="" />
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="field-annee_g">annee_naissance_g</label>
-                                <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder="" />
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="form-group col-md-4">
                                 <label for="field-jour_h">jour_naissance_h</label>
                                 <input type="text" class="form-control" id="field-jour_h" aria-describedby="field-jour_h" placeholder="" />
                               </div>
@@ -125,6 +111,20 @@ $date_gen = date("Y-m-d");
                               <div class="form-group col-md-4">
                                 <label for="field-annee_h">annee_naissance_h</label>
                                 <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder="" />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-4">
+                                <label for="field-jour_g">jour_naissance_g</label>
+                                <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-mois_g">mois_naissance_g</label>
+                                <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-annee_g">annee_naissance_g</label>
+                                <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder="" />
                               </div>
                             </div>
                           </div>
@@ -245,6 +245,20 @@ $date_gen = date("Y-m-d");
                           <div id="form-group6" style="margin: 0;padding: 10px;">
                             <div class="row">
                               <div class="form-group col-md-4">
+                                <label for="field-jd_etabli_acte_h">jd_etabli_acte_h</label>
+                                <input type="text" class="form-control" id="field-jd_etabli_acte_h" aria-describedby="field-jd_etabli_acte_h" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-md_etabli_acte_h">md_etabli_acte_h</label>
+                                <input type="text" class="form-control" id="field-md_etabli_acte_h" aria-describedby="field-md_etabli_acte_h" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-ad_etabli_acte_h">ad_etabli_acte_h</label>
+                                <input type="text" class="form-control" id="field-ad_etabli_acte_h" aria-describedby="field-ad_etabli_acte_h" placeholder="" />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-4">
                                 <label for="field-jd_etabli_acte_g">jd_etabli_acte_g</label>
                                 <input type="text" class="form-control" id="field-jd_etabli_acte_g" aria-describedby="field-jd_etabli_acte_g" placeholder="" />
                               </div>
@@ -257,18 +271,35 @@ $date_gen = date("Y-m-d");
                                 <input type="text" class="form-control" id="field-ad_etabli_acte_g" aria-describedby="field-ad_etabli_acte_g" placeholder="" />
                               </div>
                             </div>
+                          </div>
+                          <hr />
+                          <div id="form-group7" style="margin: 0;padding: 10px;display:none;">
                             <div class="row">
                               <div class="form-group col-md-4">
-                                <label for="field-jd_etabli_acte_h">jd_etabli_acte_h</label>
-                                <input type="text" class="form-control" id="field-jd_etabli_acte_h" aria-describedby="field-jd_etabli_acte_h" placeholder="" />
+                                <label for="field-jd_deces_h">jd_deces_h</label>
+                                <input type="text" class="form-control" id="field-jd_deces_h" aria-describedby="field-jd_deces_h" placeholder="" />
                               </div>
                               <div class="form-group col-md-4">
-                                <label for="field-md_etabli_acte_h">md_etabli_acte_h</label>
-                                <input type="text" class="form-control" id="field-md_etabli_acte_h" aria-describedby="field-md_etabli_acte_h" placeholder="" />
+                                <label for="field-md_deces_h">md_deces_h</label>
+                                <input type="text" class="form-control" id="field-md_deces_h" aria-describedby="field-md_deces_h" placeholder="" />
                               </div>
                               <div class="form-group col-md-4">
-                                <label for="field-ad_etabli_acte_h">ad_etabli_acte_h</label>
-                                <input type="text" class="form-control" id="field-ad_etabli_acte_h" aria-describedby="field-ad_etabli_acte_h" placeholder="" />
+                                <label for="field-ad_deces_h">ad_deces_h</label>
+                                <input type="text" class="form-control" id="field-ad_deces_h" aria-describedby="field-ad_deces_h" placeholder="" />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-4">
+                                <label for="field-jd_deces_g">jd_deces_g</label>
+                                <input type="text" class="form-control" id="field-jd_deces_g" aria-describedby="field-jd_deces_g" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-md_deces_g">md_deces_g</label>
+                                <input type="text" class="form-control" id="field-md_deces_g" aria-describedby="field-md_deces_g" placeholder="" />
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="field-ad_deces_g">ad_deces_g</label>
+                                <input type="text" class="form-control" id="field-ad_deces_g" aria-describedby="field-ad_deces_g" placeholder="" />
                               </div>
                             </div>
                           </div>
