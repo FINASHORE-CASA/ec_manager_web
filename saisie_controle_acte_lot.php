@@ -233,7 +233,7 @@
                   <div class="form-group card shadow">
                     <div class="d-flex justify-content-center mb-1" 
                           style="color: white;background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;padding:7px;border-radius:5px;">
-                      Lot Erronés (<span class="text-danger" id="indic-lot-error">100</span>) 
+                      Lot Erronés (<span class="text-danger" id="indic-lot-error">0</span>) 
                     </div>
                     <textarea class="form-control" id="text-list-lot-errone"   
                               style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>

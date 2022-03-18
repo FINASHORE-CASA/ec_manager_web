@@ -9,6 +9,7 @@ $(document).ready(function()
     var txtNbLot = $("#txt-nb-lot");
     var txtControleNotif = $("#txt-nb-lot-notif"),
     indicTermine = $("#indic-termine");
+    $("#text-list-lot").val("");
 
     // Préparation des données à envoyer
     var countNbLot = function(txt) 
@@ -60,7 +61,6 @@ $(document).ready(function()
         console.log("fail");
         console.log(res);
     });  
-
 
     // Enregistrement de la source
     $("#btn-save-source").on("click",function(e) 
@@ -134,6 +134,58 @@ $(document).ready(function()
         $("#list-notif-idlot-livre").text(nbLot);
     });   
 
+    function CopyLot(data1,index,source,destination)
+    {
+        // Récupération de l'élement
+        var dataFinal = {
+            id_lot: data1[index],
+            source: source,
+            destination: destination
+        }                        
+
+        // transfert lot 
+        $.post(HostLink+'/proccess/ajax/livraison/transfert_lot.php',   // url
+            { myData: JSON.stringify(dataFinal) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                var result = JSON.parse(data);                               
+                
+                if(result[0] == "success")
+                {
+                    // Mis à jour de l'indicateur de progression
+                    percent_transfert =  Math.ceil(((index+1)/data1.length)*100);         
+                    $("#indic_text").html("("+(index+1)+"/" + data1.length + ")");
+                    $("#indic_progress .progress-bar").css("width",percent_transfert + "%");
+                    $("#indic_progress .progress-bar").attr("aria-valuenow",percent_transfert);    
+                }
+                else
+                {                
+                    $("#lot_non_transfere").fadeIn("slow");
+                    let htmlNomTrans = '<p class="card-text"> ' + dataFinal.id_lot + ' ('+ result[1] +') </p> \n';
+                    $("#lot_non_trans").html($("#lot_non_trans").html() + htmlNomTrans);                                 
+
+                    console.log('message error : ' + result[1]);
+                    console.log(result);
+                }
+
+                if((index+1) == data1.length)
+                {
+                    // Terminé le Lancement
+                    $("#indic_progress .progress-bar").removeClass("progress-bar-animated");     
+                    formLoader.fadeOut("slow");
+                    indicTermine.fadeIn(3000); 
+                }
+                else
+                {
+                    CopyLot(data1,(index+1),source,destination);
+                }
+            }
+        ).fail(function(res){
+            console.log("fail");
+            console.log(res);
+        });  
+    }
+
 
     btnTransfert.on('click',function(e)
     {
@@ -171,72 +223,9 @@ $(document).ready(function()
             $("#liste-indic").fadeIn();      
 
             // Lancement des copies pas en serie
-            data1.id_lot.split(",").forEach((e,i) => 
-            {  
-                var dataFinal = {
-                    id_lot: e,
-                    source:data1.source,
-                    destination:data1.destination
-                }
-                // transfert lot 
-                $.post(HostLink+'/proccess/ajax/livraison/transfert_lot.php',   // url
-                    { myData: JSON.stringify(dataFinal) }, // data to be submit
-                    function(data, status, jqXHR) 
-                    {
-                        var result = JSON.parse(data);
-                        nb_lot_traite++;                               
-                        
-                        if(result[0] == "success")
-                        {
-                            // Mis à jour de l'indicateur de progression
-                            nb_transfert++;
-                            percent_transfert =  Math.ceil((nb_transfert/nb_total_lot)*100);         
-                            $("#indic_text").html("("+nb_transfert+"/" + nb_total_lot + ")");
-                            $("#indic_progress .progress-bar").css("width",percent_transfert + "%");
-                            $("#indic_progress .progress-bar").attr("aria-valuenow",percent_transfert);    
-                            console.log(nb_transfert);
-                            console.log(percent_transfert);
-                            console.log(nb_total_lot);
-
-                            if(nb_transfert == nb_total_lot)
-                            {
-                                // Terminé le Lancement
-                                $("#indic_progress .progress-bar").removeClass("progress-bar-animated");     
-                                formLoader.fadeOut("slow");
-                                indicTermine.fadeIn(3000); 
-                            }
-                        }
-                        else
-                        {
-                            listLotNonTrans.push(e);
-                            $("#indic_progress .progress-bar").removeClass("bg-success");
-                            $("#indic_progress .progress-bar").addClass("bg-danger");
-                            console.log('message error : ' + result[1]);
-                            console.log(result);
-                        }
-
-                        if(nb_lot_traite == nb_total_lot)
-                        {                            
-                            // Terminé le Lancement
-                            $("#indic_progress .progress-bar").removeClass("progress-bar-animated");     
-                            formLoader.fadeOut("slow");
-                            indicTermine.fadeIn(3000); 
-
-                            $("#lot_non_transfere").fadeIn("slow");
-                            var htmlNomTrans = "";
-                            listLotNonTrans.forEach((ele) => {
-                                htmlNomTrans = htmlNomTrans + '<p class="card-text"> ' + ele + ' </p >'
-                            })
-                            $("#lot_non_trans").html(htmlNomTrans);
-                        }
-                    }
-                ).fail(function(res){
-                    console.log("fail");
-                    console.log(res);
-                });   
-            });                                    
+            console.log(data1.id_lot.split(","));
+            CopyLot(data1.id_lot.split(","),0,$("#text-list-source").val().trim().replace(/[\n\r]/g,','),$("#text-destination").val().trim());
         }
-        e.preventDefault();        
-
+        e.preventDefault();       
     });
 });

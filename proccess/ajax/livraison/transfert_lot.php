@@ -33,7 +33,7 @@
         else
         {
             $result[0] = "fail" ;                    
-            $result[1] = "Chemin lot introuvable ";
+            $result[1] = "Lot introuvable ";
             $result[2] = $cheminLotSource;
         }                                                
 

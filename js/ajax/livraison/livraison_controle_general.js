@@ -12,6 +12,7 @@ $(document).ready(function()
     indicTermine = $("#indic-termine")
     ,ResultatData = $("#resultat_data");    
     $("#text-list-lot").val("");
+    var bd_name = $("#bd_name_link>span").text().trim().toUpperCase();
     
     var listLotError = "";
     let TomeErrone_data,NumActeError_data,ExtDoublonImageLot_data,CorrPOPFmissing_data,ExtractVoid_data
@@ -112,55 +113,55 @@ $(document).ready(function()
 
     $("#TomeErrone_dl").on("click",function(e)
     {         
-       download(TomeErrone_data,"CONTROLE_TOME_REGISTRE.xlsx");        
+       download(TomeErrone_data,"REJETS_" + bd_name+ "_CONTROLE_TOME_REGISTRE.xlsx");        
        e.preventDefault(); 
     });
 
     $("#NumActeError_dl").on("click",function(e)
     {         
-       download(NumActeError_data,"NUM_ACTE_ERRONNE.xlsx");        
+       download(NumActeError_data,"REJETS_" + bd_name+ "_NUM_ACTE_ERRONNE.xlsx");        
        e.preventDefault(); 
     });
 
     $("#ExtDoublonImageLot_dl").on("click",function(e)
     {         
-       download(ExtDoublonImageLot_data,"DOUBLON_IMAGE.xlsx");        
+       download(ExtDoublonImageLot_data,"REJETS_" + bd_name+ "_DOUBLON_IMAGE.xlsx");        
        e.preventDefault(); 
     });
 
     $("#CorrPOPFmissing_dl").on("click",function(e)
     {         
-       download(CorrPOPFmissing_data,"CONTROLE_PO_PF_MANQUANT.xlsx");        
+       download(CorrPOPFmissing_data,"REJETS_" + bd_name+ "_CONTROLE_PO_PF_MANQUANT.xlsx");        
        e.preventDefault(); 
     });
 
     $("#ExtractVoid_dl").on("click",function(e)
     {         
-       download(ExtractVoid_data,"CONTROLE_NUM_ACTE_VIDE.xlsx");        
+       download(ExtractVoid_data,"REJETS_" + bd_name+ "_CONTROLE_NUM_ACTE_VIDE.xlsx");        
        e.preventDefault(); 
     });
 
     $("#ExtLotCountError_dl").on("click",function(e)
     {         
-       download(ExtLotCountError_data,"NOMBRE_LOT_ERRONE.xlsx");        
+       download(ExtLotCountError_data,"REJETS_" + bd_name+ "_NOMBRE_LOT_ERRONE.xlsx");        
        e.preventDefault(); 
     });
 
     $("#CheckImagePathAndBdd_dl").on("click",function(e)
     {         
-       download(CheckImagePathAndBdd_data,"IMAGE_ACTE_NON_CORRESPONDANT.xlsx");        
+       download(CheckImagePathAndBdd_data,"REJETS_" + bd_name+ "_IMAGE_ACTE_NON_CORRESPONDANT.xlsx");        
        e.preventDefault(); 
     });
 
     $("#CorrDateControle_dl").on("click",function(e)
     {         
-       download(CorrDateControle_data,"DATE_CONTROLE_ERRONES.xlsx");        
+       download(CorrDateControle_data,"REJETS_" + bd_name+ "_DATE_CONTROLE_ERRONES.xlsx");        
        e.preventDefault(); 
     });
 
     $("#ChecksStat_dl").on("click",function(e)
     {         
-       download(ChecksStat_data,"COMPARAISON_INVENTAIRE.xlsx");        
+       download(ChecksStat_data,"REJETS_" + bd_name+ "_COMPARAISON_INVENTAIRE.xlsx");        
        e.preventDefault(); 
     });
 

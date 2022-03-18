@@ -7,8 +7,10 @@
         $formData = json_decode($_POST['myData']);
         $result[] = "success" ;
         
-        $qry = $bdextra->prepare("SELECT COUNT(*) FROM base_ctr_acte WHERE prenom_fr = ? AND genre_prenom = ?");
-        $qry->execute(array($formData->prenom_fr,$formData->genre_prenom));
+        $qry = $bdextra->prepare("SELECT COUNT(*) FROM base_ctr_acte WHERE ((prenom_fr <> '' AND prenom_fr = ?) OR 
+                                                                            (prenom_ar <> '' AND prenom_ar = ?)) 
+                                                                     AND genre_prenom = ?");
+        $qry->execute(array($formData->prenom_fr,$formData->prenom_ar,$formData->genre_prenom));
         $bd_acte = $qry->fetch()[0];
 
         if($bd_acte == 0)

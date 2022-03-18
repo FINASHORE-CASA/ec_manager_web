@@ -12,7 +12,7 @@
     <?= 
       ($bdd_status == "undefined") 
       ? '<li class="nav-item">
-          <a class="nav-link" href="gestion_db_setting.php">
+          <a id="bd_name_link" class="nav-link" href="gestion_db_setting.php">
             <span class="badge badge-danger">
               Aucune Base de données Sélectionnée
             </span>
@@ -20,7 +20,7 @@
         </li>' 
         : 
         '<li class="nav-item">
-          <a class="nav-link" href="gestion_db_setting.php">
+          <a id="bd_name_link" class="nav-link" href="gestion_db_setting.php">
             <i class="fa fa-database" aria-hidden="true"></i>
             <span class="badge badge-default">
               '.$bdd_status.'

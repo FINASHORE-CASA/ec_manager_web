@@ -40,36 +40,27 @@
 
                if($db_tome->num_tome != $find[0]->tome)
                {
-                    $OldChemin = ""; 
-    
-                    foreach ($ListPathImages as $PathImage)
+                    $BaseCheminLot = getPathLot($db_tome->id_lot, $bdextra); 
+                    $SourceTable = $ListPathImages;
+                    $OldChemin = "";
+
+                    foreach($SourceTable as $src)
                     {
-                        $OldChemin = getPathLot($db_tome->id_lot, $bdextra);
-
-                        $cheminDetails;
-                        if (str_contains($OldChemin,"/"))
+                        if(is_dir(trim($src)."\\".$BaseCheminLot))
                         {
-                            $cheminDetails = explode('/',$OldChemin) ;
-                        }
-                        else
-                        {
-                            $cheminDetails =  explode('\\',$OldChemin);
-                        }
-
-                        if(count($cheminDetails) >= 1)
-                        {
-                            $cheminDetails[count($cheminDetails) - 1] = (str_contains($cheminDetails[count($cheminDetails) - 1],"_")) ? $db_tome->id_lot + "_" + explode("_",$cheminDetails[count($cheminDetails) - 1])[1] : $db_tome->id_lot;
-                            $OldChemin = implode("\\",$cheminDetails);
-                        }
-
-                        if(is_dir($PathImage."\\".$OldChemin))
-                        {
-                            $OldChemin = $PathImage."\\".$OldChemin;
+                            $OldChemin = trim($src)."\\".$BaseCheminLot;
                             break;
                         }
-                        else
+                        else 
                         {
-                            $OldChemin = "";
+                            $baseCheminExplode = explode("\\",$BaseCheminLot);
+                            $baseCheminExplode[count($baseCheminExplode) - 1] = (($db_tome->id_lot.'')[12] != '0') ?  $db_tome->num_tome."_".($db_tome->id_lot.'')[12] : $db_tome->num_tome;
+                            $baseCheminExplode = implode("\\",$baseCheminExplode);
+                            if(is_dir(trim($src)."\\".$baseCheminExplode))
+                            {
+                                $OldChemin = trim($src)."\\".$baseCheminExplode;
+                                break;
+                            }
                         }
                     }
 
@@ -78,7 +69,8 @@
                         $newCheminBase = explode("\\",$OldChemin);
                         $newCheminBase[count($newCheminBase) - 1] = "";
                         $newCheminBase = implode("\\",$newCheminBase);
-                        rename($OldChemin,$newCheminBase."\\".(($db_tome->id_lot.'')[12] != '0') ? $db_tome->id_lot + "_" + ($db_tome->id_lot.'')[12] : $db_tome->id_lot);     
+                        $newFullChemin = $newCheminBase.((($db_tome->id_lot.'')[12] != '0') ?  $find[0]->tome."_".($db_tome->id_lot.'')[12] : $find[0]->tome);
+                        rename($OldChemin,$newFullChemin);                             
                         $nbLot++;
 
                         $liste_el_select[] = ["id_lot" => $db_tome->id_lot,"id_tome_actu" => $db_tome->num_tome,"id_tome_corr" => $find[0]->tome,"chemin_lot" => $OldChemin

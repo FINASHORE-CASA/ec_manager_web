@@ -32,7 +32,7 @@ $(document).ready(function() {
             el.value = "";
         });        
         $("#field-Id_lot").html("");
-        $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");         
+        $("#img-block").html("");         
     });
     
     $("#form-update-save").on("click",function(e){            
@@ -262,11 +262,12 @@ $(document).ready(function() {
                                 // enable mouse wheel
                                 const parent = element.parentElement
                                 parent.addEventListener('wheel', panzoom.zoomWithWheel);
-                                parent.addEventListener('click', panzoom.reset);
+                                resetButton.addEventListener('click', panzoom.reset);
                             }           
                             else
                             {
-                                $("#img-block").html("<p class='d-flex justify-content-center' style='margin-top:250px;'> Image Introuvable </p>");
+                                $("#img-block").html("");
+                                $("#block-img-change").html("");
                             }
 
                             startSwitchImage();

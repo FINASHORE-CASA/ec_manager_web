@@ -102,7 +102,6 @@
                         </div>
                       </div>
                       <hr/>
-
                       <div id="form-group2" style="margin: 0;padding: 10px;">
                         <div class="row">
                           <div class="form-group col-md-5">
@@ -132,36 +131,69 @@
                           <div class="form-group col-md-5">
                             <label for="field-PrenomMargeAr">Prenom marge ar</label>
                             <input type="text" class="form-control" id="field-PrenomMargeAr" aria-describedby="field-PrenomMargeAr" placeholder=""/>                        
-                          </div>                        
+                          </div>                      
                         </div>
                       </div> 
+                      <hr/>
+                        <div id="form-group3" style="margin: 0;padding: 10px;">
+                          <div class="row">
+                            <div class="form-group col-md-5">
+                              <label for="field-PrenomPereFr">Prenom père fr</label>
+                              <input type="text" class="form-control" id="field-PrenomPereFr" aria-describedby="field-PrenomPereFr" placeholder=""/>                        
+                            </div> 
+                            <div class="form-group col-md-5">
+                              <label for="field-PrenomPereAr">Prenom père ar</label>
+                              <input type="text" class="form-control" id="field-PrenomPereAr" aria-describedby="field-PrenomPereAr" placeholder=""/>                        
+                            </div>     
+                            <div class="form-group col-md-2">
+                              <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-pere">
+                                <span class="fas fa-check-double"></span>
+                              </button>     
+                            </div>                   
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-md-5">
+                              <label for="field-PrenomMereFr">Prenom mère fr</label>
+                              <input type="text" class="form-control" id="field-PrenomMereFr" aria-describedby="field-PrenomMereFr" placeholder=""/>                        
+                            </div>  
+                            <div class="form-group col-md-5">
+                              <label for="field-PrenomMereAr">Prenom mère ar</label>
+                              <input type="text" class="form-control" id="field-PrenomMereAr" aria-describedby="field-PrenomMereAr" placeholder=""/>                        
+                            </div>     
+                            <div class="form-group col-md-2">
+                              <button type="button" class="btn btn-success col-md-12" style="background: none;color:#1cc88a;margin-top:2em;" id="btn-add-champs-prenom-mere">
+                                <span class="fas fa-check-double"></span>
+                              </button>     
+                            </div>                     
+                          </div>
+                        </div>                       
                       <hr/>                                           
-                      <div id="form-group3" style="margin: 0;padding: 10px;">
+                      <div id="form-group4" style="margin: 0;padding: 10px;">
                         <div class="row">                          
                           <div class="form-group col-md-4">
-                            <label for="field-jour_g">naissance_jour_g</label>
+                            <label for="field-jour_g">jour_naissance_g</label>
                             <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder=""/>                        
                           </div> 
                           <div class="form-group col-md-4">
-                            <label for="field-mois_g">naissance_mois_g</label>
+                            <label for="field-mois_g">mois_naissance_g</label>
                             <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder=""/>                        
                           </div>  
                           <div class="form-group col-md-4">
-                            <label for="field-annee_g">naissance_annee_g</label>
+                            <label for="field-annee_g">annee_naissance_g</label>
                             <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder=""/>                        
                           </div>                      
                         </div>
                         <div class="row">                          
                           <div class="form-group col-md-4">
-                            <label for="field-jour_h">naissance_jour_h</label>
+                            <label for="field-jour_h">jour_naissance_h</label>
                             <input type="text" class="form-control" id="field-jour_h" aria-describedby="field-jour_h" placeholder=""/>                        
                           </div> 
                           <div class="form-group col-md-4">
-                            <label for="field-mois_h">naissance_mois_h</label>
+                            <label for="field-mois_h">mois_naissance_h</label>
                             <input type="text" class="form-control" id="field-mois_h" aria-describedby="field-mois_h" placeholder=""/>                        
                           </div>  
                           <div class="form-group col-md-4">
-                            <label for="field-annee_h">naissance_annee_h</label>
+                            <label for="field-annee_h">annee_naissance_h</label>
                             <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder=""/>                        
                           </div>                      
                         </div>
@@ -169,14 +201,8 @@
                     </form>
                   </div>
                   <div class="col-md-6">      
-                    <div id="img-block" style="min-height: 700px;">               
-                      <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
-                      <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
-                    </div>
-                    <div style="height:50px;" class="text-center mt-3" id="block-img-change">
-                      <!-- <a href="#" style="color: black;font-size:20px;"> <i class="far fa-dot-circle"></i></a>
-                      <a href="#" style="color: gray;font-size:20px;"> <i class="far fa-dot-circle ml-1"></i></a> -->
-                    </div>
+                    <div id="img-block"></div>
+                    <div style="height:50px;" class="text-center mt-3" id="block-img-change"></div>
                   </div>
                 </div>
                 <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
@@ -291,7 +317,7 @@
                   <div class="form-group card shadow">
                     <div class="d-flex justify-content-center mb-1" 
                           style="color: white;background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;padding:7px;border-radius:5px;">
-                      Lot Erronés (<span class="text-danger" id="indic-lot-error">100</span>) 
+                      Lot Erronés (<span class="text-danger" id="indic-lot-error">0</span>) 
                     </div>
                     <textarea class="form-control" id="text-list-lot-errone"   
                               style="align-content:center; overflow:auto;max-height:20em;height:20em;" disabled>
@@ -322,19 +348,23 @@
                               <th> Id Acte </th>
                               <th> Nom fr</th>
                               <th> Nom ar</th>
-                              <th> Nom marge ar </th>
                               <th> Nom marge fr </th>
+                              <th> Nom marge ar </th>
                               <th> Prenom fr</th>
                               <th> Prenom ar</th>
                               <th> Prenom marge fr</th>                              
                               <th> Prenom marge ar</th>
+                              <th> Prenom père fr</th>
+                              <th> Prenom père ar</th>
+                              <th> Prenom mère fr</th>
+                              <th> Prenom mère ar</th>
                               <th> Sexe </th>
-                              <th> jour_g </th>
-                              <th> mois_g </th>
-                              <th> annee_g </th>
-                              <th> jour_h </th>
-                              <th> mois_h </th>
-                              <th> annee_h </th>
+                              <th> jour_naissance_g </th>
+                              <th> mois_naissance_g </th>
+                              <th> annee_naissance_g </th>
+                              <th> jour_naissance_h </th>
+                              <th> mois_naissance_h </th>
+                              <th> annee_naissance_h </th>
                             </tr>
                           </thead>
                           <tbody id="TableVerifImage">
@@ -346,12 +376,16 @@
                               <th> Id Acte </th>
                               <th> Nom fr</th>
                               <th> Nom ar</th>
-                              <th> Nom marge ar </th>
                               <th> Nom marge fr </th>
+                              <th> Nom marge ar </th>
                               <th> Prenom fr</th>
                               <th> Prenom ar</th>
                               <th> Prenom marge fr</th>                              
                               <th> Prenom marge ar</th>
+                              <th> Prenom père fr</th>
+                              <th> Prenom père ar</th>
+                              <th> Prenom mère fr</th>
+                              <th> Prenom mère ar</th>
                               <th> Sexe </th>
                               <th> jour_g </th>
                               <th> mois_g </th>
