@@ -138,7 +138,7 @@ $(document).ready(function()
                    $("#image1").fadeIn(2000); 
                    $("#image2").css("display","none")
                    $(this).css("color","black");
-                   $("#img-switch2").css("color","gray");
+                   $("#img-switch2").css("color","gray");          
                 }                
             }      
             else
@@ -220,13 +220,26 @@ $(document).ready(function()
                                 });
                                 $("#img-block").html(htmlContentImg);
                                 $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                         +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>");
+                                                         +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>" 
+                                                         +  "<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                             }
                             else
                             {
                                 $("#img-block").html("<img id='image1' class='img-fluid img-thumbnail' style='height:auto;width:auto;' src='"+ result[3] +"\\" + result[1].id_lot + "_" + result[1].imagepath +"' alt='"+  result[1].imagepath +"'/>");                                                 
-                                $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>");
+                                $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
+                                                            +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                             }
+
+                            // initialisation du plugin de zoom                                                 
+                            const element = document.getElementById('img-block')
+                            const resetButton = document.getElementById('img-zoom-reset');
+                            const panzoom = Panzoom(element, {
+                                // options here
+                            });
+                            // enable mouse wheel
+                            const parent = element.parentElement
+                            parent.addEventListener('wheel', panzoom.zoomWithWheel);
+                            parent.addEventListener('click', panzoom.reset);
                         }           
                         else
                         {
@@ -282,7 +295,7 @@ $(document).ready(function()
     var get_id_lots = function()
     {
         // Récupération de la source 
-        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot.php'
+        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot_all.php'
         ,function(data,status,jqXHR)
         {
             var result = JSON.parse(data);                               
@@ -310,6 +323,23 @@ $(document).ready(function()
             console.log(res);
         });  
     };
+
+    $("#show_all").on("click",function(){
+
+        if($(this)[0].checked == true)
+        {
+            textListLot.val("");
+            textListLot.attr("disabled","true");
+            
+            // Recherche des actes concernés            
+            get_id_lots(); 
+        }
+        else
+        {
+            textListLot.removeAttr("disabled");
+        }
+    })
+    $("#show_all")[0].checked = false;
 
     function reduceText(txt,limit)
     {

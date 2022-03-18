@@ -29,7 +29,6 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="vendor/click-tap-image/dist/css/image-zoom.css" /> -->
 
 </head>
 
@@ -140,29 +139,29 @@
                       <div id="form-group3" style="margin: 0;padding: 10px;">
                         <div class="row">                          
                           <div class="form-group col-md-4">
-                            <label for="field-jour_g">jour_g</label>
+                            <label for="field-jour_g">naissance_jour_g</label>
                             <input type="text" class="form-control" id="field-jour_g" aria-describedby="field-jour_g" placeholder=""/>                        
                           </div> 
                           <div class="form-group col-md-4">
-                            <label for="field-mois_g">mois_g</label>
+                            <label for="field-mois_g">naissance_mois_g</label>
                             <input type="text" class="form-control" id="field-mois_g" aria-describedby="field-mois_g" placeholder=""/>                        
                           </div>  
                           <div class="form-group col-md-4">
-                            <label for="field-annee_g">annee_g</label>
+                            <label for="field-annee_g">naissance_annee_g</label>
                             <input type="text" class="form-control" id="field-annee_g" aria-describedby="field-annee_g" placeholder=""/>                        
                           </div>                      
                         </div>
                         <div class="row">                          
                           <div class="form-group col-md-4">
-                            <label for="field-jour_h">jour_h</label>
+                            <label for="field-jour_h">naissance_jour_h</label>
                             <input type="text" class="form-control" id="field-jour_h" aria-describedby="field-jour_h" placeholder=""/>                        
                           </div> 
                           <div class="form-group col-md-4">
-                            <label for="field-mois_h">mois_h</label>
+                            <label for="field-mois_h">naissance_mois_h</label>
                             <input type="text" class="form-control" id="field-mois_h" aria-describedby="field-mois_h" placeholder=""/>                        
                           </div>  
                           <div class="form-group col-md-4">
-                            <label for="field-annee_h">annee_h</label>
+                            <label for="field-annee_h">naissance_annee_h</label>
                             <input type="text" class="form-control" id="field-annee_h" aria-describedby="field-annee_h" placeholder=""/>                        
                           </div>                      
                         </div>
@@ -170,7 +169,7 @@
                     </form>
                   </div>
                   <div class="col-md-6">      
-                    <div id="img-block" class="card" style="min-height: 700px;">               
+                    <div id="img-block" style="min-height: 700px;">               
                       <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
                       <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
                     </div>
@@ -407,8 +406,8 @@
   <!-- Page level plugins -->  
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="js/demo/datatables-demo.js"></script>  
-  <!-- <script src="vendor/click-tap-image/dist/js/image-zoom.min.js"></script> -->
+  <script src="js/demo/datatables-demo.js"></script>   
+  <script src="js/panzoom.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>

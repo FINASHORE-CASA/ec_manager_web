@@ -243,13 +243,26 @@ $(document).ready(function() {
                                     });
                                     $("#img-block").html(htmlContentImg);
                                     $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
-                                                            +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>");
+                                                            +  "<a id='img-switch2' class='img-switch' href='#' ownid='2' style='color: gray;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle ml-1'></i></a>"
+                                                            +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                                 }
                                 else
                                 {
                                     $("#img-block").html("<img id='image1' class='img-fluid img-thumbnail' style='height:auto;width:auto;' src='"+ result[3] +"\\" + result[1].id_acte + "_" + result[1].imagepath +"' alt='"+  result[1].imagepath +"'/>");                                                 
-                                    $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>");
+                                    $("#block-img-change").html("<a id='img-switch1' class='img-switch' href='#' ownid='1' style='color: black;font-size:20px;text-decoration:none;'> <i class='far fa-dot-circle'></i></a>"
+                                                               +"<a id='img-zoom-reset' class='ml-2' href='#' ownid='2' style='color: black;font-size:20px;text-decoration:none;'> <i class='fas fa-dice-one'></i></a>");
                                 }
+
+                                // initialisation du plugin de zoom                                                 
+                                const element = document.getElementById('img-block')
+                                const resetButton = document.getElementById('img-zoom-reset');
+                                const panzoom = Panzoom(element, {
+                                    // options here
+                                });
+                                // enable mouse wheel
+                                const parent = element.parentElement
+                                parent.addEventListener('wheel', panzoom.zoomWithWheel);
+                                parent.addEventListener('click', panzoom.reset);
                             }           
                             else
                             {

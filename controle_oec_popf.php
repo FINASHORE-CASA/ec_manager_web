@@ -38,7 +38,6 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="vendor/click-tap-image/dist/css/image-zoom.css" /> -->
 
 </head>
 
@@ -65,7 +64,7 @@
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
-                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification information PO PF : <span id="field-id_lot"></span> </h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Modification information PO PF : <strong><span id="field-id_lot"></span></strong> </h5>
                 <button type="button" class="close btn-form-modal-cancel" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,11 +113,11 @@
                     </form>
                   </div>
                   <div class="col-md-6">      
-                    <div id="img-block" class="card" style="min-height: 700px;">               
+                    <div id="img-block" style="max-height:700px;">               
                       <!-- <img id="image1" class="img-fluid img-thumbnail" style="height:auto;width:auto;" src="fichier\cache\tempimage\NA-01_P1.jpg" alt="image NA-01_P1.jpg"/>
                       <img id="image2" class="img-fluid img-thumbnail" style="height:auto;width:auto;display:none;" /> -->
                     </div>
-                    <div style="height:50px;" class="text-center mt-3" id="block-img-change">
+                    <div style="min-height:50px;z-index:10;" class="text-center mt-3" id="block-img-change">
                       <!-- <a href="#" style="color: black;font-size:20px;"> <i class="far fa-dot-circle"></i></a>
                       <a href="#" style="color: gray;font-size:20px;"> <i class="far fa-dot-circle ml-1"></i></a> -->
                     </div>
@@ -183,6 +182,10 @@
                                 <p id="txt-nb-lot-notif" text-std="Le Contrôle sera effectué sur ces lots"> </p>
                               </div>
                             </div>
+                        </div>                        
+                        <div class="form-inline ml-3">
+                          <label for="show_all"> Selectionner tous les lots </label>
+                          <input type="checkbox" class="form-control ml-1" id="show_all"/>
                         </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
                           <div class="d-flex justify-content-center" style="padding-top: 9em;">
@@ -210,7 +213,7 @@
                     <div class="card-body">
                       <div class="row">
                         <ol id="liste-indic">
-                          <li class="mb-2" style="display: none;"> Vérification des identités  <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
+                          <li class="mb-2" style="display: none;"> TRécupération PO PF  <i class="fas fa-check text-success" style="margin-left:5px;font-size:20px;"></i> </li> 
                         </ol>
                       </div>
                     </div>
@@ -316,7 +319,7 @@
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="js/demo/datatables-demo.js"></script>  
-  <!-- <script src="vendor/click-tap-image/dist/js/image-zoom.min.js"></script> -->
+  <script src="js/panzoom.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>
