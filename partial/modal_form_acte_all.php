@@ -9,7 +9,7 @@
         </button>
         </div>
         <div class="modal-body">
-        <div class="row">                
+        <div class="row"  id="form-acte-field">                
           <!-- Content Row -->
             <div class="col-md-6" style="height:700px;overflow:auto;">             
                 <!-- Liste des onglets  -->
@@ -598,10 +598,16 @@
                 <div id="img-block" class="card" style="min-height: 700px;"></div>
                 <div style="height:50px;" class="text-center mt-3" id="block-img-change"></div>
             </div>
+        </div>        
+        <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;"> 
+            <div class="d-flex justify-content-center" style="padding:15em;width:100%">
+            <img src="./img/loader.gif" alt="loader wait" style="height: 80px;width:80px;padding:0px;" />
+            </div>
         </div>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
+        <button id="form-correct-btn" type="button" class="btn btn-success"> Déjà Correct <i class="fas fa-check-double"></i></button>
         <button id="form-update-save" type="button" class="btn btn-primary" style="background: <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;"> Enregistrer <i class="far fa-save ml-1"></i></button>
         </div>
     </div>

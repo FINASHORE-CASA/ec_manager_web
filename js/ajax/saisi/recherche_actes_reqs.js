@@ -10,7 +10,8 @@ $(document).ready(function() {
         ,txtControleNotif = $("#txt-nb-lot-notif")
         ,notifResultat = $("#notif-Resultat-bell")
         ,ResultatData = $("#resultat_data")
-        ,alertBox = $("#alert_box");    
+        ,alertBox = $("#alert_box")
+        ,btnCorrect = $("#form-correct-btn");    
 
     var show_alert = function(theme_color,title,text="",time=5)
     {
@@ -43,7 +44,7 @@ $(document).ready(function() {
             data1[el.id.replace("field-","")] = el.value.trim();            
         }); 
 
-        $.post(HostLink+'/proccess/ajax/saisi/update_acte_all.php',   // url
+        $.post(HostLink+'/proccess/ajax/saisi/update_acte_all_req.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
@@ -66,6 +67,7 @@ $(document).ready(function() {
 
                         $("#ActeModal").modal("hide");                        
                         $(".btn-form-modal-cancel").trigger("click");
+                        $("#ActeRow"+data1.id_acte).fadeOut("slow");   
                         // mis en place de l'alert 
                         show_alert("success","Modification effectué !","",3);
                     }                    
@@ -91,6 +93,38 @@ $(document).ready(function() {
             }
         ); 
     });  
+
+    btnCorrect.on("click",function(e)
+    {
+        var data1 = { id_acte: $("#field-id_acte").val().trim(),} 
+        $.post(HostLink+'/proccess/ajax/saisi/update_acte_req_correct.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                var result = JSON.parse(data);                               
+                console.log(result);
+                
+                if(result[0] == "success")
+                {             
+                    $("#ActeModal").modal("hide");                        
+                    $(".btn-form-modal-cancel").trigger("click");
+                    $("#ActeRow"+data1.id_acte).fadeOut("slow");   
+                    // mis en place de l'alert 
+                    show_alert("success","Acte marqué comme contrôlé !","",3);                    
+                }
+                else
+                {
+                    // Alert
+                    $("#ActeModal").modal("hide");                        
+                    $(".btn-form-modal-cancel").trigger("click");
+                    // mis en place de l'alert 
+                    show_alert("danger","Erreur lors de la Modification","type erreur : not successful",10);
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+            }
+        ); 
+    });
 
     var startSwitchImage = function() 
     {
@@ -146,7 +180,8 @@ $(document).ready(function() {
                 }     
 
                 // Récupération des tds    
-                const listTd = $("#ActeRow"+data1.id_acte+" td");                 
+                const listTd = $("#ActeRow"+data1.id_acte+" td");   
+                $("#form-acte-loader").css("display","block");              
 
                 $("#field-Id_lot").html("");            
 
@@ -228,6 +263,8 @@ $(document).ready(function() {
                             console.log('message error : ' + result);
                             console.log(result);
                         } 
+                        
+                        $("#form-acte-loader").css("display","none");
                     }
                 ); 
             }
@@ -294,11 +331,12 @@ $(document).ready(function() {
             // traitement des lots             
             var data1 = {
                 reqs: textListLot.val().trim(),
+                show_all: $("#show_all")[0].checked ? 1 : 0
             }              
 
             // Traitement Image Vide 
             $.post(HostLink+'/proccess/ajax/saisi/exec_req_acte.php',   // url
-                { myData: JSON.stringify(data1),dataType:'json' }, // data to be submit
+                { myData: JSON.stringify(data1) }, // data to be submit
                     function(data, status, jqXHR) 
                     {
                         console.log(data);

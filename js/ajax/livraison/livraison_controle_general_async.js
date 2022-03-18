@@ -10,10 +10,11 @@ $(document).ready(function()
     ,notifResultat = $("#notif-Resultat-bell"),
     indicTermine = $("#indic-termine")
     ,ResultatData = $("#resultat_data");
+    $("#text-list-lot").val("");
     
     var listLotError = "";
     let TomeErrone_data,NumActeError_data,ExtDoublonImageLot_data,CorrPOPFmissing_data,ExtractVoid_data
-        ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data,Corr3minControleEnd_data;
+        ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data
 
     var initDataTable = function(dataTable) 
     {
@@ -161,17 +162,10 @@ $(document).ready(function()
        download(ChecksStat_data,"COMPARAISON_INVENTAIRE.xlsx");        
        e.preventDefault(); 
     });
-
-    $("#Corr3minControleEnd_dl").on("click",function(e)
-    {         
-       download(Corr3minControleEnd_data,"ACTION_DELAIS_A_CORRIGES.xlsx");        
-       e.preventDefault(); 
-    });
-
         
     // Traitement ExtractVoid
     var Corr3minControleEnd = function() { 
-        $.get(HostLink+'/proccess/ajax/livraison/Corr3minControleEnd.php',
+        $.get(HostLink+'/proccess/ajax/livraison/Corr3minControleEnd.php',            
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -181,33 +175,11 @@ $(document).ready(function()
                 {
                     // success callback
                     // display result    
-                    $("#liste-indic li:eq(9)").html("Contrôle 3 minutes: (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(9)").html("Contrôle 3 minutes: (" + result[1] + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
                     $("#liste-indic li:eq(9)").fadeIn(1000);
                                         
-                    $("#notif-Resultat-10").text(result[1].length);
-                    console.log('success : '  + result[1].length);
-                    Corr3minControleEnd_data = result[1];
-                    
-                    // injection des données                             
-                    htmlDataTable = "";    
-                    result[1].forEach(e => {                            
-                        htmlDataTable += "<tr id='Corr3minControleEnd"+ e.id_acte +"'>"
-                                            +'<td > '+ e.id_actionec + '</td>'
-                                            +'<td > '+ e.date_debut_action + '</td>'
-                                            +'<td > '+ e.date_fin_action + '</td>'
-                                            +'<td > '+ e.new_date_fin_action + '</td>'                                         
-                                        +"</tr>";
-
-                        // Ajout de l'IdLot dans les erronés
-                        if(!listLotError.includes(e.id_lot))
-                        {
-                            listLotError += e.id_lot + "\n"; 
-                        }
-                    });
-                        
-                    $("#dataTableCorr3minControleEnd").dataTable().fnDestroy(); 
-                    $("#TableCorr3minControleEnd").html(htmlDataTable);
-                    initDataTable($('#dataTableCorr3minControleEnd')); 
+                    $("#notif-Resultat-10").text(result[1]);
+                    console.log('success : '  + result[1]);                    
 
                     // Terminé le Lancement
                     $("#text-list-lot-errone").val(listLotError);
@@ -228,6 +200,7 @@ $(document).ready(function()
     // Traitement ExtractVoid
     var ChecksStat = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ChecksStat.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -268,9 +241,6 @@ $(document).ready(function()
                     $("#dataTableChecksStat").dataTable().fnDestroy(); 
                     $("#TableChecksStat").html(htmlDataTable);
                     initDataTable($('#dataTableChecksStat')); 
-
-                    // Terminé le Lancement
-                    Corr3minControleEnd();
                 }
                 else
                 {
@@ -284,6 +254,7 @@ $(document).ready(function()
     // Traitement ExtractVoid
     var CorrDateControle = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/CorrDateControle.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -321,9 +292,6 @@ $(document).ready(function()
                     $("#dataTableCorrDateControle").dataTable().fnDestroy(); 
                     $("#TableCorrDateControle").html(htmlDataTable);
                     initDataTable($('#dataTableCorrDateControle')); 
-
-                    // Terminé le Lancement
-                    ChecksStat(); 
                 }
                 else
                 {
@@ -337,6 +305,7 @@ $(document).ready(function()
     // Traitement ExtractVoid
     var CheckImagePathAndBdd = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/CheckImagePathAndBdd.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -375,9 +344,6 @@ $(document).ready(function()
                     $("#dataTableCheckImagePathAndBdd").dataTable().fnDestroy(); 
                     $("#TableCheckImagePathAndBdd").html(htmlDataTable);
                     initDataTable($('#dataTableCheckImagePathAndBdd')); 
-
-                    // Terminé le Lancement
-                    CorrDateControle();
                 }
                 else
                 {
@@ -391,6 +357,7 @@ $(document).ready(function()
     // Traitement ExtractVoid
     var ExtLotCountError = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ExtLotCountError.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -429,9 +396,6 @@ $(document).ready(function()
                     $("#dataTableExtLotCountError").dataTable().fnDestroy(); 
                     $("#TableExtLotCountError").html(htmlDataTable);
                     initDataTable($('#dataTableExtLotCountError')); 
-
-                    // Terminé le Lancement
-                    CheckImagePathAndBdd();  
                 }
                 else
                 {
@@ -445,6 +409,7 @@ $(document).ready(function()
     // Traitement ExtractVoid
     var ExtractVoid = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ExtractVoid.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -482,9 +447,6 @@ $(document).ready(function()
                     $("#dataTableExtractVoid").dataTable().fnDestroy(); 
                     $("#TableExtractVoid").html(htmlDataTable);
                     initDataTable($('#dataTableExtExtractVoid')); 
-
-                    // Lancement du Traitement CorrPOPFmissing
-                    ExtLotCountError(); 
                 }
                 else
                 {
@@ -498,6 +460,7 @@ $(document).ready(function()
     // Traitement TomeRegistre/Registre
     var CorrPOPFmissing = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/CorrPOPFmissing.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -534,9 +497,6 @@ $(document).ready(function()
                     $("#dataTableExtCorrPOPFmissing").dataTable().fnDestroy(); 
                     $("#TableCorrPOPFmissing").html(htmlDataTable);
                     initDataTable($('#dataTableExtCorrPOPFmissing')); 
-
-                    // Lancement du Traitement CorrPOPFmissing
-                    ExtractVoid(); 
                 }
                 else
                 {
@@ -550,6 +510,7 @@ $(document).ready(function()
     // Traitement TomeRegistre/Registre
     var ExtDoublonImageLot = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ExtDoublonImageLot.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -587,9 +548,6 @@ $(document).ready(function()
                     $("#dataTableExtDoublonImageLot").dataTable().fnDestroy(); 
                     $("#TableExtDoublonImageLot").html(htmlDataTable);
                     initDataTable($('#dataTableExtDoublonImageLot')); 
-
-                    // Lancement du Traitement CorrPOPFmissing
-                    CorrPOPFmissing(); 
                 }
                 else
                 {
@@ -603,6 +561,7 @@ $(document).ready(function()
     // Traitement TomeRegistre/Registre
     var ExtractNumActeError = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ExtractNumActeError.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -640,10 +599,7 @@ $(document).ready(function()
                         
                     $("#dataTableNum_acteError").dataTable().fnDestroy(); 
                     $("#TableNum_acteError").html(htmlDataTable);
-                    initDataTable($('#dataTableNum_acteError')); 
-
-                    // Lancement du Traitement Numéro Acte vide 
-                    ExtDoublonImageLot();      
+                    initDataTable($('#dataTableNum_acteError'));  
                 }
                 else
                 {
@@ -654,11 +610,10 @@ $(document).ready(function()
         );   
     }
 
-    
-
     // Traitement TomeRegistre/Registre
     var ExtractNumActeError = function() { 
         $.get(HostLink+'/proccess/ajax/livraison/ExtractNumActeError.php',
+            {async: false},
             function(data, status, jqXHR) 
             {
                 console.log(data);
@@ -696,10 +651,7 @@ $(document).ready(function()
                         
                     $("#dataTableNum_acteError").dataTable().fnDestroy(); 
                     $("#TableNum_acteError").html(htmlDataTable);
-                    initDataTable($('#dataTableNum_acteError')); 
-
-                    // Lancement du Traitement Numéro Acte vide 
-                    ExtDoublonImageLot();      
+                    initDataTable($('#dataTableNum_acteError'));   
                 }
                 else
                 {
@@ -708,6 +660,63 @@ $(document).ready(function()
                 } 
             }
         );   
+    }
+
+    var CorrectionTome = function() 
+    {
+        $.get(HostLink+'/proccess/ajax/livraison/correction_tome.php',   // url           
+            {async: false},
+            function(data, status, jqXHR) 
+            {     
+                console.log(data);
+                result = JSON.parse(data);                                            
+                if(result[0] == "success")
+                {                        
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(0)").html("Correction Tome : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(0)").fadeIn(1000);
+                    console.log('success : '  + result[1].length);
+
+                    // paramétrage de l'affichage
+                    notifResultat.fadeIn("slow");
+                    ResultatData.fadeIn("slow");
+                    $("#notif-Resultat-1").text(result[1].length);
+
+                    TomeErrone_data = result[1];
+                                            
+                    // injection des données                             
+                    htmlDataTable = "";    
+                    result[1].forEach(e => {                            
+                        htmlDataTable += "<tr id='TomeCorrRow"+ e.id_tome_registre +"'>"
+                                            +'<td > '+ e.id_lot+'</td>'
+                                            +'<td > '+ e.id_tome_actu+'</td>'
+                                            +'<td > '+ e.id_tome_corr +'</td>'
+                                            +'<td > '+ e.chemin_lot +'</td>'
+                                            +'<td > '+ e.observation +'</td>'
+                                        +"</tr>";
+
+                        // Ajout de l'IdLot dans les erronés
+                        if(!listLotError.includes(e.id_lot))
+                        {
+                            listLotError += e.id_lot + "\n"; 
+                        }
+                    });
+                    
+                    $("#dataTableTomeErrone").dataTable().fnDestroy();
+                    $("#TableTomeErrone").html(htmlDataTable);
+                    initDataTable($('#dataTableTomeErrone'));                                                                                       
+                }
+                else
+                {
+                    console.log('message error : ' + result[1]);
+                    console.log(result);
+                }
+            }
+        ).fail(function(res){
+            console.log("fail");
+            console.log(res);
+        });  
     }
 
     btnControle.on('click',function(e)
@@ -727,62 +736,29 @@ $(document).ready(function()
             formLoader.css("display","inherit");
             notifResultat.fadeOut("fast"); 
             ResultatData.fadeOut("fast"); 
-            // transfert lot 
-            $.get(HostLink+'/proccess/ajax/livraison/correction_tome.php',   // url            
-                function(data, status, jqXHR) 
-                {     
-                    console.log(data);
-                    result = JSON.parse(data);                                            
-                    if(result[0] == "success")
-                    {                        
-                        // success callback
-                        // display result    
-                        $("#liste-indic li:eq(0)").html("Correction Tome : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                        $("#liste-indic li:eq(0)").fadeIn(1000);
-                        console.log('success : '  + result[1].length);
 
-                        // paramétrage de l'affichage
-                        notifResultat.fadeIn("slow");
-                        ResultatData.fadeIn("slow");
-                        $("#notif-Resultat-1").text(result[1].length);
-
-                        TomeErrone_data = result[1];
-                                                
-                        // injection des données                             
-                        htmlDataTable = "";    
-                        result[1].forEach(e => {                            
-                            htmlDataTable += "<tr id='TomeCorrRow"+ e.id_tome_registre +"'>"
-                                                +'<td > '+ e.id_lot+'</td>'
-                                                +'<td > '+ e.id_tome_actu+'</td>'
-                                                +'<td > '+ e.id_tome_corr +'</td>'
-                                                +'<td > '+ e.chemin_lot +'</td>'
-                                                +'<td > '+ e.observation +'</td>'
-                                            +"</tr>";
-
-                            // Ajout de l'IdLot dans les erronés
-                            if(!listLotError.includes(e.id_lot))
-                            {
-                                listLotError += e.id_lot + "\n"; 
-                            }
-                        });
-                        
-                        $("#dataTableTomeErrone").dataTable().fnDestroy();
-                        $("#TableTomeErrone").html(htmlDataTable);
-                        initDataTable($('#dataTableTomeErrone'));                                             
-                            
-                        // Lancement du Traitement Numéro Acte vide 
-                        ExtractNumActeError();      
-                    }
-                    else
-                    {
-                        console.log('message error : ' + result[1]);
-                        console.log(result);
-                    }
-                }
-            ).fail(function(res){
-                console.log("fail");
-                console.log(res);
-            });                                   
+            // Correction tome 
+            CorrectionTome();
+            // Lancement du Traitement Numéro Acte vide 
+            ExtractNumActeError();     
+            // Lancement du Traitement Numéro Acte vide 
+            ExtDoublonImageLot();      
+            // Lancement du Traitement Numéro Acte vide 
+            ExtDoublonImageLot();     
+            // Lancement du Traitement CorrPOPFmissing
+            CorrPOPFmissing();      
+            // Lancement du Traitement CorrPOPFmissing
+            ExtractVoid();                     
+            // Lancement du Traitement CorrPOPFmissing
+            ExtLotCountError();  
+            // Terminé le Lancement
+            CheckImagePathAndBdd();                      
+            // Terminé le Lancement
+            CorrDateControle();    
+            // Terminé le Lancement
+            ChecksStat();                    
+            // Terminé le Lancement
+            Corr3minControleEnd();
         }
     });
 })

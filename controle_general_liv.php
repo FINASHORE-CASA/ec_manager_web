@@ -259,7 +259,7 @@
                       <a class="nav-tab-item nav-item nav-link" href="#CheckImagePathAndBdd" style="color: black;">  Verif. ImagePath   <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-7"> 0 </span> <button id="CheckImagePathAndBdd_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>                                          
                       <a class="nav-tab-item nav-item nav-link" href="#CorrDateControle" style="color: black;"> Correct. Date Controle  <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-8"> 0 </span> <button id="CorrDateControle_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>                                          
                       <a class="nav-tab-item nav-item nav-link" href="#ChecksStat" style="color: black;"> Comparaison Inventaire  <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-9"> 0 </span> <button id="ChecksStat_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>                                          
-                      <a class="nav-tab-item nav-item nav-link" href="#Corr3minControleEnd" style="color: black;"> Contrôle 3 minutes <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-10"> 0 </span> <button id="Corr3minControleEnd_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>                                          
+                      <!-- <a class="nav-tab-item nav-item nav-link" href="#Corr3minControleEnd" style="color: black;"> Contrôle 3 minutes <span class="badge badge-dark ml-2" style="background:red;border-radius:100%;" id="notif-Resultat-10"> 0 </span> <button id="Corr3minControleEnd_dl" class="text-dark ml-2" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </a>                                           -->
                     </nav>
                   </div>  
 
@@ -495,7 +495,7 @@
                     </div>
 
                     <!-- Table Num_acte Error -->
-                    <div class="card shadow mb-4 tab-pane" id="Corr3minControleEnd">
+                    <!-- <div class="card shadow mb-4 tab-pane" id="Corr3minControleEnd">
                       <div class="card-header py-3" style="background:  <?=isset($main_app_color) ? $main_app_color : "#3b2106";?>;">
                         <h6 class="m-0 font-weight-bold text-white">  Contrôle 3 minutes  </h6>
                       </div>
@@ -516,7 +516,7 @@
                         </table>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                 </div>
 

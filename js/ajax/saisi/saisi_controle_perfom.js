@@ -11,6 +11,7 @@ $(document).ready(function()
     var txtControleNotif = $("#txt-nb-lot-notif"),
     indicTermine = $("#indic-termine"),notifResultat = $("#notif-Resultat-bell")
     ,ResultatData = $("#resultat_data");
+    textListLot.val("");
     
     var listLotError = "";
 
@@ -20,6 +21,18 @@ $(document).ready(function()
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
     };   
+
+    var show_alert = function(theme_color,title,text="",time=5)
+    {
+        $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
+                                    +'<strong> '+title+' </strong>' + text
+                                    +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                    +'<span aria-hidden="true">&times;</span>'
+                                   +'</button>'
+                                +'</div>');
+
+        setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
+    } 
 
     $('#dataTableNumeroActeVide,#dataTableNumActeImagepath,#dataTableNum_ActeDouble,#dataTableImageSaisitDouble').on('draw.dt', function () {
         startEditActe();                           
@@ -79,13 +92,14 @@ $(document).ready(function()
                     if( result[1] == '1')
                     {
                         $("#ActeRow"+data1.id_acte + " td:eq(2)").html(data1.num_acte);
-                        $("#ActeModal").modal("hide");
-
+                        $("#ActeModal").modal("hide");                    
+                        show_alert("success","Modification effectuée");
                         $(".btn-form-modal-cancel").trigger("click");
                     }                    
                 }
                 else
                 {
+                    show_alert("danger","erreur lors de la modification",result,10);
                     console.log('message error : ' + result);
                     console.log(result);
                 }
@@ -131,10 +145,12 @@ $(document).ready(function()
     //function de modification de l'acte
     var startEditActe = function(e) {
         var btnEdit = $(".btn-edit");
+        
 
         // Remplissage des informations de l'acte
-        btnEdit.on("click",function(e){
-   
+        btnEdit.on("click",function(e)
+        {            
+            $("#form-acte-loader").css("display","block");
             // Récupération de l'Id du click
             var data1 = {
                 id_acte: $(this).attr("idActe"),
@@ -199,6 +215,7 @@ $(document).ready(function()
                         }
 
                         startSwitchImage();
+                        $("#form-acte-loader").css("display","none");
                     }
                     else
                     {

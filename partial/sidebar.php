@@ -44,6 +44,20 @@
           </div>
         </div>
       </li>
+      
+      <!-- Nav Item - SAISIE -->
+      <li class="nav-item linkSideBar" id="ActionAuto">
+        <a class="nav-link collapsed" href="form_acte_saisi.php" data-toggle="collapse" data-target="#ActionAutoLink" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fab fa-autoprefixer"></i>
+          <span> ACTION MI </span>
+        </a>
+        <div id="ActionAutoLink" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header"> OPTION :</h6>
+            <a class="collapse-item" href="saisie_controle_acte_lot_auto.php"> 1 - Contrôle Inventaire MI </a>
+          </div>
+        </div>
+      </li>
 
       <!-- Nav Item - SAISIE -->
       <?= (isset($_SESSION['user']->type_grant) && $_SESSION['user']->type_grant == '0') ? '
@@ -78,6 +92,7 @@
               <a class="collapse-item" href="gestion_users.php"> Gestion utilisateur </a>
               <a class="collapse-item" href="gestion_db_setting.php"> Gestion BD </a>
               <a class="collapse-item" href="gestion_pref_setting.php"> Préférences </a>
+              <a class="collapse-item" href="gestion_impotation_setting.php"> Gestion Importation </a>
             </div>
           </div>
         </li>' : ''
