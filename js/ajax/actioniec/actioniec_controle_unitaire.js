@@ -18,6 +18,8 @@
     var listLotError = "";
     textListLot.val("");
 
+    var ListeActes = [1,2,3];
+
     // Préparation des données à envoyer
     var countNbLot = function(txt) 
     {
@@ -442,7 +444,10 @@
                                         }
                                     }                             
                                     htmlDataTable += '</tr>';
-                                });
+
+                                    // ajout dans le tableau des Actes
+                                    // listeActes.push({id_acte:e.id_acte,num_acte:e.num_acte});
+                                });                                
 
                                 $("#dataTableListeActes").dataTable().fnDestroy();                                             
                                 $("#TableListeActes").html(htmlDataTable);

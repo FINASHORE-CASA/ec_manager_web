@@ -63,6 +63,12 @@ $date_gen = date("Y-m-d");
                   <button type="button" class="btn btn-success form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                     Enregistrer <i class="fa fa-check-circle" aria-hidden="true"></i>
                   </button>
+                  <!-- <button id="img-prev" type="button" class="btn btn-default text-white ml-2 mr-3" is_active="false">
+                    <i class="fa fa-chevron-left"></i> <i style="font-size:10px;">001</i>
+                  </button>
+                  <button id="img-next" type="button" class="btn btn-default text-white ml-3" is_active="false">
+                    <i style="font-size:10px;">002</i> <i class="fa fa-chevron-right"></i>
+                  </button> -->
                   <button id="Form-extand" type="button" class="btn btn-default text-white ml-2" is_active="false">
                     <i class="fas fa-expand"></i>
                   </button>
