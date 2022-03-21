@@ -7,6 +7,7 @@ $modules_saisie = [
 ];
 $modules_action_IEC = ["saisie_controle_acte_lot_auto" => " Contrôle IEC", "actioniec_controle_unitaire" => "Contrôle Unitaire"];
 $modules_action_OEC_POPF = ["controle_oec_popf" => "Contrôle OEC-POPF"];
+$modules_audits = ["audit_saisi" => "Audit Saisie", "audit_controle_1" => "Audit Controle 1", "audit_controle_2" => "Audit Controle 2", "audit_lot_dispo" => "Lots Disponibles"];
 $modules_livraison = [
   "purge_lot" => "Purge Lot", "controle_inventaire_liv" => "Contrôle Inventaire", "controle_general_liv" =>
   "Contrôle Général", "transfert_lot" => "Transfert Lot", "split_bd" => "Split BD",

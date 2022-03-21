@@ -126,6 +126,14 @@ $date_gen = date("Y-m-d");
                               ?>
                             </optgroup>
 
+                            <optgroup label="AUDIT">
+                              <?php
+                              foreach ($modules_audits as $key => $value) {
+                                echo '<option value="' . $key . '">' . $value . '</option>';
+                              }
+                              ?>
+                            </optgroup>
+
                             <optgroup label="LIVRAISON">
                               <?php
                               foreach ($modules_livraison as $key => $value) {
