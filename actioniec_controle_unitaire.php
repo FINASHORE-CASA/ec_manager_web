@@ -44,6 +44,7 @@ $date_gen = date("Y-m-d");
     <!-- intégration sidebar  -->
     <?php include('partial/sidebar.php') ?>
 
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -170,7 +171,7 @@ $date_gen = date("Y-m-d");
                           <div class="form-group col-md-4">
                             <div class="form-group">
                               <textarea class="form-control" id="text-list-lot" rows="9" style="align-content:center; overflow:auto;">
-                                    </textarea>
+                                      </textarea>
                             </div>
                           </div>
                           <div class="col-md-8">
@@ -261,7 +262,6 @@ $date_gen = date("Y-m-d");
               </div>
             </div>
           </div>
-
         </div>
         <!-- /.container-fluid -->
       </div>
