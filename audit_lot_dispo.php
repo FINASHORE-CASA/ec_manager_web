@@ -51,7 +51,7 @@ require_once "./config/checkConfig.php";
         <!-- intégration topbar  -->
         <?php include('partial/topbar.php') ?>
 
-        <!-- Modal -->
+        <!-- Formulaire Affectation Lot Modal -->
         <div class="modal fade" id="AgentAffectationAudit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -67,7 +67,7 @@ require_once "./config/checkConfig.php";
                     <div class="row m-3">
                       <div class="col-md-12">
                         <div id="list-lots-user" style="overflow:auto;max-height:200px;">
-                          <span class="badge badge-dark mt-1"> 11989002143701 | <a href="#" id_supp_lot_aff="0"> <span class="fas fa-times-circle text-danger"> </span> </a> </span>
+
                         </div>
                         <hr />
                       </div>
@@ -91,6 +91,20 @@ require_once "./config/checkConfig.php";
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire liste Lot Modal -->
+        <div class="modal fade" id="listLotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                <h5 class="modal-title" style="color: white;"> Liste lot <span id="list-all-lot-dispo-nb" class="badge badge-light ml-2"> 0 </span> </h5>
+              </div>
+              <div class="modal-body">
+                <textarea id="list-all-lot-dispo" class="form-control" name="" rows="7" readonly="true"></textarea>
               </div>
             </div>
           </div>
@@ -132,7 +146,7 @@ require_once "./config/checkConfig.php";
                       <div class="mb-4">
                         <input class="form-control" type="text" placeholder="rechercher" />
                       </div>
-                      <div class="table-responsive">
+                      <div class="table-responsive" style="overflow:auto;max-height:400px;">
                         <table class="table" id="dataTableAgentAuditSaisi" width="100%" cellspacing="0">
                           <tbody id="TableAgentAuditSaisi">
                           </tbody>
@@ -145,7 +159,10 @@ require_once "./config/checkConfig.php";
                   <div class="card shadow mb-4">
                     <form method="post" action="#">
                       <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Saisie) <button id="audit_saisie_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Saisie)
+                          <button type="button" id="audit_saisie_list_lot" class="text-white float-right ml-2" style="background-color: transparent;border:none;" data-toggle="modal" data-target="#listLotModal"> <i class="fa fa-list" aria-hidden="true"></i> </button>
+                          <button id="audit_saisie_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button>
+                        </h6>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -182,11 +199,32 @@ require_once "./config/checkConfig.php";
 
             <div class="tab-pane" id="AuditControle1">
               <div class="row">
-                <div class="col-xl-12 mt-4 mb-4">
+                <div class="col-xl-3 mt-4 mb-4">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                      <h6 class="m-0 font-weight-bold text-white"> Gestion Agent </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-4">
+                        <input class="form-control" type="text" placeholder="rechercher" />
+                      </div>
+                      <div class="table-responsive" style="overflow:auto;max-height:400px;">
+                        <table class="table" id="dataTableAgentAuditControle1" width="100%" cellspacing="0">
+                          <tbody id="TableAgentAuditControle1">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-9 mt-4 mb-4">
                   <div class="card shadow mb-4">
                     <form method="post" action="#">
                       <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Contrôle 1) <button id="audit_controle1_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Contrôle 1)
+                          <button type="button" id="audit_controle1_list_lot" class="text-white float-right ml-2" style="background-color: transparent;border:none;" data-toggle="modal" data-target="#listLotModal"> <i class="fa fa-list" aria-hidden="true"></i> </button>
+                          <button id="audit_controle1_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button>
+                        </h6>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -223,11 +261,32 @@ require_once "./config/checkConfig.php";
 
             <div class="tab-pane" id="AuditControle2">
               <div class="row">
-                <div class="col-xl-12 mt-4 mb-4">
+                <div class="col-xl-3 mt-4 mb-4">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                      <h6 class="m-0 font-weight-bold text-white"> Gestion Agent </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-4">
+                        <input class="form-control" type="text" placeholder="rechercher" />
+                      </div>
+                      <div class="table-responsive" style="overflow:auto;max-height:400px;">
+                        <table class="table" id="dataTableAgentAuditControle2" width="100%" cellspacing="0">
+                          <tbody id="TableAgentAuditControle2">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-9 mt-4 mb-4">
                   <div class="card shadow mb-4">
                     <form method="post" action="#">
                       <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Contrôle 2) <button id="audit_controle2_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> </h6>
+                        <h6 class="m-0 font-weight-bold text-white"> Liste des lots disponibles (Audit Contrôle 2)
+                          <button type="button" id="audit_controle2_list_lot" class="text-white float-right ml-2" style="background-color: transparent;border:none;" data-toggle="modal" data-target="#listLotModal"> <i class="fa fa-list" aria-hidden="true"></i> </button>
+                          <button id="audit_controle2_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button>
+                        </h6>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -307,7 +366,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.5"></script>
+  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.1"></script>
 
   <script>
     $(document).ready(function(e) {

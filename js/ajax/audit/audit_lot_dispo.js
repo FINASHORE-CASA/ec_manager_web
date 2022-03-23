@@ -3,7 +3,22 @@
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3]
     HostLink = HostLink.includes(".php") ? "." : HostLink
 
-    var liste_lot_audit_saisie = [],liste_lot_audit_controle1 = [],liste_lot_audit_controle2 = []
+    var audit_infos = [{
+        selector:"AuditSaisi",
+        module:"audit_saisi",
+        status_lot:"V",
+        list_lots:[]
+    },{
+        selector:"AuditControle1",
+        module:"audit_controle_1",
+        status_lot:"C", // C
+        list_lots:[]
+    },{
+        selector:"AuditControle2",
+        module:"audit_controle_2",
+        status_lot:"T", // T
+        list_lots:[]
+    }]    
 
     function download(data_excel,fileName) 
     {        
@@ -16,8 +31,7 @@
                let result = JSON.parse(data)
 
                if(result[0] == "success")
-               {
-                    console.log(result[1])
+               {                    
                     $("#download").attr("href",result[1])
                     $("#download").attr("download",fileName)
                     $("#download")[0].click()
@@ -26,12 +40,13 @@
        } 
     }  
 
+    // Lancement du téléchargement des stats lot
     $("#audit_saisie_dl").on("click",function(e)
     {         
         var today = new Date()
         var dateNow = `${today.getDate()}_${(today.getMonth()+1)}_${today.getFullYear()}`
 
-       download(liste_lot_audit_saisie,`Lot_disponible_audit_saisie_${dateNow}.xlsx`)        
+       download(audit_infos[0].list_lots,`Lot_disponible_audit_saisie_${dateNow}.xlsx`)        
        e.preventDefault() 
     })   
 
@@ -40,7 +55,7 @@
         var today = new Date()
         var dateNow = `${today.getDate()}_${(today.getMonth()+1)}_${today.getFullYear()}`
 
-       download(liste_lot_audit_controle1,`Lot_disponible_audit_controle1_${dateNow}.xlsx`)        
+       download(audit_infos[1].list_lots,`Lot_disponible_audit_controle1_${dateNow}.xlsx`)        
        e.preventDefault() 
     })   
 
@@ -49,9 +64,45 @@
         var today = new Date()
         var dateNow = `${today.getDate()}_${(today.getMonth()+1)}_${today.getFullYear()}`
 
-       download(liste_lot_audit_controle2,`Lot_disponible_audit_controle2_${dateNow}.xlsx`)        
+       download(audit_infos[2].list_lots,`Lot_disponible_audit_controle2_${dateNow}.xlsx`)        
        e.preventDefault() 
     })  
+    // ----------------------------------
+
+    // Lancement de l'affichage des lots
+    $("#audit_saisie_list_lot").on("click",function(e)
+    {         
+       $("#list-all-lot-dispo").val("")
+       $("#list-all-lot-dispo-nb").html(audit_infos[0].list_lots.length) 
+       audit_infos[0].list_lots.forEach((v) => 
+       {           
+            $("#list-all-lot-dispo").val($("#list-all-lot-dispo").val() + `${ v.id_lot} \n`)
+       });
+       e.preventDefault() 
+    })
+
+    $("#audit_controle1_list_lot").on("click",function(e)
+    {         
+       $("#list-all-lot-dispo").val("")
+       $("#list-all-lot-dispo-nb").html(audit_infos[1].list_lots.length) 
+       audit_infos[1].list_lots.forEach((v) => 
+       {           
+            $("#list-all-lot-dispo").val($("#list-all-lot-dispo").val() + `${ v.id_lot} \n`)
+       });
+       e.preventDefault() 
+    })
+    
+    $("#audit_controle2_list_lot").on("click",function(e)
+    {         
+       $("#list-all-lot-dispo").val("")
+       $("#list-all-lot-dispo-nb").html(audit_infos[2].list_lots.length) 
+       audit_infos[2].list_lots.forEach((v) => 
+       {           
+            $("#list-all-lot-dispo").val($("#list-all-lot-dispo").val() + `${ v.id_lot} \n`)
+       });
+       e.preventDefault() 
+    })
+    // ------------------------------
 
     var initDataTable = function(dataTable) 
     {
@@ -123,31 +174,11 @@
                     }
                 }
             )     
-    }  
-    
-    (async () => {
-       d = await getLotAuditLot('V','AuditSaisi')                 
-       liste_lot_audit_saisie = JSON.parse(d)[1]       
-    })()
-
-    $('a[href="#AuditSaisi"').on("click",async () => {
-       d = await getLotAuditLot('V','AuditSaisi')                 
-       liste_lot_audit_saisie = JSON.parse(d)[1] 
-    }) 
-
-    $('a[href="#AuditControle1"').on("click",async () => {
-       d = await getLotAuditLot('C','AuditControle1')  //C               
-       liste_lot_audit_controle1 = JSON.parse(d)[1]     
-    }) 
-    
-    $('a[href="#AuditControle2"').on("click",async () => {
-       d = await getLotAuditLot('T','AuditControle2') //T                
-       liste_lot_audit_controle2 = JSON.parse(d)[1]       
-    }) 
+    }   
     // ---------------------------------------------    
 
     // Récupération des agents d'Audit
-    function getAgentsAuditList(typeAuditSelector,typeAudit)
+    function getAgentsAuditList(typeAuditSelector,typeAudit,status_lot)
     {        
         htmlDataTableLoader = '<tr><td colspan="7" class="text-center" style="font-size:1rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
         $(`#TableAgent${typeAuditSelector}`).html(htmlDataTableLoader)
@@ -159,7 +190,6 @@
                 let res = JSON.parse(data);
                 if(res[0] == "success")
                 {
-                    console.log(res)
                     htmlDataTable = ""
                     res[1].forEach((e) => {
                          htmlDataTable += `<tr class="card mb-1" style="border-top:2px #4e73df solid;">
@@ -168,6 +198,7 @@
                                 id_user="${e.id_user}"
                                 type_audit="${typeAuditSelector}"
                                 login_agent="${e.login}"
+                                status_lot="${status_lot}"
                                 data-toggle="modal" data-target="#AgentAffectationAudit"> <i class="fa fa-cog" aria-hidden="true"></i> 
                               </a> </td>
                             </tr>`
@@ -184,9 +215,8 @@
                 console.log(error)
                 console.log(data)
             }
-        });
-    }
-    getAgentsAuditList("AuditSaisi","audit_saisi")
+        })
+    }    
 
     // Formating du resultat de info Agent
     function formatDataAgentAffect(data)
@@ -243,7 +273,7 @@
 
             $("#btn-valider-affectation").attr("id_user",$(this).attr("id_user"))
             $("#btn-valider-affectation").attr("type_audit",$(this).attr("type_audit"))
-            $("#btn-valider-affectation").attr("status_lot","V") // V
+            $("#btn-valider-affectation").attr("status_lot",$(this).attr("status_lot"))
 
             var data1 = {id_user:$(this).attr("id_user"),
                          type_audit:$(this).attr("type_audit"),
@@ -252,8 +282,7 @@
                         }
 
             $.post(`${HostLink}/proccess/ajax/audit/getAgentAuditLotAffecte.php`,
-            {myData : JSON.stringify(data1)},(data) => {
-                
+            {myData : JSON.stringify(data1)},(data) => {                
                 try {
                     let res = JSON.parse(data)
                     // ajouter 
@@ -301,5 +330,21 @@
                     }
                 })                                                                                           
         }
-    })
+    });
+
+    // initialisation des déclencheurs
+
+    audit_infos.forEach((a) => {
+
+        $(`a[href="#${a.selector}"`).on("click",async () => {
+            d = await getLotAuditLot(a.status_lot,a.selector)   
+            a.list_lots = JSON.parse(d)[1] 
+        })    
+        getAgentsAuditList(a.selector,a.module,a.status_lot)        
+    });
+
+    (async () => {
+       d = await getLotAuditLot(audit_infos[0].status_lot,audit_infos[0].selector)                 
+       audit_infos[0].list_lots = JSON.parse(d)[1]       
+    })();
 })

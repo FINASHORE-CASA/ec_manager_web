@@ -7,18 +7,9 @@ try {
     $result[] = "success";
 
     // Correspondance des type_audit
-    $intTypeAudit = 0;
-    switch (strtolower($formData->type_audit)) {
-        case 'AuditSaisi':
-            $intTypeAudit = 0;
-            break;
-        default:
-            $intTypeAudit = 0;
-            break;
-    }
+    $intTypeAudit = getTypeAuditNumber($formData->type_audit);
 
     // Ajout des elements
-
     $id_lot = explode(",", $formData->id_lot);
     $notInserted;
 
