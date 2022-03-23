@@ -79,6 +79,7 @@
         })
     }
 
+    // Récupération des lot à Disponible à Auditer 
     async function getLotAuditLot(status,typeAuditSelector)
     {                  
         htmlDataTableLoader = '<tr><td colspan="7" class="text-center" style="font-size:2rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
@@ -143,4 +144,108 @@
        d = await getLotAuditLot('T','AuditControle2') //T                
        liste_lot_audit_controle2 = JSON.parse(d)[1]       
     }) 
+    // ---------------------------------------------    
+
+    // Récupération des agents d'Audit
+    function getAgentsAuditList(typeAudit,typeAuditSelector)
+    {        
+        htmlDataTableLoader = '<tr><td colspan="7" class="text-center" style="font-size:1rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
+        $(`#TableAgent${typeAuditSelector}`).html(htmlDataTableLoader)
+
+        $.post(`${HostLink}/proccess/ajax/audit/getAgentAudit.php`,
+        {myData: JSON.stringify({ typeAudit:typeAudit })},(data) => 
+        {
+            try {
+                let res = JSON.parse(data);
+                if(res[0] == "success")
+                {
+                    console.log(res)
+                    htmlDataTable = ""
+                    res[1].forEach((e) => {
+                         htmlDataTable += `<tr class="card mb-1" style="border-top:2px #4e73df solid;">
+                              <td> ${e.login} <a type="button" id="RowAgent${typeAudit}${e.id_user}" 
+                                class="float-right agentLotAudit" style="color:#4e73df;"
+                                id_user="${e.id_user}"
+                                type_audit="${typeAuditSelector}"
+                                data-toggle="modal" data-target="#AgentAffectationAudit"> <i class="fa fa-cog" aria-hidden="true"></i> 
+                              </a> </td>
+                            </tr>`
+                    })
+                    $(`#TableAgent${typeAuditSelector}`).html(htmlDataTable)
+                    getInfosAgentLotAudit()
+                }
+                else
+                {
+                    console.log(data)
+                    $(`#TableAgent${typeAuditSelector}`).html("")
+                }                
+            } catch (error) {
+                console.log(error)
+                console.log(data)
+            }
+        });
+    }
+    getAgentsAuditList("audit_lot_dispo","AuditSaisi")
+
+    // Formating du resultat de info Agent
+    function formatDataAgentAffect(data)
+    {
+        let htmlData = ""  
+        data.forEach((e) => {
+            htmlData += `<span class="badge badge-dark mt-1"> ${e.id_lot} | 
+            <a href="#" id_supp_lot_aff="${e.id}"> <span class="fas fa-times-circle text-danger"> </span> </a> 
+            </span>`                     
+        })              
+        $("#list-lots-user").html(htmlData)
+    }
+
+    // Click sur le bouton d'affectation d'un agent
+    function getInfosAgentLotAudit()
+    {
+        $(".agentLotAudit").on("click",function() {
+            $("#formAffectAgentAudit").css("display", "none");
+            $("#AgentAuditAffectLoader").css("display", "block");
+
+            $("#btn-valider-affectation").attr("id_user",$(this).attr("id_user"))
+            $("#btn-valider-affectation").attr("type_audit",$(this).attr("type_audit"))
+            $("#btn-valider-affectation").attr("status_lot","V") // V
+
+            var data1 = {id_user:$(this).attr("id_user"),
+                         type_audit:$(this).attr("type_audit"),
+                         id_user_aff:$("#field-Id_user").val(),                    
+                        }
+
+            $.post(`${HostLink}/proccess/ajax/audit/getAgentAuditLotAffecte.php`,
+            {myData : JSON.stringify(data1)},(data) => {
+                
+                try {
+                    let res = JSON.parse(data)
+
+                    // ajouter 
+                    formatDataAgentAffect(res[1])
+                    $("#AgentAuditAffectLoader").css("display", "none");
+                    $("#formAffectAgentAudit").fadeIn();
+                } 
+                catch(err)
+                {
+                    console.log(err)
+                }
+            })
+        })        
+    }
+
+    // Valider affectation de lots
+    $("#btn-valider-affectation").on("click", function () 
+    {
+        var data1 = {id_lot:$("#list-lot-a-aff").val().trim().replace(/[\n\r]/g,','),
+                     type_audit:$(this).attr("type_audit"),
+                     id_audit_user:$(this).attr("id_user"),
+                     id_user_aff:$("#field-Id_user").val(),
+                     status_lot:$(this).attr("status_lot")}                      
+
+        $.post(`${HostLink}/proccess/ajax/audit/postAgentAuditLotAffecte.php`,
+            {myData : JSON.stringify(data1)},(data) => {
+                console.log(data)
+            })                                                                                           
+    })
 })
