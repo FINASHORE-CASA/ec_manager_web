@@ -147,7 +147,7 @@
     // ---------------------------------------------    
 
     // Récupération des agents d'Audit
-    function getAgentsAuditList(typeAudit,typeAuditSelector)
+    function getAgentsAuditList(typeAuditSelector,typeAudit)
     {        
         htmlDataTableLoader = '<tr><td colspan="7" class="text-center" style="font-size:1rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
         $(`#TableAgent${typeAuditSelector}`).html(htmlDataTableLoader)
@@ -163,10 +163,11 @@
                     htmlDataTable = ""
                     res[1].forEach((e) => {
                          htmlDataTable += `<tr class="card mb-1" style="border-top:2px #4e73df solid;">
-                              <td> ${e.login} <a type="button" id="RowAgent${typeAudit}${e.id_user}" 
+                              <td> ${e.login} <a type="button" id="RowAgent${typeAuditSelector}${e.id_user}" 
                                 class="float-right agentLotAudit" style="color:#4e73df;"
                                 id_user="${e.id_user}"
                                 type_audit="${typeAuditSelector}"
+                                login_agent="${e.login}"
                                 data-toggle="modal" data-target="#AgentAffectationAudit"> <i class="fa fa-cog" aria-hidden="true"></i> 
                               </a> </td>
                             </tr>`
@@ -185,24 +186,58 @@
             }
         });
     }
-    getAgentsAuditList("audit_lot_dispo","AuditSaisi")
+    getAgentsAuditList("AuditSaisi","audit_saisi")
 
     // Formating du resultat de info Agent
     function formatDataAgentAffect(data)
     {
         let htmlData = ""  
         data.forEach((e) => {
-            htmlData += `<span class="badge badge-dark mt-1"> ${e.id_lot} | 
-            <a href="#" id_supp_lot_aff="${e.id}"> <span class="fas fa-times-circle text-danger"> </span> </a> 
+            htmlData += `<span class="badge badge-dark mr-2"> ${e.id_lot} | 
+            <a href="#" id_supp_lot_aff="${e.id}" class="supp_lot_affect_agent"> <span class="fas fa-times-circle text-danger"> </span> </a> 
             </span>`                     
         })              
         $("#list-lots-user").html(htmlData)
+
+        $(".supp_lot_affect_agent").on("click", function(e){
+
+            let data1 = {
+                id:$(this).attr("id_supp_lot_aff")            
+            }
+
+            $.post(`${HostLink}/proccess/ajax/audit/delLotAgentAudit.php`,
+                {myData: JSON.stringify(data1)},(data) => { 
+                    try 
+                    {
+                        res = JSON.parse(data)
+                        if(res[0] == "success")
+                        {
+                            $(`.supp_lot_affect_agent[id_supp_lot_aff=${data1.id}]`).parent().fadeOut("fast")                                                    
+                            $(`.supp_lot_affect_agent[id_supp_lot_aff=${data1.id}]`).removeClass("supp_lot_affect_agent")                                                    
+                            $("#FormNbLotAgent").html($(".supp_lot_affect_agent").length)
+                        }
+                        else
+                        {
+                            alert(res[0] +'\n' + res[1] )
+                        }
+                    }
+                    catch (err)
+                    {
+                        alert(err)
+                    }
+            })
+
+            e.preventDefault();
+        })
     }
 
     // Click sur le bouton d'affectation d'un agent
     function getInfosAgentLotAudit()
     {
-        $(".agentLotAudit").on("click",function() {
+        $(".agentLotAudit").on("click",function() 
+        {
+            $("#list-lot-a-aff").val("")                      
+            $("#AgentAuditLogin").html(`<i class="fa fa-spinner fa-spin" style="font-size:1rem;" aria-hidden="true"></i>`);
             $("#formAffectAgentAudit").css("display", "none");
             $("#AgentAuditAffectLoader").css("display", "block");
 
@@ -212,7 +247,8 @@
 
             var data1 = {id_user:$(this).attr("id_user"),
                          type_audit:$(this).attr("type_audit"),
-                         id_user_aff:$("#field-Id_user").val(),                    
+                         id_user_aff:$("#field-Id_user").val(), 
+                         login_agen:$(this).attr("login_agent")                   
                         }
 
             $.post(`${HostLink}/proccess/ajax/audit/getAgentAuditLotAffecte.php`,
@@ -220,14 +256,16 @@
                 
                 try {
                     let res = JSON.parse(data)
-
                     // ajouter 
+                    $("#AgentAuditLogin").html(` <i class="far fa-user-circle"></i> ${data1.login_agen} 
+                                                 <span id="FormNbLotAgent" class="badge badge-light ml-2"> ${res[1].length} </span>`);
                     formatDataAgentAffect(res[1])
                     $("#AgentAuditAffectLoader").css("display", "none");
                     $("#formAffectAgentAudit").fadeIn();
                 } 
                 catch(err)
                 {
+                    $("#AgentAuditAffectLoader").css("display", "none");
                     console.log(err)
                 }
             })
@@ -237,15 +275,31 @@
     // Valider affectation de lots
     $("#btn-valider-affectation").on("click", function () 
     {
-        var data1 = {id_lot:$("#list-lot-a-aff").val().trim().replace(/[\n\r]/g,','),
-                     type_audit:$(this).attr("type_audit"),
-                     id_audit_user:$(this).attr("id_user"),
-                     id_user_aff:$("#field-Id_user").val(),
-                     status_lot:$(this).attr("status_lot")}                      
+        if($("#list-lot-a-aff").val().trim().length > 0)
+        {            
+            $("#btn-valider-affectation").html(`valider <i class="fa fa-spinner fa-spin" style="font-size:1rem;" aria-hidden="true"></i>`)
+            var data1 = {id_lot:$("#list-lot-a-aff").val().trim().replace(/[\n\r]/g,','),
+                        type_audit:$(this).attr("type_audit"),
+                        id_audit_user:$(this).attr("id_user"),
+                        id_user_aff:$("#field-Id_user").val(),
+                        status_lot:$(this).attr("status_lot")}                      
 
-        $.post(`${HostLink}/proccess/ajax/audit/postAgentAuditLotAffecte.php`,
-            {myData : JSON.stringify(data1)},(data) => {
-                console.log(data)
-            })                                                                                           
+            $.post(`${HostLink}/proccess/ajax/audit/postAgentAuditLotAffecte.php`,
+                {myData : JSON.stringify(data1)},(data) => {
+                    try {
+                        let res = JSON.parse(data)
+
+                        // ajouter 
+                        $("#FormNbLotAgent").html(res[1].length)
+                        formatDataAgentAffect(res[1])
+                        $("#btn-valider-affectation").html(`valider <i class="fa fa-check-circle" aria-hidden="true"></i>`)
+                    } 
+                    catch(err)
+                    {
+                        $("#btn-valider-affectation").html(`valider <i class="fa fa-check-circle" aria-hidden="true"></i>`)
+                        alert(err)
+                    }
+                })                                                                                           
+        }
     })
 })

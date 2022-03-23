@@ -56,7 +56,7 @@ require_once "./config/checkConfig.php";
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                <h5 class="modal-title" id="AgentAuditLogin" style="color: white;"> <i class="far fa-user-circle"></i> Agent 1 </h5>
+                <h5 class="modal-title" id="AgentAuditLogin" style="color: white;"></h5>
                 <div style="position:absolute;right:5px;">
                 </div>
               </div>
@@ -66,7 +66,7 @@ require_once "./config/checkConfig.php";
                     <input type="hidden" id="field-Id_user" value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
                     <div class="row m-3">
                       <div class="col-md-12">
-                        <div id="list-lots-user">
+                        <div id="list-lots-user" style="overflow:auto;max-height:200px;">
                           <span class="badge badge-dark mt-1"> 11989002143701 | <a href="#" id_supp_lot_aff="0"> <span class="fas fa-times-circle text-danger"> </span> </a> </span>
                         </div>
                         <hr />
@@ -307,7 +307,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.3"></script>
+  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {

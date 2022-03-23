@@ -20,7 +20,7 @@ try {
     //Récupération des id_lots concernés        
     $qry = $bdextra->prepare(" SELECT id,id_lot
                                from audit_attribution_lot
-                               where id_audit_user = ? and id_actived = 1 
+                               where id_audit_user = ? and is_actived = '1' 
                                and type_audit = ?");
     $qry->execute(array($formData->id_user, $intTypeAudit));
     $lots_audit_user = $qry->fetchAll(PDO::FETCH_OBJ);
