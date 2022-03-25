@@ -2,8 +2,10 @@
 require_once "is_connect.php";
 require_once "./config/checkConfig.php";
 
-$liste_champs_actes = ["num_acte", "annee_acte", "jd_naissance_h", "md_naissance_h", "ad_naissance_h", "jd_naissance_g", "md_naissance_g", "ad_naissance_g", "heure_naissance", "minute_naissance", "lieu_naissance", "jumeaux", "prenom_ar", "prenom_fr", "nom_ar", "nom_fr", "nom_marge_ar", "prenom_marge_fr", "nom_marge_fr", "prenom_marge_ar", "sexe", "id_nationlite", "decede_pere", "prenom_pere_ar", "prenom_pere_fr", "ascendant_pere_ar", "ascendant_pere_fr", "id_nationalite_pere", "id_profession_pere", "jd_naissance_pere_h", "md_naissance_pere_h", "ad_naissance_pere_h", "jd_naissance_pere_g", "md_naissance_pere_g", "ad_naissance_pere_g", "lieu_naissance_pere", "decede_mere", "prenom_mere_ar", "prenom_mere_fr", "ascendant_mere_ar", "ascendant_mere_fr", "id_nationalite_mere", "id_profession_mere", "jd_naissance_mere_h", "md_naissance_mere_h", "ad_naissance_mere_h", "jd_naissance_mere_g", "md_naissance_mere_g", "ad_naissance_mere_g", "lieu_naissance_mere", "adresse_residence_parents", "jd_etabli_acte_h", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_g", "ad_etabli_acte_g", "md_etabli_acte_g", "id_officier", "annee_acte_g", "lieu_naissance_fr", "lieu_naissance_pere_fr", "lieu_naissance_mere_fr", "adresse_residence_parents_fr", "sign_officier", "sceau_officier", "status_acte", "heure_etabli_acte", "minute_etabli_acte", "date_creation", "status_acteechantillon", "langue_acte", "id_ville_naissance", "id_ville_naissance_mere", "id_ville_naissance_pere", "id_ville_residence_parents", "date_statut_oec", "imagepath", "remarque"];
+$liste_champs_actes = ["num_acte", "annee_acte", "jd_naissance_h", "md_naissance_h", "ad_naissance_h", "jd_naissance_g", "md_naissance_g", "ad_naissance_g", "heure_naissance", "minute_naissance", "lieu_naissance", "jumeaux", "prenom_ar", "prenom_fr", "nom_ar", "nom_fr", "nom_marge_ar", "prenom_marge_fr", "nom_marge_fr", "prenom_marge_ar", "sexe", "id_nationlite", "decede_pere", "prenom_pere_ar", "prenom_pere_fr", "ascendant_pere_ar", "ascendant_pere_fr", "id_nationalite_pere", "id_profession_pere", "jd_naissance_pere_h", "md_naissance_pere_h", "ad_naissance_pere_h", "jd_naissance_pere_g", "md_naissance_pere_g", "ad_naissance_pere_g", "lieu_naissance_pere", "decede_mere", "prenom_mere_ar", "prenom_mere_fr", "ascendant_mere_ar", "ascendant_mere_fr", "id_nationalite_mere", "id_profession_mere", "jd_naissance_mere_h", "md_naissance_mere_h", "ad_naissance_mere_h", "jd_naissance_mere_g", "md_naissance_mere_g", "ad_naissance_mere_g", "lieu_naissance_mere", "adresse_residence_parents", "jd_etabli_acte_h", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_g", "ad_etabli_acte_g", "md_etabli_acte_g", "id_officier", "annee_acte_g", "lieu_naissance_fr", "lieu_naissance_pere_fr", "lieu_naissance_mere_fr", "adresse_residence_parents_fr", "sign_officier", "sceau_officier", "status_acte", "heure_etabli_acte", "minute_etabli_acte", "status_acteechantillon", "langue_acte", "id_ville_naissance", "id_ville_naissance_mere", "id_ville_naissance_pere", "id_ville_residence_parents", "date_statut_oec", "imagepath", "remarque"];
 $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "md_deces_g", "ad_deces_g", "heure_deces", "minute_deces", "lieu_deces", "id_profession", "statutfamilialle", "lieuresidence", "lieuresidence_fr", "lieu_deces_fr", "lieu_residence_pere_ar", "lieu_residence_pere_fr", "lieu_residence_mere_ar", "lieu_residence_mere_fr", "id_ville_deces", "id_ville_adresse_mere", "id_ville_adresse_pere", "id_ville_adresse"];
+$liste_champs_jugement = ["num_jugement", "num_dossier", "annee_dossier", "jd_etablissement_jugement_h", "md_etablissement_jugement_h", "ad_etablissement_jugement_h", "jd_etablissement_jugement_g", "md_etablissement_jugement_g", "ad_etablissement_jugement_g", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h", "j_reception_jugement_g", "md_reception_jugement_g", "ad_reception_jugement_g", "j_reception_jugement_h", "md_reception_jugement_h", "ad_reception_jugement_h", "denominationjugement", "dispositifjugement", "objetjugement", "signofficier", "objetjugement_fr", "is_collectif"];
+$liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memtion_g", "md_memtion_g", "ad_memtion_g", "txtmention", "status_mention", "sign_officier", "txtmention_fr", "nouvelle_valeur", "ancienne_valeur", "nouvelle_valeur_fr", "ancienne_valeur_fr", "modifmention"];
 
 ?>
 <!DOCTYPE html>
@@ -43,7 +45,6 @@ $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "
     <!-- intégration sidebar  -->
     <?php include('partial/sidebar.php') ?>
 
-
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -54,45 +55,77 @@ $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "
         <?php include('partial/topbar.php') ?>
 
         <!-- Formulaire Affectation Lot Modal -->
-        <div class="modal fade" id="AgentAffectationAudit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <!-- Modal -->
+        <div class="modal fade" id="ActeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+          <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                <h5 class="modal-title" id="AgentAuditLogin" style="color: white;"></h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Contrôle Acte </h5>
                 <div style="position:absolute;right:5px;">
+                  <button type="button" class="btn btn-success form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                    Valider <i class="fa fa-check-circle" aria-hidden="true"></i>
+                  </button>
+                  <button id="Form-extand" type="button" class="btn btn-default text-white ml-2" is_active="false">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-form-modal-cancel text-danger" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times-circle"></i>
+                  </button>
                 </div>
               </div>
               <div class="modal-body">
-                <div id="formAffectAgentAudit" class="row">
-                  <form class="mt-2" style="width: 100%;">
-                    <input type="hidden" id="field-Id_user" value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
-                    <div class="row m-3">
-                      <div class="col-md-12">
-                        <div id="list-lots-user" style="overflow:auto;max-height:200px;">
+                <div class="row" id="form-acte-field">
+                  <div class="col-md-6" style="height:700px;overflow:auto;">
+                    <!-- Liste des onglets  -->
+                    <div>
+                      <nav class="nav nav-tabs">
+                        <a id="btnTabActive" class="nav-tab-item nav-item nav-link active" href="#acte" style="color: black;"> Champs Acte </a>
+                      </nav>
+                    </div>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="acte">
+                        <form class="mt-2">
+                          <input type="hidden" id="field-Id_user" value="<?= isset($_SESSION['user']) ? $_SESSION['user']->id_user : '' ?>" />
+                          <input type="hidden" id="field-Id_user_saisi" value="" />
+                          <div class="row">
+                            <div class="form-group col-md-6">
+                              <label for="field-id_lot">Id Lot</label>
+                              <input type="text" class="form-control" id="field-id_lot" aria-describedby="field-id_lot" placeholder="" disabled />
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="field-id_acte">Id Acte</label>
+                              <input type="text" class="form-control" id="field-id_acte" aria-describedby="field-id_acte" placeholder="" disabled />
+                            </div>
+                          </div>
+                          <div id="form-fields-fillables">
 
-                        </div>
-                        <hr />
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <textarea id="list-lot-a-aff" class="form-control" name="" rows="2"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <button id="btn-valider-affectation" type="button" class="btn btn-success" style="width:100%;" type_audit="" id_user>
-                          valider <i class="fa fa-check-circle" aria-hidden="true"></i>
-                        </button>
+                          </div>
+                        </form>
                       </div>
                     </div>
-                  </form>
-                </div>
-                <div class="row" id="AgentAuditAffectLoader">
-                  <div class="d-flex justify-content-center" style="width: 100%;">
-                    <div>
-                      <i class="fa fa-spinner fa-spin" style="font-size:2rem;" aria-hidden="true"></i>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row d-flex justify-content-center">
+                      <div style="height:50px;" class="block-img-change"></div>
+                    </div>
+                    <div class="row">
+                      <div id="img-block" style="min-height: 600px;"></div>
+                    </div>
+                    <div class="row d-flex justify-content-center py-2">
+                      <div style="height:50px;" class="block-img-change"></div>
                     </div>
                   </div>
                 </div>
+                <div class="row" id="form-acte-loader" style="position:absolute;width:99%;height:100%;opacity:0.9;top:0px;background:white;padding:0px;">
+                  <div class="d-flex justify-content-center" style="padding:15em;width:100%">
+                    <img src="./img/loader.gif" alt="loader wait" style="height: 80px;width:80px;padding:0px;" />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
+                <button type="button" class="btn btn-primary form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> Valider <i class="fa fa-check-circle ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -129,58 +162,109 @@ $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "
           <div class="tab-content">
             <div class="row">
               <div class="col-xl-3 mt-4 mb-4">
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"> Liste Lot <span id="nb-liste-lot-agent" class="ml-2 badge badge-primary"> 0 </span> </h6>
-                  </div>
-                  <div class="card-body">
-                    <div class="mb-4">
-                      <input class="form-control" type="text" placeholder="rechercher" />
+                <div id="card-list-lot-audit">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary"> Liste Lot <span id="nb-liste-lot-agent" class="ml-2 badge badge-primary"> 0 </span> </h6>
                     </div>
-                    <div class="table-responsive" style="overflow:auto;max-height:250px;">
-                      <table class="table" id="dataTableLotAgentDispo" width="100%" cellspacing="0">
-                        <tbody id="TableAgentLotAgentDispo">
+                    <div class="card-body">
+                      <div class="mb-4">
+                        <input class="form-control" type="text" placeholder="rechercher" />
+                      </div>
+                      <div class="table-responsive" style="overflow:auto;max-height:250px;">
+                        <table class="table" id="dataTableLotAgentDispo" width="100%" cellspacing="0">
+                          <tbody id="TableAgentLotAgentDispo">
 
-                        </tbody>
-                      </table>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <div class="form-inline ml-3">
+                        <label for="ech_value"> % échantillonnage </label>
+                        <input type="number" id="ech_value" class="form-control ml-3" style="width:70px;" step="5" value="20" />
+                      </div>
+                      <hr />
+                      <div class="form-inline ml-3">
+                        <label for="list_champs"> listes champs : </label>
+                        <select class="selectpicker" id="list_champs" name="list_champs" width="100%" multiple>
+                          <optgroup label="Acte">
+                            <?php
+                            foreach ($liste_champs_actes as $value) {
+                              echo '<option>' . $value . '</option>';
+                            }
+                            ?>
+                          </optgroup>
+                          <optgroup label="Deces">
+                            <?php
+                            foreach ($liste_champs_deces as $value) {
+                              echo '<option>' . $value . '</option>';
+                            }
+                            ?>
+                          </optgroup>
+                          <optgroup label="Jugement">
+                            <?php
+                            foreach ($liste_champs_jugement as $value) {
+                              echo '<option>' . $value . '</option>';
+                            }
+                            ?>
+                          </optgroup>
+                          <optgroup label="Mention">
+                            <?php
+                            foreach ($liste_champs_mention as $value) {
+                              echo '<option>' . $value . '</option>';
+                            }
+                            ?>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <a href="#" id="btn-lunch-audit" class="btn btn-success" style="width:100%;"> Auditer <i class="fas fa-flag-checkered"></i> </a>
                     </div>
                   </div>
                 </div>
 
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <div class="form-inline ml-3">
-                      <label for="mode_ech"> % échantillonnage </label>
-                      <input type="number" id="ech_value" class="form-control ml-3" id="mode_ech" style="width:70px;" step="5" value="20" />
+                <div id="card-details-lot-auditer" style="display:none;">
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary"> 12016001143900 <span id="details-lot-per-ech"> (20%) </span> </h6>
                     </div>
-                    <hr />
-                    <div class="form-inline ml-3">
-                      <label for="list_champs"> listes champs : </label>
-                      <select class="selectpicker" id="list_champs" name="list_champs" width="100%" multiple>
-                        <optgroup label="Acte">
-                          <?php
-                          foreach ($liste_champs_actes as $value) {
-                            echo '<option>' . $value . '</option>';
-                          }
-                          ?>
-                        </optgroup>
-                        <optgroup label="Deces">
-                          <?php
-                          foreach ($liste_champs_deces as $value) {
-                            echo '<option>' . $value . '</option>';
-                          }
-                          ?>
-                        </optgroup>
-                      </select>
+                  </div>
+
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary"> Stats Audit </h6>
+                    </div>
+                    <div class="card-body">
+                      <p> Acte Auditer : <span> 1 </span> / <span> 10 </span> </p>
+                      <hr>
+                      <p> Acte Accepté : <span> 1 </span> / <span> 1 </span> </p>
+                      <hr>
+                      <p> Acte Réjété : <span> 0 </span> / <span> 0 </span> </p>
+                    </div>
+                  </div>
+
+                  <div class="card shadow mb-4">
+                    <div class="card-body">
+                      <a href="#" id="btn-retour-list-audit" class="btn btn-default" style="width:20%;"> <i class="fa fa-list"></i> </a>
+                      <a href="#" id="btn-valid-audit-lot" class="btn btn-success" style="width:77%;"> Valider <i class="fas fa-check-double"></i> </a>
                     </div>
                   </div>
                 </div>
 
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <button class="btn btn-success" style="width:100%;"> Auditer <i class="fas fa-flag-checkered"></i> </button>
+                <div id="card-loader-lot-audit" style="display:none;">
+                  <div class="text-center mt-5">
+                    <i class="fa fa-spinner fa-spin" style="font-size:2rem;"> </i>
                   </div>
                 </div>
+
               </div>
 
               <div class="col-xl-9 mt-4 mb-4">
@@ -191,32 +275,8 @@ $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "
                         <!-- <button id="audit_saisie_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> -->
                       </h6>
                     </div>
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableAuditSaisi" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th> Id lot </th>
-                              <th> Commune </th>
-                              <th> Bureau </th>
-                              <th> Nombre acte </th>
-                              <th> Date Saisie </th>
-                            </tr>
-                          </thead>
-                          <tbody id="TableAuditSaisi">
-                            <tr>
-                              <td colspan="7" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
-                            </tr>
-                          </tbody>
-                          <tfoot>
-                            <td> Id lot </td>
-                            <td> Commune </td>
-                            <td> Bureau </td>
-                            <td> Nombre acte </td>
-                            <td> Date Saisie </td>
-                          </tfoot>
-                        </table>
-                      </div>
+                    <div class="card-body" id="table_container">
+
                     </div>
                   </form>
                 </div>
@@ -267,8 +327,9 @@ $liste_champs_deces = ["jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
+  <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_saisi.js?v=1.0.1"></script>
+  <script src="js/ajax/audit/audit_saisi.js?v=1.0.2"></script>
 
   <script>
     $(document).ready(function(e) {
