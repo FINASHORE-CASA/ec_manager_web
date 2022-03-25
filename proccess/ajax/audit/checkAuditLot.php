@@ -12,32 +12,65 @@ try {
     $liste_champs_mention = ["", "jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memtion_g", "md_memtion_g", "ad_memtion_g", "txtmention", "status_mention", "sign_officier", "txtmention_fr", "nouvelle_valeur", "ancienne_valeur", "nouvelle_valeur_fr", "ancienne_valeur_fr", "modifmention"];
 
     //Récupération des id_lots concernés     
-    $qry = $bdextra->prepare(" SELECT count(*) from audit_lot
-                               where id_lot = ? and id_user_audit = ? and 
+    $qry = $bdextra->prepare(" SELECT * from audit_lot
+                               where id_lot = ? and id_audit_user = ? and 
                                type_audit = ? and status_audit = 0
                             ");
     $qry->execute([
-        $formData->id_lot, $formData->id_user_audit, $formData->type_audit
+        $formData->id_lot, $formData->id_audit_user, $formData->type_audit
     ]);
 
-    if ($qry->fetch()[0] == 0) {
+    $audit_lot_fetch = $qry->fetchAll(PDO::FETCH_OBJ);
+
+    if (count($audit_lot_fetch) == 0) {
 
         $qry = $bdextra->prepare(" SELECT MAX(id_passage_audit_type) from audit_lot
-                                   where id_lot = ? and id_user_audit = ? and 
+                                   where id_lot = ? and id_audit_user = ? and 
                                    type_audit = ?");
         $qry->execute([
-            $formData->id_lot, $formData->id_user_audit, $formData->type_audit
+            $formData->id_lot, $formData->id_audit_user, $formData->type_audit
         ]);
+
+        // Détermination du nombre de passage
         $val_passage = $qry->fetch()[0];
         $id_passage = ($val_passage == null) ? 1 : ($val_passage + 1);
 
-        $qry =  $bdextra->prepare("INSERT into audit_lot(id_lot,id_user_audit,id_passage_audit_type,type_audit,date_audit,percent_ech_audit,status_audit) 
-                                   values (?,?,?,?,NOW(),?,0);");
-        $qry->execute([$formData->id_lot, $formData->id_user_audit, $id_passage, $formData->type_audit, $formData->percent_ech_audit]);
+        // Récupération du nombre d'actes
+        $qry = $bdd->prepare(" SELECT count(*) from acte a  
+                                   inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
+                                   where af.id_lot in (?)");
+        $qry->execute([$formData->id_lot]);
+        $nb_actes = $qry->fetch()[0];
+
+        $qry =  $bdextra->prepare("INSERT into audit_lot(id_lot,id_audit_user,id_passage_audit_type,type_audit,date_audit,percent_ech_audit,status_audit,nb_actes) 
+                                   values (?,?,?,?,NOW(),?,0,?);");
+        $qry->execute([$formData->id_lot, $formData->id_audit_user, $id_passage, $formData->type_audit, $formData->percent_ech_audit, $nb_actes]);
         $result[1] = "add";
+
+        $qry = $bdextra->prepare(" SELECT * from audit_lot
+                            where id_lot = ? and id_audit_user = ? and 
+                            type_audit = ? and status_audit = 0
+                        ");
+        $qry->execute([$formData->id_lot, $formData->id_audit_user, $formData->type_audit]);
+        $audit_lot_info = $qry->fetch(PDO::FETCH_OBJ);
     } else {
         $result[1] = "exist";
+        $audit_lot_info = $audit_lot_fetch[0];
     }
+
+    // Récupération des informations des actes déja audités
+    // Nombre actes audités
+    $qry = $bdextra->prepare("SELECT id_acte,status_audit_acte
+                                from audit_acte
+                                where id_lot = ? 
+                                and type_audit = ? 
+                                and id_audit_user = ?
+                                and id_passage_audit_type = ?");
+    $qry->execute([
+        $audit_lot_info->id_lot, $audit_lot_info->type_audit, $audit_lot_info->id_audit_user, $audit_lot_info->id_passage_audit_type
+    ]);
+
+    $liste_actes_audit = $qry->fetchAll(PDO::FETCH_OBJ);
 
     // ----------------------------------------------------------------        
     // Récupération de l'échantillonnage
@@ -69,18 +102,38 @@ try {
         }
     }
 
+    $liste_actes_audit_statement = "";
+    foreach ($liste_actes_audit as $key => $acte_audit) {
+        $liste_actes_audit_statement .= (($key + 1) == count($liste_actes_audit)) ? "$acte_audit->id_acte" : "$acte_audit->id_acte,";
+    }
+
+
+    // Nb_acte par % 
+    $nb_acte_percent_ech = ceil(($audit_lot_info->percent_ech_audit *  $audit_lot_info->nb_actes) / 100);
+    $nb_acte_percent_ech_rest = $nb_acte_percent_ech - count($liste_actes_audit);
+
     $qry = $bdd->prepare("  SELECT af.id_lot,a.id_acte,a.imagepath $champs_acte_selected $champs_deces_selected $champs_jugement_selected $champs_mention_selected 
                             from acte a  
                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                             left join deces d on d.id_acte = a.id_acte
                             left join jugement j on j.id_acte = a.id_acte
                             left join mention m on m.id_acte = a.id_acte
-                            where af.id_lot in ($formData->id_lot)
-                            order by random()");
+                            where af.id_lot in ($formData->id_lot) " . ($liste_actes_audit_statement != "" ? " and a.id_acte not in ($liste_actes_audit_statement)" : "") . " order by random() limit $nb_acte_percent_ech_rest");
     $qry->execute();
     $liste_acte = $qry->fetchAll(PDO::FETCH_OBJ);
 
+
+    $audit_lot_info->stats_nb_acte_total = $nb_acte_percent_ech;
+    $audit_lot_info->stats_nb_acte_audit = count($liste_actes_audit);
+    $audit_lot_info->stats_nb_acte_accept = count(array_filter($liste_actes_audit, function ($e) {
+        return $e->status_audit_acte == 0;
+    })); // nombre actes acceptés
+    $audit_lot_info->stats_nb_acte_rejete = count(array_filter($liste_actes_audit, function ($e) {
+        return $e->status_audit_acte == 1;
+    })); // nombre actes rejetés
+
     $result[] = $liste_acte;
+    $result[] = $audit_lot_info;
 
     echo (json_encode($result));
 } catch (Exception $e) {

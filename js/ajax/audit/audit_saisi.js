@@ -3,64 +3,19 @@
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3]
     HostLink = HostLink.includes(".php") ? "." : HostLink
 
-    var audit_infos = [{
-        selector:"AuditSaisi",
-        module:"audit_saisi",
-        status_lot:"V",
-        list_lots:[]
-    },{
-        selector:"AuditControle1",
-        module:"audit_controle_1",
-        status_lot:"C", // C
-        list_lots:[]
-    },{
-        selector:"AuditControle2",
-        module:"audit_controle_2",
-        status_lot:"T", // T
-        list_lots:[]
-    }]    
+    var selected_lot_audit;   
 
-    function download(data_excel,fileName) 
-    {        
-       if(data_excel.length > 0)
-       {
-           $.post(HostLink+'/proccess/ajax/xlsx/generate.php',
-           { myData: JSON.stringify(data_excel) },
-           function(data, status, jqXHR)
-           {              
-               let result = JSON.parse(data)
+    var show_alert = function(theme_color,title,text="",time=5)
+    {
+        $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
+                                    +'<strong> '+title+' </strong>' + text
+                                    +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                    +'<span aria-hidden="true">&times;</span>'
+                                   +'</button>'
+                                +'</div>');
 
-               if(result[0] == "success")
-               {                    
-                    $("#download").attr("href",result[1])
-                    $("#download").attr("download",fileName)
-                    $("#download")[0].click()
-               }
-           })
-       } 
+        setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
-
-    $("#audit_controle1_dl").on("click",function(e)
-    {         
-        var today = new Date()
-        var dateNow = `${today.getDate()}_${(today.getMonth()+1)}_${today.getFullYear()}`
-
-       download(audit_infos[1].list_lots,`Lot_disponible_audit_controle1_${dateNow}.xlsx`)        
-       e.preventDefault() 
-    })   
-    // ----------------------------------    
-    
-    $("#audit_controle2_list_lot").on("click",function(e)
-    {         
-       $("#list-all-lot-dispo").val("")
-       $("#list-all-lot-dispo-nb").html(audit_infos[2].list_lots.length) 
-       audit_infos[2].list_lots.forEach((v) => 
-       {           
-            $("#list-all-lot-dispo").val($("#list-all-lot-dispo").val() + `${ v.id_lot} \n`)
-       });
-       e.preventDefault() 
-    })
-    // ------------------------------
 
     var initDataTable = function(dataTable) 
     {
@@ -256,97 +211,100 @@
                 id_lot = id_lot.replace("radioLotSelected","")
                 
                 let data1 = {id_lot:id_lot,
-                             id_user_audit:$("#field-Id_user").val().trim(),
+                             id_audit_user:$("#field-Id_user").val().trim(),
                              type_audit:0,
                              percent_ech_audit:$("#ech_value").val().trim(),
                              list_champs:$("#list_champs").val()
                              }
 
                 $.post(`${HostLink}/proccess/ajax/audit/checkAuditLot.php`,
-                        {myData: JSON.stringify(data1)},
-                        (data) => 
+                    {myData: JSON.stringify(data1)},
+                    (data) => 
+                    {   
+                        try
                         {   
-                            try
-                            {   
-                                let result = JSON.parse(data)                         
-                                // Création dynamic du tableau des données
-                                $("#table_container").html('<div class="table-responsive">'+
-                                '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+
-                                '<thead>'+
-                                    '<tr id="thead-th-modif">'+                               																																							
-                                    '</tr>'+
-                                '</thead>'+
-                                '<tbody id="TableListeActes">'+
-                                '</tbody>'+
-                                '<tfoot>'+ 
-                                '<tr id="tfoot-th-modif"></tr>'+                        
-                                '</tfoot>'+
-                                '</table>'+
-                                '</div>');
+                            let result = JSON.parse(data)                         
+                            // Création dynamic du tableau des données
+                            $("#table_container").html('<div class="table-responsive">'+
+                            '<table class="table table-bordered" id="dataTableListeActes" width="100%" cellspacing="0">'+
+                            '<thead>'+
+                                '<tr id="thead-th-modif">'+                               																																							
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody id="TableListeActes">'+
+                            '</tbody>'+
+                            '<tfoot>'+ 
+                            '<tr id="tfoot-th-modif"></tr>'+                        
+                            '</tfoot>'+
+                            '</table>'+
+                            '</div>');
 
-                                // Ajout dynamic des champs modifiables
-                                htmlFormField = ""
-                                data1.list_champs.forEach((el,i) => {
-                                    
-                                    if((i+1)%2 != 0)
-                                    {
-                                        htmlFormField +="<hr/>"
-                                        htmlFormField +=`<div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="col-md-12">
-                                                        <label for="field-${el}"> ${el} </label>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control form-fillables" id="field-${el}" aria-describedby="field-${el}" readonly="true"/>
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">
-                                                                    <input id="controle_field-${el}" type="checkbox" aria-label=""/>
-                                                                </div>
+                            // Ajout dynamic des champs modifiables
+                            htmlFormField = ""
+                            data1.list_champs.forEach((el,i) => {
+                                
+                                if((i+1)%2 != 0)
+                                {
+                                    htmlFormField +="<hr/>"
+                                    htmlFormField +=`<div class="row">
+                                            <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <label for="field-${el}"> ${el} </label>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control form-fillables" id="field-${el}" aria-describedby="field-${el}" readonly="true"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <input id="controle_field-${el}" class="control-checkbox" type="checkbox" aria-label=""/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                        `
-                                        htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
-                                    }
-                                    else
-                                    {
-                                        htmlFormField += `<div class="col-md-6">
-                                                            <div class="input-group">
-                                                                <div class="col-md-12">
-                                                                    <label for="field-${el}"> ${el} </label>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control form-fillables" id="field-${el}" aria-describedby="field-${el}"  readonly="true"/>
-                                                                        <div class="input-group-append">
-                                                                            <div class="input-group-text">
-                                                                                <input id="controle_field-${el}" type="checkbox" aria-label="" />
-                                                                            </div>
+                                            </div>
+                                    `
+                                    htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
+                                }
+                                else
+                                {
+                                    htmlFormField += `<div class="col-md-6">
+                                                        <div class="input-group">
+                                                            <div class="col-md-12">
+                                                                <label for="field-${el}"> ${el} </label>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control form-fillables" id="field-${el}" aria-describedby="field-${el}"  readonly="true"/>
+                                                                    <div class="input-group-append">
+                                                                        <div class="input-group-text">
+                                                                            <input id="controle_field-${el}" class="control-checkbox" type="checkbox" aria-label="" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>`
-                                    }
-                                })
-                                $("#form-fields-fillables").html(htmlFormField)
+                                                    </div>
+                                                </div>`
+                                }
+                            })
+                            $("#form-fields-fillables").html(htmlFormField)
 
-                                // Redéfinition du click sur le bouton effacer                            
-                                $(".btn-form-modal-cancel").on("click", function(e) 
-                                {                                                    
-                                    // Rétablissement des champs du formulaire    
-                                    $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
-                                    $("#img-block").html("");                                                                                                                    
-                                });
+                            // Redéfinition du click sur le bouton effacer                            
+                            $(".btn-form-modal-cancel").on("click", function(e) 
+                            {                                                    
+                                // Rétablissement des champs du formulaire    
+                                $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
+                                $("#form-fields-fillables .control-checkbox").each((i,e) => {  e.checked = false})
+                                $("#img-block").html("");                                                                                                                    
+                            });
 
-                                // Redéfinition du clickk sur le boutton de modification
-                                $('#dataTableListeActes').on('draw.dt', function () {
-                                    startEditActe();                           
-                                });                        
+                            // Redéfinition du clickk sur le boutton de modification
+                            $('#dataTableListeActes').on('draw.dt', function () {
+                                startEditActe();                           
+                            });                        
 
+                            if(result[2].length > 0) 
+                            {
                                 HtmlTableHead = (result[2].length > 0 ) ? Object.hasOwnProperty.call(result[2][0], "id_acte") ?  "<th> Modif </th>" : "" : "";
                                 for (const key in result[2][0]) 
                                 {
@@ -356,8 +314,8 @@
                                     }
                                 }
                                 $("#thead-th-modif").html(HtmlTableHead);                                                                                                                                                                                     
-                                $("#tfoot-th-modif" ).html(HtmlTableHead); 
-                                                        
+                                $("#tfoot-th-modif" ).html(HtmlTableHead);                             
+                                                    
                                 // injection des données                             
                                 htmlDataTable = "";  
                                 ListeActes = [];  
@@ -383,18 +341,35 @@
                                 $("#TableListeActes").html(htmlDataTable);
                                 initDataTable($('#dataTableListeActes'));
                                 // ---------------------------------------------------------------- 
-
-
-                                // Chargement des informations du lot 
-                                $("#card-loader-lot-audit").css("display", "none")                
-                                $("#card-details-lot-auditer").fadeIn();
-
                             }
-                            catch (err)
+
+                            // Chargement des informations du lot 
+                            $("#card-loader-lot-audit").css("display", "none")                
+                            $("#card-details-lot-auditer").fadeIn();
+                            selected_lot_audit = result[3];
+                            $("#details-lot-id_lot").html(`${selected_lot_audit.id_lot} (${selected_lot_audit.percent_ech_audit}%)`)
+                            $(".details-lot-nb_acte_ech").html(selected_lot_audit.stats_nb_acte_total)
+                            $(".details-lot-nb_acte_audite").html(selected_lot_audit.stats_nb_acte_audit)
+                            $(".details-lot-nb_acte_accepte").html(selected_lot_audit.stats_nb_acte_accept)
+                            $(".details-lot-nb_acte_rejete").html(selected_lot_audit.stats_nb_acte_rejete)
+
+                            if(selected_lot_audit.stats_nb_acte_audit != (selected_lot_audit.stats_nb_acte_accept + selected_lot_audit.stats_nb_acte_rejete)
+                                || selected_lot_audit.stats_nb_acte_audit != selected_lot_audit.stats_nb_acte_total)
+                            {  
+                                $("#btn-valid-audit-lot").addClass("disabled")
+                            }
+                            else
                             {
-                                alert(err);
-                            }                        
-                        })
+                                $("#btn-valid-audit-lot").removeClass("disabled")
+                                $("#table_container").html(`<div class="text-center m-5"><i class="fas fa-clipboard-check text-success" style="font-size:5rem"></i></div>`)
+                            }
+                        }
+                        catch (err)
+                        {
+                            alert(err);
+                            console.log(data);
+                        }                        
+                    })
             }
         });
     }
@@ -423,7 +398,7 @@
                             <td>
                               <label for="radioLotSelected${v.id_lot}" style="width:70%">
                                 ${v.id_lot}
-                              </label   >
+                              </label>
                               <input id="radioLotSelected${v.id_lot}" type="radio" name="radioLotSelected" class="form-control float-right" style="color:#4e73df;font-size:3px;width:30%;" />
                             </td>
                           </tr>`
@@ -448,6 +423,7 @@
         $("#table_container").html(`<div class="text-center m-5"><i class="fa fa-spinner fa-spin" style="font-size:4rem"></i></div>`)                
         $("#card-loader-lot-audit").css("display", "inherit")         
         $("#card-details-lot-auditer").css("display", "none") 
+        selected_lot_audit = null
 
         setTimeout(() => {
             
@@ -459,6 +435,95 @@
 
         e.preventDefault()
     })
+
+    
+    $(".form-controle-save").on("click",function(e)
+    {            
+        var data1 = {}   
+
+        data1["id_lot"] = $("#field-id_lot").val().trim()
+        data1["id_acte"] = $("#field-id_acte").val().trim()
+        data1["id_audit_user"] = selected_lot_audit.id_audit_user
+        data1["id_passage_audit_type"] = selected_lot_audit.id_passage_audit_type
+        data1["type_audit"] = selected_lot_audit.type_audit 
+        data1["date_audit"] = "NOW()" 
+        data1["status_audit_acte"] = $("#ActeModal .control-checkbox[type='checkbox']:checked").length > 0 ? 1 : 0
+        $("#ActeModal .control-checkbox[type='checkbox']:checked").each((i,el) => 
+        {
+            data1[el.id.replace("controle_field-","ct_")] = 1            
+        }); 
+
+        $.post(HostLink+'/proccess/ajax/audit/save_controle_acte.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {
+                var result = JSON.parse(data);    
+
+                if(result[0] == "success" && result[1] == true)
+                {                    
+                    // success callback                         
+                    $("#ActeModal").modal("hide");                        
+                    $(".btn-form-modal-cancel").trigger("click");
+                    $("#ActeRow"+data1.id_acte).fadeOut("slow");   
+                    // mis en place de l'alert 
+                    show_alert("primary","Contrôle enrigistré ","",3);
+
+                    // modification des stats                 
+                    selected_lot_audit.stats_nb_acte_audit++
+                    if(data1.status_audit_acte == 0)
+                        selected_lot_audit.stats_nb_acte_accept++
+                    else
+                        selected_lot_audit.stats_nb_acte_rejete++                        
+                    $(".details-lot-nb_acte_audite").html(selected_lot_audit.stats_nb_acte_audit)
+                    $(".details-lot-nb_acte_accepte").html(selected_lot_audit.stats_nb_acte_accept)
+                    $(".details-lot-nb_acte_rejete").html(selected_lot_audit.stats_nb_acte_rejete) 
+
+                    if(selected_lot_audit && selected_lot_audit.stats_nb_acte_audit == (selected_lot_audit.stats_nb_acte_accept + selected_lot_audit.stats_nb_acte_rejete)
+                            && selected_lot_audit.stats_nb_acte_audit == selected_lot_audit.stats_nb_acte_total)
+                    {
+                        $("#btn-valid-audit-lot").removeClass("disabled")
+                    }                   
+                }
+                else
+                {
+                    // Alert
+                    $("#ActeModal").modal("hide");                        
+                    $(".btn-form-modal-cancel").trigger("click");
+                    // mis en place de l'alert 
+                    show_alert("danger","Erreur lors de l'enregistrement","type erreur : not successful",10);
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+            }
+        ); 
+    });  
+
+    // validation du lot
+    $("#btn-valid-audit-lot").on("click", function(e){
+
+        if(selected_lot_audit && selected_lot_audit.stats_nb_acte_audit == (selected_lot_audit.stats_nb_acte_accept + selected_lot_audit.stats_nb_acte_rejete)
+            && selected_lot_audit.stats_nb_acte_audit == selected_lot_audit.stats_nb_acte_total)
+        {    
+            $("#btn-valid-audit-lot").html(`Valider <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>`)         
+            $.post(HostLink+'/proccess/ajax/audit/valide_controle_lot.php',   // url
+                { myData: JSON.stringify(selected_lot_audit) }, // data to be submit
+                function(data, status, jqXHR) 
+                {
+                    console.log(data)
+                    getLotAuditAgent()
+                    $("#btn-retour-list-audit").trigger("click")
+                    $("#btn-valid-audit-lot").html(`Valider <i class="fas fa-check-double"></i>`)         
+                }
+            )
+        }
+        else
+        {
+            $(this).addClass("disabled")
+            $("#btn-valid-audit-lot").html(`Valider <i class="fas fa-check-double"></i>`)         
+        }
+        
+        e.preventDefault();
+    });
 
     // initialisation des déclencheurs
     getLotAuditAgent()

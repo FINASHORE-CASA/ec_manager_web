@@ -63,7 +63,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
               <div class="modal-header" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                 <h5 class="modal-title" id="exampleModalLabel" style="color: white;"> Contrôle Acte </h5>
                 <div style="position:absolute;right:5px;">
-                  <button type="button" class="btn btn-success form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
+                  <button type="button" class="btn btn-success form-controle-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                     Valider <i class="fa fa-check-circle" aria-hidden="true"></i>
                   </button>
                   <button id="Form-extand" type="button" class="btn btn-default text-white ml-2" is_active="false">
@@ -125,7 +125,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-form-modal-cancel" data-dismiss="modal"> Annuler</button>
-                <button type="button" class="btn btn-primary form-update-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> Valider <i class="fa fa-check-circle ml-1"></i></button>
+                <button type="button" class="btn btn-primary form-controle-save" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> Valider <i class="fa fa-check-circle ml-1"></i></button>
               </div>
             </div>
           </div>
@@ -234,7 +234,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                 <div id="card-details-lot-auditer" style="display:none;">
                   <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                      <h6 class="m-0 font-weight-bold text-primary"> 12016001143900 <span id="details-lot-per-ech"> (20%) </span> </h6>
+                      <h6 id="details-lot-id_lot" class="m-0 font-weight-bold text-primary"> </h6>
                     </div>
                   </div>
 
@@ -243,11 +243,11 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                       <h6 class="m-0 font-weight-bold text-primary"> Stats Audit </h6>
                     </div>
                     <div class="card-body">
-                      <p> Acte Auditer : <span> 1 </span> / <span> 10 </span> </p>
+                      <p> Actes Audités : <span class="details-lot-nb_acte_audite"> 0 </span> / <span class="details-lot-nb_acte_ech"> 0 </span> </p>
                       <hr>
-                      <p> Acte Accepté : <span> 1 </span> / <span> 1 </span> </p>
+                      <p> Actes Acceptés : <span class="details-lot-nb_acte_accepte"> 0 </span> / <span class="details-lot-nb_acte_audite"> 0 </span> </p>
                       <hr>
-                      <p> Acte Réjété : <span> 0 </span> / <span> 0 </span> </p>
+                      <p> Actes Réjétés : <span class="details-lot-nb_acte_rejete"> 0 </span> / <span class="details-lot-nb_acte_audite"> 0 </span> </p>
                     </div>
                   </div>
 
@@ -268,6 +268,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
               </div>
 
               <div class="col-xl-9 mt-4 mb-4">
+                <div id="alert-container"></div>
                 <div class="card shadow mb-4">
                   <form method="post" action="#">
                     <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
@@ -329,7 +330,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
   <script src="js/owner/count_lot.js"></script>
   <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_saisi.js?v=1.0.2"></script>
+  <script src="js/ajax/audit/audit_saisi.js?v=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {
