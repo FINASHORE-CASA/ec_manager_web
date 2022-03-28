@@ -212,7 +212,7 @@
                 
                 let data1 = {id_lot:id_lot,
                              id_audit_user:$("#field-Id_user").val().trim(),
-                             type_audit:0,
+                             type_audit:1,
                              percent_ech_audit:$("#ech_value").val().trim(),
                              list_champs:$("#list_champs").val()
                              }
