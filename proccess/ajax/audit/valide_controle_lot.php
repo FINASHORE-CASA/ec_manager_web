@@ -29,22 +29,22 @@ try {
         $qry = $bdextra->prepare("UPDATE audit_lot set status_audit = ?,date_fin_audit = NOW() where id = ?;");
         $qry->execute([$is_accept, $formData->id]);
 
-        if ($is_accept == 1) {
-            try {
+        if ($formData->type_audit == 0) {
+            if ($is_accept == 1) {
+                try {
 
-                $bdd->beginTransaction();
-                // initialisation du lot 
-                // -- serait mieux de procéder par une fonction
-                $nbAff1 = $bdd->exec("UPDATE acte SET status_acte='I', status_acteechantillon='I' where 
-                                id_tome_registre in (
-                                select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
-                                inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
-                                inner join lot l on l.id_lot=ar.id_lot
-                                    where l.id_lot in ($formData->id_lot)
-                                );");
+                    $bdd->beginTransaction();
+                    // initialisation du lot 
+                    // -- serait mieux de procéder par une fonction
+                    $nbAff1 = $bdd->exec("UPDATE acte SET status_acte='I', status_acteechantillon='I' where 
+                                    id_tome_registre in (
+                                    select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
+                                    inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
+                                    inner join lot l on l.id_lot=ar.id_lot
+                                        where l.id_lot in ($formData->id_lot)
+                                    );");
 
-
-                $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status='I' where 
+                    $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status='I' where 
                                             id_tome_registre in (
                                             select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
                                             inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
@@ -52,13 +52,13 @@ try {
                                                 where l.id_lot in ($formData->id_lot)
                                             );");
 
-
-                $nbAff3 = $bdd->exec("UPDATE lot SET status_lot='I',num_echantillon=0 where id_lot in ($formData->id_lot);");
-                $bdd->commit();
-                $result[] = "Initialisation effectuée";
-            } catch (Exception $e) {
-                $bdd->rollback();
-                $result[] = "Erreur lors de l'Initialisation";
+                    $nbAff3 = $bdd->exec("UPDATE lot SET status_lot='I',num_echantillon=0 where id_lot in ($formData->id_lot);");
+                    $bdd->commit();
+                    $result[] = "Initialisation effectuée";
+                } catch (Exception $e) {
+                    $bdd->rollback();
+                    $result[] = "Erreur lors de l'Initialisation";
+                }
             }
         }
     } else {
