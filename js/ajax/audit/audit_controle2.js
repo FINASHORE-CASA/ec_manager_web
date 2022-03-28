@@ -382,7 +382,7 @@
         var data1 = {
                     id_user:$("#field-Id_user").val(),
                     type_audit:"auditcontrole2",
-                    status_lot:"T"
+                    status_lot:"A"
                 }
 
         $.post(`${HostLink}/proccess/ajax/audit/getLotAuditAgent.php`,
