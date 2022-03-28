@@ -150,7 +150,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color:<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> AUDIT <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> AUDIT SAISIE
+              <span style="color:<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> AUDIT <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> AUDIT CONTROLE 2
             </h4>
           </div>
           <hr />
@@ -273,7 +273,6 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                   <form method="post" action="#">
                     <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                       <h6 class="m-0 font-weight-bold text-white"> Liste des actes
-                        <!-- <button id="audit_saisie_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button> -->
                       </h6>
                     </div>
                     <div class="card-body" id="table_container">
@@ -330,7 +329,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
   <script src="js/owner/count_lot.js"></script>
   <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_saisi.js?v=1.0.7"></script>
+  <script src="js/ajax/audit/audit_controle2.js?v=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {

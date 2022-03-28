@@ -366,7 +366,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.1"></script>
+  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.2"></script>
 
   <script>
     $(document).ready(function(e) {
