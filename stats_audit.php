@@ -93,12 +93,12 @@ require_once "./config/checkConfig.php";
                               <th> Lot </th>
                               <th> Commune </th>
                               <th> Bureau </th>
-                              <th> Nombre acte</th>
-                              <th> % echantillonage </th>
+                              <th> Nb acte</th>
+                              <th> % ech </th>
                               <th> nb_acte_ech </th>
                               <th> debut audit </th>
                               <th> fin audit </th>
-                              <th> Agent Audit </th>
+                              <th> Auditeur </th>
                               <th> Liste_champs </th>
                             </tr>
                           </thead>
@@ -111,12 +111,12 @@ require_once "./config/checkConfig.php";
                             <th> Lot </th>
                             <th> Commune </th>
                             <th> Bureau </th>
-                            <th> Nombre acte</th>
-                            <th> % echantillonage </th>
+                            <th> Nb acte</th>
+                            <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
                             <th> fin audit </th>
-                            <th> Agent Audit </th>
+                            <th> Aditeur </th>
                             <th> Liste_champs </th>
                           </tfoot>
                         </table>
@@ -145,8 +145,8 @@ require_once "./config/checkConfig.php";
                               <th> Lot </th>
                               <th> Commune </th>
                               <th> Bureau </th>
-                              <th> Nombre acte</th>
-                              <th> % echantillonage </th>
+                              <th> Nb acte</th>
+                              <th> % ech </th>
                               <th> nb_acte_ech </th>
                               <th> debut audit </th>
                               <th> fin audit </th>
@@ -163,8 +163,8 @@ require_once "./config/checkConfig.php";
                             <th> Lot </th>
                             <th> Commune </th>
                             <th> Bureau </th>
-                            <th> Nombre acte</th>
-                            <th> % echantillonage </th>
+                            <th> Nb acte</th>
+                            <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
                             <th> fin audit </th>
@@ -197,8 +197,8 @@ require_once "./config/checkConfig.php";
                               <th> Lot </th>
                               <th> Commune </th>
                               <th> Bureau </th>
-                              <th> Nombre acte</th>
-                              <th> % echantillonage </th>
+                              <th> Nb acte</th>
+                              <th> % ech </th>
                               <th> nb_acte_ech </th>
                               <th> debut audit </th>
                               <th> fin audit </th>
@@ -215,8 +215,8 @@ require_once "./config/checkConfig.php";
                             <th> Lot </th>
                             <th> Commune </th>
                             <th> Bureau </th>
-                            <th> Nombre acte</th>
-                            <th> % echantillonage </th>
+                            <th> Nb acte</th>
+                            <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
                             <th> fin audit </th>
@@ -277,7 +277,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/stats_audit.js?version=1.0.2"></script>
+  <script src="js/ajax/audit/stats_audit.js?version=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {

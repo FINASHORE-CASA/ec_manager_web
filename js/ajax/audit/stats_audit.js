@@ -105,10 +105,9 @@
         return await $.post(`${HostLink}/proccess/ajax/audit/getStatsAuditLot.php`, {myData : JSON.stringify({status: typeAuditSelector})}, 
                 function(data) 
                 {             
-                    try {
-                        console.log(data)
+                    try {                        
                         var result = JSON.parse(data)                               
-                        
+                        console.log(result)    
                         if(result[0] == "success")
                         {                          
                             // injection des données                             
@@ -121,7 +120,7 @@
                                                     +"<td class='text-center'>" + e.id_bureau +"</td>"
                                                     +"<td class='text-center'>" + e.nb_actes +"</td>"
                                                     +"<td class='text-center'>" + e.percent_ech_audit + "</td>"                                        
-                                                    +"<td class='text-center'>" + Math.ceil(e.nb_actes * e.percent_ech_audit / 100) + "</td>"                                        
+                                                    +"<td class='text-center'>" + e.nb_act_ech + "</td>"                                        
                                                     +"<td class='text-center'>" + e.date_audit + "</td>"                                        
                                                     +"<td class='text-center'>" + e.date_fin_audit + "</td>"                                        
                                                     +"<td class='text-center'>" + e.login + "</td>"                                        
