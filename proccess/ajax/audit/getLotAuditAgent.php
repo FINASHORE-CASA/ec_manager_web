@@ -18,7 +18,7 @@ try {
                                 on l2.id_lot = l.id_lot
                                 where id_audit_user = ? and is_actived = '1' 
                                 and type_audit = ? and l2.status_lot = ? ");
-    $qry->execute(array($formData->id_user, $intTypeAudit,$formData->status_lot));
+    $qry->execute(array($formData->id_user, $intTypeAudit, $formData->status_lot));
     $lots_audit_user = $qry->fetchAll(PDO::FETCH_OBJ);
 
     $result[] = $lots_audit_user;

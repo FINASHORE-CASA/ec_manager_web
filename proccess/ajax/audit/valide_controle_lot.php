@@ -48,7 +48,7 @@ try {
                     $bdd->beginTransaction();
                     // initialisation du lot 
                     // -- serait mieux de procéder par une fonction
-                    $nbAff1 = $bdd->exec("UPDATE acte SET status_acte=$status_lot, status_acteechantillon=$status_lot where 
+                    $nbAff1 = $bdd->exec("UPDATE acte SET status_acte='$status_lot', status_acteechantillon='$status_lot' where 
                                     id_tome_registre in (
                                     select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
                                     inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
@@ -56,7 +56,7 @@ try {
                                         where l.id_lot in ($formData->id_lot)
                                     );");
 
-                    $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status=$status_lot where 
+                    $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status='$status_lot' where 
                                             id_tome_registre in (
                                             select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
                                             inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
@@ -64,7 +64,7 @@ try {
                                                 where l.id_lot in ($formData->id_lot)
                                             );");
 
-                    $nbAff3 = $bdd->exec("UPDATE lot SET status_lot=$status_lot,num_echantillon=0 where id_lot in ($formData->id_lot);");
+                    $nbAff3 = $bdd->exec("UPDATE lot SET status_lot='$status_lot',num_echantillon=0 where id_lot in ($formData->id_lot);");
                     $bdd->commit();
                     $result[] = "Initialisation effectuée";
                 } catch (Exception $e) {
