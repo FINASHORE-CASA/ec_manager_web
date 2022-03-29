@@ -29,14 +29,26 @@ try {
         $qry = $bdextra->prepare("UPDATE audit_lot set status_audit = ?,date_fin_audit = NOW() where id = ?;");
         $qry->execute([$is_accept, $formData->id]);
 
-        if ($formData->type_audit == 0) {
+        switch ($formData->type_audit) {
+            case 0:
+                $status_lot = 'I';
+                break;
+            case 1:
+                $status_lot = 'V';
+                break;
+            case 2:
+                $status_lot = 'E';
+                break;
+        }
+
+        if ($status_lot >= 0) {
             if ($is_accept == 1) {
                 try {
 
                     $bdd->beginTransaction();
                     // initialisation du lot 
                     // -- serait mieux de procéder par une fonction
-                    $nbAff1 = $bdd->exec("UPDATE acte SET status_acte='I', status_acteechantillon='I' where 
+                    $nbAff1 = $bdd->exec("UPDATE acte SET status_acte=$status_lot, status_acteechantillon=$status_lot where 
                                     id_tome_registre in (
                                     select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
                                     inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
@@ -44,7 +56,7 @@ try {
                                         where l.id_lot in ($formData->id_lot)
                                     );");
 
-                    $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status='I' where 
+                    $nbAff2 = $bdd->exec("UPDATE tomeregistre SET status=$status_lot where 
                                             id_tome_registre in (
                                             select tr.id_tome_registre from tomeregistre tr inner join registre r on r.id_registre=tr.id_registre
                                             inner join affectationregistre ar on ar.id_tome_registre=tr.id_tome_registre
@@ -52,7 +64,7 @@ try {
                                                 where l.id_lot in ($formData->id_lot)
                                             );");
 
-                    $nbAff3 = $bdd->exec("UPDATE lot SET status_lot='I',num_echantillon=0 where id_lot in ($formData->id_lot);");
+                    $nbAff3 = $bdd->exec("UPDATE lot SET status_lot=$status_lot,num_echantillon=0 where id_lot in ($formData->id_lot);");
                     $bdd->commit();
                     $result[] = "Initialisation effectuée";
                 } catch (Exception $e) {

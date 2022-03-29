@@ -93,9 +93,13 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                               <label for="field-id_lot">Id Lot</label>
                               <input type="text" class="form-control" id="field-id_lot" aria-describedby="field-id_lot" placeholder="" disabled />
                             </div>
-                            <div class="form-group col-md-6">
-                              <label for="field-id_acte">Id Acte</label>
+                            <div class="form-group col-md-3">
+                              <label for="field-id_acte">Id Acte </label>
                               <input type="text" class="form-control" id="field-id_acte" aria-describedby="field-id_acte" placeholder="" disabled />
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label for="field-id_user_traitement"> AgentID </label>
+                              <input type="text" class="form-control" id="field-id_user_traitement" aria-describedby="field-id_user_traitement" placeholder="" disabled />
                             </div>
                           </div>
                           <div id="form-fields-fillables">

@@ -107,6 +107,7 @@
             var data1 = {
                 id_acte: $(this).attr("idActe"),
                 id_lot:$(this).attr("id_lot"),
+                id_agent:$(this).attr("id_agent"),
                 imagepath:$(this).attr("imagepath")
             }     
             acteInfo = [];
@@ -116,6 +117,7 @@
             {
                 $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim()); 
             })
+            $(`#field-id_user_traitement`).val(data1.id_agent)
          
             $.post(HostLink+'/proccess/ajax/actioniec/recup_acte_image.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
@@ -322,7 +324,7 @@
                                 result[2].forEach(e => { 
                                                                     
                                     htmlDataTable += "<tr id='ActeRow"+ e.id_acte +"'>";
-                                    htmlDataTable += (result[2].length > 0) ? Object.hasOwnProperty.call(result[2][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-eye"></i></a></td>' : "" : "";
+                                    htmlDataTable += (result[2].length > 0) ? Object.hasOwnProperty.call(result[2][0], "id_acte") ? '<td class="text-center"> <a href="#" class="btn-edit" idActe="'+ e.id_acte +'" id_lot="'+ e.id_lot +'" imagepath="'+ e.imagepath +'" id_agent ="'+e.id_agent+'" style="color:gray;" data-toggle="modal" data-target="#ActeModal"><i class="fas fa-eye"></i></a></td>' : "" : "";
                                     
                                     for (const key in result[2][0]) 
                                     {
@@ -444,6 +446,7 @@
         data1["id_lot"] = $("#field-id_lot").val().trim()
         data1["id_acte"] = $("#field-id_acte").val().trim()
         data1["id_audit_user"] = selected_lot_audit.id_audit_user
+        data1["id_agent"] = $(`#field-id_user_traitement`).val().trim()
         data1["id_passage_audit_type"] = selected_lot_audit.id_passage_audit_type
         data1["type_audit"] = selected_lot_audit.type_audit 
         data1["date_audit"] = "NOW()" 

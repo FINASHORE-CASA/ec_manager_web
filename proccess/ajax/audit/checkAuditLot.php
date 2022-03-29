@@ -113,8 +113,9 @@ try {
     // Nb_acte par % 
     $nb_acte_percent_ech = ceil(($audit_lot_info->percent_ech_audit *  $audit_lot_info->nb_actes) / 100);
     $nb_acte_percent_ech_rest = $nb_acte_percent_ech - count($liste_actes_audit);
+    $id_agent_statement = ($formData->type_audit < 2) ? ',a.utilisateur_creation as id_agent' : ',a.utilisateur_modification as id_agent';
 
-    $qry = $bdd->prepare("  SELECT af.id_lot,a.id_acte,a.imagepath $champs_acte_selected $champs_deces_selected $champs_jugement_selected $champs_mention_selected 
+    $qry = $bdd->prepare("  SELECT af.id_lot,a.id_acte $id_agent_statement,a.imagepath $champs_acte_selected $champs_deces_selected $champs_jugement_selected $champs_mention_selected 
                             from acte a  
                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                             left join deces d on d.id_acte = a.id_acte

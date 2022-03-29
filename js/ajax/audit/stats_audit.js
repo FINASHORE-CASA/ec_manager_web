@@ -124,6 +124,7 @@
                                                     +"<td class='text-center'>" + e.date_audit + "</td>"                                        
                                                     +"<td class='text-center'>" + e.date_fin_audit + "</td>"                                        
                                                     +"<td class='text-center'>" + e.login + "</td>"                                        
+                                                    +"<td class='text-center'>" + e.agent_traitement + "</td>"                                        
                                                     +"<td class='text-center'> ... </td>"                                        
                                                 + "</tr>"                        
                             })
