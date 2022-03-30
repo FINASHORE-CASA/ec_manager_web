@@ -94,6 +94,7 @@ require_once "./config/checkConfig.php";
                               <th> Commune </th>
                               <th> Bureau </th>
                               <th> Nb acte</th>
+                              <th> Nb acte agent</th>
                               <th> % ech </th>
                               <th> nb_acte_ech </th>
                               <th> debut audit </th>
@@ -113,6 +114,7 @@ require_once "./config/checkConfig.php";
                             <th> Commune </th>
                             <th> Bureau </th>
                             <th> Nb acte</th>
+                            <th> Nb acte agent</th>
                             <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
@@ -135,7 +137,6 @@ require_once "./config/checkConfig.php";
                   <form method="post" action="#">
                     <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                       <h6 class="m-0 font-weight-bold text-white"> Stats (Audit Contrôle 1)
-                        <button type="button" id="audit_controle1_list_lot" class="text-white float-right ml-2" style="background-color: transparent;border:none;" data-toggle="modal" data-target="#listLotModal"> <i class="fa fa-list" aria-hidden="true"></i> </button>
                         <button id="audit_controle1_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button>
                       </h6>
                     </div>
@@ -148,6 +149,7 @@ require_once "./config/checkConfig.php";
                               <th> Commune </th>
                               <th> Bureau </th>
                               <th> Nb acte</th>
+                              <th> Nb acte agent</th>
                               <th> % ech </th>
                               <th> nb_acte_ech </th>
                               <th> debut audit </th>
@@ -167,6 +169,7 @@ require_once "./config/checkConfig.php";
                             <th> Commune </th>
                             <th> Bureau </th>
                             <th> Nb acte</th>
+                            <th> Nb acte agent</th>
                             <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
@@ -189,7 +192,6 @@ require_once "./config/checkConfig.php";
                   <form method="post" action="#">
                     <div class="card-header py-3" style="background: <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                       <h6 class="m-0 font-weight-bold text-white"> Stats (Audit Contrôle 2)
-                        <button type="button" id="audit_controle2_list_lot" class="text-white float-right ml-2" style="background-color: transparent;border:none;" data-toggle="modal" data-target="#listLotModal"> <i class="fa fa-list" aria-hidden="true"></i> </button>
                         <button id="audit_controle2_dl" class="text-white float-right" style="background-color: transparent;border:none;"> <i class="fa fa-download" aria-hidden="true"></i> </button>
                       </h6>
                     </div>
@@ -204,6 +206,7 @@ require_once "./config/checkConfig.php";
                               <th> Nb acte</th>
                               <th> % ech </th>
                               <th> nb_acte_ech </th>
+                              <th> Nb acte agent</th>
                               <th> debut audit </th>
                               <th> fin audit </th>
                               <th> Aditeur </th>
@@ -221,6 +224,7 @@ require_once "./config/checkConfig.php";
                             <th> Commune </th>
                             <th> Bureau </th>
                             <th> Nb acte</th>
+                            <th> Nb acte agent</th>
                             <th> % ech </th>
                             <th> nb_acte_ech </th>
                             <th> debut audit </th>
@@ -283,7 +287,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/stats_audit.js?version=1.0.4"></script>
+  <script src="js/ajax/audit/stats_audit.js?version=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {

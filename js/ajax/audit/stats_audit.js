@@ -119,6 +119,7 @@
                                                     +"<td class='text-center'>" + e.id_commune +"</td>"
                                                     +"<td class='text-center'>" + e.id_bureau +"</td>"
                                                     +"<td class='text-center'>" + e.nb_actes +"</td>"
+                                                    +"<td class='text-center'>" + e.nb_actes_agent +"</td>"
                                                     +"<td class='text-center'>" + e.percent_ech_audit + "</td>"                                        
                                                     +"<td class='text-center'>" + e.nb_act_ech + "</td>"                                        
                                                     +"<td class='text-center'>" + e.date_audit + "</td>"                                        
