@@ -1,4 +1,3 @@
-
 $(document).ready(function()
 {
     // click sur le btn upload

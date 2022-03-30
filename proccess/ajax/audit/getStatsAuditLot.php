@@ -30,7 +30,7 @@ try {
     //Récupération des id_lots concernés dans la bd extra
     $qry = $bdextra->prepare(" SELECT l.id_lot,l2.id_commune,l2.id_bureau,l.nb_actes,sum(distinct aa.nb_actes_agent) as nb_actes_agent ,l.percent_ech_audit
                                 ,ceil(l.percent_ech_audit * l.nb_actes / 100.0) as nb_act_ech
-                                ,CASE WHEN l.status_audit = 2 THEN 'accepter' ELSE 'rejetes' END AS status_audit
+                                ,CASE WHEN l.status_audit = 2 THEN 'accepte' ELSE 'rejete' END AS status_audit
                                 ,to_char(l.date_audit, 'dd/mm/YYYY') as date_audit,to_char(date_fin_audit, 'dd/mm/YYYY') as date_fin_audit,login
                                 ,concat(prenom_agent_fr,' ',nom_agent_fr) as agent_traitement
                                 ,$list_champs_count

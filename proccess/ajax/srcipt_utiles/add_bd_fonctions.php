@@ -1,16 +1,14 @@
 <?php
 
-    session_start();
-    // Require des données
-    require_once "../../../config/checkConfig.php";  
+session_start();
+// Require des données
+require_once "../../../config/checkConfig.php";
 
-    try 
-    {
-        $formData = json_decode($_POST['myData']);
-        $result[] = "success" ;
+try {
+    $result[] = "success";
 
-        // Ajout de la fonction try_cast_int à la base de données
-        $nbAff_deces = $bdd->exec("CREATE function try_cast_int(p_in text, p_default int default null)
+    // Ajout de la fonction try_cast_int à la base de données
+    $nbAff1 = $bdd->exec("CREATE function try_cast_int(p_in text, p_default int default null)
                                     returns int
                                     as
                                     $$
@@ -24,14 +22,14 @@
                                     end;
                                     $$
                                     language plpgsql;    
-                                ");  
+                                ");
 
-        echo(json_encode($result));
-    }
-    catch(Exception $e)
-    {
-        $fail[] = "fail";
-        $fail[] = $e->getMessage();
-        echo(json_encode($fail));
-    }
-?>
+    // activation des extensions
+    $nbAff2 = $bdd->exec("CREATE EXTENSION dblink; ");
+
+    echo (json_encode($result));
+} catch (Exception $e) {
+    $fail[] = "fail";
+    $fail[] = $e->getMessage();
+    echo (json_encode($fail));
+}
