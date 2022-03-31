@@ -98,7 +98,7 @@
     // Récupération des lot à Disponible à Auditer 
     async function getLotAuditLot(typeAuditSelector)
     {                  
-        htmlDataTableLoader = '<tr><td colspan="11" class="text-center" style="font-size:2rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
+        htmlDataTableLoader = '<tr><td colspan="12" class="text-center" style="font-size:2rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
         $(`#Table${typeAuditSelector}`).html(htmlDataTableLoader)
 
         // Récupération des lots Audit Saisi 

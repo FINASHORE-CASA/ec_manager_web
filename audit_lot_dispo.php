@@ -123,9 +123,18 @@ require_once "./config/checkConfig.php";
           <!-- Liste des onglets  -->
           <div>
             <nav class="nav nav-tabs">
-              <a class="nav-tab-item nav-item nav-link active" href="#AuditSaisi" style="color: black;"> Audit Saisie </a>
-              <a class="nav-tab-item nav-item nav-link" href="#AuditControle1" style="color: black;"> Audit Contrôle 1 </a>
-              <a class="nav-tab-item nav-item nav-link" href="#AuditControle2" style="color: black;"> Audit Contrôle 2 </a>
+              <a class="nav-tab-item nav-item nav-link active" href="#AuditSaisi" style="color: black;">
+                Audit Saisie
+                <span id="refreshAuditSaisi" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
+              <a class="nav-tab-item nav-item nav-link" href="#AuditControle1" style="color: black;">
+                Audit Contrôle 1
+                <span id="refreshAuditControle1" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
+              <a class="nav-tab-item nav-item nav-link" href="#AuditControle2" style="color: black;">
+                Audit Contrôle 2
+                <span id="refreshAuditControle2" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
             </nav>
           </div>
 
@@ -144,7 +153,7 @@ require_once "./config/checkConfig.php";
                     </div>
                     <div class="card-body">
                       <div class="mb-4">
-                        <input class="form-control" type="text" placeholder="rechercher" />
+                        <input class="form-control" type="text" placeholder="rechercher" id="searchAuditSaisi" />
                       </div>
                       <div class="table-responsive" style="overflow:auto;max-height:400px;">
                         <table class="table" id="dataTableAgentAuditSaisi" width="100%" cellspacing="0">
@@ -206,7 +215,7 @@ require_once "./config/checkConfig.php";
                     </div>
                     <div class="card-body">
                       <div class="mb-4">
-                        <input class="form-control" type="text" placeholder="rechercher" />
+                        <input class="form-control" type="text" placeholder="rechercher" id="searchAuditControle1" />
                       </div>
                       <div class="table-responsive" style="overflow:auto;max-height:400px;">
                         <table class="table" id="dataTableAgentAuditControle1" width="100%" cellspacing="0">
@@ -268,7 +277,7 @@ require_once "./config/checkConfig.php";
                     </div>
                     <div class="card-body">
                       <div class="mb-4">
-                        <input class="form-control" type="text" placeholder="rechercher" />
+                        <input class="form-control" type="text" placeholder="rechercher" id="searchAuditControle2" />
                       </div>
                       <div class="table-responsive" style="overflow:auto;max-height:400px;">
                         <table class="table" id="dataTableAgentAuditControle2" width="100%" cellspacing="0">

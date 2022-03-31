@@ -106,7 +106,7 @@ require_once "./config/checkConfig.php";
                           </thead>
                           <tbody id="TableAuditSaisi">
                             <tr>
-                              <td colspan="11" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
+                              <td colspan="12" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
                             </tr>
                           </tbody>
                           <tfoot>
@@ -161,7 +161,7 @@ require_once "./config/checkConfig.php";
                           </thead>
                           <tbody id="TableAuditControle1">
                             <tr>
-                              <td colspan="7" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
+                              <td colspan="12" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
                             </tr>
                           </tbody>
                           <tfoot>
@@ -216,7 +216,7 @@ require_once "./config/checkConfig.php";
                           </thead>
                           <tbody id="TableAuditControle2">
                             <tr>
-                              <td colspan="7" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
+                              <td colspan="12" class="text-center" style="font-size:2rem;"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td>
                             </tr>
                           </tbody>
                           <tfoot>

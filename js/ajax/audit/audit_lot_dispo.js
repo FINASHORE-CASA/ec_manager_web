@@ -138,53 +138,53 @@
 
         // Récupération des lots Audit Saisi 
         return await $.post(`${HostLink}/proccess/ajax/audit/auditLotDispo.php`, {myData : JSON.stringify({status: status})}, 
-                function(data) 
-                {             
-                    try {
-                        var result = JSON.parse(data)                               
-                        
-                        if(result[0] == "success")
-                        {                          
-                            // injection des données                             
-                            htmlDataTable = ""    
-                            result[1].forEach(e => {   
-                                
-                                htmlDataTable += `<tr id='Row${typeAuditSelector}${e.id_lot}'>`
-                                                    +"<td class='text-center'>" + e.id_lot +"</td>"
-                                                    +"<td class='text-center'>" + e.id_commune +"</td>"
-                                                    +"<td class='text-center'>" + e.id_bureau +"</td>"
-                                                    +"<td class='text-center'>" + e.nb_actes +"</td>"
-                                                    +"<td class='text-center'>" + e.date_saisie + "</td>"                                        
-                                                + "</tr>"                        
-                            })
+            function(data) 
+            {             
+                try {
+                    var result = JSON.parse(data)                               
+                    
+                    if(result[0] == "success")
+                    {                          
+                        // injection des données                             
+                        htmlDataTable = ""    
+                        result[1].forEach(e => {   
                             
-                            $(`#Table${typeAuditSelector}`).html("")
-                            $(`#dataTable${typeAuditSelector}`).dataTable().fnDestroy()
-                            $(`#Table${typeAuditSelector}`).html(htmlDataTable)
-                            initDataTable($(`#dataTable${typeAuditSelector}`))                                                                                                                           
-                        }
-                        else
-                        {
-                            console.log('message error : ' + result)                                                                                                                    
-                        }
+                            htmlDataTable += `<tr id='Row${typeAuditSelector}${e.id_lot}'>`
+                                                +"<td class='text-center'>" + e.id_lot +"</td>"
+                                                +"<td class='text-center'>" + e.id_commune +"</td>"
+                                                +"<td class='text-center'>" + e.id_bureau +"</td>"
+                                                +"<td class='text-center'>" + e.nb_actes +"</td>"
+                                                +"<td class='text-center'>" + e.date_saisie + "</td>"                                        
+                                            + "</tr>"                        
+                        })
+                        
+                        $(`#Table${typeAuditSelector}`).html("")
+                        $(`#dataTable${typeAuditSelector}`).dataTable().fnDestroy()
+                        $(`#Table${typeAuditSelector}`).html(htmlDataTable)
+                        initDataTable($(`#dataTable${typeAuditSelector}`))                                                                                                                           
                     }
-                    catch(err)
+                    else
                     {
-                        console.log(err)
+                        console.log('message error : ' + result)                                                                                                                    
                     }
                 }
-            )     
+                catch(err)
+                {
+                    console.log(err)
+                }
+            }
+        )     
     }   
     // ---------------------------------------------    
 
     // Récupération des agents d'Audit
-    function getAgentsAuditList(typeAuditSelector,typeAudit,status_lot)
+    function getAgentsAuditList(typeAuditSelector,typeAudit,status_lot,search=null)
     {        
         htmlDataTableLoader = '<tr><td colspan="7" class="text-center" style="font-size:1rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'                    
         $(`#TableAgent${typeAuditSelector}`).html(htmlDataTableLoader)
 
         $.post(`${HostLink}/proccess/ajax/audit/getAgentAudit.php`,
-        {myData: JSON.stringify({ typeAudit:typeAudit })},(data) => 
+        {myData: JSON.stringify({ search:search, typeAudit:typeAudit,typeAuditSelector:typeAuditSelector })},(data) => 
         {
             try {
                 let res = JSON.parse(data);
@@ -199,7 +199,8 @@
                                 type_audit="${typeAuditSelector}"
                                 login_agent="${e.login}"
                                 status_lot="${status_lot}"
-                                data-toggle="modal" data-target="#AgentAffectationAudit"> <i class="fa fa-cog" aria-hidden="true"></i> 
+                                data-toggle="modal" data-target="#AgentAffectationAudit"> 
+                                <span class="tagNbLot"> ${e.nb_lot} </span> <i class="fa fa-cog" aria-hidden="true"></i> 
                               </a> </td>
                             </tr>`
                     })
@@ -219,7 +220,7 @@
     }    
 
     // Formating du resultat de info Agent
-    function formatDataAgentAffect(data)
+    function formatDataAgentAffect(data,type_audit,id_audit_user)
     {
         let htmlData = ""  
         data.forEach((e) => {
@@ -244,7 +245,8 @@
                         {
                             $(`.supp_lot_affect_agent[id_supp_lot_aff=${data1.id}]`).parent().fadeOut("fast")                                                    
                             $(`.supp_lot_affect_agent[id_supp_lot_aff=${data1.id}]`).removeClass("supp_lot_affect_agent")                                                    
-                            $("#FormNbLotAgent").html($(".supp_lot_affect_agent").length)
+                            $("#FormNbLotAgent").html($(".supp_lot_affect_agent").length)   
+                            $(`#RowAgent${type_audit}${id_audit_user} .tagNbLot`).html($(".supp_lot_affect_agent").length)
                         }
                         else
                         {
@@ -288,7 +290,7 @@
                     // ajouter 
                     $("#AgentAuditLogin").html(` <i class="far fa-user-circle"></i> ${data1.login_agen} 
                                                  <span id="FormNbLotAgent" class="badge badge-light ml-2"> ${res[1].length} </span>`);
-                    formatDataAgentAffect(res[1])
+                    formatDataAgentAffect(res[1],data1.type_audit,data1.id_user)
                     $("#AgentAuditAffectLoader").css("display", "none");
                     $("#formAffectAgentAudit").fadeIn();
                 } 
@@ -320,7 +322,8 @@
 
                         // ajouter 
                         $("#FormNbLotAgent").html(res[1].length)
-                        formatDataAgentAffect(res[1])
+                        $(`#RowAgent${data1.type_audit}${data1.id_audit_user} .tagNbLot`).html(res[1].length)
+                        formatDataAgentAffect(res[1],data1.type_audit,data1.id_audit_user)
                         $("#btn-valider-affectation").html(`valider <i class="fa fa-check-circle" aria-hidden="true"></i>`)
                     } 
                     catch(err)
@@ -333,18 +336,18 @@
     });
 
     // initialisation des déclencheurs
-
     audit_infos.forEach((a) => {
 
-        $(`a[href="#${a.selector}"`).on("click",async () => {
+        $(`#refresh${a.selector}`).on("click",async () => {      
+            getAgentsAuditList(a.selector,a.module,a.status_lot)        
             d = await getLotAuditLot(a.status_lot,a.selector)   
             a.list_lots = JSON.parse(d)[1] 
-        })    
-        getAgentsAuditList(a.selector,a.module,a.status_lot)        
-    });
+        })     
 
-    (async () => {
-       d = await getLotAuditLot(audit_infos[0].status_lot,audit_infos[0].selector)                 
-       audit_infos[0].list_lots = JSON.parse(d)[1]       
-    })();
+        $(`#search${a.selector}`).on("keyup", function (){
+            getAgentsAuditList(a.selector,a.module,a.status_lot,$(this).val().trim().toLowerCase())
+        })
+
+        $(`#refresh${a.selector}`).trigger("click")
+    });
 })
