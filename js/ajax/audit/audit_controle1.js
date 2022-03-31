@@ -377,14 +377,15 @@
     }
 
     // Récupération des lot à Disponible à Auditer 
-    function getLotAuditAgent()
+    function getLotAuditAgent(search=null)
     {   
         let htmlLoader = '<tr><td colspan="7" class="text-center" style="font-size:1rem"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></td></tr>'
         $("#TableAgentLotAgentDispo").html(htmlLoader)
         var data1 = {
                     id_user:$("#field-Id_user").val(),
                     type_audit:"auditcontrole1",
-                    status_lot:"E"
+                    status_lot:"E",
+                    search:search
                 }
 
         $.post(`${HostLink}/proccess/ajax/audit/getLotAuditAgent.php`,
@@ -398,9 +399,8 @@
                         htmlData += `
                             <tr class="card mb-1" style="border-top:2px gray solid;">
                             <td>
-                            <td>
                               <label for="radioLotSelected${v.id_lot}" style="width:70%">
-                                ${v.id_lot}
+                                ${ (v.is_audit == 0) ? "" : "<i style='font-size:12px;' class='fas fa-pen-nib text-primary'></i>" } ${v.id_lot}
                               </label>
                               <input id="radioLotSelected${v.id_lot}" type="radio" name="radioLotSelected" class="form-control float-right" style="color:#4e73df;font-size:3px;width:30%;" />
                             </td>
@@ -433,6 +433,7 @@
             $("#card-loader-lot-audit").css("display", "none")         
             $("#card-list-lot-audit").css("display", "inherit")                
             $("#table_container").html('')
+            getLotAuditAgent()    
         },1000)
 
 
@@ -486,6 +487,7 @@
                             && selected_lot_audit.stats_nb_acte_audit == selected_lot_audit.stats_nb_acte_total)
                     {
                         $("#btn-valid-audit-lot").removeClass("disabled")
+                        $("#table_container").html(`<div class="text-center m-5"><i class="fas fa-clipboard-check text-success" style="font-size:5rem"></i></div>`)
                     }                   
                 }
                 else
@@ -531,4 +533,9 @@
 
     // initialisation des déclencheurs
     getLotAuditAgent()
+
+    $(`#searchLot`).on("keyup",function() 
+    {
+        getLotAuditAgent($(this).val().trim());
+    })
 })

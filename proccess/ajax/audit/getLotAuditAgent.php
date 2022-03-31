@@ -9,15 +9,19 @@ try {
 
     // Correspondance des type_audit
     $intTypeAudit = getTypeAuditNumber($formData->type_audit);
+    $search = ($formData->search) ? " and CAST(l.id_lot as varchar) like '%$formData->search%' " : "";
 
     //Récupération des id_lots concernés dans la bd extra
-    $qry = $bdextra->prepare(" SELECT l.id,l.id_lot,l2.status_lot
+    $qry = $bdextra->prepare("SELECT l.id,l.id_lot,l2.status_lot,count(al.id) as is_audit
                                 from audit_attribution_lot l
+                                left join audit_lot al on al.id_lot = l.id_lot and al.type_audit = l.type_audit and al.status_audit = 0
                                 inner join dblink('dbname=$db_active->datname user=$utilisateur password=$mot_passe',
                                         'select id_lot,status_lot from lot') AS l2 (id_lot bigint,status_lot varchar)
                                 on l2.id_lot = l.id_lot
-                                where id_audit_user = ? and is_actived = '1' 
-                                and type_audit = ? and l2.status_lot = ? ");
+                                where l.id_audit_user = ? and is_actived = '1' 
+                                and l.type_audit = ? and l2.status_lot = ? $search
+                                group by l.id,l.id_lot,l2.status_lot
+                            ");
     $qry->execute(array($formData->id_user, $intTypeAudit, $formData->status_lot));
     $lots_audit_user = $qry->fetchAll(PDO::FETCH_OBJ);
 

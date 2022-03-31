@@ -26,8 +26,13 @@ try {
             return $e->status_audit_acte == 1;
         })) > 0) ? 1 : 2;
 
+        // Validation du lot
         $qry = $bdextra->prepare("UPDATE audit_lot set status_audit = ?,date_fin_audit = NOW() where id = ?;");
         $qry->execute([$is_accept, $formData->id]);
+
+        // Retrait de l'Attribution du lot
+        $qry = $bdextra->prepare("DELETE FROM audit_attribution_lot WHERE id_lot = ? and is_actived = '1' and id_audit_user = ?");
+        $qry->execute([$formData->id_lot, $formData->id_audit_user]);
 
         switch ($formData->type_audit) {
             case 0:
