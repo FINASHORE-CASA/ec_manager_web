@@ -64,12 +64,20 @@ require_once "./config/checkConfig.php";
           <!-- Liste des onglets  -->
           <div>
             <nav class="nav nav-tabs">
-              <a class="nav-tab-item nav-item nav-link active" href="#AuditSaisi" style="color: black;"> Audit Saisie </a>
-              <a class="nav-tab-item nav-item nav-link" href="#AuditControle1" style="color: black;"> Audit Contrôle 1 </a>
-              <a class="nav-tab-item nav-item nav-link" href="#AuditControle2" style="color: black;"> Audit Contrôle 2 </a>
+              <a class="nav-tab-item nav-item nav-link active" href="#AuditSaisi" style="color: black;">
+                Audit Saisie
+                <span id="refreshAuditSaisi" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
+              <a class="nav-tab-item nav-item nav-link" href="#AuditControle1" style="color: black;">
+                Audit Contrôle 1
+                <span id="refreshAuditControle1" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
+              <a class="nav-tab-item nav-item nav-link" href="#AuditControle2" style="color: black;">
+                Audit Contrôle 2
+                <span id="refreshAuditControle2" style="font-size:12px;" class="ml-3 text-primary"> <i class="fas fa-redo"></i> </span>
+              </a>
             </nav>
           </div>
-
 
           <!-- lien de téléchargement -->
           <a id="download" href="#" type="download" style="display:none;"> télécharger </a>

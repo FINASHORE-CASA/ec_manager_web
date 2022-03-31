@@ -152,14 +152,10 @@
     // initialisation des déclencheurs
     audit_infos.forEach((a) => {
 
-        $(`a[href="#${a.selector}"`).on("click",async () => {
+        $(`#refresh${a.selector}`).on("click",async () => {
             d = await getLotAuditLot(a.selector)   
             a.list_lots = JSON.parse(d)[1] 
-        })            
+        })     
+        $(`#refresh${a.selector}`).trigger("click")          
     });
-
-    (async () => {
-       d = await getLotAuditLot(audit_infos[0].selector)                 
-       audit_infos[0].list_lots = JSON.parse(d)[1]       
-    })();
 })
