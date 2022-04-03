@@ -4,61 +4,33 @@
 // -------------------------------------------------------
 // -------------------------------------------------------
 // Génération d'un PDF des états de registres
-require_once "../../../config/checkConfig.php";
+require_once "../../config/checkConfig.php";
 
 // Consolidation des fichiers et génération du fichier final
 //Spreadsheet API
-require_once '../../../vendor/autoload.php';
+require_once '../../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use \PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-$Download_Folder = "../../../" . $Download_Folder;
+$Download_Folder = "../../" . $Download_Folder;
+
+
+// nom de la base de Données
+$nom_bd = isset($bdd_status) ? $bdd_status : "";
 
 // Récupération de la date
 $date_gen_deb = date("d/m/Y");
 $date_gen_fin = date("d/m/Y");
-
-$date_deb_like = date("Y-m", strtotime($_POST['date_gen_deb'])) . "%";
-$date_fin_like = date("Y-m", strtotime($_POST['date_gen_fin'])) . "%";
-$date_deb_month = substr($date_deb_like, 0, 7) . "-01";
 
 if (isset($_POST['date_gen_deb']) && isset($_POST['date_gen_fin'])) {
     $date_gen_deb = date("d/m/Y", strtotime($_POST['date_gen_deb']));
     $date_gen_fin = date("d/m/Y", strtotime($_POST['date_gen_fin']));
 }
 
-//Suppression avant génération
-$lignesAff[] = $bdd->exec(" DELETE from controle_acte where id_acte IS NULL");
-$lignesAff[] = $bdd->exec(" DELETE from controle_acte where cast(date_creation as date) > cast('$date_gen_fin' as date) ;");
-$lignesAff[] = $bdd->exec(" DELETE from controle_acte where id_acte in 
-                            (
-                                select distinct ct.id_acte 
-                                from controle_acte ct
-                                join (select distinct id_acte from controle_acte where                              
-                                cast(date_creation as date) < cast('$date_deb_month' as date)
-                                ) as tb1 on tb1.id_acte = ct.id_acte
-                                where cast(date_creation as varchar) like '$date_fin_like' or 
-                                      cast(date_creation as varchar) like '$date_deb_like'
-                            ) ");
-
-$lignesAff[] = $bdd->exec(" DELETE from controle_acte where id_controle_acte  in 
-                            (
-                                select id_controle_acte FROM controle_acte
-                                LEFT OUTER JOIN (
-                                        SELECT max(id_controle_acte) as id, id_acte
-                                        FROM controle_acte
-                                        GROUP BY id_acte
-                                    ) as t1 
-                                    ON controle_acte.id_controle_acte = t1.id
-                                WHERE t1.id IS NULL
-                            )");
-
-$lignesAff[] = $bdd->exec(" DELETE from controle_acte where cast(date_creation as date) < cast('$date_gen_deb' as date);");
-
 // Requêtes de récupération des données en fonction de la configuration    
 $qry = $bdd->prepare("  SELECT concat(prenom_agent_fr,' ',nom_agent_fr) as agent,count(*) as nb_total
-                        from controle_acte a, agentsaisie s
+                        from acte a, agentsaisie s
                         where cast(a.utilisateur_creation as integer)=cast(id_agent as integer) 
                         and cast(a.date_creation as date) >= cast('{$date_gen_deb}' as date)
                         and cast(a.date_creation as date) <= cast('{$date_gen_fin}' as date)
@@ -146,7 +118,7 @@ foreach ($vues as $vue) {
 $date_gen_deb_title = isset($_POST['date_gen_deb']) ? date("d_m_Y", strtotime($_POST['date_gen_deb'])) : date("d_m_Y");
 $date_gen_fin_title = isset($_POST['date_gen_fin']) ? date("d_m_Y", strtotime($_POST['date_gen_fin'])) : date("d_m_Y");
 $writer = new Xlsx($spreadsheetConsolidation);
-$file_name = 'CONTROLE_1_' . $date_gen_deb_title . '_' . $date_gen_fin_title . '.xlsx';
+$file_name = $nom_bd . '_ACTES_DE_SAISIES_' . $date_gen_deb_title . '_' . $date_gen_fin_title . '.xlsx';
 $path = $Download_Folder . '\generer\\' . $file_name;
 $writer->save($path);
 

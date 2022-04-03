@@ -97,9 +97,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Du : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_deb" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
+                            <input type="date" class="form-control date_debut" id="date_gen_deb_acte" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -107,9 +106,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Au : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_fin" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
+                            <input type="date" class="form-control date_fin" id="date_gen_fin_acte" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                       </div>
@@ -139,9 +137,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Du : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_deb" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
+                            <input type="date" class="form-control date_debut" id="date_gen_deb_mention" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -149,9 +146,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Au : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_fin" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" / required>
+                            <input type="date" class="form-control date_fin" id="date_gen_fin_mention" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                       </div>
@@ -181,9 +177,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Du : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_deb" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
+                            <input type="date" class="form-control date_debut" id="date_gen_deb_controle1" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -191,9 +186,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Au : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_fin" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" / required>
+                            <input type="date" class="form-control date_fin" id="date_gen_fin_controle1" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                       </div>
@@ -223,9 +217,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Du : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_deb" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
+                            <input type="date" class="form-control date_debut" id="date_gen_deb_controle2" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -233,9 +226,8 @@ require_once "./config/checkConfig.php";
                           <div class="input-group col-md-12 col-lg-12">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-outline-secondary" style="z-index:inherit">Au : </button>
-                              </button>
                             </div>
-                            <input type="date" class="form-control" id="date_gen_fin" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" / required>
+                            <input type="date" class="form-control date_fin" id="date_gen_fin_controle2" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                           </div>
                         </div>
                       </div>
@@ -296,9 +288,6 @@ require_once "./config/checkConfig.php";
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
-  <script src="js/owner/count_lot.js"></script>
-  <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/stats_audit.js?version=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {
@@ -309,6 +298,26 @@ require_once "./config/checkConfig.php";
         $('#actif').text($(e.target).text())
         $('#precedent').text($(e.relatedTarget).text())
       })
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+
+      $(".date_debut").on("change", function() {
+        let date_debut = $(this).val()
+        $(".date_debut").each(function() {
+          $(this).val(date_debut)
+        });
+      });
+
+      $(".date_fin").on("change", function() {
+        let date_fin = $(this).val()
+        $(".date_fin").each(function() {
+          $(this).val(date_fin)
+        });
+      });
+
     });
   </script>
 
