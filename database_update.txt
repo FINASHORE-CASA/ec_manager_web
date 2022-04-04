@@ -78,3 +78,202 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.mention_manq_acte
     OWNER to postgres;
+
+
+-- log : 04/04/2022 12:16
+---
+CREATE TABLE IF NOT EXISTS public.audit_attribution_lot
+(
+    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    id_lot bigint,
+    id_audit_user integer,
+    type_audit integer,
+    is_actived bit(1),
+    id_user_aff integer,
+    date_attr timestamp with time zone
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.audit_attribution_lot
+    OWNER to postgres;
+
+
+----------------------------------
+CREATE TABLE IF NOT EXISTS public.audit_acte
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_lot bigint,
+    id_acte integer,
+    id_audit_user integer,
+    id_passage_audit_type integer,
+    type_audit integer,
+    date_audit timestamp with time zone,
+    status_audit_acte integer,
+    ct_num_acte integer,
+    ct_annee_acte integer,
+    ct_jd_naissance_h integer,
+    ct_md_naissance_h integer,
+    ct_ad_naissance_h integer,
+    ct_jd_naissance_g integer,
+    ct_md_naissance_g integer,
+    ct_ad_naissance_g integer,
+    ct_heure_naissance integer,
+    ct_minute_naissance integer,
+    ct_lieu_naissance integer,
+    ct_jumeaux integer,
+    ct_prenom_ar integer,
+    ct_prenom_fr integer,
+    ct_nom_ar integer,
+    ct_nom_fr integer,
+    ct_nom_marge_ar integer,
+    ct_prenom_marge_fr integer,
+    ct_nom_marge_fr integer,
+    ct_prenom_marge_ar integer,
+    ct_sexe integer,
+    ct_id_nationlite integer,
+    ct_decede_pere integer,
+    ct_prenom_pere_ar integer,
+    ct_prenom_pere_fr integer,
+    ct_ascendant_pere_ar integer,
+    ct_ascendant_pere_fr integer,
+    ct_id_nationalite_pere integer,
+    ct_id_profession_pere integer,
+    ct_jd_naissance_pere_h integer,
+    ct_md_naissance_pere_h integer,
+    ct_ad_naissance_pere_h integer,
+    ct_jd_naissance_pere_g integer,
+    ct_md_naissance_pere_g integer,
+    ct_ad_naissance_pere_g integer,
+    ct_lieu_naissance_pere integer,
+    ct_decede_mere integer,
+    ct_prenom_mere_ar integer,
+    ct_prenom_mere_fr integer,
+    ct_ascendant_mere_ar integer,
+    ct_ascendant_mere_fr integer,
+    ct_id_nationalite_mere integer,
+    ct_id_profession_mere integer,
+    ct_jd_naissance_mere_h integer,
+    ct_md_naissance_mere_h integer,
+    ct_ad_naissance_mere_h integer,
+    ct_jd_naissance_mere_g integer,
+    ct_md_naissance_mere_g integer,
+    ct_ad_naissance_mere_g integer,
+    ct_lieu_naissance_mere integer,
+    ct_adresse_residence_parents integer,
+    ct_jd_etabli_acte_h integer,
+    ct_ad_etabli_acte_h integer,
+    ct_md_etabli_acte_h integer,
+    ct_jd_etabli_acte_g integer,
+    ct_ad_etabli_acte_g integer,
+    ct_md_etabli_acte_g integer,
+    ct_id_officier integer,
+    ct_annee_acte_g integer,
+    ct_lieu_naissance_fr integer,
+    ct_lieu_naissance_pere_fr integer,
+    ct_lieu_naissance_mere_fr integer,
+    ct_adresse_residence_parents_fr integer,
+    ct_sign_officier integer,
+    ct_sceau_officier integer,
+    ct_status_acte integer,
+    ct_heure_etabli_acte integer,
+    ct_minute_etabli_acte integer,
+    ct_status_acteechantillon integer,
+    ct_langue_acte integer,
+    ct_id_ville_naissance integer,
+    ct_id_ville_naissance_mere integer,
+    ct_id_ville_naissance_pere integer,
+    ct_id_ville_residence_parents integer,
+    ct_date_statut_oec integer,
+    ct_imagepath integer,
+    ct_remarque integer,
+    ct_jd_deces_h integer,
+    ct_md_deces_h integer,
+    ct_ad_deces_h integer,
+    ct_jd_deces_g integer,
+    ct_md_deces_g integer,
+    ct_ad_deces_g integer,
+    ct_heure_deces integer,
+    ct_minute_deces integer,
+    ct_lieu_deces integer,
+    ct_id_profession integer,
+    ct_statutfamilialle integer,
+    ct_lieuresidence integer,
+    ct_lieuresidence_fr integer,
+    ct_lieu_deces_fr integer,
+    ct_lieu_residence_pere_ar integer,
+    ct_lieu_residence_pere_fr integer,
+    ct_lieu_residence_mere_ar integer,
+    ct_lieu_residence_mere_fr integer,
+    ct_id_ville_deces integer,
+    ct_id_ville_adresse_mere integer,
+    ct_id_ville_adresse_pere integer,
+    ct_id_ville_adresse integer,
+    ct_num_jugement integer,
+    ct_num_dossier integer,
+    ct_annee_dossier integer,
+    ct_jd_etablissement_jugement_h integer,
+    ct_md_etablissement_jugement_h integer,
+    ct_ad_etablissement_jugement_h integer,
+    ct_jd_etablissement_jugement_g integer,
+    ct_md_etablissement_jugement_g integer,
+    ct_ad_etablissement_jugement_g integer,
+    ct_j_prononciation_jugement_g integer,
+    ct_md_prononciation_jugement_g integer,
+    ct_ad_prononciation_jugement_g integer,
+    ct_j_prononciation_jugement_h integer,
+    ct_md_prononciation_jugement_h integer,
+    ct_ad_prononciation_jugement_h integer,
+    ct_j_reception_jugement_g integer,
+    ct_md_reception_jugement_g integer,
+    ct_ad_reception_jugement_g integer,
+    ct_j_reception_jugement_h integer,
+    ct_md_reception_jugement_h integer,
+    ct_ad_reception_jugement_h integer,
+    ct_denominationjugement integer,
+    ct_dispositifjugement integer,
+    ct_objetjugement integer,
+    ct_signofficier integer,
+    ct_objetjugement_fr integer,
+    ct_is_collectif integer,
+    ct_jd_memtion_h integer,
+    ct_md_memtion_h integer,
+    ct_a_memtion_h integer,
+    ct_jd_memtion_g integer,
+    ct_md_memtion_g integer,
+    ct_ad_memtion_g integer,
+    ct_txtmention integer,
+    ct_status_mention integer,
+    ct_txtmention_fr integer,
+    ct_nouvelle_valeur integer,
+    ct_ancienne_valeur integer,
+    ct_nouvelle_valeur_fr integer,
+    ct_ancienne_valeur_fr integer,
+    ct_modifmention integer,
+    id_agent integer
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.audit_acte
+    OWNER to postgres;
+
+---------------------------------
+CREATE TABLE IF NOT EXISTS public.audit_lot
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    id_lot bigint,
+    id_audit_user integer,
+    id_passage_audit_type integer,
+    type_audit integer,
+    date_audit timestamp with time zone,
+    percent_ech_audit integer,
+    status_audit integer,
+    nb_actes integer,
+    date_fin_audit timestamp with time zone
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.audit_lot
+    OWNER to postgres;
