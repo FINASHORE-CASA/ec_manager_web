@@ -13,8 +13,9 @@ try {
 
     if ($user_exist[0] == 0) {
         //Update User
+        $pwd = ($formData->password === "000000") ? $formData->passwordOrigin : password_hash($formData->password, PASSWORD_DEFAULT);
         $qry = $bdextra->prepare("UPDATE mg_user SET name = ?,first_name = ?,type_grant = ?,date_last_up = NOW(),login = ?,password = ? where id_user = ?");
-        $qry->execute(array($formData->name, $formData->first_name, $formData->type_grant, $formData->login, $formData->password, $formData->id_user));
+        $qry->execute(array($formData->name, $formData->first_name, $formData->type_grant, $formData->login, $pwd, $formData->id_user));
 
         // Récupération User
         $qry = $bdextra->prepare("  SELECT name,first_name,type_grant, to_char(u.date_creat,'DD-MM-YYYY HH:MI AM') as date_creat, to_char(u.date_last_up,' DD-MM-YYYY HH:MI AM') as date_last_up,login,password,id_user,name_group

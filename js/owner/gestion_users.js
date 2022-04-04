@@ -41,12 +41,17 @@ $(document).ready(function(e){
 
         btnEdit.on("click",function()
         {
+            // get information
+            $("#form-user-loader").css("display","inherit")
+            $("#form-user-fields").css("display","none")
+
             // initialisation des champs             
             $("#field-Name").val("");
             $("#field-FirstName").val("");
             $("#field-TypeGrant").val("");
             $("#field-Login").val("");
             $("#field-Password").val("");    
+            $("#field-PasswordOrigin").val("");                
 
             // Récupération de l'Id du click
             var data1 = {
@@ -69,13 +74,16 @@ $(document).ready(function(e){
                         $("#field-FirstName").val(result[1].first_name);
                         $("#field-TypeGrant").val(result[1].type_grant);
                         $("#field-Login").val(result[1].login);
-                        $("#field-Password").val(result[1].password);
+                        $("#field-Password").val("000000");
+                        $("#field-PasswordOrigin").val(result[1].password);
                     }
                     else
                     {
                         console.log('message error : ' + result);
                         console.log(result);
-                    }
+                    }                    
+                    $("#form-user-loader").css("display","none")
+                    $("#form-user-fields").css("display","inherit")
                 });
         });
 
@@ -122,6 +130,7 @@ $(document).ready(function(e){
             type_grant:$("#field-TypeGrant").val(),
             login:$("#field-Login").val(),
             password:$("#field-Password").val(),
+            passwordOrigin:$("#field-PasswordOrigin").val(),
             id_user:$(this).attr("id-user")
         }   
 
@@ -193,11 +202,14 @@ $(document).ready(function(e){
     $("#btn-add-user").on("click",function()
     {
         // Restauration des champs du formulaire 
+        $("#form-user-loader").css("display","none")
+        $("#form-user-fields").css("display","inherit")
         $("#field-Name").val("");
         $("#field-FirstName").val("");
         $("#field-TypeGrant").val("1");
         $("#field-Login").val("");
-        $("#field-Password").val("");
+        $("#field-Password").val("");        
+        $("#field-PasswordOrigin").val("");    
         $("#form-update-save").attr("id-user","0");
     });
 

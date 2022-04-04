@@ -86,7 +86,7 @@ $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
               </div>
               <div class="modal-body">
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-12" id="form-user-fields">
                     <form class="mt-2">
                       <h6 style="color: black;"> Formulaire Utilisateur </h6>
                       <hr />
@@ -122,9 +122,17 @@ $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
                         <div class="form-group col-md-6">
                           <label for="field-Password">Mot de Passe</label>
                           <input type="password" class="form-control" id="field-Password" aria-describedby="field-Password" placeholder="" />
+                          <input type="hidden" class="form-control" id="field-PasswordOrigin" aria-describedby="field-Password" placeholder="" />
                         </div>
                       </div>
                     </form>
+                  </div>
+                  <div id="form-user-loader" class="col-md-12" style="display: none;">
+                    <div class="d-flex justify-content-center mt-5 mb-5" style="width:100%;">
+                      <div class="d-flex justify-content-center">
+                        <i class="fa fa-spinner fa-spin" style="font-size:3rem;" aria-hidden="true"></i>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -228,7 +236,7 @@ $group_users = $qry->fetchAll(PDO::FETCH_OBJ);
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <!-- version = 1.0.1 -->
-  <script src="js/owner/gestion_users.js?version=1.0.2"></script>
+  <script src="js/owner/gestion_users.js?version=1.0.3"></script>
 
 </body>
 
