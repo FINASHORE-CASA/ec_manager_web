@@ -62,7 +62,7 @@ $(document).ready(function(e)
 
     $("#btn-gen-stats-global").on("click",(e) =>
     {
-        console.log(ListeDataBase)
+        console.log(ListeDataBase.filter(l=> l.id))
         e.preventDefault();
     })
 });
