@@ -94,6 +94,19 @@ $date_gen = date("Y-m-d");
           <div class="ml-5">
             <i> ( nomLivraison , lot ) </i>
           </div>
+          <hr />
+          <!-- ------------------------------------------------------------------------ -->
+
+          <!-- ------------------------------------------------------------------------ -->
+          <div class="row pl-5">
+            <div class="form-inline">
+              <label for="bd_extra" class="mr-3"> <strong> 3 </strong> - Encryter mot de passe automatique </label>
+              <img id="loader-script-3" src="./img/loader.gif" alt="loader wait" style="height: 50px;width:50px;padding:10px;display:none;" />
+              <button id="btn-script-encrypt-mdp" type="button" class="btn btn-dark" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
+                Encrypter <span class="badge badge-success" style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-lock"></i> </span>
+              </button>
+            </div>
+          </div>
           <!-- ------------------------------------------------------------------------ -->
 
         </div>
@@ -139,7 +152,8 @@ $date_gen = date("Y-m-d");
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/ajax/srcipt_utiles/add_bd_fonctions.js" type="text/javascript"></script>
-  <script src="js/ajax/srcipt_utiles/prepare_bd_accepte.js?v=1.0.1" type="text/javascript"></script>
+  <script src="js/ajax/srcipt_utiles/prepare_bd_accepte.js?v=1.0.2" type="text/javascript"></script>
+  <script src="js/ajax/srcipt_utiles/encrypt_all_mdp.js" type="text/javascript"></script>
 
 </body>
 

@@ -18,115 +18,52 @@ $(document).ready(function()
         return txtArray.length;
     };   
 
-    // Récupération de la source 
-    $.get(HostLink+'/proccess/ajax/livraison/get_liste_source.php'
-    ,function(data,status,jqXHR)
-    {
-        var result = JSON.parse(data);                               
-        
-        if(result[0] == "success")
-        {
-            // success callback
-            $("#text-list-source").val(result[1]);
-        }
-        else
-        {
-            console.log('message error : ' + result);
-            console.log(result);
-        }
-    })
-    .fail(function(res){
-        console.log("fail");
-        console.log(res);
-    });  
 
-    // Récupération de la destination 
-    $.get(HostLink+'/proccess/ajax/livraison/get_destination.php'
-    ,function(data,status,jqXHR)
-    {
-        var result = JSON.parse(data);                               
-        
-        if(result[0] == "success")
+    (async () => {
+        // Récupération de la source 
+        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot.php'
+        ,function(data,status,jqXHR)
         {
-            // success callback
-            $("#text-destination").val(result[1]);
-        }
-        else
-        {
-            console.log('message error : ' + result);
-            console.log(result);
-        }
-    })
-    .fail(function(res){
-        console.log("fail");
-        console.log(res);
-    });  
-
-    // Enregistrement de la source
-    $("#btn-save-source").on("click",function(e) 
-    {             
-        // récupération de la source
-        var data1 = {
-            liste_source: $("#text-list-source").val()
-        }        
-
-        $.post(HostLink+'/proccess/ajax/livraison/save_liste_source.php',   // url
-            { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
+            var result = JSON.parse(data);                               
+            
+            if(result[0] == "success")
             {
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
+                // success callback
+                result[1].forEach(function(e)
                 {
-                    // success callback
-                    console.log('success');
-                    console.log(result);
-                }
-                else
-                {
-                    console.log('message error : ' + result);
-                    console.log(result);
-                }
+                    $("#text-list-lot").val($("#text-list-lot").val() + e.id_lot + '\n');                    
+                    txtControleNotif.css("color","#20c9a6");
+                    txtNbLot.css("borderColor","#20c9a6");
+                    txtNbLot.css("color","#20c9a6");
+                    txtNbLot.text(countNbLot($("#text-list-lot").val()));
+                });                
             }
-        ).fail(function(res){
+            else
+            {
+                console.log('message error : ' + result);
+                console.log(result);
+            }
+        })
+        .fail(function(res){
             console.log("fail");
             console.log(res);
-        });
-        e.preventDefault();
-    });
+        });  
+    })();
 
-    // Enregistrement de la destination     
-    $("#btn-save-destination").on("click",function(e) {
-             
-        // récupération de la source
-        var data1 = {
-            liste_source: $("#text-destination").val()
-        }        
-
-        $.post(HostLink+'/proccess/ajax/livraison/save_destination.php',   // url
-            { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
-            {
-                var result = JSON.parse(data);                               
-                
-                if(result[0] == "success")
-                {
-                    // success callback
-                    console.log('success');
-                    console.log(result);
-                }
-                else
-                {
-                    console.log('message error : ' + result);
-                    console.log(result);
-                }
-            }
-        ).fail(function(res){
-            console.log("fail");
-            console.log(res);
+    (async() => {
+      // Chargement des données du fichier json
+        $.get(HostLink+"/proccess/ajax/preferences/get_preferences.php",
+        function(data,status,jsxhr)
+        {      
+            let preferencesData = JSON.parse(data);
+            let chemins = "";
+            preferencesData.list_path_images.forEach((e) => {
+            chemins += e + "\n";
+            })
+            $("#text-list-source").val(chemins);
+            $("#text-destination").val(`${preferencesData.destination_default}\\${$("#bd_name_link>span").text().trim()}`);
         });
-        e.preventDefault();
-    });
+    })();    
 
     $("#text-list-lot-livre").on("keyup",function(e) 
     {
