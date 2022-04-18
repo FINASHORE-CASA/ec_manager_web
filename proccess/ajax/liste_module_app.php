@@ -13,7 +13,7 @@ $modules_livraison = [
   "Contrôle Général", "transfert_lot" => "Transfert Lot", "split_bd" => "Split BD",
   "livraison_extraction_stats" => "Extraction BD"
 ];
-$modules_depots = ["depot_nouveau" => "Nouveau depôt"];
+$modules_depots = ["depot_nouveau" => "Nouveau depôt", "depot_mise_a_jour" => "Mise à Jour"];
 $modules_gestion_stats = ["stats_controle" => "Stats Controle", "stats_audit" => "Stats Audit", "stats_general_agent" => "Stats General Agent"];
 $modules_gestion_ecm = [
   "gestion_users" => "Gestion utilisateur", "gestion_group_users" => "Gestion Group Util.", "gestion_db_setting" => "Gestion BD",
