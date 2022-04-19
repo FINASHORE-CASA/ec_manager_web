@@ -107,6 +107,30 @@ $date_gen = date("Y-m-d");
               </button>
             </div>
           </div>
+          <hr />
+          <!-- ------------------------------------------------------------------------ -->
+
+          <!-- ------------------------------------------------------------------------ -->
+          <!-- <div class="row pl-5">
+            <div class="form-inline">
+              <label for="bd_extra" class="mr-3"> <strong> 4 </strong> - Sauvegarde Base de Données : </label>
+              <input type="file" id="file_upload_acceptes" style="display: none;" accept=".csv" />
+              <input id="chemin_source" class="form-control mr-2" type="text" name="" placeholder="chemin bd source">
+              <i class="fa fa-arrow-right mr-2" aria-hidden="true"></i>
+              <input id="chemin_final" class="form-control mr-3" type="text" name="" placeholder="chemin bd final">
+              <button id="btn-import-accepte" type="submit" class="btn btn-dark mr-1" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
+                <i class="fa fa-upload text-primary" aria-hidden="true"></i>
+              </button>
+              <img id="loader-script-2" src="./img/loader.gif" alt="loader wait" style="height: 50px;width:50px;padding:10px;display:none;" />
+              <button id="btn-script-prepare_bd_accepte" type="submit" class="btn btn-dark" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);" disabled>
+                Lancer <span class="badge badge-success" style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-check-double"></i> </span>
+              </button>
+            </div>
+          </div>
+          <div class="ml-5">
+            <i> ( nomLivraison , lot ) </i>
+          </div>
+          <hr /> -->
           <!-- ------------------------------------------------------------------------ -->
 
         </div>

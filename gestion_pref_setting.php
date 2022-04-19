@@ -171,7 +171,8 @@ $date_gen = date("Y-m-d");
           <div class="row mt-3 pl-5 pt-3">
             <div class="form-inline">
               <label for="chemin_lot" class="mr-3"> - RACINE DEST. : </label>
-              <input rows="2" style="width:300px;" class="form-control" id="destination_default" />
+              <input style="width:150px;" class="form-control" id="destination_default" />
+              <input style="width:100px;" class="form-control ml-1" id="ppconcerne_default" placeholder="pp : ex(72)" />
             </div>
           </div>
           <div class="row mt-3 pl-5 pt-3 mb-5">
@@ -240,9 +241,9 @@ $date_gen = date("Y-m-d");
             })
             $("#chemin_lot").val(chemins)
             $("#destination_default").val(preferencesData.destination_default)
+            $("#ppconcerne_default").val(preferencesData.ppconcerne_default);
             console.log(preferencesData);
           });
-
       })();
 
       $("#btn-enregistrer").on("click", function() {
@@ -259,6 +260,7 @@ $date_gen = date("Y-m-d");
             NewData.base_donnees_annex = $("#bd_extra").val().trim();
             NewData.list_path_images = chemins;
             NewData.destination_default = $("#destination_default").val().trim();
+            NewData.ppconcerne_default = $("#ppconcerne_default").val().trim();
           }
 
           $.post('proccess/ajax/preferences/update_preferences.php', {

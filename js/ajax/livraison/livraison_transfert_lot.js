@@ -61,7 +61,7 @@ $(document).ready(function()
             chemins += e + "\n";
             })
             $("#text-list-source").val(chemins);
-            $("#text-destination").val(`${preferencesData.destination_default}\\${$("#bd_name_link>span").text().trim()}`);
+            $("#text-destination").val(`${preferencesData.destination_default}\\${$("#bd_name_link>span").text().trim()}\\${preferencesData.ppconcerne_default}`);
         });
     })();    
 
