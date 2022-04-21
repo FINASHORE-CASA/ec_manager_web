@@ -14,8 +14,7 @@ $(document).ready(function()
     fieldRepartission = $("#field-nbLotRepartir");
     textListLot.val("");
 
-    var get_id_lots = function()
-    {
+    (() => {        
         // Récupération de la source 
         $.get(HostLink+'/proccess/ajax/livraison/get_id_lot.php'
         ,function(data,status,jqXHR)
@@ -43,9 +42,24 @@ $(document).ready(function()
         .fail(function(res){
             console.log("fail");
             console.log(res);
-        });  
-    };
-    get_id_lots(); 
+        }); 
+    })();
+
+    (() => {
+        // Récupération du numero de debut du split 
+         $.get(HostLink+'/proccess/ajax/livraison/get_split_numero.php'
+        ,function(data,status,jqXHR)
+        {
+            let res = JSON.parse(data)
+            if(res[0] == "success")
+            {
+                fieldNomBd.val(res[1])
+            }
+        }).fail(function(res) {
+            console.log("fail")
+            console.log(res)
+        });    
+    })();
 
     // Préparation des données à envoyer
     var countNbLot = function(txt) 
@@ -53,7 +67,6 @@ $(document).ready(function()
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
     }; 
-
 
     function split_db(groupLot,index)
     {

@@ -273,7 +273,6 @@ $date_gen = date("Y-m-d");
           );
         }
       });
-
     });
   </script>
 
