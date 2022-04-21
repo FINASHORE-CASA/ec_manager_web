@@ -11,12 +11,12 @@
     },{
         selector:"AuditControle1",
         module:"audit_controle_1",
-        status_lot:"E", // E
+        status_lot:"UNDIFINED", // E
         list_lots:[]
     },{
         selector:"AuditControle2",
         module:"audit_controle_2",
-        status_lot:"A", // A
+        status_lot:"UNDIFINED", // A
         list_lots:[]
     }]    
 

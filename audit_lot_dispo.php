@@ -115,7 +115,7 @@ require_once "./config/checkConfig.php";
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-2">
             <h4 class="h6 mb-0 text-dark-800">
-              <span style="color:<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> AUDIT <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> LOT DISPONIBLE
+              <span style="color:<?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;"> AUDIT <i class="fa fa-angle-double-right" aria-hidden="true"></i> </span> AFFECTATION
             </h4>
           </div>
           <hr />
@@ -375,7 +375,7 @@ require_once "./config/checkConfig.php";
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.2"></script>
+  <script src="js/ajax/audit/audit_lot_dispo.js?version=1.0.3"></script>
 
   <script>
     $(document).ready(function(e) {
