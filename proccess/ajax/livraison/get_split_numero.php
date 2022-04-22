@@ -5,7 +5,7 @@ require_once "../../../config/checkConfig.php";
 try {
     $result[] = "success";
 
-    $qry = $bdextra->prepare("SELECT MAX(num_liv)
+    $qry = $bdextra->prepare("SELECT MAX(num_liv) + 1
                           FROM (SELECT datname, try_cast_int(REPLACE(datname,'LIV','')) as num_liv 
                                 FROM pg_database pg LEFT JOIN mg_db_list mg on upper(mg.nom_db) = upper(pg.datname) 
                                 WHERE datname LIKE '%LIV%' 	
