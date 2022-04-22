@@ -190,7 +190,7 @@ $date_gen = date("Y-m-d");
   <script src="js/owner/set_side_bar.js"></script>
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/owner/count_lot.js"></script>
-  <script src="js/ajax/livraison/livraison_split_db.js?v=1.0.1"></script>
+  <script src="js/ajax/livraison/livraison_split_db.js?v=1.0.2"></script>
 
 </body>
 
