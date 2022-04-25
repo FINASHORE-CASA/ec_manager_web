@@ -46,7 +46,7 @@ try {
                 break;
         }
 
-        if ($status_lot >= 0) {
+        if ($formData->type_audit == 0) {
             if ($is_accept == 1) {
                 try {
 

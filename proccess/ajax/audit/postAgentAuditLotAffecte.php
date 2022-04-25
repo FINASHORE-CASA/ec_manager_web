@@ -16,10 +16,12 @@ try {
     foreach ($id_lot as $id_l) {
 
         // check lot is statut demander
-        $qry = $bdd->prepare("SELECT count(*) FROM lot where id_lot = ? and status_lot = ?;");
+        $qry = $bdd->prepare("SELECT count(*) FROM affectationregistre af
+                              inner join tomeregistre tr on tr.id_tome_registre = af.id_tome_registre
+                              where id_lot = ? and tr.status = ? ;");
         $qry->execute([$id_l, $formData->status_lot]);
 
-        if ($qry->fetch()[0] > 0) {
+        if ($qry->fetch()[0] > 0 || $formData->status_lot == "UNDIFINED") {
             // check du lot
             $qry = $bdextra->prepare("SELECT count(*) FROM audit_attribution_lot where id_lot = ? and is_actived = '1';");
             $qry->execute([$id_l]);

@@ -304,7 +304,7 @@
     }
 
     // Valider affectation de lots
-    $("#btn-valider-affectation").on("click", function () 
+    $("#btn-valider-affectation").on("click", function() 
     {
         if($("#list-lot-a-aff").val().trim().length > 0)
         {            
