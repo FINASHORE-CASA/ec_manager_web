@@ -3,6 +3,16 @@ require_once "is_connect.php";
 require_once "./config/checkConfig.php";
 
 $date_gen = date("Y-m-d");
+
+// Récupération de l'acte concerné
+$qry = $bdextra->prepare("SELECT datname FROM pg_database pg  
+                                WHERE (datname NOT LIKE '%ECV_EXTRA%'
+                                        AND datname NOT LIKE '%postgres%'
+                                        AND datname NOT LIKE '%template%')
+                                ORDER BY datname");
+$qry->execute();
+$liste_bd = $qry->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -26,6 +36,7 @@ $date_gen = date("Y-m-d");
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/bootstrap-select.min.css" rel="stylesheet" />
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -111,26 +122,30 @@ $date_gen = date("Y-m-d");
           <!-- ------------------------------------------------------------------------ -->
 
           <!-- ------------------------------------------------------------------------ -->
-          <!-- <div class="row pl-5">
+          <div class="row pl-5">
             <div class="form-inline">
               <label for="bd_extra" class="mr-3"> <strong> 4 </strong> - Sauvegarde Base de Données : </label>
-              <input type="file" id="file_upload_acceptes" style="display: none;" accept=".csv" />
-              <input id="chemin_source" class="form-control mr-2" type="text" name="" placeholder="chemin bd source">
-              <i class="fa fa-arrow-right mr-2" aria-hidden="true"></i>
-              <input id="chemin_final" class="form-control mr-3" type="text" name="" placeholder="chemin bd final">
-              <button id="btn-import-accepte" type="submit" class="btn btn-dark mr-1" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
-                <i class="fa fa-upload text-primary" aria-hidden="true"></i>
-              </button>
-              <img id="loader-script-2" src="./img/loader.gif" alt="loader wait" style="height: 50px;width:50px;padding:10px;display:none;" />
-              <button id="btn-script-prepare_bd_accepte" type="submit" class="btn btn-dark" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);" disabled>
+              <div class="form-inline ml-3">
+                <select class="selectpicker" id="liste_bd" name="liste_bd" width="100%" multiple>
+                  <?php
+                  foreach ($liste_bd as $value) {
+                    echo '<option>' . $value->datname . '</option>';
+                  }
+                  ?>
+                </select>
+              </div>
+              <select class="form-control ml-1" id="select_choix_save">
+                <option value="0"> Sauvegarder </option>
+                <option value="1"> Sauvegarder et Supprimer </option>
+              </select>
+              <i class="fa fa-arrow-right mr-2 ml-1" aria-hidden="true"></i>
+              <input id="chemin_final_bd" class="form-control mr-3" type="text" name="" placeholder="chemin sauvegarde">
+              <img id="loader-script-4" src="./img/loader.gif" alt="loader wait" style="height: 50px;width:50px;padding:10px;display:none;" />
+              <button id="btn-script-lancer-sauve" type="submit" class="btn btn-dark" style="background: transparent;color:black;border: 1px solid rgba(0,0,0,0.1);box-shadow: 1px 1px 5px rgba(0,0,0,0.2);">
                 Lancer <span class="badge badge-success" style="font-size:15px;border-radius:100%;padding:5px;"> <i class="fas fa-check-double"></i> </span>
               </button>
             </div>
           </div>
-          <div class="ml-5">
-            <i> ( nomLivraison , lot ) </i>
-          </div>
-          <hr /> -->
           <!-- ------------------------------------------------------------------------ -->
 
         </div>
@@ -170,6 +185,7 @@ $date_gen = date("Y-m-d");
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/jquery.csv.min.js"></script>
+  <script src="js/bootstrap-select.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="vendor/chart.js/Chart.min.js"></script>
@@ -177,7 +193,8 @@ $date_gen = date("Y-m-d");
   <script src="js/owner/page_indicateur.js"></script>
   <script src="js/ajax/srcipt_utiles/add_bd_fonctions.js" type="text/javascript"></script>
   <script src="js/ajax/srcipt_utiles/prepare_bd_accepte.js?v=1.0.2" type="text/javascript"></script>
-  <script src="js/ajax/srcipt_utiles/encrypt_all_mdp.js" type="text/javascript"></script>
+  <script src="js/ajax/srcipt_utiles/encrypt_all_mdp.js?v=1.0.1" type="text/javascript"></script>
+  <script src="js/ajax/srcipt_utiles/save_db.js?v=1.0.1" type="text/javascript"></script>
 
 </body>
 
