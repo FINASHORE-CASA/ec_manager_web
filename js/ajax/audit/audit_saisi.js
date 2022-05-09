@@ -4,6 +4,12 @@
     HostLink = HostLink.includes(".php") ? "." : HostLink
 
     var selected_lot_audit;   
+    var listeChampsMoisG = ["md_naissance_g","md_naissance_pere_g","md_naissance_mere_g","md_etabli_acte_g"]
+    var listeChampsMoisH = ["md_naissance_h","md_naissance_pere_h","md_naissance_mere_h","md_etabli_acte_h"]
+    var ListeMoisG = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aôut","Septembre","Octobre","Novembre","Décembre"]
+    var ListeMoisH = ["JanvierH","FévrierH","MarsH","AvrilH","MaiH","JuinH","JuilletH","AôutH","SeptembreH","OctobreH","NovembreH","DécembreH"]
+    var ListeIdField = ["id_nationlite","id_nationalite_pere","id_profession_pere","id_nationalite_mere","id_profession_mere","id_officier","id_ville_naissance","id_ville_naissance_mere","id_ville_naissance_pere","id_ville_residence_parents","id_profession","id_ville_deces","id_ville_adresse_mere","id_ville_adresse_pere","id_ville_adresse"]
+    var ExtraIdData = {};
 
     var show_alert = function(theme_color,title,text="",time=5)
     {
@@ -17,7 +23,7 @@
         setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
 
-    var initDataTable = function(dataTable) 
+    function initDataTable(dataTable) 
     {
         dataTable.DataTable({
             "language": {
@@ -43,7 +49,32 @@
         })
     }
 
-    var startSwitchImage = function() 
+    // Récupération des informations concernant les ids extra actes
+    (() => {
+        $.get(HostLink+'/proccess/ajax/actioniec/get_id_field_elements.php',   // url        
+            function(data, status, jqXHR) 
+            {   
+                let res = JSON.parse(data);
+
+                if(res[0] == "success")                          
+                {
+                    ExtraIdData["nationalites"] = res[1] 
+                    ExtraIdData["professions"] = res[2] 
+                    ExtraIdData["officiers"] = res[3] 
+                    ExtraIdData["villes"] = res[4] 
+
+                    console.log(ExtraIdData)
+                }
+                else
+                {
+                    alert("erreur recupération des elements du field id")
+                    console.log(data)
+                }
+            }
+        )
+    })();
+
+    function startSwitchImage() 
     {
         $(".img-switch").on("click",function(e)
         {
@@ -92,15 +123,56 @@
         });
     };
 
+    function getIdValues(val,type)
+    {        
+        if(ListeIdField.includes(type))
+        {
+            if(type.trim().toLowerCase().includes("nation") && ExtraIdData.nationalites.some(s=>s.id_nationalite == val))
+            {        
+                return ExtraIdData.nationalites.filter(s=>s.id_nationalite == val)[0].nationalite                                                                                                                                             
+            }                                                                                                             
+            else if(type.trim().toLowerCase().includes("profession") && ExtraIdData.professions.some(s=>s.id_profession == val))
+            {
+                return ExtraIdData.professions.filter(s=>s.id_profession == val)[0].profession                                                                                                                    
+            }        
+            else if(type.trim().toLowerCase().includes("officier") && ExtraIdData.officiers.some(s=>s.id_officier == val))
+            {
+                return ExtraIdData.officiers.filter(s=>s.id_officier == val)[0].nom_officier_ar                                                                                                                    
+            }
+            else if(type.trim().toLowerCase().includes("ville") && ExtraIdData.villes.some(s=>s.id_ville == val))
+            {
+                return ExtraIdData.villes.filter(s=>s.id_ville == val)[0].lib_ville  
+            }
+            else
+            {
+                return val
+            }
+        }
+        else if(listeChampsMoisG.includes(type))
+        {
+            let IntVal = parseInt(val)
+            return IntVal ? ListeMoisG[IntVal-1] : "";
+        }
+        else if(listeChampsMoisH.includes(type))
+        {
+            let IntVal = parseInt(val)
+            return IntVal ? ListeMoisH[IntVal-1] : "";          
+        }
+        else
+        {
+            return val
+        }
+    }    
+
     //function de modification de l'acte
-    var startEditActe = function(e) 
+    function startEditActe(e) 
     {
         var btnEdit = $(".btn-edit");
 
         // Remplissage des informations de l'acte
         btnEdit.on("click",function(e){
                         
-            $("#form-acte-loader").css("display","block");
+            $("#form-acte-loader").css("display","block")
             e.preventDefault()
 
             // Récupération de l'Id du click
@@ -115,7 +187,8 @@
             let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
             {
-                $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim()); 
+                let setValue = getIdValues(td.innerHTML.trim(),td.getAttribute("name"))
+                $(`#field-${td.getAttribute("name")}`).val(setValue); 
             })
             $(`#field-id_user_traitement`).val(data1.id_agent)
          
