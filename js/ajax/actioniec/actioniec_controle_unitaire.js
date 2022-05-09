@@ -3,6 +3,12 @@
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3];
     HostLink = HostLink.includes(".php") ? "." : HostLink;
 
+    // Liste champs spéciaux
+    var listeChampsMoisH = ["md_naissance_h","md_naissance_pere_h","md_naissance_mere_h","md_etabli_acte_h"]
+    var ListeMoisG = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aôut","Septembre","Octobre","Novembre","Décembre"]
+    var ListeMoisH = ["JanvierH","FévrierH","MarsH","AvrilH","MaiH","JuinH","JuilletH","AôutH","SeptembreH","OctobreH","NovembreH","DécembreH"]
+    var listeChampsMoisG = ["md_naissance_g","md_naissance_pere_g","md_naissance_mere_g","md_etabli_acte_g"]
+
     // Selection des indicateurs 
     var btnControle = $("#btn-controle")
         ,formLoader = $("#form-lot-loader");
@@ -444,16 +450,63 @@
                                     
                                     if((i+1)%2 != 0)
                                     {
-                                        htmlFormField +="<hr/>"
-                                        htmlFormField +='<div class="row"><div class="form-group col-md-6">'
-                                                        +'<label for="field-'+ el +'"> ' + el + ' </label>'
-                                                        +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder=""/></div>'
-                                        htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
+                                        if(listeChampsMoisG.includes(el) || listeChampsMoisH.includes(el))
+                                        {
+                                            htmlFormField +="<hr/>"
+                                            htmlFormField +='<div class="row"><div class="form-group col-md-6">'
+                                                            +'<label for="field-'+ el +'"> ' + el + ' </label>'
+                                                            +'<select class="form-control form-fillables" id="field-'+ el +'">'  
+                                                            +'<option value=""> Aucun </option>'
+                                            if(el.trim().toLowerCase()[el.trim().length -1] === "g")
+                                            {
+                                                ListeMoisG.forEach((m,i)=> {                                                
+                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                })                                                                                                                                                        
+                                            }                                                                                                             
+                                            else
+                                            {
+                                                ListeMoisH.forEach((m,i)=> {                                                
+                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                })                                                                                                                                                        
+                                            }         
+                                            htmlFormField +='</select></div>'                                                 
+                                            htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                      
+                                        }
+                                        else
+                                        {
+                                            htmlFormField +="<hr/>"
+                                            htmlFormField +='<div class="row"><div class="form-group col-md-6">'
+                                                            +'<label for="field-'+ el +'"> ' + el + ' </label>'
+                                                            +'<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder=""/></div>'
+                                            htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                  
+                                        }
                                     }
                                     else
                                     {
-                                        htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                    + '<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
+                                        if(listeChampsMoisG.includes(el) || listeChampsMoisH.includes(el))
+                                        {
+                                            htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
+                                                          +'<select class="form-control form-fillables" id="field-'+ el +'">'
+                                                          +'<option value=""> Aucun </option>'                                                            
+                                            if(el.trim().toLowerCase()[el.trim().length -1] === "g")
+                                            {
+                                                ListeMoisG.forEach((m,i)=> {                                                
+                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                })                                                                                                                                                        
+                                            }                                                                                                             
+                                            else
+                                            {
+                                                ListeMoisH.forEach((m,i)=> {                                                
+                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                })                                                                                                                                                        
+                                            }                                                                                                         
+                                            htmlFormField += '</select></div></div>'                                   
+                                        }
+                                        else
+                                        {
+                                            htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
+                                                        + '<input type="text" class="form-control form-fillables" id="field-'+ el +'" aria-describedby="field-'+ el +'" placeholder="" /></div></div>'
+                                        }
                                     }
                                 })
                                 $("#form-fields-fillables").html(htmlFormField)

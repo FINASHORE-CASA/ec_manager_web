@@ -308,7 +308,7 @@ $date_gen = date("Y-m-d");
   <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/actioniec/actioniec_controle_unitaire.js?version=1.0.3"></script>
+  <script src="js/ajax/actioniec/actioniec_controle_unitaire.js?version=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {
