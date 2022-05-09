@@ -3,9 +3,15 @@
     var HostLink = window.location.href.split("/")[0] +"//"+ window.location.href.split("/")[2]+ "/" +window.location.href.split("/")[3]
     HostLink = HostLink.includes(".php") ? "." : HostLink
 
-    var selected_lot_audit;   
+    var selected_lot_audit;    
+    var listeChampsMoisG = ["md_naissance_g","md_naissance_pere_g","md_naissance_mere_g","md_etabli_acte_g","md_deces_g","md_etablissement_jugement_g","md_prononciation_jugement_g","md_reception_jugement_g","md_memtion_g"]
+    var listeChampsMoisH = ["md_naissance_h","md_naissance_pere_h","md_naissance_mere_h","md_etabli_acte_h","md_deces_h","md_etablissement_jugement_h","md_prononciation_jugement_h","md_reception_jugement_h","md_memtion_h"]
+    var ListeMoisG = ["يناير","فبراير","مارس","أبريل","ماي","يونيو","يوليوز","غشت","شتنبر","أكتوبر","نونبر","دجنبر"]
+    var ListeMoisH = ["محَرَّم","صَفَر","رَبيع الأوًّل","رَبيع الثًّاني","جَمَادى الأوًّلى","جَمَادى الثَّانية","رَجَب","شَعْبَان","رَمَضَان","شَوَّال","ذُو الْقعْدَة","ذُو الْحجَّة"]
+    var ListeIdField = ["id_nationlite","id_nationalite_pere","id_profession_pere","id_nationalite_mere","id_profession_mere","id_officier","id_ville_naissance","id_ville_naissance_mere","id_ville_naissance_pere","id_ville_residence_parents","id_profession","id_ville_deces","id_ville_adresse_mere","id_ville_adresse_pere","id_ville_adresse"]
+    var ExtraIdData = {};  
 
-    var show_alert = function(theme_color,title,text="",time=5)
+    function show_alert(theme_color,title,text="",time=5)
     {
         $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
                                     +'<strong> '+title+' </strong>' + text
@@ -17,7 +23,7 @@
         setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
 
-    var initDataTable = function(dataTable) 
+    function initDataTable(dataTable) 
     {
         dataTable.DataTable({
             "language": {
@@ -43,7 +49,32 @@
         })
     }
 
-    var startSwitchImage = function() 
+    // Récupération des informations concernant les ids extra actes
+    (() => {
+        $.get(HostLink+'/proccess/ajax/actioniec/get_id_field_elements.php',   // url        
+            function(data, status, jqXHR) 
+            {   
+                let res = JSON.parse(data);
+
+                if(res[0] == "success")                          
+                {
+                    ExtraIdData["nationalites"] = res[1] 
+                    ExtraIdData["professions"] = res[2] 
+                    ExtraIdData["officiers"] = res[3] 
+                    ExtraIdData["villes"] = res[4] 
+
+                    console.log(ExtraIdData)
+                }
+                else
+                {
+                    alert("erreur recupération des elements du field id")
+                    console.log(data)
+                }
+            }
+        )
+    })();
+
+    function startSwitchImage() 
     {
         $(".img-switch").on("click",function(e)
         {
@@ -92,8 +123,49 @@
         });
     };
 
+    function getIdValues(val,type)
+    {        
+        if(ListeIdField.includes(type))
+        {
+            if(type.trim().toLowerCase().includes("nation") && ExtraIdData.nationalites.some(s=>s.id_nationalite == val))
+            {        
+                return ExtraIdData.nationalites.filter(s=>s.id_nationalite == val)[0].nationalite                                                                                                                                             
+            }                                                                                                             
+            else if(type.trim().toLowerCase().includes("profession") && ExtraIdData.professions.some(s=>s.id_profession == val))
+            {
+                return ExtraIdData.professions.filter(s=>s.id_profession == val)[0].profession                                                                                                                    
+            }        
+            else if(type.trim().toLowerCase().includes("officier") && ExtraIdData.officiers.some(s=>s.id_officier == val))
+            {
+                return ExtraIdData.officiers.filter(s=>s.id_officier == val)[0].nom_officier_ar                                                                                                                    
+            }
+            else if(type.trim().toLowerCase().includes("ville") && ExtraIdData.villes.some(s=>s.id_ville == val))
+            {
+                return ExtraIdData.villes.filter(s=>s.id_ville == val)[0].lib_ville  
+            }
+            else
+            {
+                return val
+            }
+        }
+        else if(listeChampsMoisG.includes(type))
+        {
+            let IntVal = parseInt(val)
+            return IntVal ? ListeMoisG[IntVal-1] : "";
+        }
+        else if(listeChampsMoisH.includes(type))
+        {
+            let IntVal = parseInt(val)
+            return IntVal ? ListeMoisH[IntVal-1] : "";          
+        }
+        else
+        {
+            return val
+        }
+    }
+
     //function de modification de l'acte
-    var startEditActe = function(e) 
+    function startEditActe(e) 
     {
         var btnEdit = $(".btn-edit");
 
@@ -115,7 +187,8 @@
             let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
             {
-                $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim()); 
+                let setValue = getIdValues(td.innerHTML.trim(),td.getAttribute("name"))
+                $(`#field-${td.getAttribute("name")}`).val(setValue); 
             })
             $(`#field-id_user_traitement`).val(data1.id_agent)
          

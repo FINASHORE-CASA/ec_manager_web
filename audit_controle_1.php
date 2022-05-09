@@ -173,7 +173,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                     </div>
                     <div class="card-body">
                       <div class="mb-4">
-                        <input class="form-control" type="text" placeholder="rechercher" id="searchLot"/>
+                        <input class="form-control" type="text" placeholder="rechercher" id="searchLot" />
                       </div>
                       <div class="table-responsive" style="overflow:auto;max-height:250px;">
                         <table class="table" id="dataTableLotAgentDispo" width="100%" cellspacing="0">
@@ -333,7 +333,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
   <script src="js/owner/count_lot.js"></script>
   <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_controle1.js?v=1.0.3"></script>
+  <script src="js/ajax/audit/audit_controle1.js?v=1.0.4"></script>
 
   <script>
     $(document).ready(function(e) {

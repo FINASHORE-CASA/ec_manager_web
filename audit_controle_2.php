@@ -333,7 +333,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
   <script src="js/owner/count_lot.js"></script>
   <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_controle2.js?v=1.0.3"></script>
+  <script src="js/ajax/audit/audit_controle2.js?v=1.0.4"></script>
 
   <script>
     $(document).ready(function(e) {

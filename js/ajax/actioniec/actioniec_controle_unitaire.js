@@ -4,10 +4,10 @@
     HostLink = HostLink.includes(".php") ? "." : HostLink;
 
     // Liste champs spéciaux
-    var listeChampsMoisG = ["md_naissance_g","md_naissance_pere_g","md_naissance_mere_g","md_etabli_acte_g"]
-    var listeChampsMoisH = ["md_naissance_h","md_naissance_pere_h","md_naissance_mere_h","md_etabli_acte_h"]
-    var ListeMoisG = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aôut","Septembre","Octobre","Novembre","Décembre"]
-    var ListeMoisH = ["JanvierH","FévrierH","MarsH","AvrilH","MaiH","JuinH","JuilletH","AôutH","SeptembreH","OctobreH","NovembreH","DécembreH"]
+    var listeChampsMoisG = ["md_naissance_g","md_naissance_pere_g","md_naissance_mere_g","md_etabli_acte_g","md_deces_g","md_etablissement_jugement_g","md_prononciation_jugement_g","md_reception_jugement_g","md_memtion_g"]
+    var listeChampsMoisH = ["md_naissance_h","md_naissance_pere_h","md_naissance_mere_h","md_etabli_acte_h","md_deces_h","md_etablissement_jugement_h","md_prononciation_jugement_h","md_reception_jugement_h","md_memtion_h"]
+    var ListeMoisG = ["يناير","فبراير","مارس","أبريل","ماي","يونيو","يوليوز","غشت","شتنبر","أكتوبر","نونبر","دجنبر"]
+    var ListeMoisH = ["محَرَّم","صَفَر","رَبيع الأوًّل","رَبيع الثًّاني","جَمَادى الأوًّلى","جَمَادى الثَّانية","رَجَب","شَعْبَان","رَمَضَان","شَوَّال","ذُو الْقعْدَة","ذُو الْحجَّة"]
     var ListeIdField = ["id_nationlite","id_nationalite_pere","id_profession_pere","id_nationalite_mere","id_profession_mere","id_officier","id_ville_naissance","id_ville_naissance_mere","id_ville_naissance_pere","id_ville_residence_parents","id_profession","id_ville_deces","id_ville_adresse_mere","id_ville_adresse_pere","id_ville_adresse"]
     var ExtraIdData = {};
 
