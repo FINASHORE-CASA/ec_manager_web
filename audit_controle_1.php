@@ -193,6 +193,11 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
                       </div>
                       <hr />
                       <div class="form-inline ml-3">
+                        <label class="" for="select_all_field"> Tous les champs </label>
+                        <input type="checkbox" class="form-control ml-2" id="select_all_field" />
+                      </div>
+                      <hr />
+                      <div class="form-inline ml-3">
                         <label for="list_champs"> listes champs : </label>
                         <select class="selectpicker" id="list_champs" name="list_champs" width="100%" multiple>
                           <optgroup label="Acte">
@@ -333,7 +338,7 @@ $liste_champs_mention = ["jd_memtion_h", "md_memtion_h", "a_memtion_h", "jd_memt
   <script src="js/owner/count_lot.js"></script>
   <script src="js/modal-fullscreen.js"></script>
   <!-- next version -- 1.0.1   -->
-  <script src="js/ajax/audit/audit_controle1.js?v=1.0.4"></script>
+  <script src="js/ajax/audit/audit_controle1.js?v=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {

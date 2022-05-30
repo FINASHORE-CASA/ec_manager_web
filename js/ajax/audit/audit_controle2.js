@@ -22,6 +22,11 @@
 
         setTimeout(() =>{ $("#alert-container #alert_box").fadeOut("slow");},(time*1000));                                
     }  
+    
+    function reduceText(txt,limit)
+    {
+        return txt ? (txt.length > limit ? txt.substr(0,limit -3) + '...' : txt) : "";
+    }
 
     function initDataTable(dataTable) 
     {
@@ -403,7 +408,7 @@
                                     {
                                         if (Object.hasOwnProperty.call(e, key)) 
                                         {
-                                            htmlDataTable += '<td name="'+key+'"> '+ e[key] +'</td>';
+                                            htmlDataTable += '<td name="'+key+'"> '+  reduceText(e[key],50) +'</td>';
                                         }
                                     }                             
                                     htmlDataTable += '</tr>';
@@ -609,5 +614,16 @@
     $(`#searchLot`).on("keyup",function() 
     {
         getLotAuditAgent($(this).val().trim());
+    })
+
+    $("#select_all_field").on("click",function() {
+        if($("#select_all_field")[0].checked == true)
+        {            
+            $("#list_champs").selectpicker('selectAll')
+        }
+        else
+        {
+            $("#list_champs").selectpicker('deselectAll')            
+        }
     })
 })
