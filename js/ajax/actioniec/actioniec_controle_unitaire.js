@@ -11,6 +11,18 @@
     var ListeIdField = ["id_nationlite","id_nationalite_pere","id_profession_pere","id_nationalite_mere","id_profession_mere","id_officier","id_ville_naissance","id_ville_naissance_mere","id_ville_naissance_pere","id_ville_residence_parents","id_profession","id_ville_deces","id_ville_adresse_mere","id_ville_adresse_pere","id_ville_adresse"]
     var ExtraIdData = {};
 
+    // Liste des selecteurs des selecteurs
+    var liste_block1_naissance = ["jd_naissance_g", "md_naissance_g", "annee_naissance_g", "jd_naissance_h", "md_naissance_h", "annee_naissance_h", "lieu_naissance", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_fr", "nom_marge_ar", "nom_marge_fr", "sexe", "id_nationlite"];
+    var liste_block2_naissance = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "jd_naissance_pere_g", "md_naissance_pere_g", "annee_naissance_pere_g", "jd_naissance_pere_h", "md_naissance_pere_h", "annee_naissance_pere_h", "lieu_naissance_pere", "id_nationalite_pere", "id_profession_pere"];
+    var liste_block3_naissance = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "jd_naissance_Mere_g", "md_naissance_Mere_g", "annee_naissance_Mere_g", "jd_naissance_Mere_h", "md_naissance_Mere_h", "annee_naissance_Mere_h", "adresse_residence_parents", "id_nationalite_Mere", "id_profession_mere"];
+    var liste_block4_naissance = ["ad_etabli_acte_g", "md_etabli_acte_g", "jd_etabli_acte_g", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_h", "id_officier", "id_tribunal", "num_jugement", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h"];
+
+    var liste_block1_deces = ["ad_deces_g", "md_deces_g", "jd_deces_g", "ad_deces_h", "md_deces_h", "jd_deces_h", "Lieu_deces", "lieuresidence", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_ fr", "nom_marge_ar", "nom_marge_fr", "jd_naissance_g", "md_naissance_g", "annee_naissance_g", "jd_naissance_h", "md_naissance_h", "annee_naissance_h", "id_nationlite", "sexe", "lieu_naissance"];
+    var liste_block2_deces = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "lieu_résidence_pere_ar", "id_nationalite_pere", "id_profession_pere"];
+    var liste_block3_deces = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "id_nationaliteMere", "id_profession_mere"];
+    var liste_block4_deces = ["ad_etabli_acte_g", "md_etabli_acte_g", "jd_etabli_acte_g", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_h", "id_officier", "id_tribunal", "num_jugement", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h"];
+
+
     // Selection des indicateurs 
     var btnControle = $("#btn-controle")
         ,formLoader = $("#form-lot-loader");
@@ -230,48 +242,6 @@
                     {                    
                         // Remplissage des champs du formulaire  
                         acteInfo = result[1];  
-                        // Preparation des btn next et prev
-                        // console.log(ListeActes);
-                        // $("#img-current").html(`<i style="font-size:14px;text-decoration:underline;">#${ListeActes.filter(a=>a.id_acte == data1.id_acte)[0].num_acte}</i>`);
-                        // let acte_next = ListeActes.filter(a=>a.id_acte > data1.id_acte).length > 0 ? ListeActes.filter(a=>a.id_acte > data1.id_acte)[0] : 0;
-                        // let acte_prev = ListeActes.filter(a=>a.id_acte < data1.id_acte).length > 0 ? ListeActes.filter(a=>a.id_acte < data1.id_acte)[ListeActes.filter(a=>a.id_acte < data1.id_acte).length -1] : 0;
-
-                        // if(acte_next)
-                        // {
-                        //     $("#img-next").attr("idActe",acte_next.id_acte);
-                        //     $("#img-next").attr("id_lot",acte_next.id_lot);
-                        //     $("#img-next").attr("imagepath",acte_next.imagepath);
-                        //     $("#img-next").html(`<i class="fa fa-chevron-right"></i> <i style="font-size:10px;">${acte_next.num_acte}</i>`);
-                        //     $("#img-next").removeAttr("disabled");
-                        // }
-                        // else
-                        // {
-                        //     $("#img-next").attr("id_acte","0");
-                        //     $("#img-next").attr("id_lot","");
-                        //     $("#img-next").attr("imagepath","");
-                        //     $("#img-next").html(`<i class="fa fa-chevron-right"></i> <i style="font-size:10px;"> no </i>`);
-                        //     $("#img-next").attr("disabled","true");
-                        // }
-
-                        // if(acte_prev)
-                        // {
-                        //     $("#img-prev").attr("idActe",acte_prev.id_acte);
-                        //     $("#img-prev").attr("id_lot",acte_prev.id_lot);
-                        //     $("#img-prev").attr("imagepath",acte_prev.imagepath);
-                        //     $("#img-prev").attr("id_acte",acte_prev.id_acte);
-                        //     $("#img-prev").html(`<i class="fa fa-chevron-left"></i> <i style="font-size:10px;">${acte_prev.num_acte}</i>`);
-                        //     $("#img-prev").removeAttr("disabled");
-                        // }
-                        // else
-                        // {
-                        //     $("#img-prev").attr("id_acte","0");
-                        //     $("#img-prev").attr("id_lot","");
-                        //     $("#img-prev").attr("imagepath","");
-                        //     $("#img-prev").attr("id_acte",acte_prev.id_acte);
-                        //     $("#img-prev").html(`<i class="fa fa-chevron-left"></i> <i style="font-size:10px;"> no </i>`);
-                        //     $("#img-prev").attr("disabled","true");                            
-                        // }
-                        // // -------------------------------------------------
 
                         if(result[2] == "yes")
                         {
@@ -414,10 +384,55 @@
         }
     })
     $("#show_all")[0].checked = false;
+    
+    function getListeBlock (liste_champs_block)
+    {
+        let datatab = []
+        if(liste_champs_block.includes("Block 1 Naissance"))
+        {
+            datatab = datatab.concat(liste_block1_naissance.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))
+        }
+
+        if(liste_champs_block.includes("Block 2 Naissance"))
+        {
+            datatab = datatab.concat(liste_block2_naissance.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))
+        }
+
+        if(liste_champs_block.includes("Block 3 Naissance"))
+        {
+            datatab = datatab.concat(liste_block3_naissance.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))
+        }
+
+        if(liste_champs_block.includes("Block 4 Naissance"))
+        {
+            datatab = datatab.concat(liste_block4_naissance.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))
+        }
+
+        if(liste_champs_block.includes("Block 1 Deces"))
+        {   
+            datatab = datatab.concat(liste_block1_deces.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))    
+        }
+
+        if(liste_champs_block.includes("Block 2 Deces"))
+        {   
+            datatab = datatab.concat(liste_block2_deces.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))    
+        }
+
+        if(liste_champs_block.includes("Block 3 Deces"))
+        {   
+            datatab = datatab.concat(liste_block3_deces.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))    
+        }
+
+        if(liste_champs_block.includes("Block 4 Deces"))
+        {   
+            datatab = datatab.concat(liste_block4_deces.filter(lb=> !datatab.some(dt => { return dt.toLowerCase() == lb.toLowerCase()})))    
+        }
+
+        return datatab
+    };
 
     btnControle.on('click',function(e)
     {
-        console.log(ListeActes);
         var nbLot = countNbLot(textListLot.val());        
         if(nbLot == 0)
         {
@@ -433,11 +448,16 @@
             notifResultat.fadeOut("fast"); 
             ResultatData.fadeOut("fast");    
 
+
+            let liste_champs_block = getListeBlock($("#list_blocks").val())
             // traitement des lots             
             var data1 = {
                 id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
-                list_champs:selectBoxListChamps.val()
-            }              
+                list_champs: selectBoxListChamps.val().length > 0 ? selectBoxListChamps.val() : liste_champs_block
+            }     
+
+            console.log(liste_champs_block);
+            console.log(data1);
 
             // Traitement Image Vide 
             $.post(HostLink+'/proccess/ajax/actioniec/controle_unitaire.php',   // url
@@ -685,4 +705,25 @@
         }
         e.preventDefault();        
     });
+
+    $("#list_blocks").on("changed.bs.select", function() 
+    {   
+        if($(this).val().length > 0)
+        {
+            selectBoxListChamps.selectpicker('deselectAll')
+            selectBoxListChamps.selectpicker('refresh')        
+            // selectBoxListChamps.attr("disabled","true")
+        }
+    });
+
+    $("#list_champs").on("changed.bs.select", function() 
+    {   
+        if($(this).val().length > 0)
+        {
+            $("#list_blocks").selectpicker('deselectAll')
+            $("#list_blocks").selectpicker('refresh')        
+            // selectBoxListChamps.attr("disabled","true")
+        }
+    });
+
 });
