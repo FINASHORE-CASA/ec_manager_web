@@ -22,7 +22,6 @@
     var liste_block3_deces = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "id_nationaliteMere", "id_profession_mere"];
     var liste_block4_deces = ["ad_etabli_acte_g", "md_etabli_acte_g", "jd_etabli_acte_g", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_h", "id_officier", "id_tribunal", "num_jugement", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h"];
 
-
     // Selection des indicateurs 
     var btnControle = $("#btn-controle")
         ,formLoader = $("#form-lot-loader");
@@ -40,7 +39,7 @@
     var ListeActes = [];
 
     // Préparation des données à envoyer
-    function countNbLot (txt) 
+    function countNbLot(txt) 
     {
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
@@ -71,13 +70,10 @@
                     ExtraIdData["professions"] = res[2] 
                     ExtraIdData["officiers"] = res[3] 
                     ExtraIdData["villes"] = res[4] 
-
-                    console.log(ExtraIdData)
                 }
                 else
                 {
                     alert("erreur recupération des elements du field id")
-                    console.log(data)
                 }
             }
         )
@@ -91,23 +87,32 @@
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {
-                console.log("action enregistrer")
+                console.log("action enregistrée")
             }
         )
     }
     
     $(".form-update-save").on("click",function(e)
-    {            
-        var data1 = {}   
+    {
+        var data1 = {}
 
-        $("#ActeModal .form-control").each((i,el) => 
-        {
-            data1[el.id.replace("field-","")] = el.value.trim();            
-        });            
+        $("#ActeModal .form-control").each((i,el) =>
+        {               
+            if(listeChampsMoisG.includes(el.id.replace("field-","")) 
+               || listeChampsMoisH.includes(el.id.replace("field-",""))
+               || ListeIdField.includes(el.id.replace("field-","")))
+            {
+                data1[el.id.replace("field-","")] = el.value.trim().split("|")[0].replace("(","").replace(")","").trim();                
+            }
+            else
+            {
+                data1[el.id.replace("field-","")] = el.value.trim();
+            }
+        });
 
         $.post(HostLink+'/proccess/ajax/actioniec/update_acte_unitaire.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
-            function(data, status, jqXHR) 
+            function(data, status, jqXHR)
             {
                 var result = JSON.parse(data);    
 
@@ -132,7 +137,7 @@
                         $("#ActeRow"+data1.id_acte).fadeOut("slow");   
                         // mis en place de l'alert 
                         show_alert("success","Modification effectué !","",3);
-                    }                    
+                    }                   
                     else
                     {
                         //Alert
@@ -229,8 +234,38 @@
                               
             let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
-            {
-                $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim()); 
+            {         
+                if(listeChampsMoisG.includes(td.getAttribute("name")))
+                {
+                    $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ListeMoisG.filter(e=>  ListeMoisG.indexOf(e) == td.innerHTML.trim())[0]}`);                                                                                                                                                    
+                }
+                else if(listeChampsMoisH.includes(td.getAttribute("name")))
+                {
+                    $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ListeMoisH.filter(e=>  ListeMoisH.indexOf(e) == td.innerHTML.trim())[0]}`);
+                }                                                                                                                                   
+                else if(ListeIdField.includes(td.getAttribute("name")))
+                {
+                    if(td.getAttribute("name").trim().toLowerCase().includes("nation"))
+                    {
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite}`);                                                                                                                                                    
+                    }                                                                                                             
+                    else if(td.getAttribute("name").trim().toLowerCase().includes("profession"))
+                    {
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession}`);                                                                                                                                   
+                    }        
+                    else if(td.getAttribute("name").trim().toLowerCase().includes("officier"))
+                    {
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim())[0].nom_officier_ar}`);
+                    }
+                    else if(td.getAttribute("name").trim().toLowerCase().includes("ville"))
+                    {
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim())[0].lib_ville}`);
+                    }
+                }
+                else
+                {
+                    $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim());
+                }
             })
          
             $.post(HostLink+'/proccess/ajax/actioniec/recup_acte_image.php',   // url
@@ -496,27 +531,27 @@
                                     
                                     if((i+1)%2 != 0)
                                     {
-                                        console.log(ExtraIdData.nationalites)
                                         if(listeChampsMoisG.includes(el) || listeChampsMoisH.includes(el))
                                         {
                                             htmlFormField +="<hr/>"
                                             htmlFormField +='<div class="row"><div class="form-group col-md-6">'
                                                             +'<label for="field-'+ el +'"> ' + el + ' </label>'
-                                                            +'<select class="form-control form-fillables" id="field-'+ el +'">'  
+                                                            +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
+                                                            +'<datalist id="datalist-field-'+ el +'">'  
                                                             +'<option value=""> Aucun </option>'
                                             if(el.trim().toLowerCase()[el.trim().length -1] === "g")
                                             {
                                                 ListeMoisG.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else
                                             {
-                                                ListeMoisH.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                ListeMoisH.forEach((m,i)=> {                             
+                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                   
                                                 })                                                                                                                                                        
                                             }         
-                                            htmlFormField +='</select></div>'                                                 
+                                            htmlFormField +='</datalist></div>'                                                 
                                             htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                      
                                         }
                                         else if(ListeIdField.includes(el))
@@ -524,35 +559,36 @@
                                             htmlFormField +="<hr/>"
                                             htmlFormField +='<div class="row"><div class="form-group col-md-6">'
                                                             +'<label for="field-'+ el +'"> ' + el + ' </label>'
-                                                            +'<select class="form-control form-fillables" id="field-'+ el +'">'  
+                                                            +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
+                                                            +'<datalist id="datalist-field-'+ el +'">'  
                                                             +'<option value=""> Aucun </option>'
                                         
                                             if(el.trim().toLowerCase().includes("nation"))
                                             {
                                                 ExtraIdData.nationalites.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_nationalite}" > ${m.nationalite} </option>`
+                                                    htmlFormField += `<option value="(${m.id_nationalite}) | ${m.nationalite}"/>`
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else if(el.trim().toLowerCase().includes("profession"))
                                             {
                                                 ExtraIdData.professions.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_profession}" > ${m.profession} </option>`
+                                                    htmlFormField += `<option value="(${m.id_profession}) | ${m.profession}"/>`
                                                 })                                                                                                                                                        
                                             }        
                                             else if(el.trim().toLowerCase().includes("officier"))
                                             {
                                                 ExtraIdData.officiers.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_officier}" > ${m.nom_officier_ar} </option>`
+                                                    htmlFormField += `<option value="(${m.id_officier}) | ${m.nom_officier_ar}"/>`
                                                 })  
                                             }
                                             else if(el.trim().toLowerCase().includes("ville"))
                                             {
                                                 ExtraIdData.villes.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_ville}" > ${m.lib_ville} </option>`
+                                                    htmlFormField += `<option value="(${m.id_ville}) | ${m.lib_ville}"/>`
                                                 }) 
                                             }
 
-                                            htmlFormField +='</select></div>'                                                 
+                                            htmlFormField +='</datalist></div>'                                                 
                                             htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                      
                                         }
                                         else
@@ -569,54 +605,56 @@
                                         if(listeChampsMoisG.includes(el) || listeChampsMoisH.includes(el))
                                         {
                                             htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                          +'<select class="form-control form-fillables" id="field-'+ el +'">'
+                                                          +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
+                                                          +'<datalist id="datalist-field-'+ el +'">'
                                                           +'<option value=""> Aucun </option>'                                                            
                                             if(el.trim().toLowerCase()[el.trim().length -1] === "g")
                                             {
-                                                ListeMoisG.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                ListeMoisG.forEach((m,i)=> {                        
+                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                        
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else
                                             {
-                                                ListeMoisH.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" :""}${i + 1}" > ${m} </option>`
+                                                ListeMoisH.forEach((m,i)=> {                       
+                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                         
                                                 })                                                                                                                                                        
                                             }                                                                                                         
-                                            htmlFormField += '</select></div></div>'                                   
+                                            htmlFormField += '</datalist></div></div>'                                   
                                         }
                                         else if(ListeIdField.includes(el))
                                         {
                                             htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                          +'<select class="form-control form-fillables" id="field-'+ el +'">'
+                                                          +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
+                                                          +'<datalist id="datalist-field-'+ el +'">'
                                                           +'<option value=""> Aucun </option>'  
                                                                                     
                                             if(el.trim().toLowerCase().includes("nation"))
                                             {
                                                 ExtraIdData.nationalites.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_nationalite}" > ${m.nationalite} </option>`
+                                                    htmlFormField += `<option value="(${m.id_nationalite}) | ${m.nationalite}"/>`
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else if(el.trim().toLowerCase().includes("profession"))
                                             {
                                                 ExtraIdData.professions.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_profession}" > ${m.profession} </option>`
+                                                    htmlFormField += `<option value="(${m.id_profession}) | ${m.profession}"/>`
                                                 })                                                                                                                                                        
                                             }        
                                             else if(el.trim().toLowerCase().includes("officier"))
                                             {
                                                 ExtraIdData.officiers.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_officier}" > ${m.nom_officier_ar} </option>`
+                                                    htmlFormField += `<option value="(${m.id_officier}) | ${m.nom_officier_ar}"/>`
                                                 })  
                                             }
                                             else if(el.trim().toLowerCase().includes("ville"))
                                             {
                                                 ExtraIdData.villes.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="${m.id_ville}" > ${m.lib_ville} </option>`
+                                                    htmlFormField += `<option value="(${m.id_ville}) | ${m.lib_ville}"/>`
                                                 }) 
                                             }
 
-                                            htmlFormField += '</select></div></div>'                                   
+                                            htmlFormField += '</datalist></div></div>'                                   
                                         }
                                         else
                                         {
