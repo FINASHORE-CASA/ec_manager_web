@@ -98,9 +98,7 @@
 
         $("#ActeModal .form-control").each((i,el) =>
         {               
-            if(listeChampsMoisG.includes(el.id.replace("field-","")) 
-               || listeChampsMoisH.includes(el.id.replace("field-",""))
-               || ListeIdField.includes(el.id.replace("field-","")))
+            if(ListeIdField.includes(el.id.replace("field-","")))
             {
                 data1[el.id.replace("field-","")] = el.value.trim().split("|")[0].replace("(","").replace(")","").trim();                
             }
@@ -125,8 +123,8 @@
                         {
                             if(Object.keys(data1).some(e1=> {return e1 == nomchamp['cname']}))
                             {
-                            let elValue =  Object.keys(data1).filter(e1=> {return e1 == nomchamp['cname']})[0];                                       
-                            $("#ActeRow"+data1.id_acte+ " td[name='"+[elValue]+"']").html(data1[elValue]);   
+                                let elValue =  Object.keys(data1).filter(e1=> {return e1 == nomchamp['cname']})[0];                                       
+                                $("#ActeRow"+data1.id_acte+ " td[name='"+[elValue]+"']").html(data1[elValue]);   
                             }
                         });    
 
@@ -234,16 +232,8 @@
                               
             let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
-            {         
-                if(listeChampsMoisG.includes(td.getAttribute("name")))
-                {
-                    $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ListeMoisG.filter(e=>  ListeMoisG.indexOf(e) == td.innerHTML.trim())[0]}`);                                                                                                                                                    
-                }
-                else if(listeChampsMoisH.includes(td.getAttribute("name")))
-                {
-                    $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ListeMoisH.filter(e=>  ListeMoisH.indexOf(e) == td.innerHTML.trim())[0]}`);
-                }                                                                                                                                   
-                else if(ListeIdField.includes(td.getAttribute("name")))
+            {                                                                                                                                       
+                if(ListeIdField.includes(td.getAttribute("name")))
                 {
                     if(td.getAttribute("name").trim().toLowerCase().includes("nation"))
                     {
@@ -381,7 +371,7 @@
             if(result[0] == "success")
             {
                 // success callback
-                 $("#text-list-lot").val("");
+                $("#text-list-lot").val("");
                 result[1].forEach(function(e)
                 {
                     $("#text-list-lot").val($("#text-list-lot").val() + e.id_lot + '\n');                    
@@ -536,22 +526,21 @@
                                             htmlFormField +="<hr/>"
                                             htmlFormField +='<div class="row"><div class="form-group col-md-6">'
                                                             +'<label for="field-'+ el +'"> ' + el + ' </label>'
-                                                            +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
-                                                            +'<datalist id="datalist-field-'+ el +'">'  
+                                                            +`<select id="field-${el}" class="form-control form-fillables">`
                                                             +'<option value=""> Aucun </option>'
                                             if(el.trim().toLowerCase()[el.trim().length -1] === "g")
                                             {
                                                 ListeMoisG.forEach((m,i)=> {                                                
-                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`
+                                                    htmlFormField += `<option value="${(i +1) < 10 ? "0" : ""}${i + 1}"> ${m} </option>`
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else
                                             {
                                                 ListeMoisH.forEach((m,i)=> {                             
-                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                   
+                                                    htmlFormField += `<option value="${(i + 1) < 10 ? "0" :""}${i + 1}"> ${m} </option>`
                                                 })                                                                                                                                                        
                                             }         
-                                            htmlFormField +='</datalist></div>'                                                 
+                                            htmlFormField +='</select></div>'                                                 
                                             htmlFormField += (data1.list_champs.length == (i+1)) ?  "</div>" : ""                                                                                      
                                         }
                                         else if(ListeIdField.includes(el))
@@ -605,22 +594,21 @@
                                         if(listeChampsMoisG.includes(el) || listeChampsMoisH.includes(el))
                                         {
                                             htmlFormField +='<div class="form-group col-md-6"><label for="field-'+ el +'"> '+ el +' </label>'
-                                                          +`<input class="form-control form-fillables" id="field-${el}" list="datalist-field-${el}" placeholder="rechercher...">`
-                                                          +'<datalist id="datalist-field-'+ el +'">'
+                                                          +`<select class="form-control form-fillables" id="field-${el}">`
                                                           +'<option value=""> Aucun </option>'                                                            
                                             if(el.trim().toLowerCase()[el.trim().length -1] === "g")
                                             {
                                                 ListeMoisG.forEach((m,i)=> {                        
-                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                        
+                                                    htmlFormField += `<option value="${(i + 1) < 10 ? "0" :""}${i + 1}"> ${m} </option>`
                                                 })                                                                                                                                                        
                                             }                                                                                                             
                                             else
                                             {
                                                 ListeMoisH.forEach((m,i)=> {                       
-                                                    htmlFormField += `<option value="(${(i +1) < 10 ? "0" :""}${i + 1}) | ${m}"/>`                         
+                                                    htmlFormField += `<option value="${(i + 1) < 10 ? "0" :""}${i + 1}"> ${m} </option>`
                                                 })                                                                                                                                                        
                                             }                                                                                                         
-                                            htmlFormField += '</datalist></div></div>'                                   
+                                            htmlFormField += '</select></div></div>'                                   
                                         }
                                         else if(ListeIdField.includes(el))
                                         {
