@@ -12,12 +12,11 @@ $(document).ready(function()
     $("#text-list-lot").val("");
 
     // Préparation des données à envoyer
-    var countNbLot = function(txt) 
+    var countNbLot = function(txt)
     {
         var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
         return txtArray.length;
     };   
-
 
     (async () => {
         // Récupération de la source 
@@ -61,7 +60,7 @@ $(document).ready(function()
             chemins += e + "\n";
             })
             $("#text-list-source").val(chemins);
-            $("#text-destination").val(`${preferencesData.destination_default}\\${$("#bd_name_link>span").text().trim()}\\${preferencesData.ppconcerne_default}`);
+            $("#text-destination").val(`${preferencesData.destination_default}\\${$("#bd_name_link>span").text().trim()}`);
         });
     })();    
 

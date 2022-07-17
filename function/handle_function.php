@@ -79,7 +79,7 @@ function EnumPrix($prix)
     }
 }
 
-function getPathLot($idLot, $bdextra, $basePath = null)
+function getPathLot($idLot, $bdextra, $basePath = null, $withService = false)
 {
     try {
         $idLot = ($idLot . '');
@@ -108,21 +108,19 @@ function getPathLot($idLot, $bdextra, $basePath = null)
         $tome = $idLot[5] . $idLot[6] . $idLot[7];
         $idbec = $idLot[8] . $idLot[9] . $idLot[10] . $idLot[11];
         $indice = $idLot[12];
-        $idcom = "";
         $tome_indice = ($indice == "0") ? intval($tome) : intval($tome) . "_" . $indice;
 
         // récupération du com
-        $qry = $bdextra->prepare('SELECT id_com from match_idbec where id_bec = ' . $idbec);
-
+        $qry = $bdextra->prepare('SELECT id_com,id_service from match_idbec where id_bec = ' . $idbec);
         $qry->execute();
-        $idcom = $qry->fetch()[0];
+        $obj_bd_extra = $qry->fetch(PDO::FETCH_OBJ);
 
         // formatage du chemin et retour
         // $PathImages = $annee;
         if ($basePath != null) {
-            $PathImages = $basePath . "\\" . $idcom . "\\" . $idbec . "\\" . $annee . "\\" . $typlot . "\\" . $tome_indice;
+            $PathImages = $basePath . "\\" . ($withService ? $obj_bd_extra->id_service . "\\" : "") . $obj_bd_extra->id_com . "\\" . $idbec . "\\" . $annee . "\\" . $typlot . "\\" . $tome_indice;
         } else {
-            $PathImages = $idcom . "\\" . $idbec . "\\" . $annee . "\\" . $typlot . "\\" . $tome_indice;
+            $PathImages = ($withService ? $obj_bd_extra->id_service . "\\" : "") . $obj_bd_extra->id_com . "\\" . $idbec . "\\" . $annee . "\\" . $typlot . "\\" . $tome_indice;
         }
 
         return $PathImages;
