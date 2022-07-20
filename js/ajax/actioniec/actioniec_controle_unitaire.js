@@ -12,14 +12,14 @@
     var ExtraIdData = {};
 
     // Liste des selecteurs des selecteurs
-    var liste_block1_naissance = ["jd_naissance_g", "md_naissance_g", "annee_naissance_g", "jd_naissance_h", "md_naissance_h", "annee_naissance_h", "lieu_naissance", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_fr", "nom_marge_ar", "nom_marge_fr", "sexe", "id_nationlite"];
-    var liste_block2_naissance = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "jd_naissance_pere_g", "md_naissance_pere_g", "annee_naissance_pere_g", "jd_naissance_pere_h", "md_naissance_pere_h", "annee_naissance_pere_h", "lieu_naissance_pere", "id_nationalite_pere", "id_profession_pere"];
-    var liste_block3_naissance = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "jd_naissance_Mere_g", "md_naissance_Mere_g", "annee_naissance_Mere_g", "jd_naissance_Mere_h", "md_naissance_Mere_h", "annee_naissance_Mere_h", "adresse_residence_parents", "id_nationalite_Mere", "id_profession_mere"];
+    var liste_block1_naissance = ["jd_naissance_g", "md_naissance_g", "ad_naissance_g", "jd_naissance_h", "md_naissance_h", "ad_naissance_h", "lieu_naissance", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_fr", "nom_marge_ar", "nom_marge_fr", "sexe", "id_nationlite"];
+    var liste_block2_naissance = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "jd_naissance_pere_g", "md_naissance_pere_g", "ad_naissance_pere_g", "jd_naissance_pere_h", "md_naissance_pere_h", "ad_naissance_pere_h", "lieu_naissance_pere", "id_nationalite_pere", "id_profession_pere"];
+    var liste_block3_naissance = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "jd_naissance_mere_g", "md_naissance_mere_g", "ad_naissance_mere_g", "jd_naissance_mere_h", "md_naissance_mere_h", "ad_naissance_mere_h", "adresse_residence_parents", "id_nationalite_Mere", "id_profession_mere"];
     var liste_block4_naissance = ["ad_etabli_acte_g", "md_etabli_acte_g", "jd_etabli_acte_g", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_h", "id_officier", "id_tribunal", "num_jugement", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h"];
 
-    var liste_block1_deces = ["ad_deces_g", "md_deces_g", "jd_deces_g", "ad_deces_h", "md_deces_h", "jd_deces_h", "Lieu_deces", "lieuresidence", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_ fr", "nom_marge_ar", "nom_marge_fr", "jd_naissance_g", "md_naissance_g", "annee_naissance_g", "jd_naissance_h", "md_naissance_h", "annee_naissance_h", "id_nationlite", "sexe", "lieu_naissance"];
-    var liste_block2_deces = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "lieu_résidence_pere_ar", "id_nationalite_pere", "id_profession_pere"];
-    var liste_block3_deces = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "id_nationaliteMere", "id_profession_mere"];
+    var liste_block1_deces = ["ad_deces_g", "md_deces_g", "jd_deces_g", "ad_deces_h", "md_deces_h", "jd_deces_h", "lieu_deces", "lieuresidence", "prenom_ar", "prenom_fr", "prenom_marge_ar", "prenom_marge_fr", "nom_ar", "nom_ fr", "nom_marge_ar", "nom_marge_fr", "jd_naissance_g", "md_naissance_g", "ad_naissance_g", "jd_naissance_h", "md_naissance_h", "ad_naissance_h", "id_nationlite", "sexe", "lieu_naissance"];
+    var liste_block2_deces = ["nom_pere_ar", "nom_pere_fr", "ascendant_pere_nom_ar", "ascendant_pere_nom_fr", "info_pere_marge_ar", "info_pere_marge_fr", "lieu_residence_pere_ar", "id_nationalite_pere", "id_profession_pere"];
+    var liste_block3_deces = ["nom_mere_ar", "nom_mere_fr", "ascendant_mere_nom_ar", "ascendant_mere_nom_fr", "info_mere_marge_ar", "info_mere_marge_fr", "id_nationalite_mere", "id_profession_mere"];
     var liste_block4_deces = ["ad_etabli_acte_g", "md_etabli_acte_g", "jd_etabli_acte_g", "ad_etabli_acte_h", "md_etabli_acte_h", "jd_etabli_acte_h", "id_officier", "id_tribunal", "num_jugement", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h"];
 
     // Selection des indicateurs 
@@ -107,6 +107,8 @@
                 data1[el.id.replace("field-","")] = el.value.trim();
             }
         });
+
+        console.log(data1);
 
         $.post(HostLink+'/proccess/ajax/actioniec/update_acte_unitaire.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
@@ -237,19 +239,19 @@
                 {
                     if(td.getAttribute("name").trim().toLowerCase().includes("nation"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite}`);                                                                                                                                                    
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim()).length > 0 ? ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite : "undifined"}`);                                                                                                                                                    
                     }                                                                                                             
                     else if(td.getAttribute("name").trim().toLowerCase().includes("profession"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession}`);                                                                                                                                   
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim()).length > 0 ? ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession : "undifined"}`);                                                                                                                                   
                     }        
                     else if(td.getAttribute("name").trim().toLowerCase().includes("officier"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim())[0].nom_officier_ar}`);
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim()).length > 0 ? ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim())[0].nom_officier_ar : "undifined"}`);
                     }
                     else if(td.getAttribute("name").trim().toLowerCase().includes("ville"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim())[0].lib_ville}`);
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim()).length > 0 ? ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim())[0].lib_ville : "undifined"}`);
                     }
                 }
                 else

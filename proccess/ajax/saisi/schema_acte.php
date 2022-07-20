@@ -102,7 +102,19 @@ $liste_champs_actes = [
   ["cposition" => 91, "cname" => "lisible2"],
   ["cposition" => 92, "cname" => "lisible3"],
   ["cposition" => 93, "cname" => "lisible4"],
-  ["cposition" => 94, "cname" => "remarque"]
+  ["cposition" => 94, "cname" => "remarque"],
+  ["cposition" => 95, "cname" => "nom_pere_ar"],
+  ["cposition" => 96, "cname" => "nom_pere_fr"],
+  ["cposition" => 97, "cname" => "ascendant_pere_nom_ar"],
+  ["cposition" => 98, "cname" => "ascendant_pere_nom_fr"],
+  ["cposition" => 99, "cname" => "nom_mere_ar"],
+  ["cposition" => 100, "cname" => "nom_mere_fr"],
+  ["cposition" => 101, "cname" => "ascendant_mere_nom_ar"],
+  ["cposition" => 102, "cname" => "ascendant_mere_nom_fr"],
+  ["cposition" => 103, "cname" => "info_pere_marge_ar"],
+  ["cposition" => 104, "cname" => "info_pere_marge_fr"],
+  ["cposition" => 105, "cname" => "info_mere_marge_ar"],
+  ["cposition" => 106, "cname" => "info_mere_marge_fr"]
 ];
 
 // Tableau champs à griser 
