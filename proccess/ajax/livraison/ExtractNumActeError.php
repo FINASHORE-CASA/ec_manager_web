@@ -11,8 +11,8 @@
                                 from acte a inner  
                                 join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
                                 where af.id_lot in (select id_lot from lot where status_lot = 'A')  
-                                and a.imagepath not like concat('%-',a.num_acte,'.%')  
-                                and a.imagepath not like concat( '%-',a.num_acte,'_%') 
+                                and a.imagepath not like concat('%-',a.num_acte,'.jpg')
+                                and a.imagepath not like concat('%-',a.num_acte,'_P%')
                                 and a.num_acte not like '%/%'
                                 union
                                 select af.id_lot,id_acte,num_acte,imagepath,af.id_tome_registre,status_acte
