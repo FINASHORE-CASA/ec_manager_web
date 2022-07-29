@@ -239,11 +239,11 @@
                 {
                     if(td.getAttribute("name").trim().toLowerCase().includes("nation"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim()).length > 0 ? ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite : "undifined"}`);                                                                                                                                                    
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim()).length > 0 ? ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite : "undifined"}`);
                     }                                                                                                             
                     else if(td.getAttribute("name").trim().toLowerCase().includes("profession"))
                     {
-                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim()).length > 0 ? ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession : "undifined"}`);                                                                                                                                   
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim()).length > 0 ? ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession : "undifined"}`);                                                                                                                              
                     }        
                     else if(td.getAttribute("name").trim().toLowerCase().includes("officier"))
                     {
@@ -262,13 +262,13 @@
          
             $.post(HostLink+'/proccess/ajax/actioniec/recup_acte_image.php',   // url
                 { myData: JSON.stringify(data1) }, // data to be submit
-                function(data, status, jqXHR) 
+                function(data, status, jqXHR)
                 {
-                    var result = JSON.parse(data);                                                                       
+                    var result = JSON.parse(data);
                     if(result[0] == "success")
                     {                    
-                        // Remplissage des champs du formulaire  
-                        acteInfo = result[1];  
+                        // Remplissage des champs du formulaire
+                        acteInfo = result[1];
 
                         if(result[2] == "yes")
                         {

@@ -34,4 +34,3 @@
         $fail[] = $e->getMessage();
         echo(json_encode($fail));
     }
-?>

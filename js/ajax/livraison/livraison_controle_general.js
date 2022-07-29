@@ -17,6 +17,7 @@ $(document).ready(function()
     var listLotError = "";
     let TomeErrone_data,NumActeError_data,ExtDoublonImageLot_data,CorrPOPFmissing_data,ExtractVoid_data
         ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data
+        ,Iscollectif_data,ControleMariageDivorce_data
 
     var initDataTable = function(dataTable) 
     {
@@ -165,6 +166,18 @@ $(document).ready(function()
        e.preventDefault(); 
     });
 
+    $("#ControleIsCollectif_dl").on("click",function(e)
+    {
+       download(Iscollectif_data,"REJETS_" + bd_name+ "_.xlsx");        
+       e.preventDefault(); 
+    });
+
+    $("#ControleMariageDivorce_dl").on("click",function(e)
+    {
+       download(ControleMariageDivorce_data,"REJETS_" + bd_name+ "_.xlsx");        
+       e.preventDefault();
+    });
+
     // Récupération de la destination 
     $.get(HostLink+'/proccess/ajax/livraison/get_destination.php'
     ,function(data,status,jqXHR)
@@ -192,6 +205,101 @@ $(document).ready(function()
         var nbLot = countNbLot($(this).val());
         $("#list-notif-idlot-livre").text(nbLot);
     });    
+
+    var ControleMariageDivorce = function(){
+        $.get(HostLink + '/proccess/ajax/livraison/ControleMariageDivorce.php',
+            function (data, status, jqXHR) {
+                console.log(data);
+                var result = JSON.parse(data);
+
+                if (result[0] == "success") {
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(11)").html("Contrôle Mariage/Divorce : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(11)").fadeIn(1000);
+                    $("#notif-Resultat-12").text(result[1].length);
+                    ControleMariageDivorce_data = result[1];
+
+                    // injection des données  
+                    htmlDataTable = "";
+                    result[1].forEach(e => {
+                        htmlDataTable += "<tr id='ControleMariageDivorce" + e.id_lot + "'>"
+                            + '<td > ' + e.id_lot + '</td>'
+                            + '<td > ' + e.id_acte + '</td>'
+                            + '<td > ' + e.num_acte + '</td>'
+                            + '<td > ' + e.id_collectif + '</td>'
+                            + "</tr>";
+
+                        // Ajout de l'IdLot dans les erronés
+                        if (!listLotError.includes(e.id_lot)) {
+                            listLotError += e.id_lot + "\n";
+                        }
+                    });
+
+                    $("#dataTableControleMariageDivorce").dataTable().fnDestroy();
+                    $("#TableControleMariageDivorce").html(htmlDataTable);
+                    initDataTable($('#dataTableControleMariageDivorce'));
+
+                    // Terminé le Lancement
+                    $("#text-list-lot-errone").val(listLotError);
+                    $("#indic-lot-error").text(countNbLot(listLotError));
+                    formLoader.fadeOut("slow");
+                    indicTermine.fadeIn(3000);
+                }
+
+                else {
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+            }
+        );
+    }
+
+    var ControleIsCollectif = () => {
+        $.get(HostLink + '/proccess/ajax/livraison/ControleIsCollectif.php',
+            function (data, status, jqXHR) {
+                console.log(data);
+                var result = JSON.parse(data);
+
+                if (result[0] == "success") {
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(10)").html("Contrôle is collectif : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(10)").fadeIn(1000);
+                    $("#notif-Resultat-11").text(result[1].length);
+                    Iscollectif_data = result[1];
+
+                    // injection des données  
+                    htmlDataTable = "";
+                    result[1].forEach(e => {
+                        htmlDataTable += "<tr id='ControleIsCollectif" + e.id_lot + "'>"
+                            + '<td > ' + e.id_lot + '</td>'
+                            + '<td > ' + e.id_acte + '</td>'
+                            + '<td > ' + e.num_acte + '</td>'
+                            + '<td > ' + e.id_collectif + '</td>'
+                            + "</tr>";
+
+                        // Ajout de l'IdLot dans les erronés
+                        if (!listLotError.includes(e.id_lot)) {
+                            listLotError += e.id_lot + "\n";
+                        }
+                    });
+
+                    $("#dataTableControleIsCollectif").dataTable().fnDestroy();
+                    $("#TableControleIsCollectif").html(htmlDataTable);
+                    initDataTable($('#dataTableControleIsCollectif'));
+
+                    // Terminé le Lancement
+                    ControleMariageDivorce();
+                }
+
+                else {
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+            }
+        );
+    }
         
     // Traitement ExtractVoid
     var Corr3minControleEnd = function() { 
@@ -212,10 +320,7 @@ $(document).ready(function()
                     console.log('success : '  + result[1]);
 
                     // Terminé le Lancement
-                    $("#text-list-lot-errone").val(listLotError);
-                    $("#indic-lot-error").text(countNbLot(listLotError));
-                    formLoader.fadeOut("slow");                        
-                    indicTermine.fadeIn(3000);  
+                    ControleIsCollectif();
                 }
                 else
                 {
