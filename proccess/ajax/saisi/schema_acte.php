@@ -1,11 +1,11 @@
 <?php
 
 $liste_champs_Jugement = [
-  "", "id_tribunal", "num_jugement", "num_dossier", "annee_dossier", "jd_etablissement_jugement_h", "md_etablissement_jugement_h", "ad_etablissement_jugement_h", "jd_etablissement_jugement_g", "md_etablissement_jugement_g", "ad_etablissement_jugement_g", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h", "j_reception_jugement_g", "md_reception_jugement_g", "ad_reception_jugement_g", "j_reception_jugement_h", "md_reception_jugement_h", "ad_reception_jugement_h"
+  "", "id_tribunal", "num_jugement", "num_dossier", "annee_dossier", "jd_etablissement_jugement_h", "md_etablissement_jugement_h", "ad_etablissement_jugement_h", "jd_etablissement_jugement_g", "md_etablissement_jugement_g", "ad_etablissement_jugement_g", "j_prononciation_jugement_g", "md_prononciation_jugement_g", "ad_prononciation_jugement_g", "j_prononciation_jugement_h", "md_prononciation_jugement_h", "ad_prononciation_jugement_h", "j_reception_jugement_g", "md_reception_jugement_g", "ad_reception_jugement_g", "j_reception_jugement_h", "md_reception_jugement_h", "ad_reception_jugement_h", "denominationjugement", "dispositifjugement", "objetjugement", "signofficier", "objetjugement_fr", "id_ville", "is_collectif"
 ];
 
 $liste_champs_deces = [
-  "", "jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "md_deces_g", "ad_deces_g", "heure_deces", "minute_deces", "lieu_deces", "lieuresidence", "lieu_residence_pere_ar", "lieu_residence_mere_ar", "id_profession", "statutfamilialle"
+  "", "jd_deces_h", "md_deces_h", "ad_deces_h", "jd_deces_g", "md_deces_g", "ad_deces_g", "heure_deces", "minute_deces", "lieu_deces", "id_profession", "statutfamilialle", "lieuresidence", "lieuresidence_fr", "lieu_deces_fr", "lieu_residence_pere_ar", "lieu_residence_pere_fr", "lieu_residence_mere_ar", "lieu_residence_mere_fr", "id_ville_deces", "id_ville_adresse_mere", "id_ville_adresse_pere", "id_ville_adresse"
 ];
 
 $liste_champs_actes = [
@@ -118,4 +118,4 @@ $liste_champs_actes = [
 ];
 
 // Tableau champs à griser 
-$champs_gris = ['', 'id_lot', 'id_acte', 'id_type_acte', 'id_tome_registre', 'utilisateur_creation', 'date_creation', 'utilisateur_modification', 'date_modification', 'id_bureau', 'id_commune', 'status_acteechantillon', 'id_ville_naissance', 'id_ville_naissance_pere', 'id_ville_naissance_mere', 'id_ville_residence_parents', 'date_statut_oec', 'image1', 'image2', 'image3', 'image4', 'lisible1', 'lisible2', 'lisible3', 'lisible4'];
+$champs_gris = ['', 'id_lot', 'id_acte', 'id_type_acte', 'id_tome_registre', 'utilisateur_creation', 'date_creation', 'utilisateur_modification', 'date_modification', 'id_bureau', 'id_commune', 'status_acteechantillon', 'date_statut_oec', 'image1', 'image2', 'image3', 'image4', 'lisible1', 'lisible2', 'lisible3', 'lisible4'];
