@@ -13,7 +13,7 @@ $(document).ready(function()
     ,ResultatData = $("#resultat_data");    
     $("#text-list-lot").val("");
     var bd_name = $("#bd_name_link>span").text().trim().toUpperCase();
-    
+ 
     var listLotError = "";
     let TomeErrone_data,NumActeError_data,ExtDoublonImageLot_data,CorrPOPFmissing_data,ExtractVoid_data
         ,ExtLotCountError_data,CheckImagePathAndBdd_data,CorrDateControle_data,ChecksStat_data

@@ -26,7 +26,7 @@ try {
 
     // Deces update statement
     foreach ($formData as $key => $value) {
-        if (array_search($key, $liste_champs_deces)) {
+        if (array_search($key, $liste_champs_deces) && !array_search($key, $not_update)) {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_deces[] = "{$key} = null";
             } else {
@@ -37,7 +37,7 @@ try {
 
     // Jugement update statement
     foreach ($formData as $key => $value) {
-        if (array_search($key, $liste_champs_Jugement)) {
+        if (array_search($key, $liste_champs_Jugement) && !array_search($key, $not_update)) {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_jugement[] = "{$key} = null";
             } else {
