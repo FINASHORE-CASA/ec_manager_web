@@ -178,28 +178,6 @@ $(document).ready(function()
        e.preventDefault();
     });
 
-    // Récupération de la destination 
-    $.get(HostLink+'/proccess/ajax/livraison/get_destination.php'
-    ,function(data,status,jqXHR)
-    {
-        var result = JSON.parse(data);                               
-        
-        if(result[0] == "success")
-        {
-            // success callback
-            $("#text-destination").val(result[1]);
-        }
-        else
-        {
-            console.log('message error : ' + result);
-            console.log(result);
-        }
-    })
-    .fail(function(res){
-        console.log("fail");
-        console.log(res);
-    }); 
-
     $("#text-list-lot-livre").on("keyup",function(e) 
     {
         var nbLot = countNbLot($(this).val());

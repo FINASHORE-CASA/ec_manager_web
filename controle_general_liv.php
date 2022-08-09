@@ -594,7 +594,7 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
     <script src="js/owner/set_side_bar.js"></script>
     <script src="js/owner/page_indicateur.js"></script>
     <script src="js/owner/count_lot.js"></script>
-    <script src="js/ajax/livraison/livraison_controle_general.js?version=1.0.2"></script>
+    <script src="js/ajax/livraison/livraison_controle_general.js?version=1.0.3"></script>
 
     <script>
       $(document).ready(function(e) {
