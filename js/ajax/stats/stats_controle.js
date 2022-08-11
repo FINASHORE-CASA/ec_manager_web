@@ -20,12 +20,6 @@
     let mention_manquant_db;
 
     // Préparation des données à envoyer
-    var countNbLot = function(txt) 
-    {
-        var txtArray =  txt.split("\n").filter(function(el) {return el.trim().length != 0});        
-        return txtArray.length;
-    };     
-
     var show_alert = function(theme_color,title,text="",time=5)
     {
         $("#alert-container").html('<div id="alert_box" class="alert alert-'+theme_color+' alert-dismissible fade show mt-2" role="alert">'
@@ -63,55 +57,6 @@
             }
         });
     };
-
-    var get_id_lots = function()
-    {
-        // Récupération de la source 
-        $.get(HostLink+'/proccess/ajax/livraison/get_id_lot.php'
-        ,function(data,status,jqXHR)
-        {
-            var result = JSON.parse(data);                               
-            
-            if(result[0] == "success")
-            {
-                // success callback
-                result[1].forEach(function(e)
-                {
-                    $("#text-list-lot").val($("#text-list-lot").val() + e.id_lot + '\n');                    
-                    txtControleNotif.css("color","#20c9a6");
-                    txtNbLot.css("borderColor","#20c9a6");
-                    txtNbLot.css("color","#20c9a6");
-                    txtNbLot.text(countNbLot($("#text-list-lot").val()));
-                });                
-            }
-            else
-            {
-                console.log('message error : ' + result);
-                console.log(result);
-            }
-        })
-        .fail(function(res){
-            console.log("fail");
-            console.log(res);
-        });  
-    };
-
-    $("#show_all").on("click",function(){
-
-        if($(this)[0].checked == true)
-        {
-            textListLot.val("");
-            textListLot.attr("disabled","true");
-            
-            // Recherche des actes concernés            
-            get_id_lots(); 
-        }
-        else
-        {
-            textListLot.removeAttr("disabled");
-        }
-    })
-    $("#show_all")[0].checked = false;
 
     function download(data_excel,fileName) 
     {        
@@ -206,8 +151,8 @@
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR) 
             {                          
+                console.log(data);
                 var result = JSON.parse(data);  
-                console.log(result);
                 
                 if(result[0] == "success")
                 {
@@ -228,9 +173,9 @@
                     result[1].forEach(e => {   
                         
                         htmlDataTable += "<tr>"
-                                        + "<th> "+ e.id_lot +" </th>"
                                         + "<th> "+ e.login +" </th>"
-                                        + "<th> "+ e.nb_acte +" </th>"
+                                        + "<th> "+ e.id_lot +" </th>"
+                                        // + "<th> "+ e.nb_acte +" </th>"
                                         + "<th> "+ e.nb_acte_ctr +" </th>"
                                         + "<th> "+ e.date_ctr +" </th>"
                                         +"</tr>"
@@ -253,16 +198,10 @@
 
     btnControle.on('click',function(e)
     {
-        var nbLot = countNbLot(textListLot.val());
-        listLotError = "";
         $("#text-list-lot-errone").val("");
-        console.log(nbLot);
-        if(nbLot == 0)
-        {
-            txtControleNotif.css("color","red");
-            txtControleNotif.text("aucun lot renseigné.");
-        }
-        else
+        e.preventDefault();        
+        
+        if($("#date_gen_deb_acte").val() != "" && $("#date_gen_fin_acte").val() != "")
         {
             // hide previous result
             $("#liste-indic li").fadeOut("slow");
@@ -273,10 +212,10 @@
 
             // traitement des lots             
             var data1 = {
-                id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
+                date_debut: $("#date_gen_deb_acte").val(),
+                date_fin: $("#date_gen_fin_acte").val(),
             }                    
             stats_controle_unitaire(data1)
         }
-        e.preventDefault();        
     });
 });
