@@ -61,7 +61,7 @@
                 $qry = $bdd->prepare("DELETE from transcription where id_acte = :id_acte;");                       
                 $qry->bindParam(':id_acte', $actesup->id_acte); 
                 $qry->execute();                        
-                $qry = $bdd->prepare("DELETE from controle_mention where id_mention in (select id_mention from mention where id_acte = :id_acte;");                       
+                $qry = $bdd->prepare("DELETE from controle_mention where id_mention in (select id_mention from mention where id_acte = :id_acte);");                       
                 $qry->bindParam(':id_acte', $actesup->id_acte); 
                 $qry->execute();                       
                 $qry = $bdd->prepare("DELETE from mention where id_acte = :id_acte;");                       

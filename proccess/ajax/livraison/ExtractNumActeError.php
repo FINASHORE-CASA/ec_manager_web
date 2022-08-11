@@ -9,11 +9,7 @@ try {
     $qry = $bdd->prepare("  SELECT af.id_lot,id_acte,num_acte,imagepath,af.id_tome_registre,status_acte  
                                 from acte a inner  
                                 join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
-<<<<<<< HEAD
-                                where af.id_lot in (select id_lot from lot where status_lot = 'A')  
-=======
                                 where af.id_lot in (select id_lot from lot where status_lot = 'A')   
->>>>>>> c30cfee51945847380ad1fa2be44351804bb645d
                                 and a.imagepath not like concat('%-',a.num_acte,'.jpg')
                                 and a.imagepath not like concat('%-',a.num_acte,'_P%')
                                 and a.num_acte not like '%/%'

@@ -38,7 +38,7 @@
 
             if (!empty($repChemin) && is_dir($repChemin)) 
             {
-                $listImageDirectories = array_values(array_filter(scandir($repChemin),function($e){ return ($e != "." && $e != ".." && !str_contains($e,"PO") && !str_contains($e,"PF")) ;}));
+                $listImageDirectories = array_values(array_filter(scandir($repChemin),function($e){ return ($e != "." && $e != ".." && !str_contains($e,"PO") && !str_contains($e,"PF") && str_contains($e,".tif"));}));
                 
                 // checks des images 
                 foreach ($listImageDirectories as $img)
