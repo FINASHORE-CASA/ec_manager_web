@@ -79,29 +79,29 @@ $date_gen = date("Y-m-d");
                         <h6 class="m-0 font-weight-bold text-white"> Liste des lots à générer</h6>
                       </div>
                       <div class="card-body">
-                        <div id="form-idlot-field" class="row">
+                        <div id="form-idlot-field" class="row mt-2">
+
                           <div class="form-group col-md-4">
-                            <div class="form-group">
-                              <textarea class="form-control" id="text-list-lot" rows="9" style="align-content:center; overflow:auto;">
-                                    </textarea>
+                            <div class="input-group col-md-12 col-lg-12">
+                              <div class="input-group-prepend">
+                                <button type="button" class="btn btn-outline-secondary" style="z-index:inherit"> Du : </button>
+                              </div>
+                              <input type="date" class="form-control date_debut" id="date_gen_deb_acte" name="date_gen_deb" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                             </div>
                           </div>
-                          <div class="col-md-8">
-                            <div class="d-flex justify-content-center mt-5">
-                              <div id="txt-nb-lot" style="border: 1px solid gray;border-radius:100%;padding:35px;font-size:27px;">00</div>
-                            </div>
-                            <div class="d-flex justify-content-center mt-4">
-                              <p id="txt-nb-lot-notif" text-std="Le Contrôle sera effectué sur ces lots"> </p>
+                          <div class="form-group col-md-4">
+                            <div class="input-group col-md-12 col-lg-12">
+                              <div class="input-group-prepend">
+                                <button type="button" class="btn btn-outline-secondary" style="z-index:inherit"> Au : </button>
+                              </div>
+                              <input type="date" class="form-control date_fin" id="date_gen_fin_acte" name="date_gen_fin" value="<?= $date_gen ?>" aria-label="Text input with segmented dropdown button" required />
                             </div>
                           </div>
-                        </div>
-                        <div class="form-inline ml-3">
-                          <label for="show_all"> Selectionner tous les lots </label>
-                          <input type="checkbox" class="form-control ml-1" id="show_all" />
+
                         </div>
                         <div id="form-lot-loader" style="position: absolute;background:rgba(255, 255, 255,0.8);top:0;width:100%;left:0px;height:100%;display:none;z-index:10;">
-                          <div class="d-flex justify-content-center" style="padding-top: 9em;">
-                            <img src="./img/loader.gif" alt="loader wait" />
+                          <div class="d-flex justify-content-center" style="padding-top: 6em;">
+                            <img src="./img/loader.gif" alt="loader wait" style="height: 50px;" />
                           </div>
                           <div class="d-flex justify-content-center mt-3" style="color: black;">
                             <p> <b> Traitement en cours ... </b></p>
@@ -164,9 +164,9 @@ $date_gen = date("Y-m-d");
                           <table class="table table-bordered" id="dataTableStatsControleUnitaire" width="100%" cellspacing="0">
                             <thead>
                               <tr>
-                                <th> Lot </th>
                                 <th> Login </th>
-                                <th> Nombre actes </th>
+                                <th> Lot </th>
+                                <!-- <th> Nombre actes </th> -->
                                 <th> Nombre actes Controlés </th>
                                 <th> Date Controle </th>
                               </tr>
@@ -175,9 +175,9 @@ $date_gen = date("Y-m-d");
 
                             </tbody>
                             <tfoot>
-                              <th> Lot </th>
                               <th> Login </th>
-                              <th> Nombre actes </th>
+                              <th> Lot </th>
+                              <!-- <th> Nombre actes </th> -->
                               <th> Nombre actes Controlés </th>
                               <th> Date Controle </th>
                             </tfoot>
@@ -271,7 +271,7 @@ $date_gen = date("Y-m-d");
   <script src="js/modal-fullscreen.js"></script>
   <script src="js/owner/count_lot.js"></script>
   <!-- next version -- 1.0.3   -->
-  <script src="js/ajax/stats/stats_controle.js?version=1.0.3"></script>
+  <script src="js/ajax/stats/stats_controle.js?version=1.0.5"></script>
 
   <script>
     $(document).ready(function(e) {
