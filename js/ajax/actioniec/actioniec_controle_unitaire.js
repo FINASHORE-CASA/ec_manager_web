@@ -79,48 +79,19 @@
         )
     })();
 
-    // Sauvegarde des actions à faire    
-    function save_action(id_lot,id_acte,id_user_ctr,acteDepart=null,acteFin=null)
+    function save_action(id_lot,id_acte,id_user_ctr)
     {
-        var data1 = {id_lot:id_lot,id_acte:id_acte,id_user_ctr:id_user_ctr,type_action:"controle_unitaire"}        
-        let fieldModif = []
+        var data1 = {id_lot:id_lot,id_acte:id_acte,id_user_ctr:id_user_ctr,type_action:"controle_unitaire"}
 
-        for(const key in acteFin)
-        {
-            if(Object.hasOwnProperty.call(acteDepart,key))
+        $.post(HostLink+'/proccess/ajax/gestion_user/save_action.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
             {
-                let val_dep = acteDepart[key] == "null" ? "" : acteDepart[key]
-                let val_fin = acteFin[key] == "null" ? "" : acteFin[key]
-                if(ListeIdField.includes(key))
-                {        
-                    val_dep = val_dep.trim().split("|")[0].replace("(","").replace(")","").trim();            
-                }   
-
-                if(val_dep != val_fin)
-                {
-                    fieldModif.push({field:key,old_value:acteDepart[key],new_value:acteFin[key]})
-                }
+                console.log("action enregistrée")
             }
-        }
-
-        if(fieldModif.length > 0)
-        {
-            data1["fields"] = fieldModif
-
-            $.post(HostLink+'/proccess/ajax/gestion_user/save_action.php',   // url
-            { myData: JSON.stringify(data1) }, // data to be submit
-                function(data, status, jqXHR) 
-                {
-                    console.log("action enregistrée")
-                }
-            )
-        }
-        else
-        {
-            console.log("aucune action enregistrée")
-        }
+        )
     }
-
+    
     $(".form-update-save").on("click",function(e)
     {
         var data1 = {}
@@ -137,11 +108,13 @@
             }
         });
 
+        console.log(data1);
+
         $.post(HostLink+'/proccess/ajax/actioniec/update_acte_unitaire.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR)
             {
-                var result = JSON.parse(data);                 
+                var result = JSON.parse(data);    
 
                 if(result[0] == "success")
                 {                    
@@ -157,7 +130,7 @@
                             }
                         });    
 
-                        save_action(data1.id_lot,data1.id_acte,$("#field-Id_user").val(),acteInfo,data1);                         
+                        save_action(data1.id_lot,data1.id_acte,$("#field-Id_user").val());                         
 
                         $("#ActeModal").modal("hide");                        
                         $(".btn-form-modal-cancel").trigger("click");
@@ -179,7 +152,6 @@
                     // Alert
                     $("#ActeModal").modal("hide");                        
                     $(".btn-form-modal-cancel").trigger("click");
-
                     // mis en place de l'alert 
                     show_alert("danger","Erreur lors de la Modification","type erreur : not successful",10);
                     console.log('message error : ' + result);
@@ -246,53 +218,46 @@
         // Remplissage des informations de l'acte
         btnEdit.on("click",function(e){
                         
-            // Lancement du chargement des information    
+            // Lancement du chargement des information            
+            // $("#img-next").attr("disabled","true");
+            // $("#img-prev").attr("disabled","true");
             $("#form-acte-loader").css("display","block");
             e.preventDefault()
-            
-            acteInfo = [];
+
             // Récupération de l'Id du click
             var data1 = {
                 id_acte: $(this).attr("idActe"),
                 id_lot:$(this).attr("id_lot"),
                 imagepath:$(this).attr("imagepath")
             }     
-            acteInfo = data1;
+            acteInfo = [];
                               
             let listTd = $("#ActeRow"+data1.id_acte+" td");                                  
             listTd.each((i,td) => 
             {                                                                                                                                       
-                let val = ""
                 if(ListeIdField.includes(td.getAttribute("name")))
                 {
                     if(td.getAttribute("name").trim().toLowerCase().includes("nation"))
                     {
-                        val = `(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim()).length > 0 ? ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite : "undifined"}`
-                        $(`#field-${td.getAttribute("name")}`).val(val)
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim()).length > 0 ? ExtraIdData["nationalites"].filter(e=>e.id_nationalite == td.innerHTML.trim())[0].nationalite : "undifined"}`);
                     }                                                                                                             
                     else if(td.getAttribute("name").trim().toLowerCase().includes("profession"))
                     {
-                        val = `(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim()).length > 0 ? ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession : "undifined"}`
-                        $(`#field-${td.getAttribute("name")}`).val(val)                                                                                                                              
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim()).length > 0 ? ExtraIdData["professions"].filter(e=>e.id_profession == td.innerHTML.trim())[0].profession : "undifined"}`);                                                                                                                              
                     }        
                     else if(td.getAttribute("name").trim().toLowerCase().includes("officier"))
                     {
-                        val = `(${td.innerHTML.trim()}) | ${ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim()).length > 0 ? ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim())[0].nom_officier_ar : "undifined"}`
-                        $(`#field-${td.getAttribute("name")}`).val(val)
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim()).length > 0 ? ExtraIdData["officiers"].filter(e=>e.id_officier == td.innerHTML.trim())[0].nom_officier_ar : "undifined"}`);
                     }
                     else if(td.getAttribute("name").trim().toLowerCase().includes("ville"))
                     {
-                        val = `(${td.innerHTML.trim()}) | ${ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim()).length > 0 ? ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim())[0].lib_ville : "undifined"}`
-                        $(`#field-${td.getAttribute("name")}`).val(val);
+                        $(`#field-${td.getAttribute("name")}`).val(`(${td.innerHTML.trim()}) | ${ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim()).length > 0 ? ExtraIdData["villes"].filter(e=>e.id_ville == td.innerHTML.trim())[0].lib_ville : "undifined"}`);
                     }
-                    acteInfo[td.getAttribute("name")] = val;
                 }
                 else
                 {
-                    val = td.innerHTML.trim()
-                    $(`#field-${td.getAttribute("name")}`).val(val);
+                    $(`#field-${td.getAttribute("name")}`).val(td.innerHTML.trim());
                 }
-                acteInfo[td.getAttribute("name")] = val;
             })
          
             $.post(HostLink+'/proccess/ajax/actioniec/recup_acte_image.php',   // url
@@ -302,6 +267,9 @@
                     var result = JSON.parse(data);
                     if(result[0] == "success")
                     {                    
+                        // Remplissage des champs du formulaire
+                        acteInfo = result[1];
+
                         if(result[2] == "yes")
                         {
                             $ImageTab = result[1].imagepath.split(";;");
@@ -442,7 +410,6 @@
             textListLot.removeAttr("disabled");
         }
     })
-    
     $("#show_all")[0].checked = false;
     
     function getListeBlock (liste_champs_block)
@@ -508,12 +475,16 @@
             notifResultat.fadeOut("fast"); 
             ResultatData.fadeOut("fast");    
 
+
             let liste_champs_block = getListeBlock($("#list_blocks").val())
             // traitement des lots             
             var data1 = {
                 id_lot: textListLot.val().trim().replace(/[\n\r]/g,', '),
                 list_champs: selectBoxListChamps.val().length > 0 ? selectBoxListChamps.val() : liste_champs_block
             }     
+
+            console.log(liste_champs_block);
+            console.log(data1);
 
             // Traitement Image Vide 
             $.post(HostLink+'/proccess/ajax/actioniec/controle_unitaire.php',   // url
@@ -687,6 +658,10 @@
                                 // Redéfinition du click sur le bouton effacer                            
                                 $(".btn-form-modal-cancel").on("click", function(e) 
                                 {                
+                                    console.log($("#field-id_lot").val())
+                                    console.log($("#field-id_acte").val())
+                                    console.log($("#field-Id_user").val())
+                                    save_action($("#field-id_lot").val(),$("#field-id_acte").val(),$("#field-Id_user").val());                         
                                     // Rétablissement des champs du formulaire    
                                     $("#form-fields-fillables .form-control").each((i,e) => {  e.value = ""})
                                     $("#img-block").html("");                                                                                                                    
@@ -764,7 +739,8 @@
         if($(this).val().length > 0)
         {
             selectBoxListChamps.selectpicker('deselectAll')
-            selectBoxListChamps.selectpicker('refresh')   
+            selectBoxListChamps.selectpicker('refresh')        
+            // selectBoxListChamps.attr("disabled","true")
         }
     });
 
@@ -774,6 +750,7 @@
         {
             $("#list_blocks").selectpicker('deselectAll')
             $("#list_blocks").selectpicker('refresh')        
+            // selectBoxListChamps.attr("disabled","true")
         }
     });
 

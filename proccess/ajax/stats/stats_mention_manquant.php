@@ -10,8 +10,8 @@ try {
     $qry = $bdextra->prepare("SELECT id_lot,id_acte,login,mention_acte,mention_corr,date_cont
                                 from mention_manq_acte m
                                 inner join mg_user u on u.id_user = m.id_user
-                                where date_cont >= $formData->date_debut and date_cont <= $formData->date_fin");
-    $qry->execute();
+                                where date_cont >= ? and date_cont <= ?");
+    $qry->execute(array($formData->date_debut, $formData->date_fin));
     $stats = $qry->fetchAll(PDO::FETCH_OBJ);
     $result[] = $stats;
 
