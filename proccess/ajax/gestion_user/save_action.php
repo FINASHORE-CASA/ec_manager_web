@@ -10,7 +10,6 @@ try {
     $fields = $formData->fields;
 
     // Begining of transaction
-
     $bdextra->beginTransaction();
     //insert action
     $qry = $bdextra->prepare("INSERT into action_user_ctr (id_acte,id_lot,type_action,date_action,id_user_ctr) 
