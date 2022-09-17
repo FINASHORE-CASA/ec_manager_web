@@ -79,32 +79,52 @@
         )
     })();
 
-     function save_action(id_lot,id_acte,id_user_ctr,acteDepart=null,acteFin=null)
+    function save_action(id_lot,id_acte,id_user_ctr,acteDepart=null,acteFin=null,is_consult=false)
     {
         var data1 = {id_lot:id_lot,id_acte:id_acte,id_user_ctr:id_user_ctr,type_action:"controle_unitaire"}        
         let fieldModif = []
 
-        for(const key in acteFin)
+        if(!is_consult)
         {
-            if(Object.hasOwnProperty.call(acteDepart,key))  
+            for(const key in acteFin)
             {
-                let val_dep = acteDepart[key] == "null" ? "" : acteDepart[key]
-                let val_fin = acteFin[key] == "null" ? "" : acteFin[key]
-                if(ListeIdField.includes(key))
-                {        
-                    val_dep = val_dep.trim().split("|")[0].replace("(","").replace(")","").trim();            
-                }   
-
-                if(val_dep != val_fin)
+                if(Object.hasOwnProperty.call(acteDepart,key))  
                 {
-                    fieldModif.push({field:key,old_value:acteDepart[key],new_value:acteFin[key]})
-                }
+                    let val_dep = acteDepart[key] == "null" ? "" : acteDepart[key]
+                    let val_fin = acteFin[key] == "null" ? "" : acteFin[key]
+                    if(ListeIdField.includes(key))
+                    {        
+                        val_dep = val_dep.trim().split("|")[0].replace("(","").replace(")","").trim();            
+                    }   
+
+                    if(val_dep != val_fin)
+                    {
+                        fieldModif.push({field:key,old_value:acteDepart[key],new_value:acteFin[key]})
+                    }
+                }  
+            }
+
+            if(fieldModif.length > 0)
+            {
+                data1["is_consult"] = false
+                data1["fields"] = fieldModif
+
+                $.post(HostLink+'/proccess/ajax/gestion_user/save_action.php',   // url
+                { myData: JSON.stringify(data1) }, // data to be submit
+                    function(data, status, jqXHR) 
+                    {
+                        console.log("action enregistrée")
+                    }
+                )
+            }
+            else
+            {
+                console.log("aucune action enregistrée")
             }  
         }
-
-        if(fieldModif.length > 0)
+        else
         {
-            data1["fields"] = fieldModif
+            data1["is_consult"] = true
 
             $.post(HostLink+'/proccess/ajax/gestion_user/save_action.php',   // url
             { myData: JSON.stringify(data1) }, // data to be submit
@@ -113,11 +133,7 @@
                     console.log("action enregistrée")
                 }
             )
-        }
-        else
-        {
-            console.log("aucune action enregistrée")
-        }                
+        }              
     }
     
     $(".form-update-save").on("click",function(e)
@@ -341,13 +357,16 @@
                             resetButton[0].addEventListener('click', panzoom.reset);
                             resetButton[1].addEventListener('click', (e) => e.preventDefault());
                             resetButton[1].addEventListener('click', panzoom.reset);
+                    
+                            // Sauvegarde de la consultation
+                            save_action(data1.id_lot,data1.id_acte,$("#field-Id_user").val(),null,null,true); 
                         }           
                         else
                         {
                             $("#img-block").html("");
                             $(".block-img-change").html("");
                         }
-                        startSwitchImage();
+                        startSwitchImage();                     
                     }
                     else
                     {
