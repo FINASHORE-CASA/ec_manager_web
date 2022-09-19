@@ -17,6 +17,7 @@
     
     var listLotError = "";
     let controle_unitaire_db;
+    let controle_consultation_unitaire_db;
     let mention_manquant_db;
 
     // Préparation des données à envoyer
@@ -91,6 +92,12 @@
        e.preventDefault(); 
     });
 
+    $("#StatsControleUnitaireConsult_dl").on("click",function(e)
+    {         
+       download(controle_consultation_unitaire_db,"STATS_CONSULTATION_CONTROLE_UNITAIRE.xlsx");        
+       e.preventDefault(); 
+    });
+
     $("#StatsMentionManquant_dl").on("click",function(e)
     {         
        download(mention_manquant_db,"STATS_MENTION_MANQUANT.xlsx");        
@@ -110,14 +117,14 @@
                 {
                     // success callback
                     // display result    
-                    $("#liste-indic li:eq(1)").html(" Stats Mention Manquants : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
-                    $("#liste-indic li:eq(1)").fadeIn(1000);
+                    $("#liste-indic li:eq(2)").html(" Stats Mention Manquants : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(2)").fadeIn(1000);
                     console.log('success : '  + result[1].length);
 
                     // paramétrage de l'affichage
                     notifResultat.fadeIn("slow");
                     ResultatData.fadeIn("slow");
-                    $("#notif-Resultat-2").text(result[1].length);
+                    $("#notif-Resultat-3").text(result[1].length);
                     mention_manquant_db = result[1];
                                             
                     // injection des données                             
@@ -146,6 +153,57 @@
                     console.log('message error : ' + result);
                     console.log(result);
                 }
+            }
+        );  
+    }
+
+    function stats_consult_controle_unitaire(data1)
+    {     
+        $.post(HostLink+'/proccess/ajax/stats/stats_controle_unitaire_consult.php',   // url
+        { myData: JSON.stringify(data1) }, // data to be submit
+            function(data, status, jqXHR) 
+            {                          
+                var result = JSON.parse(data);  
+                console.log(result);
+                
+                if(result[0] == "success")
+                {
+                    // success callback
+                    // display result    
+                    $("#liste-indic li:eq(1)").html(" Stats Consult Contrôle Unitaire : (" + result[1].length + ") <i class='fas fa-check text-success' style='margin-left:5px;font-size:20px;'></i>");
+                    $("#liste-indic li:eq(1)").fadeIn(1000);
+                    console.log('success : '  + result[1].length);
+
+                    // paramétrage de l'affichage
+                    notifResultat.fadeIn("slow");
+                    ResultatData.fadeIn("slow");
+                    $("#notif-Resultat-2").text(result[1].length);
+                    controle_consultation_unitaire_db = result[1];
+                                            
+                    // injection des données                             
+                    htmlDataTable = "";    
+                    result[1].forEach(e => {   
+                        
+                        htmlDataTable += "<tr>"
+                                        + "<th> "+ e.id_lot +" </th>"
+                                        + "<th> "+ e.login +" </th>"
+                                        // + "<th> "+ e.nb_acte +" </th>"
+                                        + "<th> "+ e.nb_acte_ctr +" </th>"
+                                        + "<th> "+ e.date_ctr +" </th>"
+                                        +"</tr>"
+                    });
+                    
+                    $("#dataTableStatsControleUnitaireConsult").dataTable().fnDestroy()
+                    $("#TableStatsControleUnitaireConsult").html(htmlDataTable);
+                    initDataTable($('#dataTableStatsControleUnitaireConsult'));                                                                                                                                      
+                }
+                else
+                {
+                    console.log('message error : ' + result);
+                    console.log(result);
+                }
+                
+                stats_mention_manquant(data1)  
             }
         );  
     }
@@ -196,7 +254,7 @@
                     console.log(result);
                 }
                 
-                stats_mention_manquant(data1)  
+                stats_consult_controle_unitaire(data1)  
             }
         );  
     }

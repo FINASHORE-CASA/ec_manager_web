@@ -10,8 +10,8 @@ try {
     $qry = $bdextra->prepare("SELECT id_lot,login,count(distinct id_acte) as nb_acte_ctr,to_char(date_action,'DD/MM/YYYY') as date_ctr
                                 from action_user_ctr ac
                                 inner join  mg_user u on u.id_user = ac.id_user_ctr
-                                inner join action_field af on af.id_action = ac.id
-                                where date_action >= ? and date_action <= ?
+                                left join action_field af on af.id_action = ac.id
+                                where date_action >= ? and date_action <= ? and af.id_action is null
                                 group by id_lot,login,to_char(date_action,'DD/MM/YYYY')
                                 order by id_lot,login,date_ctr");
     $qry->execute(array($formData->date_debut, $formData->date_fin));
