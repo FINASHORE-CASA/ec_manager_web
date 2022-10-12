@@ -7,7 +7,7 @@ function var_dumper($variable, $die = false)
         die();
 }
 
-function str_contains(string $haystack, string $needle)
+function str_contains($haystack,$needle)
 {
     return (strpos($haystack, $needle) !== false);
 }
