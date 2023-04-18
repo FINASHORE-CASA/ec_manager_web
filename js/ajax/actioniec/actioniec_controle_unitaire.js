@@ -152,8 +152,6 @@
             }
         });
 
-        console.log(data1);
-
         $.post(HostLink+'/proccess/ajax/actioniec/update_acte_unitaire.php',   // url
         { myData: JSON.stringify(data1) }, // data to be submit
             function(data, status, jqXHR)

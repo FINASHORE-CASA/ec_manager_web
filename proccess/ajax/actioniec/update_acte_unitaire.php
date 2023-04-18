@@ -16,8 +16,11 @@ try {
     // Acte update statement
     foreach ($formData as $key => $value) {
         if (!array_search($key, $not_update) && !array_search($key, $liste_champs_deces) && !array_search($key, $liste_champs_Jugement)) {
-            if (strlen($value) == 0 || $value == 'null') {
+            if ($value == 'null') {
                 $update_statement_acte[] = "{$key} = null";
+            }
+            if (strlen($value) == 0) {
+                $update_statement_acte[] = "{$key} = ''";
             } else {
                 $update_statement_acte[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
@@ -29,6 +32,9 @@ try {
         if (array_search($key, $liste_champs_deces) && !array_search($key, $not_update)) {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_deces[] = "{$key} = null";
+            }
+            if (strlen($value) == 0) {
+                $update_statement_acte[] = "{$key} = ''";
             } else {
                 $update_statement_deces[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
@@ -40,6 +46,9 @@ try {
         if (array_search($key, $liste_champs_Jugement) && !array_search($key, $not_update)) {
             if (strlen($value) == 0 || $value == 'null') {
                 $update_statement_jugement[] = "{$key} = null";
+            }
+            if (strlen($value) == 0) {
+                $update_statement_acte[] = "{$key} = ''";
             } else {
                 $update_statement_jugement[] = "{$key} = '" . str_replace("'", "''", $value) . "'";
             }
