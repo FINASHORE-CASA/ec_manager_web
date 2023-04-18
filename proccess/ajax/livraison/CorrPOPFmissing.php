@@ -7,7 +7,7 @@
         $result[] = "success" ;
 
         // Récupération des id_lots concernés        
-        $qry = $bdd->prepare("  SELECT id_lot from lot where status_lot = 'A'");
+        $qry = $bdd->prepare("SELECT id_lot from lot where status_lot = 'A'");
 
         $qry->execute();
         $liste_lots = $qry->fetchAll(PDO::FETCH_OBJ);
@@ -79,4 +79,3 @@
         $fail[] = $e->getMessage();
         echo(json_encode($fail));
     }
-?>

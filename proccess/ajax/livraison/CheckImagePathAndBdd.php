@@ -16,8 +16,13 @@
         $qry = $bdd->prepare("SELECT af.id_lot,id_acte,num_acte,imagepath,af.id_tome_registre,status_acte  
                                 from acte a  
                                 inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre  
-                                where af.id_lot in (select id_lot from lot where status_lot = 'A')    
-                                order by af.id_lot");
+                                where af.id_lot in (select id_lot from lot where status_lot = 'A')
+                                union
+                                select af.id_lot,id_evenement,mde.num_acte,mde.imagepath,af.id_tome_registre,''
+                                from mariage_divorce_etranger mde
+                                inner join affectationregistre af on af.id_tome_registre = mde.id_tome_registre
+                                where af.id_lot in (select id_lot from lot where status_lot = 'A')
+                                order by id_lot");
 
         $qry->execute();
         $listeLots_bd = $qry->fetchAll(PDO::FETCH_OBJ);
@@ -163,4 +168,3 @@
         $fail[] = $e->getMessage();
         echo(json_encode($fail));
     }
-?>
