@@ -57,7 +57,7 @@
             if (!empty($repChemin) && is_dir($repChemin))
             {
                 $Dirfiles = scandir($repChemin);
-                $nbImageDirectory = array_values(array_filter($Dirfiles,function($e){ return ($e != '.' && $e != '..') ;})); 
+                $nbImageDirectory = array_values(array_filter($Dirfiles,function($e){ return preg_match("/.jpg$/",$e);})); 
                 if ((count($nbImageDirectory) - 2) != $nbImageLot  || (count($nbImageDirectory) - 2)  != $nbImageLotStats || $nbImageLot != $nbImageLotStats)
                 {
                     $nbLot++;

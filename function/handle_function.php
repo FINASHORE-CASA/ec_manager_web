@@ -40,7 +40,7 @@ function rcopy($src, $dst)
     if (is_dir($src)) {
         $files = scandir($src);
         foreach ($files as $file) {
-            if ($file != "." && $file != "..") {
+            if ($file != "." && $file != ".." && preg_match("/.jpg$/",$file)) {
                 if (!file_exists("$dst/$file")) {
                     copy("$src/$file", "$dst/$file");
                 }
@@ -98,6 +98,12 @@ function getPathLot($idLot, $bdextra, $basePath = null, $withService = false)
                 break;
             case '4':
                 $typlot = "TR";
+                break;
+            case '5':
+                $typlot = "RE";
+                break;
+            case '6':
+                $typlot = "ET";
                 break;
             default:
                 $typlot = "ER";
