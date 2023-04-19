@@ -132,6 +132,10 @@ $(document).ready(function()
                                             +'<td > '+ e.naissance_inv +'</td>'
                                             +'<td > '+ e.deces_db +'</td>'
                                             +'<td > '+ e.deces_inv +'</td>'
+                                            +'<td > '+ e.mariage_db +'</td>'
+                                            +'<td > '+ e.mariage_inv +'</td>'
+                                            +'<td > '+ e.divorce_db +'</td>'
+                                            +'<td > '+ e.divorce_inv +'</td>'
                                             +'<td > '+ e.acte_db +'</td>'
                                             +'<td > '+ e.acte_inv +'</td>'
                                         +"</tr>";
@@ -251,6 +255,10 @@ $(document).ready(function()
                                                 +'<td > '+ e.naissance_inv +'</td>'
                                                 +'<td > '+ e.deces_db +'</td>'
                                                 +'<td > '+ e.deces_inv +'</td>'
+                                                +'<td > '+ e.mariage_db +'</td>'
+                                                +'<td > '+ e.mariage_inv +'</td>'
+                                                +'<td > '+ e.divorce_db +'</td>'
+                                                +'<td > '+ e.divorce_inv +'</td>'
                                                 +'<td > '+ e.acte_db +'</td>'
                                                 +'<td > '+ e.acte_inv +'</td>'
                                             +"</tr>";

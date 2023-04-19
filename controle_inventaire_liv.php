@@ -264,6 +264,10 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                                 <th> NAISSANCE_INV </th>
                                 <th> DECES_DB </th>
                                 <th> DECES_INV </th>
+                                <th> MARIAGE_DB </th>
+                                <th> MARIAGE_INV </th>
+                                <th> DIVORCE_DB </th>
+                                <th> DIVORCE_INV </th>
                                 <th> ACTE_DB </th>
                                 <th> ACTE_INV </th>
                               </tr>
@@ -299,6 +303,10 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                                 <th> NAISSANCE_INV </th>
                                 <th> DECES_DB </th>
                                 <th> DECES_INV </th>
+                                <th> MARIAGE_DB </th>
+                                <th> MARIAGE_INV </th>
+                                <th> DIVORCE_DB </th>
+                                <th> DIVORCE_INV </th>
                                 <th> ACTE_DB </th>
                                 <th> ACTE_INV </th>
                               </tr>
@@ -357,7 +365,7 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
     <script src="js/owner/set_side_bar.js"></script>
     <script src="js/owner/page_indicateur.js"></script>
     <script src="js/owner/count_lot.js"></script>
-    <script src="js/ajax/livraison/livraison_comparaison_inventaire.js"></script>
+    <script src="js/ajax/livraison/livraison_comparaison_inventaire.js?v1.0"></script>
 
     <script>
       $(document).ready(function(e) {
