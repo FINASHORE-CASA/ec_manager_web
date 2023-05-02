@@ -523,7 +523,7 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                     </div>
 
                     <!-- Table Controle Mariage/Divorce -->
-                    <div class="card shadow mb-4 tab-pane" id="ControleMariageDivorce">
+                    <!-- <div class="card shadow mb-4 tab-pane" id="ControleMariageDivorce">
                       <div class="card-header py-3" style="background:  <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
                         <h6 class="m-0 font-weight-bold text-white"> Contrôle Mariage/Divorce </h6>
                       </div>
@@ -533,9 +533,8 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                             <thead>
                               <tr>
                                 <th> id_lot </th>
-                                <th> id_acte </th>
-                                <th> num_acte </th>
-                                <th> id_collectif </th>
+                                <th> nbre_acte_mariage </th>
+                                <th> nbre_acte_divorce </th>
                               </tr>
                             </thead>
                             <tbody id="TableControleMariageDivorce">
@@ -544,7 +543,7 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                           </table>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                   </div>
 
