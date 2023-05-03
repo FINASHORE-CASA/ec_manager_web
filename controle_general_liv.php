@@ -481,6 +481,10 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                                 <th> NB NAISS INV </th>
                                 <th> NB DECES DB </th>
                                 <th> NB DECES INV </th>
+                                <th> NB MARIAGE DB </th>
+                                <th> NB MARIAGE INV </th>
+                                <th> NB DIVORCE DB </th>
+                                <th> NB DIVORCE INV </th>
                                 <th> NB ACTES DB </th>
                                 <th> NB ACTES INV </th>
                                 <th> NB CTRL1 DB </th>
@@ -515,30 +519,6 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
                               </tr>
                             </thead>
                             <tbody id="TableControleIsCollectif">
-
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Table Controle Mariage/Divorce -->
-                    <div class="card shadow mb-4 tab-pane" id="ControleMariageDivorce">
-                      <div class="card-header py-3" style="background:  <?= isset($main_app_color) ? $main_app_color : "#3b2106"; ?>;">
-                        <h6 class="m-0 font-weight-bold text-white"> Contrôle Mariage/Divorce </h6>
-                      </div>
-                      <div class="card-body">
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="dataTableControleMariageDivorce" width="100%" cellspacing="0">
-                            <thead>
-                              <tr>
-                                <th> id_lot </th>
-                                <th> id_acte </th>
-                                <th> num_acte </th>
-                                <th> id_collectif </th>
-                              </tr>
-                            </thead>
-                            <tbody id="TableControleMariageDivorce">
 
                             </tbody>
                           </table>
@@ -594,7 +574,7 @@ $id_lots = $qry->fetchAll(PDO::FETCH_OBJ);
     <script src="js/owner/set_side_bar.js"></script>
     <script src="js/owner/page_indicateur.js"></script>
     <script src="js/owner/count_lot.js"></script>
-    <script src="js/ajax/livraison/livraison_controle_general.js?version=1.0.3"></script>
+    <script src="js/ajax/livraison/livraison_controle_general.js?version=1.0.4"></script>
 
     <script>
       $(document).ready(function(e) {
