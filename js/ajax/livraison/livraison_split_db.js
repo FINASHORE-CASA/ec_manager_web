@@ -82,8 +82,8 @@ $(document).ready(function()
         $.post(HostLink+'/proccess/ajax/livraison/split_bd.php',   // url
             { myData: JSON.stringify(dataToSend) }, // data to be submit
             function(data, status, jqXHR) 
-            {                                               
-                var result = JSON.parse(data);   
+            {                                         
+                var result = JSON.parse(data)
                 
                 if(result[0] == "success")
                 {

@@ -4,20 +4,7 @@ require_once "../../../config/checkConfig.php";
 
 try {
     $result[] = "success";
-
-    // Récupération des id_lots concernés        
-    // $qry = $bdd->prepare("SELECT data1.id_lot,count(data1.id_acte) as nb_actes,count(CASE WHEN data1.acte_ctrl1 <> 0 THEN data1.acte_ctrl1 END) as nb_ctrl1
-    //                         ,count(CASE WHEN data1.acte_ctrl2 <> 0 THEN data1.acte_ctrl2 END) as nb_ctrl2
-    //                         from (
-    //                             select af.id_lot,a.id_acte,count(CASE WHEN id_type_actionec = 7 THEN ac.id_acte END) as acte_ctrl1,
-    //                             count(CASE WHEN id_type_actionec = 11 THEN ac.id_acte END) as acte_ctrl2
-    //                             from acte a
-    //                             inner join affectationregistre af on af.id_tome_registre = a.id_tome_registre
-    //                             left join actionec ac on a.id_acte = ac.id_acte
-    //                             where af.id_lot in (select id_lot from lot where status_lot = 'A') 
-    //                             group by af.id_lot,a.id_acte ) as data1
-    //                         group by data1.id_lot");
-
+    
     // Récupération des id_lots concernés        
     $qry = $bdd->prepare("SELECT data1.id_lot,count(data1.id_acte) as nb_actes
                                 ,count(CASE WHEN data1.acte_ctrl1 <> 0 THEN data1.acte_ctrl1 END) as nb_ctrl1
@@ -48,7 +35,8 @@ try {
                                     from mariage_divorce_etranger mde
                                     inner join affectationregistre af on af.id_tome_registre = mde.id_tome_registre
                                     left join actionec ac on mde.id_evenement = ac.id_acte
-                                    where af.id_lot in (select id_lot from lot where status_lot = 'A')                                    
+                                    where af.id_lot in (select id_lot from lot where status_lot = 'A')  
+									group by af.id_lot,id_evenement									
                                 ) as data1                                    
 
                                 group by data1.id_lot");

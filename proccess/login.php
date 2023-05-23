@@ -20,7 +20,7 @@ if (isset($_POST['login']) && isset($_POST['mot_de_passe'])) {
     $qry->execute(array($_POST['login']));
     $user = $qry->fetch(PDO::FETCH_OBJ);
 
-    if (count($user) == 1) {
+    if ($user) {
 
         if (password_verify(trim($_POST['mot_de_passe']), $user->password)) {
             $_SESSION['user'] = $user;
